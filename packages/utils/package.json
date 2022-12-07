@@ -59,6 +59,9 @@
       "types/"
     ]
   },
+  "resolutions": {
+    "@types/react": "18.0.26"
+  },
   "devDependencies": {
     "@babel/cli": "7.18.10",
     "@babel/core": "7.19.1",
@@ -104,8 +107,7 @@
     "react-icons": "^4.4.0"
   },
   "peerDependencies": {
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "18.2.0"
   },
   "gitHead": "9f66a3ccd6a87de0c74c55b67b12eb1dc9d87a89"
 }

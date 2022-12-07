@@ -13,6 +13,9 @@
     "style": "prettier --write '**/*.{ts,tsx}' --config .prettierrc.json",
     "build-storybook": "build-storybook -s public"
   },
+  "resolutions": {
+    "@types/react": "18.0.26"
+  },
   "dependencies": {
     "@chakra-ui/react": "^2.4.2",
     "@cosmology-ui/utils": "^0.1.0",

@@ -59,6 +59,9 @@
       "types/"
     ]
   },
+  "resolutions": {
+    "@types/react": "18.0.26"
+  },
   "devDependencies": {
     "@babel/cli": "7.18.10",
     "@babel/core": "7.19.1",
