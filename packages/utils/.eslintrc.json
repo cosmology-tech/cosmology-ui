@@ -1,54 +1,52 @@
 {
-  "plugins": [
-    "@typescript-eslint",
-    "simple-import-sort",
-    "unused-imports"
-  ],
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    // configures both eslint-plugin-prettier and eslint-config-prettier
-    "plugin:prettier/recommended"
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "project": "tsconfig.json"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true,
-    "jest": true
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "simple-import-sort",
+    "unused-imports",
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
   },
   "rules": {
-    "simple-import-sort/imports": 2,
-    "simple-import-sort/exports": 2,
-    "prettier/prettier": 2,
-    "unused-imports/no-unused-imports": 2,
-    "no-console": 1,
-    "no-debugger": 2,
-    "no-alert": 2,
-    "no-await-in-loop": 0,
-    "no-prototype-builtins": 0,
-    "no-return-assign": [
-      "error",
-      "except-parens"
-    ],
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "no-debugger": "error",
+    "no-alert": "error",
+    "no-await-in-loop": "off",
+    "no-prototype-builtins": "off",
+    "no-return-assign": ["error", "except-parens"],
     "no-restricted-syntax": [
-      2,
+      "error",
       "ForInStatement",
       "LabeledStatement",
       "WithStatement"
     ],
-    "no-unused-vars": 0,
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "React|res|next|^_"
-      }
-    ],
+    "no-unused-vars": ["off"],
     "prefer-const": [
       "error",
       {
@@ -56,27 +54,39 @@
       }
     ],
     "no-unused-expressions": [
-      2,
+      "error",
       {
         "allowTaggedTemplates": true
       }
     ],
-    "comma-dangle": 0,
-    "jsx-quotes": [
-      2,
-      "prefer-double"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "no-console": "warn",
+    "comma-dangle": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "linebreak-style": ["error", "unix"],
     "quotes": [
-      2,
+      "error",
       "single",
       {
         "avoidEscape": true,
         "allowTemplateLiterals": true
       }
-    ]
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "React|res|next|^_"
+      }
+    ],
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowObject": true
+      }
+    ],
+    "react/prop-types": ["warn"]
   }
 }

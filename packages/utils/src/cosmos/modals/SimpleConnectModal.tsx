@@ -1,6 +1,6 @@
 import { Modal, ModalContent, ModalOverlay, Stack } from '@chakra-ui/react';
 
-import { SimpleConnectModalType } from '../../index';
+import { SimpleConnectModalType } from '../../../index';
 
 export const SimpleConnectModal = ({
   initialRef,

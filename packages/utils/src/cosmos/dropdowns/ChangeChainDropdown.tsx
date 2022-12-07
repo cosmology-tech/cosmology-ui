@@ -28,7 +28,7 @@ import {
   ChangeChainMenuType,
   DataType,
   handleChangeColorModeValue
-} from '../../index';
+} from '../../../index';
 
 const SkeletonOptions = () => {
   return (

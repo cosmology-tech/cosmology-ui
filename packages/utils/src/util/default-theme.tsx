@@ -3,7 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 export const theme = extendTheme({
   fonts: {
     body: 'Inter, system-ui, sans-serif',
-    heading: 'Work Sans, system-ui, sans-serif',
+    heading: 'Work Sans, system-ui, sans-serif'
   },
   colors: {
     primary: {
@@ -16,15 +16,15 @@ export const theme = extendTheme({
       '600': '#2133c3',
       '700': '#1b2cbc',
       '800': '#1624b5',
-      '900': '#0d17a9',
-    },
+      '900': '#0d17a9'
+    }
   },
   breakPoints: {
     sm: '360px',
     md: '414px',
-    lg: '768px',
+    lg: '768px'
   },
   shadows: {
-    largeSoft: 'rgba(60, 64, 67, 0.15) 0px 2px 10px 6px;',
-  },
+    largeSoft: 'rgba(60, 64, 67, 0.15) 0px 2px 10px 6px;'
+  }
 });
