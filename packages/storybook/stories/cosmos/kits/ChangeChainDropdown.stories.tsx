@@ -1,0 +1,95 @@
+/* eslint-disable react/prop-types */
+import { Box, Text } from '@chakra-ui/react';
+import { ArgsTable, Primary } from '@storybook/addon-docs';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React, { useEffect, useState } from 'react';
+
+import {
+  ChangeChainDropdown as ChangeChainDropdownKit,
+  DataType
+} from '@cosmology-ui/utils';
+import { chainList } from '../../util/config';
+
+const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
+  data,
+  ...rest
+}) => {
+  const [demoData, setDemoData] = useState<DataType[]>([]);
+
+  useEffect(() => {
+    if (data) setDemoData(data);
+    if (!data) {
+      const formatChainsData = chainList.map((props) => {
+        return {
+          chainName: props?.chainName,
+          label: props?.label,
+          value: props?.value,
+          icon: props?.icon
+        };
+      });
+      setDemoData([
+        {
+          chainName: 'disabled',
+          label: 'disabled option',
+          value: 'disabled',
+          icon: {
+            png: 'https://dummyimage.com/400x400/5c5c5c/ffffff.png&text=D'
+          },
+          disabled: true
+        },
+        ...formatChainsData
+      ]);
+    }
+  }, [data]);
+
+  return (
+    <Box maxW={72} mx="auto" py={56}>
+      <ChangeChainDropdownKit data={demoData} {...rest} />
+    </Box>
+  );
+};
+
+export const ChangeChainDropdown = Template.bind({});
+
+// to hide controls
+ChangeChainDropdown.parameters = {
+  controls: {
+    exclude: ['selectedItem']
+  }
+};
+
+export default {
+  title: 'Cosmos/kits',
+  component: ChangeChainDropdownKit,
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Text as="h1" fontSize={32} fontWeight="bold">
+            Change Chain Dropdown
+          </Text>
+          <Primary />
+          <ArgsTable of={ChangeChainDropdownKit} />
+        </>
+      ),
+      source: {
+        code: `
+        <ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={true|false}\n  disabled={true|false}\n  onChange={selectFunction}\n/>`,
+        // code: ChangeChainDropdownString,
+        language: 'tsx',
+        type: 'auto',
+        format: true
+      }
+    }
+  },
+  args: {
+    loading: false,
+    disabled: false
+  },
+  argTypes: {
+    onChange: {
+      control: false,
+      action: 'onChange'
+    }
+  }
+} as ComponentMeta<typeof ChangeChainDropdownKit>;
