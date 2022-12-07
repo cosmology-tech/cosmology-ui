@@ -1,9 +1,9 @@
 import { Box, Text } from '@chakra-ui/react';
+import { CopyAddressButton as CopyAddressButtonKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React, { useEffect, useState } from 'react';
 
-import { CopyAddressButton as CopyAddressButtonKit } from '@cosmology-ui/utils';
 import { chainList } from '../../util/config';
 
 const Template: ComponentStory<typeof CopyAddressButtonKit> = ({

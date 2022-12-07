@@ -1,9 +1,8 @@
 import { Button, Center, Text, useDisclosure } from '@chakra-ui/react';
+import { SimpleConnectModal as SimpleConnectModalKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React, { useRef } from 'react';
-
-import { SimpleConnectModal as SimpleConnectModalKit } from '@cosmology-ui/utils';
 
 const Template: ComponentStory<typeof SimpleConnectModalKit> = ({
   ...rest

@@ -1,14 +1,10 @@
 import { Box, Center, Text } from '@chakra-ui/react';
+import { SimpleQRCode as SimpleQRCodeKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { SimpleInstallWalletButton as SimpleInstallWalletButtonKit } from '@cosmology-ui/utils';
-
-const Template: ComponentStory<typeof SimpleInstallWalletButtonKit> = ({
-  icon,
-  ...args
-}) => {
+const Template: ComponentStory<typeof SimpleQRCodeKit> = ({ ...args }) => {
   return (
     <Center py={16}>
       <Box
@@ -22,20 +18,17 @@ const Template: ComponentStory<typeof SimpleInstallWalletButtonKit> = ({
         <Box w="full" p={6}>
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
-        <Box w="full" p={6} py={24}>
-          <Text textAlign="center">I&apos;m fake content</Text>
-        </Box>
-        <SimpleInstallWalletButtonKit {...args} />
+        <SimpleQRCodeKit {...args} />
       </Box>
     </Center>
   );
 };
 
-export const SimpleInstallWalletButton = Template.bind({});
+export const SimpleQRCode = Template.bind({});
 
 export default {
   title: 'Cosmos/kits',
-  component: SimpleInstallWalletButtonKit,
+  component: SimpleQRCodeKit,
   parameters: {
     docs: {
       page: () => (
@@ -44,11 +37,11 @@ export default {
             Simple QRCode
           </Text>
           <Primary />
-          <ArgsTable of={SimpleInstallWalletButtonKit} />
+          <ArgsTable of={SimpleQRCodeKit} />
         </>
       ),
       source: {
-        code: `<SimpleInstallWalletButton\n  icon={<Icon />}\n  text\n/>`,
+        code: `<SimpleQRCode\n  link="wallet link"\n  description='how to connect'\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
@@ -56,19 +49,7 @@ export default {
     }
   },
   args: {
-    text: 'Install Wallet',
-    disabled: false
-  },
-  argTypes: {
-    icon: {
-      control: {
-        options: ['chrome', 'firefox', 'android', 'ios'],
-        type: 'radio'
-      }
-    },
-    onClick: {
-      control: false,
-      action: 'clicked'
-    }
+    link: 'https://cosmoskit.com/',
+    description: 'Use wallet app to scan this QRCode'
   }
 };

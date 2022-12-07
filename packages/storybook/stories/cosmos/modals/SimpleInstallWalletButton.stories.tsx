@@ -1,11 +1,13 @@
 import { Box, Center, Text } from '@chakra-ui/react';
+import { SimpleInstallWalletButton as SimpleInstallWalletButtonKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { SimpleQRCode as SimpleQRCodeKit } from '@cosmology-ui/utils';
-
-const Template: ComponentStory<typeof SimpleQRCodeKit> = ({ ...args }) => {
+const Template: ComponentStory<typeof SimpleInstallWalletButtonKit> = ({
+  icon,
+  ...args
+}) => {
   return (
     <Center py={16}>
       <Box
@@ -19,17 +21,20 @@ const Template: ComponentStory<typeof SimpleQRCodeKit> = ({ ...args }) => {
         <Box w="full" p={6}>
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
-        <SimpleQRCodeKit {...args} />
+        <Box w="full" p={6} py={24}>
+          <Text textAlign="center">I&apos;m fake content</Text>
+        </Box>
+        <SimpleInstallWalletButtonKit {...args} />
       </Box>
     </Center>
   );
 };
 
-export const SimpleQRCode = Template.bind({});
+export const SimpleInstallWalletButton = Template.bind({});
 
 export default {
   title: 'Cosmos/kits',
-  component: SimpleQRCodeKit,
+  component: SimpleInstallWalletButtonKit,
   parameters: {
     docs: {
       page: () => (
@@ -38,11 +43,11 @@ export default {
             Simple QRCode
           </Text>
           <Primary />
-          <ArgsTable of={SimpleQRCodeKit} />
+          <ArgsTable of={SimpleInstallWalletButtonKit} />
         </>
       ),
       source: {
-        code: `<SimpleQRCode\n  link="wallet link"\n  description='how to connect'\n/>`,
+        code: `<SimpleInstallWalletButton\n  icon={<Icon />}\n  text\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
@@ -50,7 +55,19 @@ export default {
     }
   },
   args: {
-    link: 'https://cosmoskit.com/',
-    description: 'Use wallet app to scan this QRCode'
+    text: 'Install Wallet',
+    disabled: false
+  },
+  argTypes: {
+    icon: {
+      control: {
+        options: ['chrome', 'firefox', 'android', 'ios'],
+        type: 'radio'
+      }
+    },
+    onClick: {
+      control: false,
+      action: 'clicked'
+    }
   }
 };

@@ -1,4 +1,9 @@
 import { Box, Icon, Text } from '@chakra-ui/react';
+import {
+  ConnectWalletButton as ConnectWalletButtonKit,
+  ConnectWalletType,
+  WalletStatus
+} from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, Story } from '@storybook/react';
 import React from 'react';
@@ -8,12 +13,6 @@ import {
   RiRepeatLine,
   RiShuffleFill
 } from 'react-icons/ri';
-
-import {
-  ConnectWalletButton as ConnectWalletButtonKit,
-  ConnectWalletType,
-  WalletStatus
-} from '@cosmology-ui/utils';
 
 interface TypeWithStatus extends ConnectWalletType {
   status: WalletStatus;

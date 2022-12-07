@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Box, Text } from '@chakra-ui/react';
-import { ArgsTable, Primary } from '@storybook/addon-docs';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
-
 import {
   ChangeChainDropdown as ChangeChainDropdownKit,
   DataType
 } from '@cosmology-ui/utils';
+import { ArgsTable, Primary } from '@storybook/addon-docs';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React, { useEffect, useState } from 'react';
+
 import { chainList } from '../../util/config';
 
 const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
@@ -75,7 +75,6 @@ export default {
       source: {
         code: `
         <ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={true|false}\n  disabled={true|false}\n  onChange={selectFunction}\n/>`,
-        // code: ChangeChainDropdownString,
         language: 'tsx',
         type: 'auto',
         format: true

@@ -7,7 +7,7 @@ import {
   useDimensions // https://github.com/chakra-ui/chakra-ui/issues/6856
 } from '@chakra-ui/react';
 import { QRCodeSVG } from 'qrcode.react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 import {
   AnimateBox,

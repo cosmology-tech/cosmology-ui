@@ -1,9 +1,8 @@
 import { Box, Center, Text } from '@chakra-ui/react';
+import { SimpleModalHead as SimpleModalHeadKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';
-
-import { SimpleModalHead as SimpleModalHeadKit } from '@cosmology-ui/utils';
 
 const Template: ComponentStory<typeof SimpleModalHeadKit> = ({ ...args }) => {
   return (
