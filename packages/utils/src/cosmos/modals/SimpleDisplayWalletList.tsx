@@ -21,8 +21,7 @@ import {
 export const SimpleDisplayWalletList = ({
   initialFocus,
   walletsData
-}: //   handleClick
-DisplayWalletListType) => {
+}: DisplayWalletListType) => {
   const { colorMode } = useColorMode();
   const listRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);

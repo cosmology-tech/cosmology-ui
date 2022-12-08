@@ -16,7 +16,7 @@ import {
   QRCodeType
 } from '../../index';
 
-export const SimpleQRCode = ({ link, description }: QRCodeType) => {
+export const QRCode = ({ link, description }: QRCodeType) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const dimensions = useDimensions(elementRef);
   const { colorMode } = useColorMode();
@@ -35,11 +35,11 @@ export const SimpleQRCode = ({ link, description }: QRCodeType) => {
         spacing={4}
         p={4}
       >
-        {description && (
+        {description ? (
           <Text fontWeight="medium" textAlign="center" opacity={0.75}>
             {description}
           </Text>
-        )}
+        ) : undefined}
         <Box px={2}>
           <Center
             w="full"

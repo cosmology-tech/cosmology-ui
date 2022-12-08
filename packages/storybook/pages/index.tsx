@@ -4,10 +4,13 @@ import {
   Container,
   Flex,
   Icon,
+  Image,
   Text,
   useColorMode
 } from '@chakra-ui/react';
 import { RiMoonClearFill, RiSunLine } from 'react-icons/ri';
+
+import Avatar from '../public/cosmology-avatar.svg';
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -30,9 +33,15 @@ export default function Home() {
         Home
       </Text>
       <Text fontSize="xl">This page is in /page</Text>
-      <Text fontSize="xl">
+      <Text fontSize="xl" mb={6}>
         you can use <Code>yarn dev</Code> to see same page
       </Text>
+      <Flex alignItems="center">
+        <Image src={Avatar} alt="avatar" width={20} height={20} />
+        <Text fontSize="lg" ml={4}>
+          This is test svg
+        </Text>
+      </Flex>
     </Container>
   );
 }

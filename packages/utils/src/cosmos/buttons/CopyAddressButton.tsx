@@ -39,9 +39,7 @@ export const CopyAddressButton = ({
 }: CopyAddressType) => {
   const [displayAddress, setDisplayAddress] = useState(address);
   const [displayIsDisabled, setDisplayIsDisabled] = useState(disabled);
-  const { hasCopied, onCopy } = useClipboard(
-    address === displayAddress ? '' : address
-  );
+  const { hasCopied, onCopy, setValue } = useClipboard('');
   const { colorMode } = useColorMode();
 
   useEffect(() => {
@@ -50,6 +48,7 @@ export const CopyAddressButton = ({
       setDisplayAddress(defaultText);
       setDisplayIsDisabled(true);
     }
+    if (address !== defaultText) setValue(address);
     // has address and address length > max display length
     if (address !== defaultText && address.length >= maxDisplayLength) {
       setDisplayAddress(stringTruncateFromCenter(address, maxDisplayLength));
@@ -114,7 +113,7 @@ export const CopyAddressButton = ({
       }}
       onClick={onCopy}
     >
-      {!loading && (
+      {!loading ? (
         <Text
           fontSize="sm"
           fontWeight="normal"
@@ -125,8 +124,8 @@ export const CopyAddressButton = ({
         >
           {displayAddress}
         </Text>
-      )}
-      {!loading && address !== defaultText && (
+      ) : undefined}
+      {!loading && address !== defaultText ? (
         <Icon
           as={hasCopied ? FaCheckCircle : FiCopy}
           w={3.5}
@@ -143,7 +142,7 @@ export const CopyAddressButton = ({
                 )
           }
         />
-      )}
+      ) : undefined}
     </Button>
   );
 };

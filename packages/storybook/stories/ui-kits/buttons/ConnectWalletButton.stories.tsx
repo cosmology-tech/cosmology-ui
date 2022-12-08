@@ -20,6 +20,14 @@ interface TypeWithStatus extends ConnectWalletType {
 
 function handleStatus(status: WalletStatus) {
   switch (status) {
+    case WalletStatus.Disconnected:
+      return {
+        buttonText: 'Connect Wallet',
+        isLoading: false,
+        isDisabled: false,
+        leftIcon: undefined,
+        rightIcon: undefined
+      };
     case WalletStatus.NotExist:
       return {
         buttonText: 'Installed Wallet',
@@ -100,7 +108,7 @@ ConnectWalletButton.parameters = {
 };
 
 export default {
-  title: 'Cosmos/kits',
+  title: 'UIKits/Buttons',
   component: ConnectWalletButtonKit,
   parameters: {
     docs: {
@@ -114,7 +122,7 @@ export default {
         </>
       ),
       source: {
-        code: `<ConnectWalletButton\n  buttonText="connect wallet"\n  loading={true|false}\n  disabled={true|false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  onClick={clickFunction}\n/>`,
+        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  onClick={clickFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

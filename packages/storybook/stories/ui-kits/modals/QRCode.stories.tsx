@@ -1,10 +1,10 @@
 import { Box, Center, Text } from '@chakra-ui/react';
-import { SimpleQRCode as SimpleQRCodeKit } from '@cosmology-ui/utils';
+import { QRCode as QRCodeKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';
 
-const Template: ComponentStory<typeof SimpleQRCodeKit> = ({ ...args }) => {
+const Template: ComponentStory<typeof QRCodeKit> = ({ ...args }) => {
   return (
     <Center py={16}>
       <Box
@@ -18,30 +18,30 @@ const Template: ComponentStory<typeof SimpleQRCodeKit> = ({ ...args }) => {
         <Box w="full" p={6}>
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
-        <SimpleQRCodeKit {...args} />
+        <QRCodeKit {...args} />
       </Box>
     </Center>
   );
 };
 
-export const SimpleQRCode = Template.bind({});
+export const QRCode = Template.bind({});
 
 export default {
-  title: 'Cosmos/kits',
-  component: SimpleQRCodeKit,
+  title: 'UIKits/Modals',
+  component: QRCodeKit,
   parameters: {
     docs: {
       page: () => (
         <>
           <Text as="h1" fontSize={32} fontWeight="bold">
-            Simple QRCode
+            QRCode
           </Text>
           <Primary />
-          <ArgsTable of={SimpleQRCodeKit} />
+          <ArgsTable of={QRCodeKit} />
         </>
       ),
       source: {
-        code: `<SimpleQRCode\n  link="wallet link"\n  description='how to connect'\n/>`,
+        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

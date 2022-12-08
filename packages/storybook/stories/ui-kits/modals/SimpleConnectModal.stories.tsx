@@ -27,7 +27,7 @@ const Template: ComponentStory<typeof SimpleConnectModalKit> = ({
 export const SimpleConnectModal = Template.bind({});
 
 export default {
-  title: 'Cosmos/Wallet',
+  title: 'UIKits/Modals',
   component: SimpleConnectModalKit,
   parameters: {
     docs: {

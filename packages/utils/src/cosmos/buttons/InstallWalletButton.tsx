@@ -6,9 +6,9 @@ import {
   handleChangeColorModeValue
 } from '../../index';
 
-export const SimpleInstallWalletButton = ({
+export const InstallWalletButton = ({
   icon,
-  text,
+  buttonText = 'Install Wallet',
   onClick,
   disabled
 }: DownloadWalletButtonType) => {
@@ -61,10 +61,8 @@ export const SimpleInstallWalletButton = ({
           alignItems="center"
           p={3}
         >
-          {icon && <Icon as={icon} />}
-          <Text whiteSpace="break-spaces">
-            {text ? text : `Install Wallet`}
-          </Text>
+          {icon ? <Icon as={icon} /> : undefined}
+          <Text whiteSpace="break-spaces">{buttonText}</Text>
         </Stack>
       </Button>
     </Box>

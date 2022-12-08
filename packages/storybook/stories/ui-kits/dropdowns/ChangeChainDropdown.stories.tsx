@@ -59,7 +59,7 @@ ChangeChainDropdown.parameters = {
 };
 
 export default {
-  title: 'Cosmos/kits',
+  title: 'UIKits/Dropdowns',
   component: ChangeChainDropdownKit,
   parameters: {
     docs: {
@@ -73,8 +73,7 @@ export default {
         </>
       ),
       source: {
-        code: `
-        <ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={true|false}\n  disabled={true|false}\n  onChange={selectFunction}\n/>`,
+        code: `import { ChangeChainDropdown } from '@cosmology-ui/utils';\n\n<ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={false}\n  disabled={false}\n  onChange={selectFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

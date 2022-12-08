@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof CopyAddressButtonKit> = ({
 export const CopyAddressButton = Template.bind({});
 
 export default {
-  title: 'Cosmos/kits',
+  title: 'UIKits/Buttons',
   component: CopyAddressButtonKit,
   parameters: {
     docs: {
@@ -43,7 +43,7 @@ export default {
         </>
       ),
       source: {
-        code: `<CopyAddressButton\n  address="address"\n  loading={true|false}\n  disabled={true|false}\n  maxDisplayLength={14}\n/>`,
+        code: `import { CopyAddressButton } from '@cosmology-ui/utils';\n\n<CopyAddressButton\n  address="address"\n  loading={false}\n  disabled={false}\n  maxDisplayLength={14}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

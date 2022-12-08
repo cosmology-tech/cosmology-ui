@@ -14,3 +14,8 @@ export type ChainListType = {
   };
   address: string;
 };
+
+export enum WalletMode {
+  Extension = 'extension',
+  WalletConnect = 'wallet-connect'
+}

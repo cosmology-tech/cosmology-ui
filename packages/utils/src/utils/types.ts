@@ -6,6 +6,7 @@ import { IconType } from 'react-icons';
 /*                      default type                      */
 /* ====================================================== */
 export enum WalletStatus {
+  Disconnected = 'Disconnected',
   Connecting = 'Connecting',
   Connected = 'Connected',
   NotExist = 'NotExist',
@@ -20,7 +21,7 @@ export type ConnectWalletType = {
   /**
    * Text to display for button.
    *
-   * Can set false to unset default string.
+   * If in need, set false to unset default string.
    */
   buttonText?: string | false;
   /**
@@ -32,11 +33,11 @@ export type ConnectWalletType = {
    */
   disabled?: boolean;
   /**
-   * Can props JSX.Element to custom icon.
+   * Props JSX.Element to custom icon.
    */
   leftIcon?: React.ReactNode | false;
   /**
-   * Can props JSX.Element to custom icon.
+   * Props JSX.Element to custom icon.
    */
   rightIcon?: React.ReactNode;
   /**
@@ -225,7 +226,7 @@ export type SimpleConnectModalType = {
    * Props ref will set default focus on the list first button.
    * If is undefined will set focus on close button.
    */
-  initialRef: RefObject<HTMLDivElement | HTMLButtonElement>; // eslint-disable-line
+  initialRef: RefObject<HTMLButtonElement>;
   /**
    * The component of modal head.
    */
@@ -245,22 +246,60 @@ export type SimpleConnectModalType = {
 };
 
 export type DownloadWalletButtonType = {
+  /**
+   * Props react-icons item to a custom icon.
+   */
   icon?: IconType;
-  text?: string;
+  /**
+   * Text to display for button.
+   */
+  buttonText?: string;
+  /**
+   * A function called to handle link wallet.
+   */
   onClick?: () => void;
+  /**
+   * Button display disabled.
+   */
   disabled: boolean;
 };
 
 export type ConnectModalContentType = {
-  size?: string;
+  /**
+   * Main logo on content.
+   */
   logo?: string | IconType;
+  /**
+   * The border around logo.
+   */
   status?: LogoStatus;
+  /**
+   * Connected user name.
+   */
   username?: string;
+  /**
+   * Connected Wallet icon.
+   */
   walletIcon?: string;
+  /**
+   * Bold text of the header.
+   */
   contentHeader?: string;
+  /**
+   * Describe the status.
+   */
   contentDesc?: string;
+  /**
+   * Props the <code>CopyAddressButton</code> component.
+   */
   addressButton?: ReactNode;
+  /**
+   * Props the <code>ConnectWalletButton</code> component.
+   */
   bottomButton?: ReactNode;
+  /**
+   * Props the link component.
+   */
   bottomLink?: ReactNode;
 };
 
@@ -292,18 +331,46 @@ export type Downloads = {
 };
 
 export type Wallet = {
+  /**
+   * Wallet name.
+   */
   name: string;
+  /**
+   * Display wallet name.
+   */
   prettyName?: string;
+  /**
+   * Wallet icon.
+   */
   logo?: string | IconType;
+  /**
+   * Connect wallet by extension or wallet-connect.
+   */
   mode: WalletMode;
+  /**
+   *
+   */
   mobileDisabled: boolean;
+  /**
+   * Description when rejected.
+   */
   rejectMessage?: string;
+  /**
+   * Description when rejected.
+   */
   downloads?: Downloads;
   onClick?: () => void;
 };
 
 export type DisplayWalletListType = {
-  initialFocus: RefObject<any>; // eslint-disable-line
-  size?: string;
+  /**
+   * The ref of element to receive focus when the modal opens.
+   * Props ref will set default focus on the list first button.
+   * If is undefined will set focus on close button.
+   */
+  initialFocus: RefObject<HTMLButtonElement>;
+  /**
+   *
+   */
   walletsData: Wallet[];
 };

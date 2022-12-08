@@ -20,7 +20,7 @@ export const SimpleModalHead = ({
       p={4}
       pb={0}
     >
-      {backButton && (
+      {backButton ? (
         <Button
           variant="ghost"
           borderRadius="full"
@@ -30,7 +30,7 @@ export const SimpleModalHead = ({
         >
           <Icon as={FiChevronLeft} w={6} h={6} />
         </Button>
-      )}
+      ) : undefined}
       <Box flex={1} mr={backButton ? 0 : -10}>
         <Text fontSize="md" fontWeight="semibold" textAlign="center">
           {title}

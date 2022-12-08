@@ -25,10 +25,11 @@ export const SimpleDisplayModalContent = ({
   username,
   walletIcon,
   addressButton,
-  bottomButton
+  bottomButton,
+  bottomLink
 }: ConnectModalContentType) => {
   const { colorMode } = useColorMode();
-  const Style = {
+  const STYLE = {
     warning: {
       color: handleChangeColorModeValue(colorMode, 'orange.300', 'orange.400')
     },
@@ -56,7 +57,7 @@ export const SimpleDisplayModalContent = ({
         p={4}
         pt={5}
       >
-        {logo && (
+        {logo ? (
           <Center
             position="relative"
             mx="auto"
@@ -68,7 +69,7 @@ export const SimpleDisplayModalContent = ({
             maxH={20}
             mb={typeof logo === 'string' ? 4 : 2}
           >
-            {status === 'loading' && (
+            {status === 'loading' ? (
               <AnimateBox
                 position="absolute"
                 top={-1.5}
@@ -85,8 +86,8 @@ export const SimpleDisplayModalContent = ({
                 animate="animate"
                 variants={LoadingVariants}
               ></AnimateBox>
-            )}
-            {(status === 'warning' || status === 'error') && (
+            ) : undefined}
+            {status === 'warning' || status === 'error' ? (
               <Box
                 position="absolute"
                 top={-2}
@@ -94,10 +95,10 @@ export const SimpleDisplayModalContent = ({
                 bottom={-2}
                 left={-2}
                 border="2px solid"
-                borderColor={Style[status].color}
+                borderColor={STYLE[status].color}
                 borderRadius="full"
               ></Box>
-            )}
+            ) : undefined}
             <Box borderRadius="full" p={typeof logo === 'string' ? 3.5 : 0}>
               {typeof logo === 'string' ? (
                 <Image src={logo} w="full" h="full" alt="logo" />
@@ -106,18 +107,18 @@ export const SimpleDisplayModalContent = ({
               )}
             </Box>
           </Center>
-        )}
-        {contentHeader && (
+        ) : undefined}
+        {contentHeader ? (
           <Text
             fontSize="md"
             fontWeight="semibold"
-            color={status ? Style[status].color : 'inherit'}
+            color={status ? STYLE[status].color : 'inherit'}
             mb={1}
           >
             {contentHeader}
           </Text>
-        )}
-        {contentDesc && (
+        ) : undefined}
+        {contentDesc ? (
           <Text
             fontSize="sm"
             lineHeight={1.3}
@@ -127,8 +128,8 @@ export const SimpleDisplayModalContent = ({
           >
             {contentDesc}
           </Text>
-        )}
-        {username && (
+        ) : undefined}
+        {username ? (
           <Stack isInline={true} justifyContent="center" alignItems="center">
             <Center w={4} h={4} minW={4} minH={4} maxW={4} maxH={4} mt={0.5}>
               <Image src={walletIcon} alt="wallet-icon" />
@@ -137,17 +138,22 @@ export const SimpleDisplayModalContent = ({
               {username}
             </Text>
           </Stack>
-        )}
-        {addressButton && (
+        ) : undefined}
+        {addressButton ? (
           <Box w="full" pt={2.5} px={8}>
             {addressButton}
           </Box>
-        )}
-        {bottomButton && (
+        ) : undefined}
+        {bottomButton ? (
           <Box w="full" pt={3.5}>
             {bottomButton}
           </Box>
-        )}
+        ) : undefined}
+        {bottomLink ? (
+          <Center w="full" pt={2}>
+            {bottomLink}
+          </Center>
+        ) : undefined}
       </Flex>
     </AnimateBox>
   );
