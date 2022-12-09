@@ -39,8 +39,7 @@
     "format": "eslint --ext .tsx,.ts --fix .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "publish": "lerna publish"
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "publishConfig": {
     "access": "public"
