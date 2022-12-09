@@ -1,6 +1,6 @@
 {
   "name": "@cosmology-ui/react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "cosmology-ui",
   "author": "developers@cosmology.tech",
   "contributors": [
@@ -102,15 +102,15 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.4.2",
-    "@cosmology-ui/react": "^0.1.1",
-    "@cosmology-ui/utils": "^0.1.1",
+    "@cosmology-ui/react": "^0.1.2",
+    "@cosmology-ui/utils": "^0.1.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
     "bowser": "2.11.0",
-    "chakra-react-select": "^4.4.2",
     "chain-registry": "^1.5.0",
-    "framer-motion": "^6",
+    "chakra-react-select": "^4.4.2",
     "fast-fuzzy": "^1.12.0",
+    "framer-motion": "^6",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
     "react-icons": "^4.4.0"
