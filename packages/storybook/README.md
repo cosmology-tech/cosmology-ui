@@ -1,18 +1,15 @@
-# cosmology-ui
-#### to use
+# @cosmology-ui/storybook
 
-```
-yarn
-```
-
-#### storybook ( root )
+## How to use
 
 ```
 yarn storybook
 ```
 
-#### next ( root )
+## Our Website
 
-```
-yarn dev
-```
+⚛️ https://cosmoskit.com/
+
+## Credits
+
+🛠 Built by Cosmology — if you like our tools, please consider delegating to [our validator ⚛️](https://cosmology.tech/validator)

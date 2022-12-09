@@ -9,9 +9,12 @@
     },
     {
       "name": "Dan Lynch"
+    },
+    {
+      "name": "Jun Liu"
     }
   ],
-  "homepage": "https://github.com/cosmology-tech/cosmology-ui-v2#readme",
+  "homepage": "https://github.com/cosmology-tech/cosmology-ui#cosmology-ui",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",
@@ -43,14 +46,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/cosmology-ui-v2"
+    "url": "https://github.com/cosmology-tech/cosmology-ui"
   },
   "keywords": [
     "cosmos",
-    "cosmos-kit"
+    "cosmos-kit",
+    "cosmology-ui"
   ],
   "bugs": {
-    "url": "https://github.com/cosmology-tech/cosmology-ui-v2/issues"
+    "url": "https://github.com/cosmology-tech/cosmology-ui/issues"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -112,6 +116,5 @@
   },
   "peerDependencies": {
     "react": "18.2.0"
-  },
-  "gitHead": "9f66a3ccd6a87de0c74c55b67b12eb1dc9d87a89"
+  }
 }
