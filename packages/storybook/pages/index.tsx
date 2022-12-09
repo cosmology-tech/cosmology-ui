@@ -7,7 +7,6 @@ import {
   Text,
   useColorMode
 } from '@chakra-ui/react';
-import { ConnectWalletButton } from '@cosmology-ui/react';
 import Image from 'next/image';
 import { RiMoonClearFill, RiSunLine } from 'react-icons/ri';
 
@@ -43,7 +42,6 @@ export default function Home() {
           This is test svg
         </Text>
       </Flex>
-      <ConnectWalletButton />
     </Container>
   );
 }
