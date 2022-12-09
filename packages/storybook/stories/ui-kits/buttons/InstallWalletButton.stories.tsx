@@ -1,60 +1,42 @@
 import { Box, Text } from '@chakra-ui/react';
-import { InstallWalletButton as InstallWalletButtonKit } from '@cosmology-ui/utils';
+import {
+  DownloadInfo,
+  InstallWalletButton as InstallWalletButtonKit
+} from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import Bowser from 'bowser';
 import React, { useEffect, useState } from 'react';
-import { FaFirefox } from 'react-icons/fa';
-import { GrAndroid, GrApple } from 'react-icons/gr';
 import { HiDownload } from 'react-icons/hi';
-import { RiAppStoreFill, RiChromeFill } from 'react-icons/ri';
 
-type UserDeviceInfoType = {
-  browser: string;
-  device: string;
-  os: string;
-};
+import { handleDevice } from '../../util/config';
 
 const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
   ...args
 }) => {
   const [userBrowserInfo, setUserBrowserInfo] = useState<
-    UserDeviceInfoType | undefined
+    DownloadInfo | string | undefined
   >();
-
-  function handleDeviceIcon({ browser, device, os }: UserDeviceInfoType) {
-    switch (device) {
-      case 'desktop':
-        if (browser === 'chrome') return RiChromeFill;
-        if (browser === 'firefix') return FaFirefox;
-        if (browser === 'safari') return GrApple;
-        return HiDownload;
-      case 'tablet':
-        if (os === 'android') return GrAndroid;
-        if (os === 'ios') return RiAppStoreFill;
-        return HiDownload;
-      case 'mobile':
-        if (os === 'android') return GrAndroid;
-        if (os === 'ios') return RiAppStoreFill;
-        return HiDownload;
-      default:
-        return HiDownload;
-    }
-  }
 
   useEffect(() => {
     const browser = Bowser.getParser(window.navigator.userAgent);
-    setUserBrowserInfo({
+    const info = {
       browser: browser.getBrowserName(true),
       device: browser.getPlatformType(true),
       os: browser.getOSName(true)
-    });
+    };
+
+    setUserBrowserInfo(handleDevice(info));
   }, []);
 
   return (
     <Box maxW={80} mx="auto" py={16}>
       <InstallWalletButtonKit
-        icon={userBrowserInfo && handleDeviceIcon(userBrowserInfo)}
+        icon={
+          typeof userBrowserInfo === 'string'
+            ? HiDownload
+            : userBrowserInfo?.icon
+        }
         {...args}
       />
     </Box>
@@ -78,7 +60,7 @@ export default {
       page: () => (
         <>
           <Text as="h1" fontSize={32} fontWeight="bold">
-            Simple QRCode
+            Install Wallet Button
           </Text>
           <Primary />
           <ArgsTable of={InstallWalletButtonKit} />
@@ -93,7 +75,7 @@ export default {
     }
   },
   args: {
-    buttonText: 'Install Wallet',
+    buttonText: 'Install Keplr',
     disabled: false
   },
   argTypes: {

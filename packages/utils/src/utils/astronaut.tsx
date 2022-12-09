@@ -1,4 +1,6 @@
-export const Astronaut = (props: any) => (
+import { IconBaseProps, IconType } from 'react-icons';
+
+export const Astronaut: IconType = (props: IconBaseProps) => (
   <svg
     viewBox="0 0 278 255"
     fill="none"

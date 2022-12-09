@@ -1,10 +1,10 @@
-import { shuffledArray } from '@cosmology-ui/utils';
+import { shuffledArray, WalletMode } from '@cosmology-ui/utils';
 import { assets, chains } from 'chain-registry';
 import { FaFirefox } from 'react-icons/fa';
 import { GrAndroid } from 'react-icons/gr';
 import { RiAppStoreFill, RiChromeFill } from 'react-icons/ri';
 
-import { ChainListType, WalletMode } from './types';
+import { ChainListType, UserDeviceInfoType } from './types';
 
 const defaultStringArray = [
   ...[...Array(26)].map((_, i) => String.fromCharCode('A'.charCodeAt(0) + i)),
@@ -87,24 +87,24 @@ export const WalletData = [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
         }
       ],
       mobile: [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
         }
       ],
       default: 'https://www.keplr.app/download'
@@ -122,39 +122,34 @@ export const WalletData = [
         {
           browser: 'chrome',
           icon: RiChromeFill,
-          link: 'https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap?hl=en'
-        },
-        {
-          browser: 'firefox',
-          icon: FaFirefox,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf'
         }
       ],
       tablet: [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
         }
       ],
       mobile: [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
         }
       ],
-      default: 'https://www.keplr.app/download'
+      default: 'https://wallet.cosmostation.io/cosmos'
     }
   },
   {
@@ -181,24 +176,24 @@ export const WalletData = [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
         }
       ],
       mobile: [
         {
           os: 'android',
           icon: GrAndroid,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
         },
         {
           os: 'ios',
           icon: RiAppStoreFill,
-          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
         }
       ],
       default: 'https://www.keplr.app/download'
@@ -573,3 +568,18 @@ export const WalletData = [
     }
   }
 ];
+
+export function handleDevice({ browser, device, os }: UserDeviceInfoType) {
+  switch (device) {
+    case 'desktop':
+      return WalletData[0].downloads.desktop.find(
+        (key) => key.browser === browser
+      );
+    case 'tablet':
+      return WalletData[0].downloads.tablet.find((key) => key.os === os);
+    case 'mobile':
+      return WalletData[0].downloads.mobile.find((key) => key.os === os);
+    default:
+      return WalletData[0].downloads.default;
+  }
+}

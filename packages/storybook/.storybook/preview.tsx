@@ -6,6 +6,17 @@ import React from 'react';
 import { theme } from '@cosmology-ui/utils';
 import { ColorModeSync } from './color-mode/ColorModeSync';
 
+import * as NextImage from 'next/image';
+
+const OriginalNextImage = NextImage.default;
+
+// 🛠 fix storybook can't seem to find the statically image from public directory
+// https://dev.to/jonasmerlin/how-to-use-the-next-js-image-component-in-storybook-1415
+Object.defineProperty(NextImage, 'default', {
+  configurable: true,
+  value: (props) => <OriginalNextImage {...props} unoptimized />
+});
+
 export const parameters = {
   chakra: {
     theme: theme

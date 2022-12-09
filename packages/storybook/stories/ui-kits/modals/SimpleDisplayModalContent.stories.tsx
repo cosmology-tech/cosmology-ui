@@ -1,26 +1,24 @@
-import {
-  Box,
-  Center,
-  Link as ChakraLink,
-  Text,
-  useColorMode
-} from '@chakra-ui/react';
+import { Box, Center, Text, useColorMode } from '@chakra-ui/react';
 import {
   Astronaut,
   ConnectModalContentType,
   ConnectWalletButton,
   CopyAddressButton,
+  DownloadInfo,
   handleChangeColorModeValue,
+  InstallWalletButton,
   LogoStatus,
   SimpleDisplayModalContent as SimpleDisplayModalContentKit,
   WalletStatus
 } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { Story } from '@storybook/react';
+import Bowser from 'bowser';
 import NextLink from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { HiDownload } from 'react-icons/hi';
 
-import { WalletIcons } from '../../util/config';
+import { handleDevice, WalletIcons } from '../../util/config';
 
 interface TypeWithStatus extends ConnectModalContentType {
   walletStatus: WalletStatus;
@@ -90,8 +88,23 @@ function handleContentStatus(status: WalletStatus) {
 
 // eslint-disable-next-line react/prop-types
 const Template: Story<TypeWithStatus> = ({ walletStatus }) => {
+  const [userBrowserInfo, setUserBrowserInfo] = useState<
+    DownloadInfo | string | undefined
+  >();
   const contentInfo = handleContentStatus(walletStatus);
   const { colorMode } = useColorMode();
+
+  useEffect(() => {
+    const browser = Bowser.getParser(window.navigator.userAgent);
+    const info = {
+      browser: browser.getBrowserName(true),
+      device: browser.getPlatformType(true),
+      os: browser.getOSName(true)
+    };
+
+    setUserBrowserInfo(handleDevice(info));
+  }, []);
+
   return (
     <Center py={16}>
       <Box
@@ -129,16 +142,30 @@ const Template: Story<TypeWithStatus> = ({ walletStatus }) => {
             ) : undefined
           }
           bottomButton={
-            walletStatus === WalletStatus.Connecting ? undefined : (
-              <Box px={6}>
+            walletStatus ===
+            WalletStatus.Connecting ? undefined : walletStatus ===
+              WalletStatus.NotExist ? (
+              <InstallWalletButton
+                icon={
+                  typeof userBrowserInfo === 'string'
+                    ? HiDownload
+                    : userBrowserInfo?.icon
+                }
+                buttonText="Installed Keplr"
+                // eslint-disable-next-line no-alert
+                onClick={() => alert(`open wallet extension or app`)}
+                disabled={false}
+              />
+            ) : (
+              <Box px={4}>
                 <ConnectWalletButton buttonText={contentInfo.buttonText} />
               </Box>
             )
           }
           bottomLink={
             walletStatus === WalletStatus.Disconnected ? (
-              <NextLink href="/" passHref={true} target="_blank">
-                <ChakraLink
+              <NextLink href="/" target="_blank">
+                <Text
                   fontSize="sm"
                   opacity={0.7}
                   transition="all 0.2s ease-in"
@@ -158,7 +185,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus }) => {
                   }}
                 >
                   Don&apos;t have a wallet?
-                </ChakraLink>
+                </Text>
               </NextLink>
             ) : undefined
           }
@@ -192,7 +219,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleDisplayModalContent } from '@cosmology-ui/utils';\n\n<SimpleDisplayModalContent\n  \n/>`,
+        code: `import { SimpleDisplayModalContent } from '@cosmology-ui/utils';\n\n<SimpleDisplayModalContent\n  logo="logo link"\n  status="warning"\n  username="user"\n  walletIcon="wallet icon link"\n  contentHeader="la la la"\n  contentDesc="bla bla bla"\n  addressButton={<CopyAddressButton />}\n  bottomButton={<ConnectWalletButton />}\n  bottomLink={<Link />}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
@@ -200,6 +227,10 @@ export default {
     }
   },
   argTypes: {
-    walletStatus: { options: WalletStatus, control: { type: 'radio' } }
+    walletStatus: {
+      options: Object.values(WalletStatus),
+      defaultValue: WalletStatus.Disconnected,
+      control: { type: 'radio' }
+    }
   }
 };

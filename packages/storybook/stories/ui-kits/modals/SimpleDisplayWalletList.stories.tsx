@@ -7,6 +7,7 @@ import React, { useRef } from 'react';
 import { WalletData } from '../../util/config';
 
 const Template: ComponentStory<typeof SimpleDisplayWalletListKit> = ({
+  // eslint-disable-next-line unused-imports/no-unused-vars
   ...args
 }) => {
   const initialFocus = useRef<HTMLButtonElement>(null);
@@ -56,7 +57,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletListKit\n  \n/>`,
+        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletListKit\n  initialFocus={ref}\n  walletData={[walletList]}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

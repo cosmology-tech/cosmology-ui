@@ -15,7 +15,8 @@ export type ChainListType = {
   address: string;
 };
 
-export enum WalletMode {
-  Extension = 'extension',
-  WalletConnect = 'wallet-connect'
-}
+export type UserDeviceInfoType = {
+  browser: string;
+  device: string;
+  os: string;
+};

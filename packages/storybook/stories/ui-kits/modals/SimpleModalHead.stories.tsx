@@ -41,7 +41,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleModalHead } from '@cosmology-ui/utils';\n\n<SimpleModalHead\n  title="your modal header"\n  backButton={true|false}\n  onBack={backFunction}\n  onClose={closeFunction}\n/>`,
+        code: `import { SimpleModalHead } from '@cosmology-ui/utils';\n\n<SimpleModalHead\n  title="your modal header"\n  backButton={false}\n  onBack={backFunction}\n  onClose={closeFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

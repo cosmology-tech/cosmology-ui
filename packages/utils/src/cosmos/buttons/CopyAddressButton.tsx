@@ -61,6 +61,7 @@ export const CopyAddressButton = ({
       if (disabled) setDisplayIsDisabled(true);
       if (!disabled) setDisplayIsDisabled(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, maxDisplayLength, disabled]);
 
   return (

@@ -213,7 +213,7 @@ export type SimpleModalHeadType = {
   /**
    * A function called to handle modal content display.
    */
-  onBack: () => void;
+  onBack?: () => void;
   /**
    * A function called to handle modal close.
    */
@@ -314,7 +314,10 @@ export type QRCodeType = {
   description?: string;
 };
 
-export type WalletMode = 'extension' | 'wallet-connect';
+export enum WalletMode {
+  Extension = 'extension',
+  WalletConnect = 'wallet-connect'
+}
 
 export type DownloadInfo = {
   browser?: string;
@@ -348,7 +351,7 @@ export type Wallet = {
    */
   mode: WalletMode;
   /**
-   *
+   * Disabled button when on mobile or tablet.
    */
   mobileDisabled: boolean;
   /**
@@ -359,6 +362,9 @@ export type Wallet = {
    * Description when rejected.
    */
   downloads?: Downloads;
+  /**
+   * A function called to handle clicked button.
+   */
   onClick?: () => void;
 };
 
@@ -370,7 +376,29 @@ export type DisplayWalletListType = {
    */
   initialFocus: RefObject<HTMLButtonElement>;
   /**
+   * Array of wallet list.
    *
+   * <code>
+   * Wallet: {
+   *
+   *    name: string;
+   *
+   *    prettyName?: string;
+   *
+   *    logo?: string | IconType;
+   *
+   *    mode: WalletMode;
+   *
+   *    mobileDisabled: boolean;
+   *
+   *    rejectMessage?: string;
+   *
+   *    downloads?: Downloads;
+   *
+   *    onClick?: () => void;
+   *
+   * }
+   * </code>
    */
   walletsData: Wallet[];
 };
