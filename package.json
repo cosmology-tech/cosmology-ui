@@ -15,8 +15,7 @@
     "pretest": "yarn lint",
     "test": "lerna run test",
     "clear:node_modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
-    "clear": "find -E ./packages -iregex '.*/packages/[a-z]*/(main|module|types)' -type d -prune -print | xargs rm -rf",
-    "publish": "lerna publish"
+    "clear": "find -E ./packages -iregex '.*/packages/[a-z]*/(main|module|types)' -type d -prune -print | xargs rm -rf"
   },
   "resolutions": {
     "@types/react": "18.0.26"
