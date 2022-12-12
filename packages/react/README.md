@@ -3,7 +3,7 @@
 ## How to use
 
 ```
-import { ConnectWalletButton } from '@cosmology-ui/react';
+import { ConnectWalletButton } from '@cosmology-ui/utils';
 
 export default function App() {
   return (
