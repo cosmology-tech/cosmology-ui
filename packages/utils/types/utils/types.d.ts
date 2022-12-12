@@ -331,6 +331,10 @@ export declare type Wallet = {
      */
     downloads?: Downloads;
     /**
+     * Display sub icon.
+     */
+    subLogo?: string | IconType;
+    /**
      * A function called to handle clicked button.
      */
     onClick?: () => void;
@@ -353,6 +357,8 @@ export declare type DisplayWalletListType = {
      *    prettyName?: string;
      *
      *    logo?: string | IconType;
+     *
+     *    subLogo?: string | IconType;
      *
      *    mode: WalletMode;
      *
