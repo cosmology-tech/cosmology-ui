@@ -15,7 +15,7 @@ import {
   handleChangeColorModeValue,
   LoadingVariants,
   ModalContentVariants
-} from '../../../index';
+} from '../../index';
 
 export const SimpleDisplayModalContent = ({
   status,
