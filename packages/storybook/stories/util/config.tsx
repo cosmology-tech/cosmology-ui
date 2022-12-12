@@ -116,6 +116,8 @@ export const WalletData = [
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
+    subLogo:
+      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
     rejectMessage: 'Request Rejected!',
     downloads: {
       desktop: [
@@ -155,9 +157,11 @@ export const WalletData = [
   {
     name: 'WalletConnectKeplr',
     prettyName: 'Keplr Mobile',
-    logo: 'https://user-images.githubusercontent.com/545047/191616515-eee176d0-9e50-4325-9529-6c0019d5c71a.png',
+    logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
+    subLogo:
+      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
     rejectMessage: 'Request Rejected!',
     downloads: {
       desktop: [
@@ -205,6 +209,8 @@ export const WalletData = [
     logo: 'https://i.imgflip.com/jl9b3.jpg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
+    subLogo:
+      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
     downloads: {
       desktop: [
         {
