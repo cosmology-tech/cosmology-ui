@@ -3,6 +3,7 @@ import { motion, Variants } from 'framer-motion';
 
 export const ModalContentVariants: Variants = {
   hidden: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
@@ -12,6 +13,7 @@ export const ModalContentVariants: Variants = {
     transition: { duration: 0.4, type: 'easeOut' }
   },
   enter: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     flex: 1,

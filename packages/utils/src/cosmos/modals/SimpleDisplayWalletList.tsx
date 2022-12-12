@@ -35,7 +35,7 @@ export const SimpleDisplayWalletList = ({
 
   useEffect(() => {
     if (listRef.current) {
-      if (listRef.current.clientHeight >= 311) setDisplayBlur(true);
+      if (listRef.current.clientHeight >= 290) setDisplayBlur(true);
       const scrollHandler = () => {
         const height = listRef.current
           ? Math.abs(
@@ -175,7 +175,7 @@ export const SimpleDisplayWalletList = ({
                       )}
                     </Box>
                     <Flex
-                      display={i <= 1 && subLogo ? 'flex' : 'none'}
+                      display={i < 2 && subLogo ? 'flex' : 'none'}
                       justifyContent="center"
                       alignItems="center"
                       overflow="hidden"
@@ -198,7 +198,7 @@ export const SimpleDisplayWalletList = ({
                           src={subLogo}
                           alt="wallet-icon"
                           w="full"
-                          h="ful"
+                          h="full"
                         />
                       ) : (
                         <Icon as={subLogo} w="full" h="full" />
@@ -218,6 +218,7 @@ export const SimpleDisplayWalletList = ({
                     minH={5}
                     maxW={5}
                     maxH={5}
+                    mr={2}
                   >
                     {typeof subLogo === 'string' ? (
                       <Image src={subLogo} alt="wallet-connect" />
@@ -230,40 +231,40 @@ export const SimpleDisplayWalletList = ({
             </GridItem>
           );
         })}
-        <AnimateGridItem
-          initial={false}
-          animate={
-            displayBlur
-              ? {
-                  opacity: 1,
-                  height: 2,
-                  transition: {
-                    type: 'spring',
-                    duration: 0.1
-                  }
-                }
-              : {
-                  height: 0,
-                  opacity: 0,
-                  transition: {
-                    type: 'spring',
-                    duration: 0.2
-                  }
-                }
-          }
-          position="sticky"
-          bg={handleChangeColorModeValue(colorMode, '#fff', 'gray.700')}
-          style={{ marginTop: 0 }}
-          colSpan={2}
-          bottom={-2}
-          w="full"
-          boxShadow={handleChangeColorModeValue(
-            colorMode,
-            '0 -3px 2px 2px #fff, 0 -4px 6px 2px #fff, 0 -4px 4px 2px #fff, 0 -5px 10px 2px #fff, 0 -8px 4px #fff, 0 -8px 6px 1px #fff, 0 -8px 8px 1px #fff',
-            '0 -3px 2px 2px #2D3748, 0 -4px 6px 2px #2D3748, 0 -4px 4px 2px #2D3748, 0 -5px 10px 2px #2D3748, 0 -8px 4px #2D3748, 0 -8px 6px 1px #2D3748, 0 -8px 8px 1px #2D3748'
-          )}
-        ></AnimateGridItem>
       </Grid>
+      <AnimateGridItem
+        initial={false}
+        animate={
+          displayBlur
+            ? {
+                opacity: 1,
+                height: 24,
+                transition: {
+                  type: 'spring',
+                  duration: 0.1
+                }
+              }
+            : {
+                height: 0,
+                opacity: 0,
+                transition: {
+                  type: 'spring',
+                  duration: 0.2
+                }
+              }
+        }
+        position="absolute"
+        bottom={0}
+        bg={handleChangeColorModeValue(colorMode, '#fff', 'gray.700')}
+        style={{ marginTop: 0 }}
+        colSpan={2}
+        w="full"
+        background={handleChangeColorModeValue(
+          colorMode,
+          'linear-gradient(0deg, rgba(255,255,255,1) 6%, rgba(255,255,255,0.95) 16%, rgba(255,255,255,0.85) 24%, rgba(255,255,255,0.75) 32%, rgba(255,255,255,0.65) 48%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0.1) 95%)',
+          'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
+        )}
+      ></AnimateGridItem>
     </AnimateBox>
   );
 };
