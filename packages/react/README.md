@@ -1,11 +1,32 @@
 # @cosmology-ui/react
 
-## How to use
+## Install
 
 ```
-import { ConnectWalletButton } from '@cosmology-ui/utils';
+yarn add @chakra-ui^2.4.2 @cosmology-ui/react
+```
 
-export default function App() {
+## How to use
+
+import `ChakraProvider` and our default theme
+```
+import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from '@cosmology-ui/react';
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <ChakraProvider theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  );
+}
+```
+
+then can use
+```
+import { ConnectWalletButton } from '@cosmology-ui/react';
+
+export default function Home() {
   return (
     <ConnectWalletButton />
   );
