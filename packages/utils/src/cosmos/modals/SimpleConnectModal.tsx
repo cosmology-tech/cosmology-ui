@@ -1,4 +1,5 @@
 import { Modal, ModalContent, ModalOverlay, Stack } from '@chakra-ui/react';
+import React from 'react';
 
 import { SimpleConnectModalType } from '../../index';
 

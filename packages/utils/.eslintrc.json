@@ -29,12 +29,11 @@
   ],
   "settings": {
     "react": {
-      "version": "latest"
+      "version": "detect"
     }
   },
   "rules": {
     "prettier/prettier": "error",
-    "react/react-in-jsx-scope": "off",
     "no-debugger": "error",
     "no-alert": "error",
     "no-await-in-loop": "off",
@@ -87,6 +86,7 @@
         "allowObject": true
       }
     ],
-    "react/prop-types": ["warn"]
+    "react/prop-types": ["warn"],
+    "react/react-in-jsx-scope": "error"
   }
 }

@@ -8,7 +8,7 @@ import {
   Text,
   useColorMode
 } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import {
   AnimateBox,

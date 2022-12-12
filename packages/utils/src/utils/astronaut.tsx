@@ -1,3 +1,4 @@
+import React from 'react';
 import { IconBaseProps, IconType } from 'react-icons';
 
 export const Astronaut: IconType = (props: IconBaseProps) => (
