@@ -1,4 +1,4 @@
-import { shuffledArray, WalletMode } from '@cosmology-ui/utils';
+import { ModalListType, shuffledArray, WalletMode } from '@cosmology-ui/utils';
 import { assets, chains } from 'chain-registry';
 import { FaFirefox } from 'react-icons/fa';
 import { GrAndroid } from 'react-icons/gr';
@@ -58,17 +58,306 @@ export const chainList = assets
 export const WalletIcons = {
   keplr:
     'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
+  cosmostation:
+    'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
   metamask:
-    'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg'
+    'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg',
+  walletConnectFill:
+    'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
+  walletConnect:
+    'https://user-images.githubusercontent.com/545047/202090621-bb110635-f6ce-4aa0-a4e5-a03beac29bd1.svg'
 };
 
-export const WalletData = [
+export const keplrData = [
   {
     name: 'Keplr',
     prettyName: 'Keplr',
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.Extension,
+    modalListType: ModalListType.Normal,
+    mobileDisabled: true,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap?hl=en'
+        },
+        {
+          browser: 'firefox',
+          icon: FaFirefox,
+          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      default: 'https://www.keplr.app/download'
+    }
+  },
+  {
+    name: 'WalletConnectKeplr',
+    prettyName: 'Keplr Mobile',
+    logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
+    mode: WalletMode.WalletConnect,
     mobileDisabled: false,
+    modalListType: ModalListType.Normal,
+    subLogo: WalletIcons.walletConnectFill,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap?hl=en'
+        },
+        {
+          browser: 'firefox',
+          icon: FaFirefox,
+          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      default: 'https://www.keplr.app/download'
+    }
+  },
+  {
+    name: 'WalletConnectKeplr',
+    prettyName: 'Keplr Mobile',
+    logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
+    mode: WalletMode.WalletConnect,
+    mobileDisabled: false,
+    modalListType: ModalListType.Simple,
+    subLogo: WalletIcons.walletConnect,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap?hl=en'
+        },
+        {
+          browser: 'firefox',
+          icon: FaFirefox,
+          link: 'https://addons.mozilla.org/en-US/firefox/addon/keplr/'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=com.chainapsis.keplr'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/us/app/keplr-wallet/id1567851089'
+        }
+      ],
+      default: 'https://www.keplr.app/download'
+    }
+  }
+];
+
+export const cosmostationData = [
+  {
+    name: 'cosmostation',
+    prettyName: 'Cosmostation',
+    logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
+    mode: WalletMode.Extension,
+    modalListType: ModalListType.Normal,
+    mobileDisabled: true,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      default: 'https://wallet.cosmostation.io/cosmos'
+    }
+  },
+  {
+    name: 'walletConnectCosmostation',
+    prettyName: 'Cosmostation mobile',
+    logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
+    subLogo: WalletIcons.walletConnectFill,
+    mode: WalletMode.WalletConnect,
+    modalListType: ModalListType.Normal,
+    mobileDisabled: false,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      default: 'https://wallet.cosmostation.io/cosmos'
+    }
+  },
+  {
+    name: 'walletConnectCosmostation',
+    prettyName: 'Cosmostation mobile1',
+    logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
+    subLogo: WalletIcons.walletConnect,
+    mode: WalletMode.WalletConnect,
+    modalListType: ModalListType.Simple,
+    mobileDisabled: false,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      default: 'https://wallet.cosmostation.io/cosmos'
+    }
+  }
+];
+
+export const WalletData = [
+  {
+    name: 'Keplr',
+    prettyName: 'Keplr',
+    logo: WalletIcons.keplr,
+    mode: WalletMode.Extension,
+    mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
       desktop: [
@@ -113,11 +402,9 @@ export const WalletData = [
   {
     name: 'cosmostation',
     prettyName: 'Cosmostation',
-    logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
-    mode: WalletMode.WalletConnect,
-    mobileDisabled: false,
-    subLogo:
-      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
+    logo: WalletIcons.cosmostation,
+    mode: WalletMode.Extension,
+    mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
       desktop: [
@@ -157,11 +444,11 @@ export const WalletData = [
   {
     name: 'WalletConnectKeplr',
     prettyName: 'Keplr Mobile',
-    logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
+    logo: WalletIcons.keplr,
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    subLogo:
-      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
+    modalListType: ModalListType.Simple,
+    subLogo: WalletIcons.walletConnect,
     rejectMessage: 'Request Rejected!',
     downloads: {
       desktop: [
@@ -204,13 +491,56 @@ export const WalletData = [
     }
   },
   {
+    name: 'WalletConnectCosmostation',
+    prettyName: 'Cosmostation mobile',
+    logo: WalletIcons.cosmostation,
+    mode: WalletMode.WalletConnect,
+    modalListType: ModalListType.Simple,
+    mobileDisabled: false,
+    subLogo: WalletIcons.walletConnect,
+    rejectMessage: 'Request Rejected!',
+    downloads: {
+      desktop: [
+        {
+          browser: 'chrome',
+          icon: RiChromeFill,
+          link: 'https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf'
+        }
+      ],
+      tablet: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      mobile: [
+        {
+          os: 'android',
+          icon: GrAndroid,
+          link: 'https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion'
+        },
+        {
+          os: 'ios',
+          icon: RiAppStoreFill,
+          link: 'https://apps.apple.com/app/cosmostation/id1459830339'
+        }
+      ],
+      default: 'https://wallet.cosmostation.io/cosmos'
+    }
+  },
+  {
     name: 'meme',
     prettyName: 'meme',
     logo: 'https://i.imgflip.com/jl9b3.jpg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    subLogo:
-      'https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/7ecce5fd1974a06a031720f07304c8704db738ab/Icon/Blue%20(Default)/Icon.svg',
+    subLogo: WalletIcons.walletConnect,
     downloads: {
       desktop: [
         {

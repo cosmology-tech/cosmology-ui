@@ -18,7 +18,8 @@ import {
   AnimateGridItem,
   DisplayWalletListType,
   handleChangeColorModeValue,
-  ModalContentVariants
+  ModalContentVariants,
+  ModalListType
 } from '../../index';
 
 export const SimpleDisplayWalletList = ({
@@ -35,7 +36,8 @@ export const SimpleDisplayWalletList = ({
 
   useEffect(() => {
     if (listRef.current) {
-      if (listRef.current.clientHeight >= 290) setDisplayBlur(true);
+      if (listRef.current.clientHeight < 320) setDisplayBlur(false);
+      if (listRef.current.clientHeight >= 320) setDisplayBlur(true);
       const scrollHandler = () => {
         const height = listRef.current
           ? Math.abs(
@@ -50,7 +52,7 @@ export const SimpleDisplayWalletList = ({
 
       listRef.current.addEventListener('scroll', scrollHandler);
     }
-  }, [listRef]);
+  }, [listRef, walletsData]);
 
   useEffect(() => {
     if (hover)
@@ -72,7 +74,11 @@ export const SimpleDisplayWalletList = ({
       <Grid
         ref={listRef}
         position="relative"
-        templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+        justifyContent={walletsData.length > 1 ? 'start' : 'center'}
+        templateColumns={{
+          base: '1fr',
+          md: walletsData.length > 1 ? '1fr 1fr' : 'auto'
+        }}
         templateRows={{ base: 'max-content', md: 'auto' }}
         columnGap={2.5}
         rowGap={1}
@@ -93,144 +99,161 @@ export const SimpleDisplayWalletList = ({
           }
         }}
       >
-        {walletsData.map(({ name, prettyName, logo, subLogo, onClick }, i) => {
-          return (
-            <GridItem
-              key={i}
-              colSpan={{ base: 2, md: i > 1 ? 2 : 'auto' }}
-              w="full"
-            >
-              <Button
-                ref={i === 0 ? initialFocus : null}
-                id={name}
-                key={name}
-                variant="unstyled"
-                display="flex"
+        {walletsData.map(
+          ({ name, prettyName, logo, subLogo, modalListType, onClick }, i) => {
+            return (
+              <GridItem
+                key={i}
+                colSpan={{ base: 2, md: i > 1 ? 2 : 'auto' }}
                 w="full"
-                h="fit-content"
-                p={{ base: 2, md: i > 1 ? 2 : 3 }}
-                py={{ md: i > 1 ? 2 : 7 }}
-                mb={{ base: 0, md: i > 1 ? 0 : 1.5 }}
-                justifyContent="start"
-                alignItems="center"
-                borderRadius="md"
-                whiteSpace="break-spaces"
-                color={handleChangeColorModeValue(
-                  colorMode,
-                  'blackAlpha.800',
-                  'whiteAlpha.800'
-                )}
-                transition="all .1s ease-in-out"
-                bg={handleChangeColorModeValue(
-                  colorMode,
-                  'gray.100',
-                  'blackAlpha.500'
-                )}
-                _hover={{
-                  boxShadow: '0 0 0 1px #6A66FF',
-                  bg: handleChangeColorModeValue(
-                    colorMode,
-                    'gray.50',
-                    'blackAlpha.600'
-                  )
-                }}
-                _focus={{
-                  borderRadius: 'md',
-                  boxShadow: '0 0 0 1px #6A66FF'
-                }}
-                onClick={onClick}
-                onMouseEnter={setHover.on}
-                onMouseLeave={setHover.off}
-                onTouchStart={setHover.on}
-                onTouchEnd={setHover.off}
+                mb={{ base: 0, md: i > 1 ? 0 : 1 }}
               >
-                <Flex
+                <Button
+                  ref={i === 0 ? initialFocus : null}
+                  id={name}
+                  key={name}
+                  variant="unstyled"
+                  display="flex"
+                  minW={walletsData.length < 2 ? 36 : 'auto'}
                   w="full"
-                  flexDirection={{
-                    base: 'row',
-                    md: i > 1 ? 'row' : 'column'
-                  }}
+                  h="full"
+                  p={2}
+                  py={{ md: i > 1 ? 2 : 6 }}
                   justifyContent="start"
                   alignItems="center"
+                  borderRadius="md"
+                  whiteSpace="break-spaces"
+                  color={handleChangeColorModeValue(
+                    colorMode,
+                    'blackAlpha.800',
+                    'whiteAlpha.800'
+                  )}
+                  transition="all .1s ease-in-out"
+                  bg={handleChangeColorModeValue(
+                    colorMode,
+                    'gray.100',
+                    'blackAlpha.500'
+                  )}
+                  _hover={{
+                    boxShadow: '0 0 0 1px #6A66FF',
+                    bg: handleChangeColorModeValue(
+                      colorMode,
+                      'gray.50',
+                      'blackAlpha.600'
+                    )
+                  }}
+                  _focus={{
+                    borderRadius: 'md',
+                    boxShadow: '0 0 0 1px #6A66FF'
+                  }}
+                  onClick={onClick}
+                  onMouseEnter={setHover.on}
+                  onMouseLeave={setHover.off}
+                  onTouchStart={setHover.on}
+                  onTouchEnd={setHover.off}
                 >
-                  <Box
-                    position="relative"
-                    mr={{ base: 4, md: i > 1 ? 4 : 0 }}
-                    mb={{ base: 0, md: i > 1 ? 0 : 3.5 }}
+                  <Flex
+                    w="full"
+                    flexDirection={{
+                      base: 'row',
+                      md: i > 1 ? 'row' : 'column'
+                    }}
+                    justifyContent="start"
+                    alignItems="center"
                   >
                     <Box
-                      borderRadius="lg"
-                      overflow="hidden"
-                      w={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      h={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      minW={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      minH={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      maxW={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      maxH={{ base: 8, md: i > 1 ? 8 : 14 }}
+                      position="relative"
+                      mr={{ base: 4, md: i > 1 ? 4 : 0 }}
+                      mb={{ base: 0, md: i > 1 ? 0 : 3.5 }}
                     >
-                      {typeof logo === 'string' ? (
-                        <Image src={logo} alt={prettyName} />
-                      ) : (
-                        <Icon as={logo} />
-                      )}
+                      <Box
+                        borderRadius="lg"
+                        overflow="hidden"
+                        w={{ base: 8, md: i > 1 ? 8 : 14 }}
+                        h={{ base: 8, md: i > 1 ? 8 : 14 }}
+                        minW={{ base: 8, md: i > 1 ? 8 : 14 }}
+                        minH={{ base: 8, md: i > 1 ? 8 : 14 }}
+                        maxW={{ base: 8, md: i > 1 ? 8 : 14 }}
+                        maxH={{ base: 8, md: i > 1 ? 8 : 14 }}
+                      >
+                        {typeof logo === 'string' ? (
+                          <Image src={logo} alt={prettyName} />
+                        ) : (
+                          <Icon as={logo} />
+                        )}
+                      </Box>
+                      <Flex
+                        display={
+                          modalListType === ModalListType.Normal && subLogo
+                            ? 'flex'
+                            : 'none'
+                        }
+                        justifyContent="center"
+                        alignItems="center"
+                        overflow="hidden"
+                        border="2px solid"
+                        borderColor={iconBorder}
+                        bg={iconBorder}
+                        borderRadius="full"
+                        position="absolute"
+                        bottom={-1.5}
+                        right={-2}
+                        w={6}
+                        h={6}
+                        minW={6}
+                        minH={6}
+                        maxW={6}
+                        maxH={6}
+                      >
+                        {typeof subLogo === 'string' ? (
+                          <Image
+                            src={subLogo}
+                            alt="wallet-icon"
+                            w="full"
+                            h="full"
+                          />
+                        ) : (
+                          <Icon as={subLogo} w="full" h="full" />
+                        )}
+                      </Flex>
                     </Box>
-                    <Flex
-                      display={i < 2 && subLogo ? 'flex' : 'none'}
-                      justifyContent="center"
-                      alignItems="center"
-                      overflow="hidden"
-                      border="2px solid"
-                      borderColor={iconBorder}
-                      bg={iconBorder}
-                      borderRadius="full"
-                      position="absolute"
-                      bottom={-1.5}
-                      right={-2}
-                      w={6}
-                      h={6}
-                      minW={6}
-                      minH={6}
-                      maxW={6}
-                      maxH={6}
+                    <Box
+                      textAlign={{
+                        base: 'start',
+                        md: i > 1 ? 'start' : 'center'
+                      }}
+                      flex={1}
+                    >
+                      <Text fontSize="sm" fontWeight="normal" lineHeight={1.1}>
+                        {prettyName}
+                      </Text>
+                    </Box>
+                    <Center
+                      display={
+                        modalListType === ModalListType.Simple && subLogo
+                          ? 'flex'
+                          : 'none'
+                      }
+                      w={5}
+                      h={5}
+                      minW={5}
+                      minH={5}
+                      maxW={5}
+                      maxH={5}
+                      mr={2}
                     >
                       {typeof subLogo === 'string' ? (
-                        <Image
-                          src={subLogo}
-                          alt="wallet-icon"
-                          w="full"
-                          h="full"
-                        />
+                        <Image src={subLogo} alt="wallet-connect" />
                       ) : (
-                        <Icon as={subLogo} w="full" h="full" />
+                        <Icon as={subLogo} />
                       )}
-                    </Flex>
-                  </Box>
-                  <Box textAlign="start" flex={1}>
-                    <Text fontSize="sm" fontWeight="normal" lineHeight={1.1}>
-                      {prettyName}
-                    </Text>
-                  </Box>
-                  <Center
-                    display={i > 1 && subLogo ? 'flex' : 'none'}
-                    w={5}
-                    h={5}
-                    minW={5}
-                    minH={5}
-                    maxW={5}
-                    maxH={5}
-                    mr={2}
-                  >
-                    {typeof subLogo === 'string' ? (
-                      <Image src={subLogo} alt="wallet-connect" />
-                    ) : (
-                      <Icon as={subLogo} />
-                    )}
-                  </Center>
-                </Flex>
-              </Button>
-            </GridItem>
-          );
-        })}
+                    </Center>
+                  </Flex>
+                </Button>
+              </GridItem>
+            );
+          }
+        )}
       </Grid>
       <AnimateGridItem
         initial={false}

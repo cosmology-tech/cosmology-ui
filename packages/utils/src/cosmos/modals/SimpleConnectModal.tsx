@@ -13,6 +13,7 @@ export const SimpleConnectModal = ({
   return (
     <Modal
       initialFocusRef={initialRef}
+      blockScrollOnMount={false}
       isOpen={modalIsOpen}
       isCentered={true}
       onClose={modalOnClose}

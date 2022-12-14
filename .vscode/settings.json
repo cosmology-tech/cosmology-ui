@@ -30,5 +30,6 @@
       "pattern": "packages/*",
       "!cwd": false
     }
-  ]
+  ],
+  "cSpell.words": ["Cosmostation", "keplr"]
 }

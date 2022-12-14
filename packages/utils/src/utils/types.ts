@@ -333,6 +333,11 @@ export type Downloads = {
   default: string;
 };
 
+export enum ModalListType {
+  Normal = 'Normal',
+  Simple = 'Simple'
+}
+
 export type Wallet = {
   /**
    * Wallet name.
@@ -347,6 +352,10 @@ export type Wallet = {
    */
   logo?: string | IconType;
   /**
+   * Display sub icon.
+   */
+  subLogo?: string | IconType;
+  /**
    * Connect wallet by extension or wallet-connect.
    */
   mode: WalletMode;
@@ -355,6 +364,11 @@ export type Wallet = {
    */
   mobileDisabled: boolean;
   /**
+   * Modal list is displaying normal list or simple list.
+   * type: "Normal" | "Simple"
+   */
+  modalListType?: ModalListType;
+  /**
    * Description when rejected.
    */
   rejectMessage?: string;
@@ -362,10 +376,6 @@ export type Wallet = {
    * Description when rejected.
    */
   downloads?: Downloads;
-  /**
-   * Display sub icon.
-   */
-  subLogo?: string | IconType;
   /**
    * A function called to handle clicked button.
    */
@@ -396,6 +406,8 @@ export type DisplayWalletListType = {
    *    mode: WalletMode;
    *
    *    mobileDisabled: boolean;
+   *
+   *    modalListType?: ModalListType;
    *
    *    rejectMessage?: string;
    *
