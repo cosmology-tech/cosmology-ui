@@ -301,9 +301,9 @@ export declare type Downloads = {
     mobile: DownloadInfo[];
     default: string;
 };
-export declare enum ModalListType {
-    Normal = "Normal",
-    Simple = "Simple"
+export declare enum ButtonShape {
+    Square = "Square",
+    Rectangle = "Rectangle"
 }
 export declare type Wallet = {
     /**
@@ -331,10 +331,10 @@ export declare type Wallet = {
      */
     mobileDisabled: boolean;
     /**
-     * Modal list is displaying normal list or simple list.
-     * type: "Normal" | "Simple"
+     * List button is displaying Square or Rectangle.
+     * type: "Square" | "Rectangle"
      */
-    modalListType?: ModalListType;
+    buttonShape?: ButtonShape;
     /**
      * Description when rejected.
      */
@@ -373,7 +373,7 @@ export declare type DisplayWalletListType = {
      *
      *    mobileDisabled: boolean;
      *
-     *    modalListType?: ModalListType;
+     *    buttonShape?: ButtonShape;
      *
      *    rejectMessage?: string;
      *
