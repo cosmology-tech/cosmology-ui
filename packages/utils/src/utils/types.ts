@@ -407,7 +407,7 @@ export type DisplayWalletListType = {
    *
    *    mobileDisabled: boolean;
    *
-   *    modalListType?: ModalListType;
+   *    buttonShape?: ButtonShape;
    *
    *    rejectMessage?: string;
    *
