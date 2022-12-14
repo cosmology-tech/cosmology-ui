@@ -7,8 +7,8 @@ import {
   useColorMode
 } from '@chakra-ui/react';
 import {
+  ButtonShape,
   handleChangeColorModeValue,
-  ModalListType,
   SimpleDisplayWalletList as SimpleDisplayWalletListKit,
   Wallet
 } from '@cosmology-ui/utils';
@@ -35,13 +35,13 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
       case 'Keplr': {
         const format = keplrData.filter(({ modalListType, mobileDisabled }) => {
           if (display === 'desktop') {
-            if (modalListType === ModalListType.Normal) return true;
-            if (modalListType === ModalListType.Simple) return false;
+            if (modalListType === ButtonShape.Square) return true;
+            if (modalListType === ButtonShape.Rectangle) return false;
             if (mobileDisabled) return false;
           }
           if (display !== 'desktop') {
-            if (modalListType === ModalListType.Normal) return false;
-            if (modalListType === ModalListType.Simple) return true;
+            if (modalListType === ButtonShape.Square) return false;
+            if (modalListType === ButtonShape.Rectangle) return true;
             if (mobileDisabled) return true;
           }
         });
@@ -53,13 +53,13 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
         const format = cosmostationData.filter(
           ({ modalListType, mobileDisabled }) => {
             if (display === 'desktop') {
-              if (modalListType === ModalListType.Normal) return true;
-              if (modalListType === ModalListType.Simple) return false;
+              if (modalListType === ButtonShape.Square) return true;
+              if (modalListType === ButtonShape.Rectangle) return false;
               if (mobileDisabled) return false;
             }
             if (display !== 'desktop') {
-              if (modalListType === ModalListType.Normal) return false;
-              if (modalListType === ModalListType.Simple) return true;
+              if (modalListType === ButtonShape.Square) return false;
+              if (modalListType === ButtonShape.Rectangle) return true;
               if (mobileDisabled) return true;
             }
           }

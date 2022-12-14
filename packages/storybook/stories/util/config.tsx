@@ -1,4 +1,4 @@
-import { ModalListType, shuffledArray, WalletMode } from '@cosmology-ui/utils';
+import { ButtonShape, shuffledArray, WalletMode } from '@cosmology-ui/utils';
 import { assets, chains } from 'chain-registry';
 import { FaFirefox } from 'react-icons/fa';
 import { GrAndroid } from 'react-icons/gr';
@@ -74,7 +74,7 @@ export const keplrData = [
     prettyName: 'Keplr',
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.Extension,
-    modalListType: ModalListType.Normal,
+    modalListType: ButtonShape.Square,
     mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -123,7 +123,7 @@ export const keplrData = [
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    modalListType: ModalListType.Normal,
+    modalListType: ButtonShape.Square,
     subLogo: WalletIcons.walletConnectFill,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -172,7 +172,7 @@ export const keplrData = [
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    modalListType: ModalListType.Simple,
+    modalListType: ButtonShape.Rectangle,
     subLogo: WalletIcons.walletConnect,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -223,7 +223,7 @@ export const cosmostationData = [
     prettyName: 'Cosmostation',
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     mode: WalletMode.Extension,
-    modalListType: ModalListType.Normal,
+    modalListType: ButtonShape.Square,
     mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -267,7 +267,7 @@ export const cosmostationData = [
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     subLogo: WalletIcons.walletConnectFill,
     mode: WalletMode.WalletConnect,
-    modalListType: ModalListType.Normal,
+    modalListType: ButtonShape.Square,
     mobileDisabled: false,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -311,7 +311,7 @@ export const cosmostationData = [
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     subLogo: WalletIcons.walletConnect,
     mode: WalletMode.WalletConnect,
-    modalListType: ModalListType.Simple,
+    modalListType: ButtonShape.Rectangle,
     mobileDisabled: false,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -447,7 +447,7 @@ export const WalletData = [
     logo: WalletIcons.keplr,
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    modalListType: ModalListType.Simple,
+    modalListType: ButtonShape.Rectangle,
     subLogo: WalletIcons.walletConnect,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -495,7 +495,7 @@ export const WalletData = [
     prettyName: 'Cosmostation mobile',
     logo: WalletIcons.cosmostation,
     mode: WalletMode.WalletConnect,
-    modalListType: ModalListType.Simple,
+    modalListType: ButtonShape.Rectangle,
     mobileDisabled: false,
     subLogo: WalletIcons.walletConnect,
     rejectMessage: 'Request Rejected!',

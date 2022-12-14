@@ -16,10 +16,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   AnimateBox,
   AnimateGridItem,
+  ButtonShape,
   DisplayWalletListType,
   handleChangeColorModeValue,
-  ModalContentVariants,
-  ModalListType
+  ModalContentVariants
 } from '../../index';
 
 export const SimpleDisplayWalletList = ({
@@ -100,7 +100,7 @@ export const SimpleDisplayWalletList = ({
         }}
       >
         {walletsData.map(
-          ({ name, prettyName, logo, subLogo, modalListType, onClick }, i) => {
+          ({ name, prettyName, logo, subLogo, buttonShape, onClick }, i) => {
             return (
               <GridItem
                 key={i}
@@ -184,7 +184,7 @@ export const SimpleDisplayWalletList = ({
                       </Box>
                       <Flex
                         display={
-                          modalListType === ModalListType.Normal && subLogo
+                          buttonShape === ButtonShape.Square && subLogo
                             ? 'flex'
                             : 'none'
                         }
@@ -230,7 +230,7 @@ export const SimpleDisplayWalletList = ({
                     </Box>
                     <Center
                       display={
-                        modalListType === ModalListType.Simple && subLogo
+                        buttonShape === ButtonShape.Rectangle && subLogo
                           ? 'flex'
                           : 'none'
                       }

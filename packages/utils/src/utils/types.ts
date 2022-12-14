@@ -333,9 +333,9 @@ export type Downloads = {
   default: string;
 };
 
-export enum ModalListType {
-  Normal = 'Normal',
-  Simple = 'Simple'
+export enum ButtonShape {
+  Square = 'Square',
+  Rectangle = 'Rectangle'
 }
 
 export type Wallet = {
@@ -364,10 +364,10 @@ export type Wallet = {
    */
   mobileDisabled: boolean;
   /**
-   * Modal list is displaying normal list or simple list.
-   * type: "Normal" | "Simple"
+   * List button is displaying Square or Rectangle.
+   * type: "Square" | "Rectangle"
    */
-  modalListType?: ModalListType;
+  buttonShape?: ButtonShape;
   /**
    * Description when rejected.
    */
