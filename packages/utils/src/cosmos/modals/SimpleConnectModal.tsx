@@ -23,7 +23,7 @@ export const SimpleConnectModal = ({
     });
     contentControls.set({
       opacity: 0.01,
-      scale: 1.05
+      scale: 1.08
     });
     controls.start({
       scale: 1,
@@ -31,7 +31,7 @@ export const SimpleConnectModal = ({
       width: 'auto',
       height: 'auto',
       transition: {
-        duration: 0.15,
+        duration: 0.18,
         delay: 0.09,
         ease: [0.26, 0.08, 0.25, 1]
       }
@@ -39,7 +39,7 @@ export const SimpleConnectModal = ({
     contentControls.start({
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.2, delay: 0.03, type: [0.16, 1, 0.75, 1] }
+      transition: { duration: 0.2, delay: 0.03, type: [0.16, 1, 0.65, 1] }
     });
   }, [modalHead, controls, contentControls]);
 
