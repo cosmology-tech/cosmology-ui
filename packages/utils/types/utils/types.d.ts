@@ -1,5 +1,5 @@
 import { OptionBase } from 'chakra-react-select';
-import React, { ReactNode, RefObject } from 'react';
+import React, { MouseEventHandler, ReactNode, RefObject } from 'react';
 import { IconType } from 'react-icons';
 export declare enum WalletStatus {
     Disconnected = "Disconnected",
@@ -189,11 +189,11 @@ export declare type SimpleModalHeadType = {
     /**
      * A function called to handle modal content display.
      */
-    onBack?: () => void;
+    onBack?: MouseEventHandler<HTMLButtonElement>;
     /**
      * A function called to handle modal close.
      */
-    onClose: () => void;
+    onClose: MouseEventHandler<HTMLButtonElement>;
 };
 export declare type SimpleConnectModalType = {
     /**
@@ -284,6 +284,10 @@ export declare type QRCodeType = {
      * Descript how to connect wallet.
      */
     description?: string;
+    /**
+     * QRCode size. Default is 200px.
+     */
+    qrCodeSize?: number;
 };
 export declare enum WalletMode {
     Extension = "extension",
@@ -346,7 +350,7 @@ export declare type Wallet = {
     /**
      * A function called to handle clicked button.
      */
-    onClick?: () => void;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 export declare type DisplayWalletListType = {
     /**

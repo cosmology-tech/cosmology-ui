@@ -14,12 +14,10 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 
 import {
-  AnimateBox,
   AnimateGridItem,
   ButtonShape,
   DisplayWalletListType,
-  handleChangeColorModeValue,
-  ModalContentVariants
+  handleChangeColorModeValue
 } from '../../index';
 
 export const SimpleDisplayWalletList = ({
@@ -66,11 +64,7 @@ export const SimpleDisplayWalletList = ({
   }, [colorMode, hover]);
 
   return (
-    <AnimateBox
-      initial="hidden"
-      animate="enter"
-      variants={ModalContentVariants}
-    >
+    <Box position="relative">
       <Grid
         ref={listRef}
         position="relative"
@@ -288,6 +282,6 @@ export const SimpleDisplayWalletList = ({
           'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
         )}
       ></AnimateGridItem>
-    </AnimateBox>
+    </Box>
   );
 };

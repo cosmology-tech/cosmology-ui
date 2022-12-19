@@ -10,7 +10,7 @@ import {
   Astronaut,
   ConnectWalletButton,
   CopyAddressButton,
-  DownloadInfo,
+  Downloads,
   handleChangeColorModeValue,
   InstallWalletButton,
   LogoStatus,
@@ -47,32 +47,73 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   const [modalContent, setModalContent] = useState<ReactNode>();
   const [modalHead, setModalHead] = useState<ReactNode>();
   const [browserInfo, setBrowserInfo] = useState<UserDeviceInfoType>();
-  const [downloadData, setDownloadData] = useState<DownloadInfo>();
 
   function handleClear() {
+    setModalHead(undefined);
+    setModalContent(undefined);
     setSelectedItem(undefined);
   }
 
   function handleClose() {
-    handleClear();
+    setSelectedItem(undefined);
     onClose();
   }
 
-  function handleContentStatus(status: WalletStatus, selectedItem: Wallet) {
+  function handleDownloadData(
+    downloads: Downloads,
+    browserInfo: UserDeviceInfoType
+  ) {
+    switch (browserInfo.device) {
+      case 'desktop': {
+        const data = downloads.desktop.find(
+          (item) => item.browser === browserInfo.browser
+        );
+        return data;
+      }
+      case 'tablet': {
+        const data = downloads[browserInfo.device].find(
+          (item) => item.os === browserInfo.os
+        );
+        return data;
+      }
+      case 'mobile': {
+        const data = downloads[browserInfo.device].find(
+          (item) => item.os === browserInfo.os
+        );
+        return data;
+      }
+      default:
+        return undefined;
+    }
+  }
+
+  function handleContentStatus(
+    status: WalletStatus,
+    selectedItem: Wallet,
+    browserInfo: UserDeviceInfoType
+  ) {
+    const installInfo = selectedItem.downloads
+      ? handleDownloadData(selectedItem.downloads, browserInfo)
+      : undefined;
+
     switch (status) {
       case WalletStatus.Disconnected:
         return {
           logo: selectedItem.logo,
           logoStatus: LogoStatus.Warning,
           contentHeader: 'Wallet is Disconnected',
-          contentDesc: undefined
+          contentDesc: undefined,
+          buttonText: 'Connect Wallet'
         };
       case WalletStatus.NotExist:
         return {
           logo: selectedItem.logo,
           logoStatus: LogoStatus.Error,
           contentHeader: 'Wallet Not Installed',
-          contentDesc: 'Please install wallet'
+          contentDesc: 'Please install wallet',
+          installLink: installInfo?.link,
+          installIcon: installInfo?.icon,
+          buttonText: `Install ${selectedItem.prettyName}`
         };
       case WalletStatus.Connecting:
         return {
@@ -86,7 +127,8 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
           logo: Astronaut,
           logoStatus: undefined,
           contentHeader: undefined,
-          contentDesc: undefined
+          contentDesc: undefined,
+          buttonText: 'Disconnect'
         };
       case WalletStatus.Rejected:
         return {
@@ -116,52 +158,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
     }
   }
 
-  function handleDisplayBottomButton(
-    status: WalletStatus,
-    selectedItem: Wallet,
-    downloadData: DownloadInfo
-  ) {
-    switch (status) {
-      case WalletStatus.Disconnected:
-        return (
-          <Box px={5}>
-            <ConnectWalletButton buttonText="Connect Wallet" />
-          </Box>
-        );
-      case WalletStatus.Connecting:
-        return undefined;
-      case WalletStatus.Connected:
-        return (
-          <Box px={5}>
-            <ConnectWalletButton buttonText="Disconnected" />
-          </Box>
-        );
-      case WalletStatus.NotExist: {
-        return (
-          <InstallWalletButton
-            buttonText={`Install ${selectedItem.name}`}
-            icon={downloadData.icon}
-            onClick={() => window.open(downloadData.link)}
-            disabled={false}
-          />
-        );
-      }
-      case WalletStatus.Rejected:
-        return (
-          <Box px={5}>
-            <ConnectWalletButton buttonText="Reconnect" />
-          </Box>
-        );
-      case WalletStatus.Error:
-      default:
-        return (
-          <Box px={5}>
-            <ConnectWalletButton buttonText="Connect Wallet" />
-          </Box>
-        );
-    }
-  }
-
   useEffect(() => {
     const browser = Bowser.getParser(window.navigator.userAgent);
     setBrowserInfo({
@@ -172,50 +168,15 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
     setWalletList(
       WalletData.map((item) => ({
         ...item,
-        onClick: () => setSelectedItem(item)
+        onClick: () => {
+          setTimeout(() => {
+            setSelectedItem(item);
+          }, 100);
+          setSelectedItem((pre) => pre);
+        }
       }))
     );
   }, []);
-
-  useEffect(() => {
-    setModalContent(
-      <SimpleDisplayWalletList
-        initialFocus={initialFocus}
-        walletsData={walletList}
-      />
-    );
-  }, [walletList]);
-
-  useEffect(() => {
-    if (selectedItem?.downloads && browserInfo) {
-      switch (browserInfo.device) {
-        case 'desktop': {
-          const data = selectedItem.downloads[browserInfo.device].find(
-            (item) => item.browser === browserInfo.browser
-          );
-          setDownloadData(data);
-          break;
-        }
-        case 'tablet': {
-          const data = selectedItem.downloads[browserInfo.device].find(
-            (item) => item.os === browserInfo.os
-          );
-          setDownloadData(data);
-          break;
-        }
-        case 'mobile': {
-          const data = selectedItem.downloads[browserInfo.device].find(
-            (item) => item.os === browserInfo.os
-          );
-          setDownloadData(data);
-          break;
-        }
-        default:
-          setDownloadData(undefined);
-          break;
-      }
-    }
-  }, [selectedItem, browserInfo]);
 
   useEffect(() => {
     if (selectedItem) {
@@ -231,8 +192,12 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
           onClose={handleClose}
         />
       );
-      if (selectedItem.mode === WalletMode.Extension) {
-        const statusContent = handleContentStatus(walletStatus, selectedItem);
+      if (selectedItem.mode === WalletMode.Extension && browserInfo) {
+        const statusContent = handleContentStatus(
+          walletStatus,
+          selectedItem,
+          browserInfo
+        );
         setModalContent(
           <SimpleDisplayModalContent
             logo={statusContent.logo}
@@ -255,13 +220,22 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
               ) : undefined
             }
             bottomButton={
-              downloadData
-                ? handleDisplayBottomButton(
-                    walletStatus,
-                    selectedItem,
-                    downloadData
-                  )
-                : undefined
+              walletStatus ===
+              WalletStatus.Connecting ? undefined : walletStatus ===
+                WalletStatus.NotExist ? (
+                <InstallWalletButton
+                  disabled={false}
+                  icon={statusContent.installIcon}
+                  buttonText={statusContent.buttonText}
+                  onClick={() => {
+                    window.open(statusContent.installLink);
+                  }}
+                />
+              ) : (
+                <Box px={6}>
+                  <ConnectWalletButton buttonText={statusContent.buttonText} />
+                </Box>
+              )
             }
             bottomLink={
               walletStatus === WalletStatus.Disconnected ? (
@@ -294,13 +268,12 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         );
       }
       if (selectedItem.mode === WalletMode.WalletConnect) {
-        if (downloadData)
-          setModalContent(
-            <QRCode
-              link={downloadData.link}
-              description={`Use ${selectedItem.prettyName} App to scan`}
-            />
-          );
+        setModalContent(
+          <QRCode
+            link={selectedItem.downloads ? selectedItem.downloads.default : ''}
+            description={`Use ${selectedItem.prettyName} App to scan`}
+          />
+        );
       }
     }
     if (!selectedItem) {
@@ -308,6 +281,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleModalHead
           title="Select a wallet"
           backButton={false}
+          onBack={() => void 0}
           onClose={handleClose}
         />
       );
@@ -319,7 +293,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colorMode, selectedItem, walletList, walletStatus, downloadData]);
+  }, [colorMode, selectedItem, walletList, walletStatus, browserInfo]);
 
   return (
     <Center py={16}>

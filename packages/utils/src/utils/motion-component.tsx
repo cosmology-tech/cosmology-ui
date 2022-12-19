@@ -2,25 +2,12 @@ import { Box, GridItem } from '@chakra-ui/react';
 import { motion, Variants } from 'framer-motion';
 
 export const ModalContentVariants: Variants = {
-  hidden: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    height: '10%',
-    opacity: 0,
-    scale: 0.8,
-    transition: { duration: 0.4, type: 'easeOut' }
+  initial: {
+    opacity: 0.1
   },
-  enter: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    height: '100%',
+  animate: {
     opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, type: 'easeOut' }
+    transition: { duration: 5, type: 'easeOut' }
   }
 };
 export const LoadingVariants: Variants = {
