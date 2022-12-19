@@ -205,7 +205,7 @@ SimpleDisplayModalContent.parameters = {
 };
 
 export default {
-  title: 'UIKits/Modals',
+  title: 'Components/Modals',
   component: SimpleDisplayModalContentKit,
   parameters: {
     docs: {

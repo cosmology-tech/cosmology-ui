@@ -59,7 +59,7 @@ ChangeChainDropdown.parameters = {
 };
 
 export default {
-  title: 'UIKits/Dropdowns',
+  title: 'Components/Dropdowns',
   component: ChangeChainDropdownKit,
   parameters: {
     docs: {

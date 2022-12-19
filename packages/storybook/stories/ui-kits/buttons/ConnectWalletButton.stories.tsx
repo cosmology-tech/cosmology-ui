@@ -108,7 +108,7 @@ ConnectWalletButton.parameters = {
 };
 
 export default {
-  title: 'UIKits/Buttons',
+  title: 'Components/Buttons',
   component: ConnectWalletButtonKit,
   parameters: {
     docs: {

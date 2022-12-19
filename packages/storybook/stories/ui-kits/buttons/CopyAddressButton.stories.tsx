@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof CopyAddressButtonKit> = ({
 export const CopyAddressButton = Template.bind({});
 
 export default {
-  title: 'UIKits/Buttons',
+  title: 'Components/Buttons',
   component: CopyAddressButtonKit,
   parameters: {
     docs: {

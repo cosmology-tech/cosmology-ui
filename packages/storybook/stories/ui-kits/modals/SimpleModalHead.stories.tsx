@@ -27,7 +27,7 @@ const Template: ComponentStory<typeof SimpleModalHeadKit> = ({ ...args }) => {
 export const SimpleModalHead = Template.bind({});
 
 export default {
-  title: 'UIKits/Modals',
+  title: 'Components/Modals',
   component: SimpleModalHeadKit,
   parameters: {
     docs: {

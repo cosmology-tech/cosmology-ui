@@ -112,7 +112,7 @@ SimpleDisplayWalletList.parameters = {
 };
 
 export default {
-  title: 'UIKits/Modals',
+  title: 'Components/Modals',
   component: SimpleDisplayWalletListKit,
   parameters: {
     docs: {

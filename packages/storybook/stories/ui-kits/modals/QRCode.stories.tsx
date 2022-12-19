@@ -27,7 +27,7 @@ const Template: ComponentStory<typeof QRCodeKit> = ({ ...args }) => {
 export const QRCode = Template.bind({});
 
 export default {
-  title: 'UIKits/Modals',
+  title: 'Components/Modals',
   component: QRCodeKit,
   parameters: {
     docs: {

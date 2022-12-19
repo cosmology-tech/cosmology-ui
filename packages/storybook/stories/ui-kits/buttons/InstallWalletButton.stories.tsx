@@ -53,7 +53,7 @@ InstallWalletButton.parameters = {
 };
 
 export default {
-  title: 'UIKits/Buttons',
+  title: 'Components/Buttons',
   component: InstallWalletButtonKit,
   parameters: {
     docs: {
