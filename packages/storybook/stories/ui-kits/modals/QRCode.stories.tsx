@@ -41,7 +41,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n/>`,
+        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n  qrCodeSize={200}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

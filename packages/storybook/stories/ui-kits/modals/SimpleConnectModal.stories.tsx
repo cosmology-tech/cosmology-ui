@@ -331,7 +331,13 @@ export default {
           <Primary />
           <ArgsTable of={SimpleConnectModalKit} />
         </>
-      )
+      ),
+      source: {
+        code: `import { SimpleConnectModal } from '@cosmology-ui/utils';\n\n<SimpleConnectModal\n  initialRef={initialRef}\n  modalHead={<SimpleModalHead />}\n  modalContent={<SimpleDisplayModalContent />|<SimpleDisplayModalList />}\n  modalOpen={false}\n  modalOnClose={closeFunction}\n/>`,
+        language: 'tsx',
+        type: 'auto',
+        format: true
+      }
     }
   },
   argTypes: {

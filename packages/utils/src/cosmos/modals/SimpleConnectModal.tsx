@@ -16,26 +16,31 @@ export const SimpleConnectModal = ({
 
   useEffect(() => {
     controls.set({
-      scale: 0.6,
-      opacity: 0.3,
-      width: 300,
-      height: '45%'
+      scale: 0.95,
+      opacity: 0.1,
+      width: '290px',
+      height: '40%'
     });
-    contentControls.set({ opacity: 0.01, scale: 0.6 });
-    (async () => {
-      await controls.start({
-        scale: 1,
-        opacity: 1,
-        width: 'auto',
-        height: 'auto',
-        transition: { duration: 0.18, type: 'ease' }
-      });
-      return await contentControls.start({
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.1, type: 'ease' }
-      });
-    })();
+    contentControls.set({
+      opacity: 0.01,
+      scale: 1.05
+    });
+    controls.start({
+      scale: 1,
+      opacity: 1,
+      width: 'auto',
+      height: 'auto',
+      transition: {
+        duration: 0.15,
+        delay: 0.09,
+        ease: [0.26, 0.08, 0.25, 1]
+      }
+    });
+    contentControls.start({
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.2, delay: 0.03, type: [0.16, 1, 0.75, 1] }
+    });
   }, [modalHead, controls, contentControls]);
 
   return (
