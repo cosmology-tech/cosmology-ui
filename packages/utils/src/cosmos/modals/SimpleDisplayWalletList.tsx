@@ -64,7 +64,7 @@ export const SimpleDisplayWalletList = ({
   }, [colorMode, hover]);
 
   return (
-    <Box position="relative">
+    <Box position="relative" pb={4}>
       <Grid
         ref={listRef}
         position="relative"
@@ -271,7 +271,7 @@ export const SimpleDisplayWalletList = ({
               }
         }
         position="absolute"
-        bottom={0}
+        bottom={4}
         bg={handleChangeColorModeValue(colorMode, '#fff', 'gray.700')}
         style={{ marginTop: 0 }}
         colSpan={2}

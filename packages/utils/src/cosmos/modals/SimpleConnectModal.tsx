@@ -1,8 +1,13 @@
 import { Modal, ModalContent, ModalOverlay, Stack } from '@chakra-ui/react';
 import { useAnimationControls } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { AnimateBox, SimpleConnectModalType } from '../../index';
+import {
+  AnimateBox,
+  ModalContentVariants,
+  ModalVariants,
+  SimpleConnectModalType
+} from '../../index';
 
 export const SimpleConnectModal = ({
   initialRef,
@@ -11,37 +16,45 @@ export const SimpleConnectModal = ({
   modalOpen: modalIsOpen,
   modalOnClose
 }: SimpleConnectModalType) => {
+  const nodeRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState<number>(290);
+  const [height, setHeight] = useState<number>(250);
   const controls = useAnimationControls();
   const contentControls = useAnimationControls();
 
-  useEffect(() => {
-    controls.set({
-      scale: 0.95,
-      opacity: 0.1,
-      width: '290px',
-      height: '40%'
-    });
-    contentControls.set({
-      opacity: 0.01,
-      scale: 1.08
-    });
-    controls.start({
-      scale: 1,
-      opacity: 1,
-      width: 'auto',
-      height: 'auto',
-      transition: {
-        duration: 0.18,
-        delay: 0.09,
-        ease: [0.26, 0.08, 0.25, 1]
+  // to get resize width/height
+  // https://stackoverflow.com/questions/73247936/how-to-dynamically-track-width-height-of-div-in-react-js
+  const handleElementResized = () => {
+    if (nodeRef.current) {
+      if (nodeRef.current.scrollWidth !== width) {
+        setWidth(nodeRef.current.scrollWidth);
       }
-    });
-    contentControls.start({
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.2, delay: 0.03, type: [0.16, 1, 0.65, 1] }
-    });
-  }, [modalHead, controls, contentControls]);
+      if (nodeRef.current.scrollHeight !== height) {
+        setHeight(nodeRef.current.scrollHeight);
+      }
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const resizeObserver = new ResizeObserver(handleElementResized);
+
+  useEffect(() => {
+    if (nodeRef.current) resizeObserver.observe(nodeRef.current);
+
+    // clear resizeObserver after get value
+    return function cleanup() {
+      resizeObserver.disconnect();
+    };
+  }, [resizeObserver, nodeRef]);
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      controls.set('initial');
+      contentControls.set('initial');
+      controls.start('animate');
+      contentControls.start('animate');
+    }
+  }, [modalHead, modalContent, modalIsOpen, controls, contentControls]);
 
   return (
     <Modal
@@ -53,19 +66,21 @@ export const SimpleConnectModal = ({
     >
       <ModalOverlay />
       <ModalContent
+        ref={nodeRef}
         position="relative"
         alignSelf="center"
         borderRadius="xl"
         w="fit-content"
-        pb={4}
         mx={4}
         _focus={{ outline: 'none' }}
         overflow="hidden"
         motionProps={{
-          animate: controls
+          custom: { width: width, height: height },
+          animate: controls,
+          variants: ModalVariants
         }}
       >
-        <AnimateBox animate={contentControls}>
+        <AnimateBox animate={contentControls} variants={ModalContentVariants}>
           <Stack flex={1} spacing={1} h="full">
             {modalHead}
             {modalContent}

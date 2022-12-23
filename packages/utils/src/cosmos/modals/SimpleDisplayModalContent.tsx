@@ -48,8 +48,9 @@ export const SimpleDisplayModalContent = ({
       alignItems="center"
       justifyContent="center"
       textAlign="center"
-      p={4}
+      px={4}
       pt={6}
+      pb={8}
     >
       {logo ? (
         <Center

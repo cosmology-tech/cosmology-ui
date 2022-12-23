@@ -8,7 +8,14 @@ export const QRCode = ({ link, description, qrCodeSize = 230 }: QRCodeType) => {
   const { colorMode } = useColorMode();
 
   return (
-    <Stack w={80} justifyContent="center" alignItems="center" spacing={4} p={6}>
+    <Stack
+      w={80}
+      justifyContent="center"
+      alignItems="center"
+      spacing={4}
+      p={6}
+      pb={10}
+    >
       {description ? (
         <Box px={4}>
           <Text fontWeight="medium" textAlign="center" opacity={0.75}>
