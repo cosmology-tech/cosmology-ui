@@ -13,11 +13,22 @@ export enum WalletStatus {
   Rejected = 'Rejected',
   Error = 'Error'
 }
+export type ThemeListType = {
+  name: string;
+  displayColor: string;
+  colorMode: string;
+};
+export type StyleDataType = {
+  componentName: string;
+  category: string;
+  style: string;
+  theme: { themeName: string; themeValue: string }[];
+};
 
 /* ====================================================== */
 /*                  Connect Wallet Button                 */
 /* ====================================================== */
-export type ConnectWalletType = {
+export type ConnectWalletButtonType = {
   /**
    * Text to display for button.
    *
@@ -40,6 +51,26 @@ export type ConnectWalletType = {
    * Props JSX.Element to custom icon.
    */
   rightIcon?: React.ReactNode;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom button style, also can use css.
+   * for example like:
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   */
+  styleProps?: object;
   /**
    * A function called to handle connect.
    */
@@ -66,6 +97,38 @@ export type CopyAddressType = {
    * Set the max length of address.
    */
   maxDisplayLength?: number;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom button style, also can use css.
+   * for example like:
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   */
+  buttonStyleProps?: object;
+  /**
+   * Can use Chakra Style Props custom icon style, also can use css.
+   * for example like:
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   */
+  iconStyleProps?: object;
 };
 
 /* ====================================================== */
@@ -245,7 +308,7 @@ export type SimpleConnectModalType = {
   modalOnClose: () => void;
 };
 
-export type DownloadWalletButtonType = {
+export type InstallWalletButtonType = {
   /**
    * Props react-icons item to a custom icon.
    */
@@ -255,13 +318,33 @@ export type DownloadWalletButtonType = {
    */
   buttonText?: string;
   /**
-   * A function called to handle link wallet.
-   */
-  onClick?: () => void;
-  /**
    * Button display disabled.
    */
   disabled: boolean;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom button style, also can use css.
+   * for example like:
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   */
+  styleProps?: object;
+  /**
+   * A function called to handle download wallet.
+   */
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export type ConnectModalContentType = {

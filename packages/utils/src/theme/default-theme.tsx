@@ -1,10 +1,23 @@
 import { extendTheme } from '@chakra-ui/react';
 
-export const theme = extendTheme({
+import { semanticTokens } from './component-theme';
+
+const fonts = {
   fonts: {
     body: 'Inter, system-ui, sans-serif',
     heading: 'Work Sans, system-ui, sans-serif'
-  },
+  }
+};
+
+const breakPoints = {
+  breakPoints: {
+    sm: '360px',
+    md: '414px',
+    lg: '768px'
+  }
+};
+
+const colors = {
   colors: {
     primary: {
       '50': '#e5e7f9',
@@ -18,13 +31,7 @@ export const theme = extendTheme({
       '800': '#1624b5',
       '900': '#0d17a9'
     }
-  },
-  breakPoints: {
-    sm: '360px',
-    md: '414px',
-    lg: '768px'
-  },
-  shadows: {
-    largeSoft: 'rgba(60, 64, 67, 0.15) 0px 2px 10px 6px;'
   }
-});
+};
+
+export const theme = extendTheme(fonts, breakPoints, colors, semanticTokens);

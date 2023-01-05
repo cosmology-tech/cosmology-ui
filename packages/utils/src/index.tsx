@@ -9,6 +9,7 @@ export * from './cosmos/modals/SimpleDisplayWalletList';
 export * from './cosmos/modals/SimpleModalHead';
 export * from './utils/astronaut';
 export * from './utils/base';
-export * from './utils/default-theme';
+export * from './theme/component-theme';
+export * from './theme/default-theme';
 export * from './utils/motion-component';
 export * from './utils/types';

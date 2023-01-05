@@ -1,12 +1,12 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { StoryContext } from '@storybook/react';
+import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 
 import { theme } from '@cosmology-ui/utils';
-import { ColorModeSync } from './color-mode/ColorModeSync';
-
-import * as NextImage from 'next/image';
+// import { ColorModeSync } from './color-mode/ColorModeSync';
+import { ThemeSync } from './theme/ThemeSync';
 
 const OriginalNextImage = NextImage.default;
 
@@ -66,9 +66,12 @@ export const parameters = {
 };
 
 const withChakraProvider = (StoryFn: Function, context: StoryContext) => {
+  const firstRender = sessionStorage.getItem('current-theme') ?? 'light';
+  sessionStorage.setItem('current-theme', firstRender);
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
-      <ColorModeSync viewMode={context.viewMode} />
+      {/* <ColorModeSync viewMode={context.viewMode} /> */}
+      <ThemeSync viewMode={context.viewMode} />
       <StoryFn {...context} />
     </ChakraProvider>
   );
