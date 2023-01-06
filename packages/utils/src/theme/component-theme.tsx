@@ -34,6 +34,7 @@ export const themeList: ThemeListType[] = [
 ];
 
 export const styleData: StyleDataType[] = [
+  // connect-wallet-button
   {
     componentName: 'connect-wallet-button',
     category: 'colors',
@@ -114,6 +115,7 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
+  // copy-address-button
   {
     componentName: 'copy-address-button',
     category: 'colors',
@@ -141,6 +143,7 @@ export const styleData: StyleDataType[] = [
       { themeName: 'dark', themeValue: 'whiteAlpha.300' }
     ]
   },
+  // install-wallet-button
   {
     componentName: 'install-wallet-button',
     category: 'colors',
@@ -175,6 +178,292 @@ export const styleData: StyleDataType[] = [
     theme: [
       { themeName: 'light', themeValue: '0 0 1px 2px rgba(37, 57, 201, 0.5)' },
       { themeName: 'dark', themeValue: '0 0 1px 2px rgba(196, 203, 255, 0.5)' }
+    ]
+  },
+  // change-chain-dropdown
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'firefox-scrollbar-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'rgba(0, 0, 0, 0.15) transparent' // thumb-color background-color
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'rgba(255, 255, 255, 0.15) transparent' // thumb-color background-color
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'scrollbar-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'transparent'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'transparent'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'scrollbar-thumb-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.200'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.200'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'indicator-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.600'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.600'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'indicator-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'transparent'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'transparent'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'loading-indicator-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'primary.200'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'primary.400'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.800'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.800'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'placeholder-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.600'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.600'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'placeholder-selected-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.800'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.800'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'icon-border-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.200'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.200'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'menu-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'white'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'transparent'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'transparent'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-hover-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.100'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-active-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-focus-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'primary.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'primary.600'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-disabled-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'transparent'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'transparent'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'colors',
+    style: 'option-selected-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'primary.50'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'primary.500'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'shadows',
+    style: 'menu-shadow',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: '0 2px 6px 1px var(--chakra-colors-blackAlpha-200)'
+      },
+      {
+        themeName: 'dark',
+        themeValue: '0 3px 10px -2px var(--chakra-colors-blackAlpha-700)'
+      }
+    ]
+  },
+  {
+    componentName: 'change-chain-dropdown',
+    category: 'shadows',
+    style: 'shadow',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: '0 0 0 2px var(--chakra-colors-primary-200)'
+      },
+      {
+        themeName: 'dark',
+        themeValue: '0 0 0 2px var(--chakra-colors-primary-200)'
+      }
     ]
   }
 ];

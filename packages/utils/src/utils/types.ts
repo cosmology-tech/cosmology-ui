@@ -1,4 +1,4 @@
-import { OptionBase } from 'chakra-react-select';
+import { ActionMeta, OnChangeValue, OptionBase } from 'chakra-react-select';
 import React, { MouseEventHandler, ReactNode, RefObject } from 'react';
 import { IconType } from 'react-icons';
 
@@ -138,7 +138,7 @@ export interface DataType extends OptionBase {
   /**
    * Unique identifier for option.
    */
-  chainName: string;
+  name: string;
   /**
    * Text to display for option.
    */
@@ -161,34 +161,10 @@ export interface DataType extends OptionBase {
   disabled?: boolean;
 }
 
-export type handleSelectChainDropdown = (value: DataType | null) => void;
-
-export type ChangeChainMenuType = {
-  /**
-   * Data for options.
-   */
-  data: DataType[];
-  /**
-   * Selected value.
-   */
-  value?: DataType;
-  /**
-   * Dropdown display spinning indicator.
-   */
-  loading?: boolean;
-  /**
-   * Dropdown display disabled.
-   */
-  disabled?: boolean;
-  /**
-   * A function called to close modal.
-   */
-  onClose?: () => void;
-  /**
-   * A function called to handle select item.
-   */
-  onChange: handleSelectChainDropdown;
-};
+export type handleSelectChainDropdown = (
+  newValue: OnChangeValue<DataType, false>,
+  actionMeta: ActionMeta<DataType>
+) => void;
 
 export type ChangeChainDropdownType = {
   /**
@@ -240,12 +216,6 @@ export type ChangeChainDropdownType = {
    */
   selectedItem?: DataType;
   /**
-   * A function called to handle select item.
-   *
-   * <code>handleSelectChainDropdown: (value: DataType | null) => void</code><br /><br />
-   */
-  onChange: handleSelectChainDropdown;
-  /**
    * Dropdown display loading.
    */
   loading?: boolean;
@@ -253,6 +223,33 @@ export type ChangeChainDropdownType = {
    * Dropdown display disabled.
    */
   disabled?: boolean;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom dropdown style.
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+   */
+  styleProps?: object;
+  /**
+   * A function called to handle select item.
+   *
+   * <code>handleSelectChainDropdown: (newValue: OnChangeValue<DataType, false>, actionMeta: ActionMeta<DataType>) => void</code><br /><br />
+   */
+  onChange: handleSelectChainDropdown;
 };
 
 /* ====================================================== */
@@ -392,7 +389,7 @@ export type QRCodeType = {
    */
   link: string;
   /**
-   * Descript how to connect wallet.
+   * Describe how to connect wallet.
    */
   description?: string;
   /**

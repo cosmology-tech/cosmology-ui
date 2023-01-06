@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, useColorMode } from '@chakra-ui/react';
 import {
   ChangeChainDropdown as ChangeChainDropdownKit,
   DataType
@@ -14,14 +14,23 @@ const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
   data,
   ...rest
 }) => {
+  const { colorMode } = useColorMode();
+  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [demoData, setDemoData] = useState<DataType[]>([]);
 
+  useEffect(() => {
+    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+
+    window.addEventListener('storage', () => {
+      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+    });
+  }, []);
   useEffect(() => {
     if (data) setDemoData(data);
     if (!data) {
       const formatChainsData = chainList.map((props) => {
         return {
-          chainName: props?.chainName,
+          name: props?.chainName,
           label: props?.label,
           value: props?.value,
           icon: props?.icon
@@ -29,7 +38,7 @@ const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
       });
       setDemoData([
         {
-          chainName: 'disabled',
+          name: 'disabled',
           label: 'disabled option',
           value: 'disabled',
           icon: {
@@ -44,7 +53,7 @@ const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
 
   return (
     <Box maxW={72} mx="auto" py={56}>
-      <ChangeChainDropdownKit data={demoData} {...rest} />
+      <ChangeChainDropdownKit data={demoData} theme={currentTheme} {...rest} />
     </Box>
   );
 };
@@ -54,7 +63,7 @@ export const ChangeChainDropdown = Template.bind({});
 // to hide controls
 ChangeChainDropdown.parameters = {
   controls: {
-    exclude: ['selectedItem']
+    include: ['loading', 'disabled', 'onChange']
   }
 };
 
@@ -87,7 +96,7 @@ export default {
   argTypes: {
     onChange: {
       control: false,
-      action: 'onChange'
+      action: 'selected'
     }
   }
 } as ComponentMeta<typeof ChangeChainDropdownKit>;
