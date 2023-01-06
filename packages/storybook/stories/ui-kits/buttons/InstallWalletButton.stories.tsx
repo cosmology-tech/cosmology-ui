@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, useColorMode } from '@chakra-ui/react';
 import {
   DownloadInfo,
   InstallWalletButton as InstallWalletButtonKit
@@ -14,6 +14,8 @@ import { handleDevice } from '../../util/config';
 const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
   ...args
 }) => {
+  const { colorMode } = useColorMode();
+  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [userBrowserInfo, setUserBrowserInfo] = useState<
     DownloadInfo | string | undefined
   >();
@@ -27,16 +29,22 @@ const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
     };
 
     setUserBrowserInfo(handleDevice(info));
+    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+
+    window.addEventListener('storage', () => {
+      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+    });
   }, []);
 
   return (
-    <Box maxW={80} mx="auto" py={16}>
+    <Box maxW={60} mx="auto" py={16}>
       <InstallWalletButtonKit
         icon={
           typeof userBrowserInfo === 'string'
             ? HiDownload
             : userBrowserInfo?.icon
         }
+        theme={currentTheme}
         {...args}
       />
     </Box>
@@ -48,7 +56,7 @@ export const InstallWalletButton = Template.bind({});
 // to hide controls
 InstallWalletButton.parameters = {
   controls: {
-    exclude: ['icon']
+    exclude: ['icon', 'styleProps', 'theme', 'className']
   }
 };
 

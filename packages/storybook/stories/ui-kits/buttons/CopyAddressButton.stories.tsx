@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, useColorMode } from '@chakra-ui/react';
 import { CopyAddressButton as CopyAddressButtonKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
@@ -10,9 +10,19 @@ const Template: ComponentStory<typeof CopyAddressButtonKit> = ({
   address, // eslint-disable-line react/prop-types
   ...rest
 }) => {
+  const { colorMode } = useColorMode();
+  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [displayAddress, setDisplayAddress] = useState<string | undefined>(
     undefined
   );
+
+  useEffect(() => {
+    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+
+    window.addEventListener('storage', () => {
+      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+    });
+  }, []);
 
   useEffect(() => {
     if (address === undefined) setDisplayAddress(undefined);
@@ -21,12 +31,23 @@ const Template: ComponentStory<typeof CopyAddressButtonKit> = ({
 
   return (
     <Box w="full" maxW={60} mx="auto" py={16}>
-      <CopyAddressButtonKit address={displayAddress} {...rest} />
+      <CopyAddressButtonKit
+        address={displayAddress}
+        theme={currentTheme}
+        {...rest}
+      />
     </Box>
   );
 };
 
 export const CopyAddressButton = Template.bind({});
+
+// to hide controls
+CopyAddressButton.parameters = {
+  controls: {
+    exclude: ['buttonStyleProps', 'iconStyleProps', 'className', 'theme']
+  }
+};
 
 export default {
   title: 'Components/Buttons',
