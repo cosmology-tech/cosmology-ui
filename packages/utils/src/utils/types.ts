@@ -284,6 +284,29 @@ export type SimpleModalHeadType = {
    */
   backButton: boolean;
   /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom modal head style, also can use css.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   */
+  styleProps?: object;
+  /**
    * A function called to handle modal content display.
    */
   onBack?: MouseEventHandler<HTMLButtonElement>;

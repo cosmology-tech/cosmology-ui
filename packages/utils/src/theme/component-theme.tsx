@@ -466,6 +466,37 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
+  // simple-modal-head
+  {
+    componentName: 'simple-modal-head',
+    category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-modal-head',
+    category: 'colors',
+    style: 'button-icon-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.600'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.600'
+      }
+    ]
+  },
   // simple-display-wallet-list
   {
     componentName: 'simple-display-wallet-list',

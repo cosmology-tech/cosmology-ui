@@ -1,50 +1,75 @@
-import { Box, Button, Icon, Stack, Text } from '@chakra-ui/react';
+import { IconButton, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { FiChevronLeft, FiX } from 'react-icons/fi';
 
 import { SimpleModalHeadType } from '../../index';
 
+export const SimpleModalHeadBaseStyle = (
+  theme: string,
+  backButton: boolean
+) => {
+  return {
+    w: 'full',
+    alignItems: 'center',
+    h: 'fit-content',
+    mb: 1,
+    p: 4,
+    pb: 0,
+    '>.modal-header-text': {
+      flex: 1,
+      mr: backButton ? 0 : -10,
+      fontSize: 'md',
+      fontWeight: 'semibold',
+      textAlign: 'center',
+      color: `simple-modal-head-text-color-${theme}`
+    },
+    '>.icon-button': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 'md',
+      color: `simple-modal-head-button-icon-color-${theme}`,
+      minW: 8,
+      minH: 8,
+      maxW: 8,
+      maxH: 8,
+      h: 8,
+      w: 8,
+      p: 0,
+      _focus: { outline: 'none' },
+      '>svg': { w: 5, h: 5 }
+    }
+  };
+};
+
 export const SimpleModalHead = ({
   title,
   backButton,
+  className,
+  theme = 'light',
+  styleProps = SimpleModalHeadBaseStyle(theme, backButton ? true : false),
   onBack,
   onClose
 }: SimpleModalHeadType) => {
   return (
-    <Stack
-      w="full"
-      isInline={true}
-      alignItems="center"
-      h="fit-content"
-      mb={1}
-      p={4}
-      pb={0}
-    >
+    <Stack isInline={true} className={className} sx={styleProps}>
       {backButton ? (
-        <Button
+        <IconButton
+          aria-label="back"
+          className="icon-button"
           variant="ghost"
-          borderRadius="full"
-          px={0}
-          _focus={{ outline: 'none' }}
+          icon={<FiChevronLeft />}
           onClick={onBack}
-        >
-          <Icon as={FiChevronLeft} w={6} h={6} />
-        </Button>
+        />
       ) : undefined}
-      <Box flex={1} mr={backButton ? 0 : -10}>
-        <Text fontSize="md" fontWeight="semibold" textAlign="center">
-          {title}
-        </Text>
-      </Box>
-      <Button
+      <Text className="modal-header-text">{title}</Text>
+      <IconButton
+        aria-label="close"
+        className="icon-button"
         variant="ghost"
-        borderRadius="full"
-        px={0}
-        _focus={{ outline: 'none' }}
+        icon={<FiX />}
         onClick={onClose}
-      >
-        <Icon as={FiX} w={5} h={5} />
-      </Button>
+      />
     </Stack>
   );
 };

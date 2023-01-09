@@ -195,6 +195,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
               : selectedItem.name
           }
           backButton={true}
+          theme={currentTheme}
           onBack={handleClear}
           onClose={handleClose}
         />
@@ -291,6 +292,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleModalHead
           title="Select a wallet"
           backButton={false}
+          theme={currentTheme}
           onClose={handleClose}
         />
       );
