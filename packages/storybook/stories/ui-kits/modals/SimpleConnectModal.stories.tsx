@@ -279,6 +279,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
       if (selectedItem.mode === WalletMode.WalletConnect) {
         setModalContent(
           <QRCode
+            theme={currentTheme}
             link={selectedItem.downloads ? selectedItem.downloads.default : ''}
             description={`Use ${selectedItem.prettyName} App to scan`}
           />

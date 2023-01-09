@@ -466,6 +466,7 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
+  // simple-display-wallet-list
   {
     componentName: 'simple-display-wallet-list',
     category: 'colors',
@@ -555,6 +556,37 @@ export const styleData: StyleDataType[] = [
         themeName: 'dark',
         themeValue:
           'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
+      }
+    ]
+  },
+  // qr-code
+  {
+    componentName: 'qr-code',
+    category: 'colors',
+    style: 'border-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.200'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.200'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'shadows',
+    style: 'shadow',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: '0 2px 5px -1px var(--chakra-colors-blackAlpha-300)'
+      },
+      {
+        themeName: 'dark',
+        themeValue: '0 2px 5px -1px var(--chakra-colors-blackAlpha-900)'
       }
     ]
   }

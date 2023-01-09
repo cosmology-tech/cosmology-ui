@@ -1,40 +1,49 @@
-import { Box, Center, Stack, Text, useColorMode } from '@chakra-ui/react';
+import { Center, Stack, Text } from '@chakra-ui/react';
 import { QRCodeSVG } from 'qrcode.react';
 import React from 'react';
 
-import { handleChangeColorModeValue, QRCodeType } from '../../index';
+import { QRCodeType } from '../../index';
 
-export const QRCode = ({ link, description, qrCodeSize = 230 }: QRCodeType) => {
-  const { colorMode } = useColorMode();
+export const QRCodeBaseStyle = (theme: string) => {
+  return {
+    w: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    spacing: 4,
+    p: 6,
+    pb: 10,
+    '>.description': {
+      fontWeight: 'medium',
+      textAlign: 'center',
+      opacity: 0.75,
+      px: 4,
+      pb: 1.5
+    },
+    '>.qr-code': {
+      w: 'full',
+      border: '1px solid',
+      borderColor: `qr-code-border-color-${theme}`,
+      borderRadius: 'lg',
+      boxShadow: `qr-code-shadow-${theme}`,
+      p: 5
+    }
+  };
+};
 
+export const QRCode = ({
+  link,
+  description,
+  qrCodeSize = 230,
+  theme = 'light',
+  className,
+  styleProps = QRCodeBaseStyle(theme)
+}: QRCodeType) => {
   return (
-    <Stack
-      w={80}
-      justifyContent="center"
-      alignItems="center"
-      spacing={4}
-      p={6}
-      pb={10}
-    >
+    <Stack className={className} sx={styleProps}>
       {description ? (
-        <Box px={4}>
-          <Text fontWeight="medium" textAlign="center" opacity={0.75}>
-            {description}
-          </Text>
-        </Box>
+        <Text className="description">{description}</Text>
       ) : undefined}
-      <Center
-        w="full"
-        border="1px solid"
-        borderColor={handleChangeColorModeValue(
-          colorMode,
-          'blackAlpha.100',
-          'whiteAlpha.600'
-        )}
-        borderRadius="lg"
-        boxShadow="base"
-        p={5}
-      >
+      <Center className="qr-code">
         <QRCodeSVG
           value={link}
           size={qrCodeSize}
