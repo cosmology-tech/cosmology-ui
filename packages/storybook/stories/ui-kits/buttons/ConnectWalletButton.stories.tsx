@@ -133,7 +133,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  sx={{customButton}}\n  onClick={clickFunction}\n/>`,
+        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  className="the class name of connect wallet button"\n  theme={currentTheme}\n  styleProps={objectOfCustomConnectWalletButtonStyle}\n  onClick={clickFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

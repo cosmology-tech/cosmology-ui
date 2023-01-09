@@ -64,7 +64,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { CopyAddressButton } from '@cosmology-ui/utils';\n\n<CopyAddressButton\n  address="address"\n  loading={false}\n  disabled={false}\n  maxDisplayLength={14}\n/>`,
+        code: `import { CopyAddressButton } from '@cosmology-ui/utils';\n\n<CopyAddressButton\n  address="address"\n  loading={false}\n  disabled={false}\n  maxDisplayLength={14}\n  className="the class name of connect wallet button"\n  theme={currentTheme}\n  buttonStyleProps={objectOfCustomCopyAddressButtonStyle}\n  iconStyleProps={objectOfCustomIconStyleInsideButton}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

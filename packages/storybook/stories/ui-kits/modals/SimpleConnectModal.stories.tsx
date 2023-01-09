@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import {
   Astronaut,
+  ButtonShape,
   ConnectWalletButton,
   CopyAddressButton,
   Downloads,
@@ -141,6 +142,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialFocus = useRef<HTMLButtonElement>(null);
+  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [selectedItem, setSelectedItem] = useState<Wallet>();
   const [walletList, setWalletList] = useState<Wallet[]>([]);
   const [modalContent, setModalContent] = useState<ReactNode>();
@@ -160,14 +162,16 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
 
   useEffect(() => {
     const browser = Bowser.getParser(window.navigator.userAgent);
+    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
     setBrowserInfo({
       browser: browser.getBrowserName(true),
       device: browser.getPlatformType(true),
       os: browser.getOSName(true)
     });
     setWalletList(
-      WalletData.map((item) => ({
+      WalletData.map((item, i) => ({
         ...item,
+        buttonShape: i < 2 ? ButtonShape.Square : ButtonShape.Rectangle,
         onClick: () => {
           setTimeout(() => {
             setSelectedItem(item);
@@ -176,6 +180,9 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         }
       }))
     );
+    window.addEventListener('storage', () => {
+      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+    });
   }, []);
 
   useEffect(() => {
@@ -223,14 +230,16 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
               walletStatus ===
               WalletStatus.Connecting ? undefined : walletStatus ===
                 WalletStatus.NotExist ? (
-                <InstallWalletButton
-                  disabled={false}
-                  icon={statusContent.installIcon}
-                  buttonText={statusContent.buttonText}
-                  onClick={() => {
-                    window.open(statusContent.installLink);
-                  }}
-                />
+                <Box w="full" px={6}>
+                  <InstallWalletButton
+                    disabled={false}
+                    icon={statusContent.installIcon}
+                    buttonText={statusContent.buttonText}
+                    onClick={() => {
+                      window.open(statusContent.installLink);
+                    }}
+                  />
+                </Box>
               ) : (
                 <Box px={6}>
                   <ConnectWalletButton buttonText={statusContent.buttonText} />
@@ -281,7 +290,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleModalHead
           title="Select a wallet"
           backButton={false}
-          onBack={() => void 0}
           onClose={handleClose}
         />
       );
@@ -289,6 +297,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleDisplayWalletList
           initialFocus={initialFocus}
           walletsData={walletList}
+          theme={currentTheme}
         />
       );
     }

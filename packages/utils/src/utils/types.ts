@@ -60,8 +60,9 @@ export type ConnectWalletButtonType = {
    */
   theme?: string;
   /**
-   * Can use Chakra Style Props custom button style, also can use css.
-   * for example like:
+   * Can use Chakra Style Props custom button style.
+   *
+   * Also can use css control, e.g,
    * <code>
    *  {
    *     '.my-button:hover &': {
@@ -69,6 +70,8 @@ export type ConnectWalletButtonType = {
    *     }
    *  }
    * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   styleProps?: object;
   /**
@@ -106,8 +109,9 @@ export type CopyAddressType = {
    */
   theme?: string;
   /**
-   * Can use Chakra Style Props custom button style, also can use css.
-   * for example like:
+   * Can use Chakra Style Props custom button style.
+   *
+   * Also can use css control, e.g,
    * <code>
    *  {
    *     '.my-button:hover &': {
@@ -115,11 +119,14 @@ export type CopyAddressType = {
    *     }
    *  }
    * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   buttonStyleProps?: object;
   /**
-   * Can use Chakra Style Props custom icon style, also can use css.
-   * for example like:
+   * Can use Chakra Style Props custom icon style.
+   *
+   * Also can use css control, e.g,
    * <code>
    *  {
    *     '.my-button:hover &': {
@@ -127,6 +134,8 @@ export type CopyAddressType = {
    *     }
    *  }
    * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   iconStyleProps?: object;
 };
@@ -233,6 +242,8 @@ export type ChangeChainDropdownType = {
   theme?: string;
   /**
    * Can use Chakra Style Props custom dropdown style.
+   *
+   * Also can use css control, e.g,
    * <code>
    *  {
    *     '.my-button:hover &': {
@@ -240,6 +251,8 @@ export type ChangeChainDropdownType = {
    *     }
    *  }
    * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    *
    * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
    */
@@ -328,7 +341,8 @@ export type InstallWalletButtonType = {
   theme?: string;
   /**
    * Can use Chakra Style Props custom button style, also can use css.
-   * for example like:
+   *
+   * Also can use css control, e.g,
    * <code>
    *  {
    *     '.my-button:hover &': {
@@ -336,6 +350,8 @@ export type InstallWalletButtonType = {
    *     }
    *  }
    * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   styleProps?: object;
   /**
@@ -461,9 +477,26 @@ export type Wallet = {
    */
   downloads?: Downloads;
   /**
+   * Can use Chakra Style Props custom list items(buttons) style.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   *
+   * default: <code>SimpleDisplayWalletListItemBaseStyle(index)</code>
+   */
+  styleProps?: object;
+  /**
    * A function called to handle clicked button.
    */
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
 export type DisplayWalletListType = {
@@ -477,30 +510,71 @@ export type DisplayWalletListType = {
    * Array of wallet list.
    *
    * <code>
-   * Wallet: {
+   *   name: string;
    *
-   *    name: string;
+   *   prettyName?: string;
    *
-   *    prettyName?: string;
+   *   logo?: string | IconType;
    *
-   *    logo?: string | IconType;
+   *   subLogo?: string | IconType;
    *
-   *    subLogo?: string | IconType;
+   *   mode: WalletMode;
    *
-   *    mode: WalletMode;
+   *   mobileDisabled: boolean;
    *
-   *    mobileDisabled: boolean;
+   *   buttonShape?: ButtonShape;
    *
-   *    buttonShape?: ButtonShape;
+   *   rejectMessage?: string;
    *
-   *    rejectMessage?: string;
+   *   downloads?: Downloads;
    *
-   *    downloads?: Downloads;
+   *   styleProps?: object;
    *
-   *    onClick?: () => void;
-   *
-   * }
+   *   onClick?: MouseEventHandler<HTMLDivElement>;
    * </code>
    */
   walletsData: Wallet[];
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom list style.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   */
+  listStyleProps?: object;
+  /**
+   * Can use Framer Motion Props control animation.
+   * see docs: https://www.framer.com/docs/
+   */
+  shadowAnimateProps?: object;
+  /**
+   * Can use Chakra Style Props custom overflow box shadow style.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   */
+  shadowAnimateStyleProps?: object;
 };

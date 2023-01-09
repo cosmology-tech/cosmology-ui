@@ -74,7 +74,7 @@ export const keplrData = [
     prettyName: 'Keplr',
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.Extension,
-    modalListType: ButtonShape.Square,
+    buttonShape: ButtonShape.Square,
     mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -123,7 +123,7 @@ export const keplrData = [
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    modalListType: ButtonShape.Square,
+    buttonShape: ButtonShape.Square,
     subLogo: WalletIcons.walletConnectFill,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -172,7 +172,7 @@ export const keplrData = [
     logo: 'https://user-images.githubusercontent.com/545047/202085372-579be3f3-36e0-4e0b-b02f-48182af6e577.svg',
     mode: WalletMode.WalletConnect,
     mobileDisabled: false,
-    modalListType: ButtonShape.Rectangle,
+    buttonShape: ButtonShape.Rectangle,
     subLogo: WalletIcons.walletConnect,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -223,7 +223,7 @@ export const cosmostationData = [
     prettyName: 'Cosmostation',
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     mode: WalletMode.Extension,
-    modalListType: ButtonShape.Square,
+    buttonShape: ButtonShape.Square,
     mobileDisabled: true,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -267,7 +267,7 @@ export const cosmostationData = [
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     subLogo: WalletIcons.walletConnectFill,
     mode: WalletMode.WalletConnect,
-    modalListType: ButtonShape.Square,
+    buttonShape: ButtonShape.Square,
     mobileDisabled: false,
     rejectMessage: 'Request Rejected!',
     downloads: {
@@ -311,7 +311,7 @@ export const cosmostationData = [
     logo: 'https://user-images.githubusercontent.com/74940804/202999324-fa2faf40-5ead-4896-b865-e97f052fc6f9.png',
     subLogo: WalletIcons.walletConnect,
     mode: WalletMode.WalletConnect,
-    modalListType: ButtonShape.Rectangle,
+    buttonShape: ButtonShape.Rectangle,
     mobileDisabled: false,
     rejectMessage: 'Request Rejected!',
     downloads: {

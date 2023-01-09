@@ -1,36 +1,171 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Icon,
-  Image,
-  Text,
-  useBoolean,
-  useColorMode
-} from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import { Box, Flex, Grid, GridItem, Icon, Image, Text } from '@chakra-ui/react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 
 import {
   AnimateGridItem,
   ButtonShape,
-  DisplayWalletListType,
-  handleChangeColorModeValue
+  DisplayWalletListType
 } from '../../index';
+
+export const SimpleDisplayWalletListBaseStyle = (dataLength: number) => ({
+  position: 'relative',
+  justifyContent: dataLength > 1 ? 'start' : 'center',
+  gridTemplateColumns: {
+    base: '1fr',
+    md: dataLength > 1 ? '1fr 1fr' : 'var(--chakra-space-36)'
+  },
+  gridTemplateRows: { base: 'max-content', md: 'auto' },
+  columnGap: 2.5,
+  rowGap: 1,
+  maxH: 80,
+  minH: 36,
+  w: 80,
+  overflowY: 'scroll',
+  py: 0.5,
+  px: 4,
+  mt: 0.5,
+  scrollbarWidth: 'none', // for firefox
+  '::-webkit-scrollbar': {
+    display: 'none' // for chrome
+  }
+});
+
+export const SimpleDisplayWalletListItemBaseStyle = (
+  theme: string,
+  buttonShape: ButtonShape,
+  index: number
+) => {
+  return {
+    gridColumn: { base: 'span 2', md: index > 1 ? 'span 2' : 'auto' },
+    display: 'flex',
+    flexDirection: {
+      base: 'row',
+      md: buttonShape === ButtonShape.Square ? 'column' : 'row'
+    },
+    justifyContent: 'start',
+    alignItems: 'center',
+    position: 'relative',
+    w: 'full',
+    h: 'full',
+    p: 2,
+    py: { md: buttonShape === ButtonShape.Square ? 6 : 2 },
+    mt: { md: buttonShape === ButtonShape.Square ? 0 : 1 },
+    borderRadius: 'md',
+    whiteSpace: 'break-spaces',
+    fontSize: 'sm',
+    fontWeight: 'normal',
+    lineHeight: 1.1,
+    textAlign: {
+      base: 'start',
+      md: buttonShape === ButtonShape.Square ? 'center' : 'start'
+    },
+    transition: 'all .1s ease-in-out',
+    color: `simple-display-wallet-list-button-text-color-${theme}`,
+    bg: `simple-display-wallet-list-button-background-color-${theme}`,
+    _hover: {
+      boxShadow: '0 0 0 1px #6A66FF',
+      bg: `simple-display-wallet-list-button-hover-background-color-${theme}`
+    },
+    _focus: {
+      borderRadius: 'md',
+      boxShadow: '0 0 0 1px #6A66FF'
+    },
+    '>.icon': {
+      position: 'relative',
+      mr: { base: 4, md: buttonShape === ButtonShape.Square ? 0 : 4 },
+      mb: { base: 0, md: buttonShape === ButtonShape.Square ? 3.5 : 0 },
+      w: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      h: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      minW: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      minH: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      maxW: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      maxH: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
+      '>.sub-icon': {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        border: '2px solid',
+        bg: `simple-display-wallet-list-button-background-color-${theme}`,
+        borderColor: `simple-display-wallet-list-icon-border-color-${theme}`,
+        borderRadius: 'full',
+        position: 'absolute',
+        bottom: -1.5,
+        right: -2,
+        mr: 0,
+        w: 6,
+        h: 6,
+        minW: 6,
+        minH: 6,
+        maxW: 6,
+        maxH: 6
+      }
+    },
+    '>.sub-icon': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      overflow: 'hidden',
+      border: 'none',
+      borderRadius: 'full',
+      position: 'static',
+      bottom: -1.5,
+      right: -2,
+      mr: 2,
+      w: 5,
+      h: 5,
+      minW: 5,
+      minH: 5,
+      maxW: 5,
+      maxH: 5
+    },
+    '+.wallet-button:hover>.icon>.sub-icon': {
+      bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
+      borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
+    }
+  };
+};
+
+export const SimpleDisplayWalletListAnimateBaseStyle = (theme: string) => ({
+  position: 'absolute',
+  bottom: 4,
+  w: 'full',
+  background: `simple-display-wallet-list-shadow-background-color-${theme}`
+});
+
+export const SimpleDisplayWalletListBaseShadowAnimate = (
+  displayBlur: boolean
+) =>
+  displayBlur
+    ? {
+        opacity: 1,
+        height: 24,
+        transition: {
+          type: 'spring',
+          duration: 0.1
+        }
+      }
+    : {
+        height: 0,
+        opacity: 0,
+        transition: {
+          type: 'spring',
+          duration: 0.2
+        }
+      };
 
 export const SimpleDisplayWalletList = ({
   initialFocus,
-  walletsData
+  walletsData,
+  className,
+  theme = 'light',
+  listStyleProps = SimpleDisplayWalletListBaseStyle(walletsData.length),
+  shadowAnimateProps = SimpleDisplayWalletListBaseShadowAnimate(false),
+  shadowAnimateStyleProps = SimpleDisplayWalletListAnimateBaseStyle(theme)
 }: DisplayWalletListType) => {
-  const { colorMode } = useColorMode();
   const listRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);
-  const [hover, setHover] = useBoolean();
-  const [iconBorder, setIconBorder] = useState(
-    handleChangeColorModeValue(colorMode, 'gray.100', '#1c222d')
-  );
+  const [animateShadow, setAnimateShadow] = useState(shadowAnimateProps);
 
   useEffect(() => {
     if (listRef.current) {
@@ -53,197 +188,75 @@ export const SimpleDisplayWalletList = ({
   }, [listRef, walletsData]);
 
   useEffect(() => {
-    if (hover)
-      setIconBorder(
-        handleChangeColorModeValue(colorMode, 'gray.50', '#151a25')
-      );
-    if (!hover)
-      setIconBorder(
-        handleChangeColorModeValue(colorMode, 'gray.100', '#1c222d')
-      );
-  }, [colorMode, hover]);
+    setAnimateShadow(SimpleDisplayWalletListBaseShadowAnimate(displayBlur));
+  }, [displayBlur]);
 
   return (
-    <Box position="relative" pb={4}>
-      <Grid
-        ref={listRef}
-        position="relative"
-        justifyContent={walletsData.length > 1 ? 'start' : 'center'}
-        templateColumns={{
-          base: '1fr',
-          md: walletsData.length > 1 ? '1fr 1fr' : 'auto'
-        }}
-        templateRows={{ base: 'max-content', md: 'auto' }}
-        columnGap={2.5}
-        rowGap={1}
-        maxH={80}
-        minH={36}
-        w={80}
-        overflowY="scroll"
-        paddingInline={0}
-        py={0.5}
-        px={4}
-        mt={0.5}
-        css={{
-          // for firefox
-          scrollbarWidth: 'none',
-          // for chrome
-          '::-webkit-scrollbar': {
-            display: 'none'
-          }
-        }}
-      >
+    <Box className={className} position="relative" pb={4}>
+      <Grid ref={listRef} sx={listStyleProps} gap={0}>
         {walletsData.map(
-          ({ name, prettyName, logo, subLogo, buttonShape, onClick }, i) => {
+          (
+            {
+              name,
+              prettyName,
+              logo,
+              subLogo,
+              buttonShape,
+              styleProps,
+              onClick
+            },
+            i
+          ) => {
             return (
               <GridItem
-                key={i}
-                colSpan={{ base: 2, md: i > 1 ? 2 : 'auto' }}
-                w="full"
-                mb={{ base: 0, md: i > 1 ? 0 : 1 }}
+                id={name}
+                key={name}
+                as="button"
+                className="wallet-button"
+                ref={
+                  i === 0
+                    ? (initialFocus as unknown as RefObject<
+                        HTMLButtonElement & HTMLDivElement
+                      >)
+                    : null
+                }
+                sx={
+                  styleProps
+                    ? styleProps
+                    : SimpleDisplayWalletListItemBaseStyle(
+                        theme,
+                        buttonShape,
+                        i
+                      )
+                }
+                onClick={onClick}
               >
-                <Button
-                  ref={i === 0 ? initialFocus : null}
-                  id={name}
-                  key={name}
-                  variant="unstyled"
-                  display="flex"
-                  minW={walletsData.length < 2 ? 36 : 'auto'}
-                  w="full"
-                  h="full"
-                  p={2}
-                  py={{ md: i > 1 ? 2 : 6 }}
-                  justifyContent="start"
-                  alignItems="center"
-                  borderRadius="md"
-                  whiteSpace="break-spaces"
-                  color={handleChangeColorModeValue(
-                    colorMode,
-                    'blackAlpha.800',
-                    'whiteAlpha.800'
+                <Box className="icon">
+                  {typeof logo === 'string' ? (
+                    <Image src={logo} alt={prettyName} />
+                  ) : (
+                    <Icon as={logo} />
                   )}
-                  transition="all .1s ease-in-out"
-                  bg={handleChangeColorModeValue(
-                    colorMode,
-                    'gray.100',
-                    'blackAlpha.500'
-                  )}
-                  _hover={{
-                    boxShadow: '0 0 0 1px #6A66FF',
-                    bg: handleChangeColorModeValue(
-                      colorMode,
-                      'gray.50',
-                      'blackAlpha.600'
-                    )
-                  }}
-                  _focus={{
-                    borderRadius: 'md',
-                    boxShadow: '0 0 0 1px #6A66FF'
-                  }}
-                  onClick={onClick}
-                  onMouseEnter={setHover.on}
-                  onMouseLeave={setHover.off}
-                  onTouchStart={setHover.on}
-                  onTouchEnd={setHover.off}
-                >
-                  <Flex
-                    w="full"
-                    flexDirection={{
-                      base: 'row',
-                      md: i > 1 ? 'row' : 'column'
-                    }}
-                    justifyContent="start"
-                    alignItems="center"
-                  >
-                    <Box
-                      position="relative"
-                      mr={{ base: 4, md: i > 1 ? 4 : 0 }}
-                      mb={{ base: 0, md: i > 1 ? 0 : 3.5 }}
-                    >
-                      <Box
-                        borderRadius="lg"
-                        overflow="hidden"
-                        w={{ base: 8, md: i > 1 ? 8 : 14 }}
-                        h={{ base: 8, md: i > 1 ? 8 : 14 }}
-                        minW={{ base: 8, md: i > 1 ? 8 : 14 }}
-                        minH={{ base: 8, md: i > 1 ? 8 : 14 }}
-                        maxW={{ base: 8, md: i > 1 ? 8 : 14 }}
-                        maxH={{ base: 8, md: i > 1 ? 8 : 14 }}
-                      >
-                        {typeof logo === 'string' ? (
-                          <Image src={logo} alt={prettyName} />
-                        ) : (
-                          <Icon as={logo} />
-                        )}
-                      </Box>
-                      <Flex
-                        display={
-                          buttonShape === ButtonShape.Square && subLogo
-                            ? 'flex'
-                            : 'none'
-                        }
-                        justifyContent="center"
-                        alignItems="center"
-                        overflow="hidden"
-                        border="2px solid"
-                        borderColor={iconBorder}
-                        bg={iconBorder}
-                        borderRadius="full"
-                        position="absolute"
-                        bottom={-1.5}
-                        right={-2}
-                        w={6}
-                        h={6}
-                        minW={6}
-                        minH={6}
-                        maxW={6}
-                        maxH={6}
-                      >
-                        {typeof subLogo === 'string' ? (
-                          <Image
-                            src={subLogo}
-                            alt="wallet-icon"
-                            w="full"
-                            h="full"
-                          />
-                        ) : (
-                          <Icon as={subLogo} w="full" h="full" />
-                        )}
-                      </Flex>
-                    </Box>
-                    <Box
-                      textAlign={{
-                        base: 'start',
-                        md: i > 1 ? 'start' : 'center'
-                      }}
-                      flex={1}
-                    >
-                      <Text fontSize="sm" fontWeight="normal" lineHeight={1.1}>
-                        {prettyName}
-                      </Text>
-                    </Box>
-                    <Center
-                      display={
-                        buttonShape === ButtonShape.Rectangle && subLogo
-                          ? 'flex'
-                          : 'none'
-                      }
-                      w={5}
-                      h={5}
-                      minW={5}
-                      minH={5}
-                      maxW={5}
-                      maxH={5}
-                      mr={2}
-                    >
+                  {subLogo && buttonShape === ButtonShape.Square ? (
+                    <Flex className="sub-icon">
                       {typeof subLogo === 'string' ? (
-                        <Image src={subLogo} alt="wallet-connect" />
+                        <Image src={subLogo} alt="wallet-icon" />
                       ) : (
-                        <Icon as={subLogo} />
+                        <Icon as={subLogo} w="full" h="full" />
                       )}
-                    </Center>
-                  </Flex>
-                </Button>
+                    </Flex>
+                  ) : undefined}
+                </Box>
+                <Text flex={1}>{prettyName}</Text>
+                {subLogo && buttonShape !== ButtonShape.Square ? (
+                  <Box className="sub-icon">
+                    {typeof subLogo === 'string' ? (
+                      <Image src={subLogo} alt="wallet-connect" />
+                    ) : (
+                      <Icon as={subLogo} />
+                    )}
+                  </Box>
+                ) : undefined}
               </GridItem>
             );
           }
@@ -251,36 +264,9 @@ export const SimpleDisplayWalletList = ({
       </Grid>
       <AnimateGridItem
         initial={false}
-        animate={
-          displayBlur
-            ? {
-                opacity: 1,
-                height: 24,
-                transition: {
-                  type: 'spring',
-                  duration: 0.1
-                }
-              }
-            : {
-                height: 0,
-                opacity: 0,
-                transition: {
-                  type: 'spring',
-                  duration: 0.2
-                }
-              }
-        }
-        position="absolute"
-        bottom={4}
-        bg={handleChangeColorModeValue(colorMode, '#fff', 'gray.700')}
+        animate={animateShadow}
         style={{ marginTop: 0 }}
-        colSpan={2}
-        w="full"
-        background={handleChangeColorModeValue(
-          colorMode,
-          'linear-gradient(0deg, rgba(255,255,255,1) 6%, rgba(255,255,255,0.95) 16%, rgba(255,255,255,0.85) 24%, rgba(255,255,255,0.75) 32%, rgba(255,255,255,0.65) 48%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0.1) 95%)',
-          'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
-        )}
+        sx={shadowAnimateStyleProps}
       ></AnimateGridItem>
     </Box>
   );

@@ -465,6 +465,98 @@ export const styleData: StyleDataType[] = [
         themeValue: '0 0 0 2px var(--chakra-colors-primary-200)'
       }
     ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'button-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'blackAlpha.800'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.800'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'button-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'blackAlpha.500'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'button-hover-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.50'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'blackAlpha.600'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'icon-border-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.800'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'hover-icon-border-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.50'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-display-wallet-list',
+    category: 'colors',
+    style: 'shadow-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue:
+          'linear-gradient(0deg, rgba(255,255,255,1) 6%, rgba(255,255,255,0.95) 16%, rgba(255,255,255,0.85) 24%, rgba(255,255,255,0.75) 32%, rgba(255,255,255,0.65) 48%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0.1) 95%)'
+      },
+      {
+        themeName: 'dark',
+        themeValue:
+          'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
+      }
+    ]
   }
 ];
 

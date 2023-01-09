@@ -24,24 +24,25 @@ interface TypeWithStatus extends Wallet {
 }
 
 const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
-  const divRef = useRef<HTMLDivElement>(null);
   const { colorMode } = useColorMode();
   const initialFocus = useRef<HTMLButtonElement>(null);
+  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [data, setData] = useState<Wallet[]>(WalletData);
   const display = useBreakpointValue({ base: 'mobile', md: 'desktop' });
 
   useEffect(() => {
+    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
     switch (wallet) {
       case 'Keplr': {
-        const format = keplrData.filter(({ modalListType, mobileDisabled }) => {
+        const format = keplrData.filter(({ buttonShape, mobileDisabled }) => {
           if (display === 'desktop') {
-            if (modalListType === ButtonShape.Square) return true;
-            if (modalListType === ButtonShape.Rectangle) return false;
+            if (buttonShape === ButtonShape.Square) return true;
+            if (buttonShape === ButtonShape.Rectangle) return false;
             if (mobileDisabled) return false;
           }
           if (display !== 'desktop') {
-            if (modalListType === ButtonShape.Square) return false;
-            if (modalListType === ButtonShape.Rectangle) return true;
+            if (buttonShape === ButtonShape.Square) return false;
+            if (buttonShape === ButtonShape.Rectangle) return true;
             if (mobileDisabled) return true;
           }
         });
@@ -51,15 +52,15 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
       }
       case 'Cosmostation': {
         const format = cosmostationData.filter(
-          ({ modalListType, mobileDisabled }) => {
+          ({ buttonShape, mobileDisabled }) => {
             if (display === 'desktop') {
-              if (modalListType === ButtonShape.Square) return true;
-              if (modalListType === ButtonShape.Rectangle) return false;
+              if (buttonShape === ButtonShape.Square) return true;
+              if (buttonShape === ButtonShape.Rectangle) return false;
               if (mobileDisabled) return false;
             }
             if (display !== 'desktop') {
-              if (modalListType === ButtonShape.Square) return false;
-              if (modalListType === ButtonShape.Rectangle) return true;
+              if (buttonShape === ButtonShape.Square) return false;
+              if (buttonShape === ButtonShape.Rectangle) return true;
               if (mobileDisabled) return true;
             }
           }
@@ -72,10 +73,13 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
         setData(WalletData);
         break;
     }
+    window.addEventListener('storage', () => {
+      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
+    });
   }, [wallet, display, signal]);
 
   return (
-    <Center ref={divRef} py={16}>
+    <Center py={16}>
       <Box
         w="full"
         maxW={80}
@@ -94,6 +98,7 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
         <SimpleDisplayWalletListKit
+          theme={currentTheme}
           walletsData={data}
           initialFocus={initialFocus}
         />
@@ -107,7 +112,7 @@ export const SimpleDisplayWalletList = Template.bind({});
 // to hide controls
 SimpleDisplayWalletList.parameters = {
   controls: {
-    exclude: ['initialFocus', 'walletsData']
+    include: ['signal', 'wallet']
   }
 };
 
@@ -126,7 +131,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletListKit\n  initialFocus={ref}\n  walletData={[walletList]}\n/>`,
+        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletList\n  initialFocus={buttonRef}\n  walletsData={[wallets]}\n  className="the class name of wallet list"\n  theme={currentTheme}\n  listStyleProps={objectOfCustomListStyle}\n  shadowAnimateProps={objectOfCustomShadowAnimate}\n  shadowAnimateStyleProps={objectOfCustomShadowAnimateStyle}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

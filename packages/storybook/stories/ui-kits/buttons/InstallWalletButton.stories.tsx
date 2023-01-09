@@ -75,7 +75,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { InstallWalletButton } from '@cosmology-ui/utils';\n\n<InstallWalletButton\n  buttonText="Install Wallet"\n  disabled={false}\n  icon={<Icon />}\n  onClick={linkFunction}\n/>`,
+        code: `import { InstallWalletButton } from '@cosmology-ui/utils';\n\n<InstallWalletButton\n  buttonText="Install Wallet"\n  disabled={false}\n  icon={<Icon />}\n  className="the class name of install wallet button"\n  theme={currentTheme}\n  styleProps={objectOfCustomInstallWalletButtonStyle}\n  onClick={linkFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
