@@ -16,11 +16,17 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       handleTheme('light');
     }
     if (viewMode === 'story') {
-      const current = themeList.filter(
-        ({ name }) => sessionStorage.getItem('current-theme') === name
-      )[0];
-      setColorMode(current.colorMode);
-      handleTheme(current.name);
+      if (!sessionStorage.getItem('current-theme')) {
+        setColorMode('light');
+        handleTheme('light');
+      }
+      if (sessionStorage.getItem('current-theme')) {
+        const current = themeList.filter(
+          ({ name }) => sessionStorage.getItem('current-theme') === name
+        )[0];
+        setColorMode(current.colorMode);
+        handleTheme(current.name);
+      }
     }
 
     // update when selected a theme

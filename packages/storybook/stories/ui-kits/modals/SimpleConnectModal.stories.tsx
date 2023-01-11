@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Text,
@@ -122,7 +121,8 @@ function handleContentStatus(
         logo: selectedItem.logo,
         logoStatus: LogoStatus.Error,
         contentHeader: 'Oops! Something wrong...',
-        contentDesc: 'Seems something went wrong :(',
+        contentDesc:
+          'Seems something went wrong :(\n\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque repellat exercitationem, obcaecati, ipsa deleniti iure consequuntur excepturi optio quas nihil perferendis suscipit pariatur nulla amet beatae itaque unde fuga! Laboriosam, veniam? Beatae, rem rerum perspiciatis placeat obcaecati earum itaque laboriosam fugiat et ipsa praesentium non repellendus officia dolore quos ullam sint voluptates eligendi debitis magnam? Voluptas quis error, facere aspernatur velit suscipit cumque voluptate excepturi accusantium cum architecto rem, totam harum minus odio voluptatum illo veritatis voluptates nulla repellat culpa! At repellendus nemo harum, vitae enim autem natus quaerat possimus, eum, mollitia neque dolore accusantium! Officiis repellat itaque quae qui.',
         buttonText: 'Change Wallet'
       };
 
@@ -142,7 +142,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialFocus = useRef<HTMLButtonElement>(null);
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [selectedItem, setSelectedItem] = useState<Wallet>();
   const [walletList, setWalletList] = useState<Wallet[]>([]);
   const [modalContent, setModalContent] = useState<ReactNode>();
@@ -162,7 +161,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
 
   useEffect(() => {
     const browser = Bowser.getParser(window.navigator.userAgent);
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
     setBrowserInfo({
       browser: browser.getBrowserName(true),
       device: browser.getPlatformType(true),
@@ -180,9 +178,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         }
       }))
     );
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
   }, []);
 
   useEffect(() => {
@@ -195,7 +190,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
               : selectedItem.name
           }
           backButton={true}
-          theme={currentTheme}
           onBack={handleClear}
           onClose={handleClose}
         />
@@ -231,20 +225,16 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
               walletStatus ===
               WalletStatus.Connecting ? undefined : walletStatus ===
                 WalletStatus.NotExist ? (
-                <Box w="full" px={6}>
-                  <InstallWalletButton
-                    disabled={false}
-                    icon={statusContent.installIcon}
-                    buttonText={statusContent.buttonText}
-                    onClick={() => {
-                      window.open(statusContent.installLink);
-                    }}
-                  />
-                </Box>
+                <InstallWalletButton
+                  disabled={false}
+                  icon={statusContent.installIcon}
+                  buttonText={statusContent.buttonText}
+                  onClick={() => {
+                    window.open(statusContent.installLink);
+                  }}
+                />
               ) : (
-                <Box px={6}>
-                  <ConnectWalletButton buttonText={statusContent.buttonText} />
-                </Box>
+                <ConnectWalletButton buttonText={statusContent.buttonText} />
               )
             }
             bottomLink={
@@ -280,7 +270,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
       if (selectedItem.mode === WalletMode.WalletConnect) {
         setModalContent(
           <QRCode
-            theme={currentTheme}
             link={selectedItem.downloads ? selectedItem.downloads.default : ''}
             description={`Use ${selectedItem.prettyName} App to scan`}
           />
@@ -292,7 +281,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleModalHead
           title="Select a wallet"
           backButton={false}
-          theme={currentTheme}
           onClose={handleClose}
         />
       );
@@ -300,7 +288,6 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         <SimpleDisplayWalletList
           initialFocus={initialFocus}
           walletsData={walletList}
-          theme={currentTheme}
         />
       );
     }

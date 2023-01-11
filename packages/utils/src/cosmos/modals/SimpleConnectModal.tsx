@@ -9,11 +9,23 @@ import {
   SimpleConnectModalType
 } from '../../index';
 
+export const SimpleConnectModalBaseStyle = () => ({
+  position: 'relative',
+  alignSelf: 'center',
+  borderRadius: 'xl',
+  w: 'fit-content',
+  mx: 4,
+  _focus: { outline: 'none' },
+  overflow: 'hidden'
+});
+
 export const SimpleConnectModal = ({
   initialRef,
   modalHead,
   modalContent,
-  modalOpen: modalIsOpen,
+  className,
+  styleProps,
+  modalOpen,
   modalOnClose
 }: SimpleConnectModalType) => {
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -48,32 +60,27 @@ export const SimpleConnectModal = ({
   }, [resizeObserver, nodeRef]);
 
   useEffect(() => {
-    if (modalIsOpen) {
+    if (modalOpen) {
       controls.set('initial');
       contentControls.set('initial');
       controls.start('animate');
       contentControls.start('animate');
     }
-  }, [modalHead, modalContent, modalIsOpen, controls, contentControls]);
+  }, [modalHead, modalContent, modalOpen, controls, contentControls]);
 
   return (
     <Modal
       initialFocusRef={initialRef}
       blockScrollOnMount={false}
-      isOpen={modalIsOpen}
+      isOpen={modalOpen}
       isCentered={true}
       onClose={modalOnClose}
     >
       <ModalOverlay />
       <ModalContent
         ref={nodeRef}
-        position="relative"
-        alignSelf="center"
-        borderRadius="xl"
-        w="fit-content"
-        mx={4}
-        _focus={{ outline: 'none' }}
-        overflow="hidden"
+        className={className}
+        sx={styleProps ? styleProps : SimpleConnectModalBaseStyle()}
         motionProps={{
           custom: { width: width, height: height },
           animate: controls,

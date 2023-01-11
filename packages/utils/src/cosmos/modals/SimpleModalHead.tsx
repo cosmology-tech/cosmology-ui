@@ -1,8 +1,8 @@
 import { IconButton, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiChevronLeft, FiX } from 'react-icons/fi';
 
-import { SimpleModalHeadType } from '../../index';
+import { SimpleModalHeadType, ThemeContext } from '../../index';
 
 export const SimpleModalHeadBaseStyle = (
   theme: string,
@@ -46,13 +46,21 @@ export const SimpleModalHead = ({
   title,
   backButton,
   className,
-  theme = 'light',
-  styleProps = SimpleModalHeadBaseStyle(theme, backButton ? true : false),
+  styleProps,
   onBack,
   onClose
 }: SimpleModalHeadType) => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Stack isInline={true} className={className} sx={styleProps}>
+    <Stack
+      isInline={true}
+      className={className}
+      sx={
+        styleProps
+          ? styleProps
+          : SimpleModalHeadBaseStyle(theme, backButton ? true : false)
+      }
+    >
       {backButton ? (
         <IconButton
           aria-label="back"

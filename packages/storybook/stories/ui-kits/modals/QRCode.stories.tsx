@@ -1,21 +1,15 @@
-import { Box, Center, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Center, Text } from '@chakra-ui/react';
 import { QRCode as QRCodeKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const Template: ComponentStory<typeof QRCodeKit> = ({ ...args }) => {
-  const { colorMode } = useColorMode();
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
-
-  useEffect(() => {
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
-  }, []);
-
+const Template: ComponentStory<typeof QRCodeKit> = ({
+  // eslint-disable-next-line react/prop-types
+  description,
+  loading,
+  ...args
+}) => {
   return (
     <Center py={16}>
       <Box
@@ -25,11 +19,16 @@ const Template: ComponentStory<typeof QRCodeKit> = ({ ...args }) => {
         border="1px solid"
         borderColor="gray.300"
         borderRadius="lg"
+        opacity={0.85}
       >
         <Box w="full" p={6}>
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
-        <QRCodeKit theme={currentTheme} {...args} />
+        <QRCodeKit
+          description={loading ? 'Initializing QRCode...' : description}
+          loading={loading}
+          {...args}
+        />
       </Box>
     </Center>
   );
@@ -40,7 +39,7 @@ export const QRCode = Template.bind({});
 // to hide controls
 QRCode.parameters = {
   controls: {
-    include: ['link', 'description']
+    include: ['link', 'description', 'loading']
   }
 };
 
@@ -68,6 +67,7 @@ export default {
   },
   args: {
     link: 'https://cosmoskit.com/',
-    description: 'Use wallet app to scan this QRCode'
+    description: 'Use wallet app to scan this QRCode',
+    loading: false
   }
 };

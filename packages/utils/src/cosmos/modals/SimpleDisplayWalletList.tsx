@@ -1,13 +1,23 @@
 import { Box, Flex, Grid, GridItem, Icon, Image, Text } from '@chakra-ui/react';
-import React, { RefObject, useEffect, useRef, useState } from 'react';
+import React, {
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 
 import {
   AnimateGridItem,
   ButtonShape,
-  DisplayWalletListType
+  DisplayWalletListType,
+  ThemeContext
 } from '../../index';
 
-export const SimpleDisplayWalletListBaseStyle = (dataLength: number) => ({
+export const SimpleDisplayWalletListBaseStyle = (
+  theme: string,
+  dataLength: number
+) => ({
   position: 'relative',
   justifyContent: dataLength > 1 ? 'start' : 'center',
   gridTemplateColumns: {
@@ -27,6 +37,12 @@ export const SimpleDisplayWalletListBaseStyle = (dataLength: number) => ({
   scrollbarWidth: 'none', // for firefox
   '::-webkit-scrollbar': {
     display: 'none' // for chrome
+  },
+  '~.simple-display-wallet-list-animate-shadow': {
+    position: 'absolute',
+    bottom: 4,
+    w: 'full',
+    background: `simple-display-wallet-list-shadow-background-color-${theme}`
   }
 });
 
@@ -70,7 +86,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       borderRadius: 'md',
       boxShadow: '0 0 0 1px #6A66FF'
     },
-    '>.icon': {
+    '>.simple-display-wallet-list-icon': {
       position: 'relative',
       mr: { base: 4, md: buttonShape === ButtonShape.Square ? 0 : 4 },
       mb: { base: 0, md: buttonShape === ButtonShape.Square ? 3.5 : 0 },
@@ -80,7 +96,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       minH: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       maxW: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       maxH: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
-      '>.sub-icon': {
+      '>.simple-display-wallet-list-sub-icon': {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -101,7 +117,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
         maxH: 6
       }
     },
-    '>.sub-icon': {
+    '>.simple-display-wallet-list-sub-icon': {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -119,10 +135,11 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       maxW: 5,
       maxH: 5
     },
-    '+.wallet-button:hover>.icon>.sub-icon': {
-      bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
-      borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
-    }
+    '+.simple-display-wallet-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
+      {
+        bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
+        borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
+      }
   };
 };
 
@@ -158,11 +175,10 @@ export const SimpleDisplayWalletList = ({
   initialFocus,
   walletsData,
   className,
-  theme = 'light',
-  listStyleProps = SimpleDisplayWalletListBaseStyle(walletsData.length),
-  shadowAnimateProps = SimpleDisplayWalletListBaseShadowAnimate(false),
-  shadowAnimateStyleProps = SimpleDisplayWalletListAnimateBaseStyle(theme)
+  styleProps: listStyleProps,
+  shadowAnimateProps = SimpleDisplayWalletListBaseShadowAnimate(false)
 }: DisplayWalletListType) => {
+  const { theme } = useContext(ThemeContext);
   const listRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);
   const [animateShadow, setAnimateShadow] = useState(shadowAnimateProps);
@@ -193,7 +209,15 @@ export const SimpleDisplayWalletList = ({
 
   return (
     <Box className={className} position="relative" pb={4}>
-      <Grid ref={listRef} sx={listStyleProps} gap={0}>
+      <Grid
+        ref={listRef}
+        sx={
+          listStyleProps
+            ? listStyleProps
+            : SimpleDisplayWalletListBaseStyle(theme, walletsData.length)
+        }
+        gap={0}
+      >
         {walletsData.map(
           (
             {
@@ -212,7 +236,7 @@ export const SimpleDisplayWalletList = ({
                 id={name}
                 key={name}
                 as="button"
-                className="wallet-button"
+                className="simple-display-wallet-wallet-button"
                 ref={
                   i === 0
                     ? (initialFocus as unknown as RefObject<
@@ -231,14 +255,14 @@ export const SimpleDisplayWalletList = ({
                 }
                 onClick={onClick}
               >
-                <Box className="icon">
+                <Box className="simple-display-wallet-list-icon">
                   {typeof logo === 'string' ? (
                     <Image src={logo} alt={prettyName} />
                   ) : (
                     <Icon as={logo} />
                   )}
                   {subLogo && buttonShape === ButtonShape.Square ? (
-                    <Flex className="sub-icon">
+                    <Flex className="simple-display-wallet-list-sub-icon">
                       {typeof subLogo === 'string' ? (
                         <Image src={subLogo} alt="wallet-icon" />
                       ) : (
@@ -249,7 +273,7 @@ export const SimpleDisplayWalletList = ({
                 </Box>
                 <Text flex={1}>{prettyName}</Text>
                 {subLogo && buttonShape !== ButtonShape.Square ? (
-                  <Box className="sub-icon">
+                  <Box className="simple-display-wallet-list-sub-icon">
                     {typeof subLogo === 'string' ? (
                       <Image src={subLogo} alt="wallet-connect" />
                     ) : (
@@ -263,10 +287,10 @@ export const SimpleDisplayWalletList = ({
         )}
       </Grid>
       <AnimateGridItem
+        className="simple-display-wallet-list-animate-shadow"
         initial={false}
         animate={animateShadow}
         style={{ marginTop: 0 }}
-        sx={shadowAnimateStyleProps}
       ></AnimateGridItem>
     </Box>
   );

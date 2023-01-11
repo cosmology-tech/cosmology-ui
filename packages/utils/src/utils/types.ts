@@ -156,49 +156,11 @@ export type ChangeChainDropdownType = {
   /**
    * Data of options.
    *
-   * <code>
-   * DataType: {
-   *
-   *    chainName: string;
-   *
-   *    label: string;
-   *
-   *    value: string;
-   *
-   *    icon?: {
-   *      png?: string;
-   *      jpeg?: string;
-   *      svg?: string;
-   *    };
-   *
-   *    disabled?: boolean;
-   *
-   * }
-   * </code><br /><br />
+   * see `DataType` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L74-L99
    */
   data: DataType[];
   /**
    * Selected item.
-   *
-   * <code>
-   * DataType: {
-   *
-   *    chainName: string;
-   *
-   *    label: string;
-   *
-   *    value: string;
-   *
-   *    icon?: {
-   *      png?: string;
-   *      jpeg?: string;
-   *      svg?: string;
-   *    };
-   *
-   *    disabled?: boolean;
-   *
-   * }
-   * </code><br /><br />
    */
   selectedItem?: DataType;
   /**
@@ -260,6 +222,16 @@ export enum LogoStatus {
   Error = 'error'
 }
 
+export enum WalletMode {
+  Extension = 'extension',
+  WalletConnect = 'wallet-connect'
+}
+
+export enum ButtonShape {
+  Square = 'Square',
+  Rectangle = 'Rectangle'
+}
+
 export type SimpleModalHeadType = {
   /**
    * Text to display for modal head.
@@ -273,10 +245,6 @@ export type SimpleModalHeadType = {
    * Can add a stable class name to control CSS.
    */
   className?: string;
-  /**
-   * Current color theme.
-   */
-  theme?: string;
   /**
    * Can use Chakra Style Props custom modal head style, also can use css.
    *
@@ -321,6 +289,25 @@ export type SimpleConnectModalType = {
    * If true, the modal will be open.
    */
   modalOpen: boolean;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Can use Chakra Style Props custom modal head style, also can use css.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   */
+  styleProps?: object;
   /**
    * A function called to close modal.
    */
@@ -407,10 +394,6 @@ export type ConnectModalContentType = {
    */
   className?: string;
   /**
-   * Current color theme.
-   */
-  theme?: string;
-  /**
    * Can use Chakra Style Props custom modal content style, also can use css.
    *
    * Also can use css control, e.g,
@@ -445,9 +428,9 @@ export type QRCodeType = {
    */
   className?: string;
   /**
-   * Current color theme.
+   * Display the loading state.
    */
-  theme?: string;
+  loading?: boolean;
   /**
    * Can use Chakra Style Props custom QR Code style.
    *
@@ -465,11 +448,6 @@ export type QRCodeType = {
   styleProps?: object;
 };
 
-export enum WalletMode {
-  Extension = 'extension',
-  WalletConnect = 'wallet-connect'
-}
-
 export type DownloadInfo = {
   browser?: string;
   os?: string;
@@ -483,11 +461,6 @@ export type Downloads = {
   mobile: DownloadInfo[];
   default: string;
 };
-
-export enum ButtonShape {
-  Square = 'Square',
-  Rectangle = 'Rectangle'
-}
 
 export type Wallet = {
   /**
@@ -560,39 +533,13 @@ export type DisplayWalletListType = {
   /**
    * Array of wallet list.
    *
-   * <code>
-   *   name: string;
-   *
-   *   prettyName?: string;
-   *
-   *   logo?: string | IconType;
-   *
-   *   subLogo?: string | IconType;
-   *
-   *   mode: WalletMode;
-   *
-   *   mobileDisabled: boolean;
-   *
-   *   buttonShape?: ButtonShape;
-   *
-   *   rejectMessage?: string;
-   *
-   *   downloads?: Downloads;
-   *
-   *   styleProps?: object;
-   *
-   *   onClick?: MouseEventHandler<HTMLDivElement>;
-   * </code>
+   * see `Wallet` :
    */
   walletsData: Wallet[];
   /**
    * Can add a stable class name to control CSS.
    */
   className?: string;
-  /**
-   * Current color theme.
-   */
-  theme?: string;
   /**
    * Can use Chakra Style Props custom list style.
    *
@@ -607,25 +554,10 @@ export type DisplayWalletListType = {
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
-  listStyleProps?: object;
+  styleProps?: object;
   /**
    * Can use Framer Motion Props control animation.
    * see docs: https://www.framer.com/docs/
    */
   shadowAnimateProps?: object;
-  /**
-   * Can use Chakra Style Props custom overflow box shadow style.
-   *
-   * Also can use css control, e.g,
-   * <code>
-   *  {
-   *     '.my-button:hover &': {
-   *       color: 'green.500',
-   *     }
-   *  }
-   * </code>
-   *
-   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-   */
-  shadowAnimateStyleProps?: object;
 };

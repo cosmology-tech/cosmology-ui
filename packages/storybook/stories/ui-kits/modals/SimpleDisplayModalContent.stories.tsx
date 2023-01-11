@@ -71,7 +71,8 @@ function handleContentStatus(status: WalletStatus) {
         logo: WalletIcons.keplr,
         logoStatus: LogoStatus.Error,
         contentHeader: 'Oops! Something wrong...',
-        contentDesc: 'Seems something went wrong :(',
+        contentDesc:
+          'Seems something went wrong :(\n\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque repellat exercitationem, obcaecati, ipsa deleniti iure consequuntur excepturi optio quas nihil perferendis suscipit pariatur nulla amet beatae itaque unde fuga! Laboriosam, veniam? Beatae, rem rerum perspiciatis placeat obcaecati earum itaque laboriosam fugiat et ipsa praesentium non repellendus officia dolore quos ullam sint voluptates eligendi debitis magnam? Voluptas quis error, facere aspernatur velit suscipit cumque voluptate excepturi accusantium cum architecto rem, totam harum minus odio voluptatum illo veritatis voluptates nulla repellat culpa! At repellendus nemo harum, vitae enim autem natus quaerat possimus, eum, mollitia neque dolore accusantium! Officiis repellat itaque quae qui.',
         buttonText: 'Change Wallet'
       };
 
@@ -111,12 +112,12 @@ const Template: Story<TypeWithStatus> = ({ walletStatus }) => {
         w="full"
         maxW={80}
         minH={60}
-        pb={6}
         border="1px solid"
         borderColor="gray.300"
         borderRadius="lg"
+        bg={colorMode === 'light' ? 'white' : 'gray.700'}
       >
-        <Box w="full" p={6}>
+        <Box w="full" p={6} pb={3}>
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
         <SimpleDisplayModalContentKit
@@ -157,9 +158,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus }) => {
                 disabled={false}
               />
             ) : (
-              <Box px={4}>
-                <ConnectWalletButton buttonText={contentInfo.buttonText} />
-              </Box>
+              <ConnectWalletButton buttonText={contentInfo.buttonText} />
             )
           }
           bottomLink={
