@@ -1,4 +1,4 @@
-import { OptionBase } from 'chakra-react-select';
+import { ActionMeta, OnChangeValue, OptionBase } from 'chakra-react-select';
 import React, { MouseEventHandler, ReactNode, RefObject } from 'react';
 import { IconType } from 'react-icons';
 export declare enum WalletStatus {
@@ -9,7 +9,21 @@ export declare enum WalletStatus {
     Rejected = "Rejected",
     Error = "Error"
 }
-export declare type ConnectWalletType = {
+export declare type ThemeListType = {
+    name: string;
+    displayColor: string;
+    colorMode: string;
+};
+export declare type StyleDataType = {
+    componentName: string;
+    category: string;
+    style: string;
+    theme: {
+        themeName: string;
+        themeValue: string;
+    }[];
+};
+export declare type ConnectWalletButtonType = {
     /**
      * Text to display for button.
      *
@@ -33,6 +47,25 @@ export declare type ConnectWalletType = {
      */
     rightIcon?: React.ReactNode;
     /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom button style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
+    /**
      * A function called to handle connect.
      */
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -54,12 +87,31 @@ export declare type CopyAddressType = {
      * Set the max length of address.
      */
     maxDisplayLength?: number;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom button style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
 };
 export interface DataType extends OptionBase {
     /**
      * Unique identifier for option.
      */
-    chainName: string;
+    name: string;
     /**
      * Text to display for option.
      */
@@ -81,88 +133,18 @@ export interface DataType extends OptionBase {
      */
     disabled?: boolean;
 }
-export declare type handleSelectChainDropdown = (value: DataType | null) => void;
-export declare type ChangeChainMenuType = {
-    /**
-     * Data for options.
-     */
-    data: DataType[];
-    /**
-     * Selected value.
-     */
-    value?: DataType;
-    /**
-     * Dropdown display spinning indicator.
-     */
-    loading?: boolean;
-    /**
-     * Dropdown display disabled.
-     */
-    disabled?: boolean;
-    /**
-     * A function called to close modal.
-     */
-    onClose?: () => void;
-    /**
-     * A function called to handle select item.
-     */
-    onChange: handleSelectChainDropdown;
-};
+export declare type handleSelectChainDropdown = (newValue: OnChangeValue<DataType, false>, actionMeta: ActionMeta<DataType>) => void;
 export declare type ChangeChainDropdownType = {
     /**
      * Data of options.
      *
-     * <code>
-     * DataType: {
-     *
-     *    chainName: string;
-     *
-     *    label: string;
-     *
-     *    value: string;
-     *
-     *    icon?: {
-     *      png?: string;
-     *      jpeg?: string;
-     *      svg?: string;
-     *    };
-     *
-     *    disabled?: boolean;
-     *
-     * }
-     * </code><br /><br />
+     * see `DataType` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L74-L99
      */
     data: DataType[];
     /**
      * Selected item.
-     *
-     * <code>
-     * DataType: {
-     *
-     *    chainName: string;
-     *
-     *    label: string;
-     *
-     *    value: string;
-     *
-     *    icon?: {
-     *      png?: string;
-     *      jpeg?: string;
-     *      svg?: string;
-     *    };
-     *
-     *    disabled?: boolean;
-     *
-     * }
-     * </code><br /><br />
      */
     selectedItem?: DataType;
-    /**
-     * A function called to handle select item.
-     *
-     * <code>handleSelectChainDropdown: (value: DataType | null) => void</code><br /><br />
-     */
-    onChange: handleSelectChainDropdown;
     /**
      * Dropdown display loading.
      */
@@ -171,11 +153,59 @@ export declare type ChangeChainDropdownType = {
      * Dropdown display disabled.
      */
     disabled?: boolean;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom dropdown style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     *
+     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+     */
+    styleProps?: object;
+    /**
+     * Can custom dropdown, default:
+     * <code>
+     *  {
+     *    DropdownIndicator,
+     *    IndicatorSeparator,
+     *    LoadingIndicator,
+     *    Placeholder,
+     *    Option
+     *  }
+     * </code>
+     */
+    customComponents?: object;
+    /**
+     * A function called to handle select item.
+     *
+     * <code>handleSelectChainDropdown: (newValue: OnChangeValue<DataType, false>, actionMeta: ActionMeta<DataType>) => void</code><br /><br />
+     */
+    onChange: handleSelectChainDropdown;
 };
 export declare enum LogoStatus {
     Loading = "loading",
     Warning = "warning",
     Error = "error"
+}
+export declare enum WalletMode {
+    Extension = "extension",
+    WalletConnect = "wallet-connect"
+}
+export declare enum ButtonShape {
+    Square = "Square",
+    Rectangle = "Rectangle"
 }
 export declare type SimpleModalHeadType = {
     /**
@@ -186,6 +216,25 @@ export declare type SimpleModalHeadType = {
      * If is true, display the back button.
      */
     backButton: boolean;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom modal head style, also can use css.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
     /**
      * A function called to handle modal content display.
      */
@@ -215,11 +264,30 @@ export declare type SimpleConnectModalType = {
      */
     modalOpen: boolean;
     /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom modal head style, also can use css.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
+    /**
      * A function called to close modal.
      */
     modalOnClose: () => void;
 };
-export declare type DownloadWalletButtonType = {
+export declare type InstallWalletButtonType = {
     /**
      * Props react-icons item to a custom icon.
      */
@@ -229,13 +297,32 @@ export declare type DownloadWalletButtonType = {
      */
     buttonText?: string;
     /**
-     * A function called to handle link wallet.
-     */
-    onClick?: () => void;
-    /**
      * Button display disabled.
      */
     disabled: boolean;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom button style, also can use css.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
+    /**
+     * A function called to handle download wallet.
+     */
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 export declare type ConnectModalContentType = {
     /**
@@ -274,6 +361,25 @@ export declare type ConnectModalContentType = {
      * Props the link component.
      */
     bottomLink?: ReactNode;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom modal content style, also can use css.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
 };
 export declare type QRCodeType = {
     /**
@@ -281,18 +387,37 @@ export declare type QRCodeType = {
      */
     link: string;
     /**
-     * Descript how to connect wallet.
+     * Describe how to connect wallet.
      */
     description?: string;
     /**
-     * QRCode size. Default is 200px.
+     * QRCode size. Default is 230px.
      */
     qrCodeSize?: number;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Display the loading state.
+     */
+    loading?: boolean;
+    /**
+     * Can use Chakra Style Props custom QR Code style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
 };
-export declare enum WalletMode {
-    Extension = "extension",
-    WalletConnect = "wallet-connect"
-}
 export declare type DownloadInfo = {
     browser?: string;
     os?: string;
@@ -305,10 +430,6 @@ export declare type Downloads = {
     mobile: DownloadInfo[];
     default: string;
 };
-export declare enum ButtonShape {
-    Square = "Square",
-    Rectangle = "Rectangle"
-}
 export declare type Wallet = {
     /**
      * Wallet name.
@@ -348,9 +469,26 @@ export declare type Wallet = {
      */
     downloads?: Downloads;
     /**
+     * Can use Chakra Style Props custom list items(buttons) style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     *
+     * default: <code>SimpleDisplayWalletListItemBaseStyle(index)</code>
+     */
+    styleProps?: object;
+    /**
      * A function called to handle clicked button.
      */
-    onClick?: MouseEventHandler<HTMLButtonElement>;
+    onClick?: MouseEventHandler<HTMLDivElement>;
 };
 export declare type DisplayWalletListType = {
     /**
@@ -362,31 +500,31 @@ export declare type DisplayWalletListType = {
     /**
      * Array of wallet list.
      *
-     * <code>
-     * Wallet: {
-     *
-     *    name: string;
-     *
-     *    prettyName?: string;
-     *
-     *    logo?: string | IconType;
-     *
-     *    subLogo?: string | IconType;
-     *
-     *    mode: WalletMode;
-     *
-     *    mobileDisabled: boolean;
-     *
-     *    buttonShape?: ButtonShape;
-     *
-     *    rejectMessage?: string;
-     *
-     *    downloads?: Downloads;
-     *
-     *    onClick?: () => void;
-     *
-     * }
-     * </code>
+     * see `Wallet` :
      */
     walletsData: Wallet[];
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom list style.
+     *
+     * Also can use css control, e.g,
+     * <code>
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * </code>
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     */
+    styleProps?: object;
+    /**
+     * Can use Framer Motion Props control animation.
+     * see docs: https://www.framer.com/docs/
+     */
+    shadowAnimateProps?: object;
 };
