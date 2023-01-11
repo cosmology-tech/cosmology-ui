@@ -59,13 +59,13 @@ export type ConnectWalletButtonType = {
    * Can use Chakra Style Props custom button style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -104,13 +104,13 @@ export type CopyAddressType = {
    * Can use Chakra Style Props custom button style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -156,11 +156,13 @@ export type ChangeChainDropdownType = {
   /**
    * Data of options.
    *
-   * see `DataType` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L74-L99
+   * see `DataType` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L123-L148
    */
   data: DataType[];
   /**
    * Selected item.
+   *
+   * see `DataType` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L123-L148
    */
   selectedItem?: DataType;
   /**
@@ -179,13 +181,13 @@ export type ChangeChainDropdownType = {
    * Can use Chakra Style Props custom dropdown style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    *
@@ -194,7 +196,7 @@ export type ChangeChainDropdownType = {
   styleProps?: object;
   /**
    * Can custom dropdown, default:
-   * <code>
+   * ```
    *  {
    *    DropdownIndicator,
    *    IndicatorSeparator,
@@ -202,13 +204,13 @@ export type ChangeChainDropdownType = {
    *    Placeholder,
    *    Option
    *  }
-   * </code>
+   * ```
    */
   customComponents?: object;
   /**
    * A function called to handle select item.
    *
-   * <code>handleSelectChainDropdown: (newValue: OnChangeValue<DataType, false>, actionMeta: ActionMeta<DataType>) => void</code><br /><br />
+   * see `handleSelectChainDropdown` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L150-L153
    */
   onChange: handleSelectChainDropdown;
 };
@@ -232,6 +234,20 @@ export enum ButtonShape {
   Rectangle = 'Rectangle'
 }
 
+export type DownloadInfo = {
+  browser?: string;
+  os?: string;
+  icon?: IconType;
+  link: string;
+};
+
+export type Downloads = {
+  desktop: DownloadInfo[];
+  tablet: DownloadInfo[];
+  mobile: DownloadInfo[];
+  default: string;
+};
+
 export type SimpleModalHeadType = {
   /**
    * Text to display for modal head.
@@ -249,13 +265,13 @@ export type SimpleModalHeadType = {
    * Can use Chakra Style Props custom modal head style, also can use css.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -273,7 +289,9 @@ export type SimpleModalHeadType = {
 export type SimpleConnectModalType = {
   /**
    * The ref of element to receive focus when the modal opens.
+   *
    * Props ref will set default focus on the list first button.
+   *
    * If is undefined will set focus on close button.
    */
   initialRef: RefObject<HTMLButtonElement>;
@@ -294,16 +312,16 @@ export type SimpleConnectModalType = {
    */
   className?: string;
   /**
-   * Can use Chakra Style Props custom modal head style, also can use css.
+   * Can use Chakra Style Props custom modal style, also can use css.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -317,6 +335,8 @@ export type SimpleConnectModalType = {
 export type InstallWalletButtonType = {
   /**
    * Props react-icons item to a custom icon.
+   *
+   * see `IconType` : https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
    */
   icon?: IconType;
   /**
@@ -335,13 +355,13 @@ export type InstallWalletButtonType = {
    * Can use Chakra Style Props custom button style, also can use css.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -355,10 +375,14 @@ export type InstallWalletButtonType = {
 export type ConnectModalContentType = {
   /**
    * Main logo on content.
+   *
+   * see `IconType` : https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
    */
   logo?: string | IconType;
   /**
    * The border around logo.
+   *
+   * see `LogoStatus` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L221-L225
    */
   status?: LogoStatus;
   /**
@@ -378,11 +402,11 @@ export type ConnectModalContentType = {
    */
   contentDesc?: string;
   /**
-   * Props the <code>CopyAddressButton</code> component.
+   * Props the `CopyAddressButton` component.
    */
   addressButton?: ReactNode;
   /**
-   * Props the <code>ConnectWalletButton</code> component.
+   * Props the `ConnectWalletButton` component.
    */
   bottomButton?: ReactNode;
   /**
@@ -397,13 +421,13 @@ export type ConnectModalContentType = {
    * Can use Chakra Style Props custom modal content style, also can use css.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
@@ -420,46 +444,32 @@ export type QRCodeType = {
    */
   description?: string;
   /**
-   * QRCode size. Default is 230px.
+   * QRCode size. Default is `230px`.
    */
   qrCodeSize?: number;
-  /**
-   * Can add a stable class name to control CSS.
-   */
-  className?: string;
   /**
    * Display the loading state.
    */
   loading?: boolean;
   /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
    * Can use Chakra Style Props custom QR Code style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   styleProps?: object;
-};
-
-export type DownloadInfo = {
-  browser?: string;
-  os?: string;
-  icon?: IconType;
-  link: string;
-};
-
-export type Downloads = {
-  desktop: DownloadInfo[];
-  tablet: DownloadInfo[];
-  mobile: DownloadInfo[];
-  default: string;
 };
 
 export type Wallet = {
@@ -473,14 +483,20 @@ export type Wallet = {
   prettyName?: string;
   /**
    * Wallet icon.
+   *
+   * see `IconType` : https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
    */
   logo?: string | IconType;
   /**
    * Display sub icon.
+   *
+   * see `IconType` : https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
    */
   subLogo?: string | IconType;
   /**
    * Connect wallet by extension or wallet-connect.
+   *
+   * see `WalletMode` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L227-L230
    */
   mode: WalletMode;
   /**
@@ -489,7 +505,8 @@ export type Wallet = {
   mobileDisabled: boolean;
   /**
    * List button is displaying Square or Rectangle.
-   * type: "Square" | "Rectangle"
+   *
+   * see `ButtonShape` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L232-L235
    */
   buttonShape?: ButtonShape;
   /**
@@ -498,23 +515,25 @@ export type Wallet = {
   rejectMessage?: string;
   /**
    * Description when rejected.
+   *
+   * see `Downloads` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L224-L249
    */
   downloads?: Downloads;
   /**
    * Can use Chakra Style Props custom list items(buttons) style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    *
-   * default: <code>SimpleDisplayWalletListItemBaseStyle(index)</code>
+   * default: `SimpleDisplayWalletListItemBaseStyle(index)`
    */
   styleProps?: object;
   /**
@@ -526,14 +545,16 @@ export type Wallet = {
 export type DisplayWalletListType = {
   /**
    * The ref of element to receive focus when the modal opens.
+   *
    * Props ref will set default focus on the list first button.
+   *
    * If is undefined will set focus on close button.
    */
   initialFocus: RefObject<HTMLButtonElement>;
   /**
    * Array of wallet list.
    *
-   * see `Wallet` :
+   * see `Wallet` : https://github.com/cosmology-tech/cosmology-ui/blob/main/packages/utils/src/utils/types.ts#L475-L543
    */
   walletsData: Wallet[];
   /**
@@ -544,20 +565,21 @@ export type DisplayWalletListType = {
    * Can use Chakra Style Props custom list style.
    *
    * Also can use css control, e.g,
-   * <code>
+   * ```
    *  {
    *     '.my-button:hover &': {
    *       color: 'green.500',
    *     }
    *  }
-   * </code>
+   * ```
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
   styleProps?: object;
   /**
    * Can use Framer Motion Props control animation.
-   * see docs: https://www.framer.com/docs/
+   *
+   * see framer-motion docs: https://www.framer.com/docs/
    */
   shadowAnimateProps?: object;
 };
