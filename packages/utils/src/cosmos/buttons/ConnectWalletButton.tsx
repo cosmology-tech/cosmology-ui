@@ -1,8 +1,8 @@
 import { Button, Center, Icon } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { RiWallet3Fill } from 'react-icons/ri';
 
-import { ConnectWalletButtonType } from '../../index';
+import { ConnectWalletButtonType, ThemeContext } from '../../index';
 
 export const ConnectWalletButtonBaseStyle = (theme: string) => ({
   display: 'flex',
@@ -73,10 +73,11 @@ export const ConnectWalletButton = ({
   leftIcon = <Icon as={RiWallet3Fill} />,
   rightIcon,
   className,
-  theme = 'light',
-  styleProps = ConnectWalletButtonBaseStyle(theme),
+  styleProps,
   onClick
 }: ConnectWalletButtonType) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Button
       className={className}
@@ -86,7 +87,7 @@ export const ConnectWalletButton = ({
       leftIcon={leftIcon ? <Center>{leftIcon}</Center> : undefined}
       rightIcon={rightIcon ? <Center>{rightIcon}</Center> : undefined}
       onClick={onClick}
-      sx={styleProps}
+      sx={styleProps ? styleProps : ConnectWalletButtonBaseStyle(theme)}
     >
       {buttonText}
     </Button>

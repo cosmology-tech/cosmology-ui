@@ -1,26 +1,34 @@
 import { useColorMode } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import addons from '@storybook/addons';
 import { EVENTS } from './constants';
-import { themeList } from '@cosmology-ui/utils';
+import { ThemeContext, themeList } from '@cosmology-ui/utils';
 
 export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const { setColorMode } = useColorMode();
+  const { handleTheme } = useContext(ThemeContext);
   const channel = addons.getChannel();
 
   useEffect(() => {
-    // update color mode when view mode changed
+    // update theme provider and color mode when view mode changed
     if (viewMode === 'docs') {
       setColorMode('light');
-      sessionStorage.setItem('current-theme', 'light');
+      handleTheme('light');
     }
-    if (viewMode === 'story')
-      setColorMode(sessionStorage.getItem('current-theme'));
+    if (viewMode === 'story') {
+      const current = themeList.filter(
+        ({ name }) => sessionStorage.getItem('current-theme') === name
+      )[0];
+      setColorMode(current.colorMode);
+      handleTheme(current.name);
+    }
 
     // update when selected a theme
     const themeToolCallback = (value: string) => {
       themeList.map(({ name, colorMode }) => {
-        if (value === name) setColorMode(colorMode);
+        if (value === name) {
+          setColorMode(colorMode);
+        }
       });
     };
 

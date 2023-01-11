@@ -20,10 +20,10 @@ import {
   PlaceholderProps
 } from 'chakra-react-select';
 import { Searcher } from 'fast-fuzzy';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
-import { ChangeChainDropdownType, DataType } from '../../index';
+import { ChangeChainDropdownType, DataType, ThemeContext } from '../../index';
 
 export const SkeletonOptions = () => {
   return (
@@ -67,95 +67,54 @@ export const Placeholder = (
   if (props.hasValue) {
     return (
       <chakraComponents.Placeholder {...props}>
-        <Stack
-          id={props.getValue()[0].name}
-          isInline={true}
-          alignItems="center"
-          spacing={2}
-          overflow="hidden"
-          wordBreak="break-word"
-          w="full"
-        >
-          <Center
-            minW={8}
-            minH={8}
-            maxW={8}
-            maxH={8}
-            w={8}
-            h={8}
-            border="1px solid"
-            borderColor="inherit"
-            borderRadius="full"
-            overflow="hidden"
-          >
-            <Center m="1px" overflow="hidden" borderRadius="full">
-              <Image
-                src={
-                  props.getValue()[0].icon?.png ||
-                  props.getValue()[0].icon?.jpeg ||
-                  props.getValue()[0].icon?.svg
-                }
-                fallbackSrc={`https://dummyimage.com/150/9e9e9e/ffffff&text=${props
-                  .getValue()[0]
-                  .label.slice(0, 1)}`}
-                alt={props.getValue()[0].name}
-              />
-            </Center>
+        <Center className="change-chain-dropdown-value-image-box">
+          <Center className="change-chain-dropdown-value-image-padding">
+            <Image
+              src={
+                props.getValue()[0].icon?.png ||
+                props.getValue()[0].icon?.jpeg ||
+                props.getValue()[0].icon?.svg
+              }
+              fallbackSrc={`https://dummyimage.com/150/9e9e9e/ffffff&text=${props
+                .getValue()[0]
+                .label.slice(0, 1)}`}
+              alt={props.getValue()[0].name}
+            />
           </Center>
-          <Text opacity={0.85}>{props.getValue()[0].label}</Text>
-        </Stack>
+        </Center>
+        <Text className="change-chain-dropdown-value-name">
+          {props.getValue()[0].label}
+        </Text>
       </chakraComponents.Placeholder>
     );
   }
   return <chakraComponents.Placeholder {...props} />;
 };
 
-export const CustomOption = (
+export const Option = (
   props: OptionProps<DataType, false, GroupBase<DataType>>
 ) => {
   return (
     <chakraComponents.Option {...props}>
-      <Stack
-        id={props.label}
-        isInline={true}
-        alignItems="center"
-        spacing={2}
-        overflow="hidden"
-        wordBreak="break-word"
-        borderColor="inherit"
-        w="full"
-      >
-        <Center
-          minW={8}
-          minH={8}
-          maxW={8}
-          maxH={8}
-          w={8}
-          h={8}
-          border="1px solid"
-          borderColor="inherit"
-          borderRadius="full"
-          overflow="hidden"
-        >
-          <Center m="1px" overflow="hidden" borderRadius="full">
-            <Image
-              alt={props.data.name}
-              src={
-                props.data.icon?.png ||
-                props.data.icon?.jpeg ||
-                props.data.icon?.svg
-              }
-              fallbackSrc={`https://dummyimage.com/400/9e9e9e/ffffff&text=${props.data.label.slice(
-                0,
-                1
-              )}`}
-            />
-          </Center>
+      <Center className="change-chain-dropdown-option-box">
+        <Center className="change-chain-dropdown-option-image-padding">
+          <Image
+            alt={props.data.name}
+            src={
+              props.data.icon?.png ||
+              props.data.icon?.jpeg ||
+              props.data.icon?.svg
+            }
+            fallbackSrc={`https://dummyimage.com/400/9e9e9e/ffffff&text=${props.data.label.slice(
+              0,
+              1
+            )}`}
+          />
         </Center>
-        <Text fontSize="md" fontWeight="medium" opacity={0.8}>
-          {props.data.label}
-        </Text>
-      </Stack>
+      </Center>
+      <Text className="change-chain-dropdown-option-name">
+        {props.data.label}
+      </Text>
     </chakraComponents.Option>
   );
 };
@@ -214,12 +173,38 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
     }),
     placeholder: (provided, state) => ({
       ...provided,
+      display: 'flex',
+      alignItems: 'center',
       fontSize: 'md',
       fontWeight: 'medium',
+      overflow: 'hidden',
+      wordBreak: 'break-word',
+      w: 'full',
       color: state.hasValue
         ? `change-chain-dropdown-placeholder-selected-text-color-${theme}`
         : `change-chain-dropdown-placeholder-text-color-${theme}`,
-      borderColor: `change-chain-dropdown-icon-border-color-${theme}`
+      borderColor: `change-chain-dropdown-icon-border-color-${theme}`,
+      '>.change-chain-dropdown-value-image-box': {
+        minW: 8,
+        minH: 8,
+        maxW: 8,
+        maxH: 8,
+        w: 8,
+        h: 8,
+        mr: 2,
+        border: '1px solid',
+        borderColor: 'inherit',
+        borderRadius: 'full',
+        overflow: 'hidden',
+        '>.change-chain-dropdown-value-image-padding': {
+          m: '1px',
+          overflow: 'hidden',
+          borderRadius: 'full'
+        }
+      },
+      '>.change-chain-dropdown-value-name': {
+        opacity: 0.85
+      }
     }),
     clearIndicator: (provided) => ({
       ...provided,
@@ -249,7 +234,12 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
         borderRadius: 'lg',
         minH: 8,
         h: 'auto',
+        w: 'full',
         p: '0.4rem 0.5rem',
+        alignItems: 'center',
+        spacing: 2,
+        overflow: 'hidden',
+        wordBreak: 'break-word',
         bg: isSelected
           ? `change-chain-dropdown-option-selected-background-color-${theme}`
           : `change-chain-dropdown-option-background-color-${theme}`,
@@ -276,6 +266,27 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
         },
         _notFirst: {
           mt: 1
+        },
+        '>.change-chain-dropdown-option-box': {
+          minW: 8,
+          minH: 8,
+          maxW: 8,
+          maxH: 8,
+          w: 8,
+          h: 8,
+          mr: 2,
+          border: '1px solid',
+          borderColor: 'inherit',
+          borderRadius: 'full',
+          overflow: 'hidden'
+        },
+        '>.change-chain-dropdown-option-image-padding': {
+          m: '1px',
+          overflow: 'hidden',
+          borderRadius: 'full'
+        },
+        '>.change-chain-dropdown-option-name': {
+          opacity: 0.8
         }
       };
     }
@@ -288,11 +299,19 @@ export const ChangeChainDropdown = ({
   selectedItem,
   loading,
   disabled,
-  theme = 'light',
-  styleProps = ChangeChainDropdownBaseStyle(theme),
-  className = 'dropdown',
+  styleProps,
+  className,
+  customComponents = {
+    DropdownIndicator,
+    IndicatorSeparator,
+    LoadingIndicator,
+    Placeholder,
+    Option
+  },
   onChange
 }: ChangeChainDropdownType) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Box w="full" h="full" position="relative" zIndex={150}>
       <AsyncSelect
@@ -300,7 +319,9 @@ export const ChangeChainDropdown = ({
         instanceId="select-chain"
         className={className}
         placeholder="Choose a chain"
-        chakraStyles={styleProps}
+        chakraStyles={
+          styleProps ? styleProps : ChangeChainDropdownBaseStyle(theme)
+        }
         isDisabled={disabled}
         isLoading={loading}
         isClearable={true}
@@ -321,13 +342,7 @@ export const ChangeChainDropdown = ({
           callback(searcher.search(inputValue));
         }}
         onChange={onChange}
-        components={{
-          DropdownIndicator,
-          IndicatorSeparator,
-          LoadingIndicator,
-          Placeholder,
-          Option: CustomOption
-        }}
+        components={customComponents}
       />
     </Box>
   );

@@ -4,7 +4,7 @@ import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 
-import { theme } from '@cosmology-ui/utils';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/utils';
 // import { ColorModeSync } from './color-mode/ColorModeSync';
 import { ThemeSync } from './theme/ThemeSync';
 
@@ -19,7 +19,7 @@ Object.defineProperty(NextImage, 'default', {
 
 export const parameters = {
   chakra: {
-    theme: theme
+    theme: defaultTheme
   },
   backgrounds: {
     disable: true,
@@ -66,14 +66,14 @@ export const parameters = {
 };
 
 const withChakraProvider = (StoryFn: Function, context: StoryContext) => {
-  const firstRender = sessionStorage.getItem('current-theme') ?? 'light';
-  sessionStorage.setItem('current-theme', firstRender);
   return (
-    <ChakraProvider theme={theme} resetCSS={true}>
-      {/* <ColorModeSync viewMode={context.viewMode} /> */}
-      <ThemeSync viewMode={context.viewMode} />
-      <StoryFn {...context} />
-    </ChakraProvider>
+    <ThemeProvider>
+      <ChakraProvider theme={defaultTheme} resetCSS={true}>
+        {/* <ColorModeSync viewMode={context.viewMode} /> */}
+        <ThemeSync viewMode={context.viewMode} />
+        <StoryFn {...context} />
+      </ChakraProvider>
+    </ThemeProvider>
   );
 };
 

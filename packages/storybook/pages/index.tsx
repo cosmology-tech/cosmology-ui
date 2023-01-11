@@ -1,35 +1,77 @@
 import {
+  Box,
   Button,
   Code,
   Container,
   Flex,
-  Icon,
+  Stack,
   Text,
   useColorMode
 } from '@chakra-ui/react';
-import { ConnectWalletButton } from '@cosmology-ui/utils';
+import {
+  ConnectWalletButton,
+  ThemeContext,
+  themeList
+} from '@cosmology-ui/utils';
 import Image from 'next/image';
-import { RiMoonClearFill, RiSunLine } from 'react-icons/ri';
+import { MouseEventHandler, useContext } from 'react';
 
 import Avatar from '../public/cosmology-avatar.svg';
 
+const ThemeButton = ({
+  name,
+  displayColor,
+  onClick
+}: {
+  name: string;
+  displayColor: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <Button
+      variant="outline"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      h="fit-content"
+      paddingInlineEnd={2}
+      paddingInlineStart={2}
+      py={2}
+      onClick={onClick}
+    >
+      <Box
+        w={4}
+        h={4}
+        borderRadius="full"
+        bg={displayColor}
+        border={`1px solid var(--chakra-colors-gray-200)`}
+        mr={1.5}
+      />
+      {name}
+    </Button>
+  );
+};
+
 export default function Home() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { setColorMode } = useColorMode();
+  const { handleTheme } = useContext(ThemeContext);
+  const handleThemeChange = (name: string, colorMode: string) => {
+    setColorMode(colorMode);
+    handleTheme(name);
+  };
+
   return (
     <Container py={16}>
-      <Flex justify="end">
-        <Button
-          paddingInlineEnd={0}
-          paddingInlineStart={0}
-          onClick={toggleColorMode}
-        >
-          {colorMode === 'light' ? (
-            <Icon w={4} h={4} as={RiMoonClearFill} />
-          ) : (
-            <Icon w={4} h={4} as={RiSunLine} />
-          )}
-        </Button>
-      </Flex>
+      <Stack isInline={true} justify="end">
+        {themeList.map(({ name, colorMode, displayColor }, i) => (
+          <ThemeButton
+            key={i}
+            name={name}
+            displayColor={displayColor}
+            onClick={() => handleThemeChange(name, colorMode)}
+          />
+        ))}
+      </Stack>
       <Text as="h1" fontSize="3xl" fontWeight="bold" py={8}>
         Home
       </Text>
@@ -43,7 +85,7 @@ export default function Home() {
           This is test svg
         </Text>
       </Flex>
-      <ConnectWalletButton theme={colorMode || 'light'} />
+      <ConnectWalletButton />
     </Container>
   );
 }

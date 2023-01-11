@@ -1,9 +1,9 @@
 import { Button, Icon, useClipboard } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FiCopy } from 'react-icons/fi';
 
-import { CopyAddressType } from '../../index';
+import { CopyAddressType, ThemeContext } from '../../index';
 
 function stringTruncateFromCenter(str: string, maxLength: number) {
   const midChar = '…'; // character to insert into the center of the result
@@ -25,7 +25,10 @@ function stringTruncateFromCenter(str: string, maxLength: number) {
 
 const defaultText = 'address not identified yet';
 
-export const CopyAddressButtonBaseStyle = (theme: string) => ({
+export const CopyAddressButtonBaseStyle = (
+  theme: string,
+  hasCopied: boolean
+) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -67,27 +70,23 @@ export const CopyAddressButtonBaseStyle = (theme: string) => ({
     _focus: {
       boxShadow: 'none'
     }
-  }
-});
-
-export const CopyAddressButtonIconBaseStyle = (hasCopied: boolean) => {
-  return {
+  },
+  '>.copy-address-button-icon': {
     opacity: 0.85,
     ml: 2,
     color: hasCopied ? 'green.400' : 'inherit'
-  };
-};
+  }
+});
 
 export const CopyAddressButton = ({
   address = defaultText,
   loading,
   disabled,
   className,
-  theme = 'light',
-  buttonStyleProps = CopyAddressButtonBaseStyle(theme),
-  iconStyleProps,
+  styleProps,
   maxDisplayLength = 14
 }: CopyAddressType) => {
+  const { theme } = useContext(ThemeContext);
   const [displayAddress, setDisplayAddress] = useState(address);
   const [displayIsDisabled, setDisplayIsDisabled] = useState(disabled);
   const { hasCopied, onCopy, setValue } = useClipboard('');
@@ -122,17 +121,15 @@ export const CopyAddressButton = ({
       isDisabled={displayIsDisabled}
       isLoading={loading}
       onClick={onCopy}
-      sx={buttonStyleProps}
+      sx={
+        styleProps ? styleProps : CopyAddressButtonBaseStyle(theme, hasCopied)
+      }
     >
       {!loading ? displayAddress : undefined}
       {!loading && address !== defaultText ? (
         <Icon
+          className="copy-address-button-icon"
           as={hasCopied ? FaCheckCircle : FiCopy}
-          sx={
-            iconStyleProps
-              ? iconStyleProps
-              : CopyAddressButtonIconBaseStyle(hasCopied)
-          }
         />
       ) : undefined}
     </Button>

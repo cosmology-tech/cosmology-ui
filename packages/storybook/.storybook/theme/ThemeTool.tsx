@@ -56,7 +56,9 @@ const Tooltip = ({
 };
 
 export const ThemeTool = () => {
-  const getCurrent = sessionStorage.getItem('current-theme') || 'light';
+  const getCurrent =
+    sessionStorage.getItem('current-theme') ||
+    localStorage.getItem('chakra-ui-color-mode');
   const [theme, setTheme] = useAddonState(
     `${ADDON_ID}/current-theme`,
     themeList.filter(({ name }) => name === getCurrent)[0]
@@ -64,6 +66,9 @@ export const ThemeTool = () => {
 
   // update theme button display when view mode changed
   useEffect(() => {
+    if (!sessionStorage.getItem('current-theme'))
+      sessionStorage.setItem('current-theme', 'light');
+
     window.addEventListener('storage', () => {
       const current = sessionStorage.getItem('current-theme') || 'light';
       const getTheme = themeList.filter(({ name }) => name === current)[0];

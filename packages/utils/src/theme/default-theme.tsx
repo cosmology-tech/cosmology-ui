@@ -34,4 +34,9 @@ const colors = {
   }
 };
 
-export const theme = extendTheme(fonts, breakPoints, colors, semanticTokens);
+export const defaultTheme = extendTheme(
+  fonts,
+  breakPoints,
+  colors,
+  semanticTokens
+);

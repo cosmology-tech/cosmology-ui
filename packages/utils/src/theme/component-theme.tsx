@@ -327,7 +327,7 @@ export const styleData: StyleDataType[] = [
       },
       {
         themeName: 'dark',
-        themeValue: 'whiteAlpha.200'
+        themeValue: 'whiteAlpha.300'
       }
     ]
   },

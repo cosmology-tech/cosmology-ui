@@ -56,10 +56,6 @@ export type ConnectWalletButtonType = {
    */
   className?: string;
   /**
-   * Current color theme.
-   */
-  theme?: string;
-  /**
    * Can use Chakra Style Props custom button style.
    *
    * Also can use css control, e.g,
@@ -105,10 +101,6 @@ export type CopyAddressType = {
    */
   className?: string;
   /**
-   * Current color theme.
-   */
-  theme?: string;
-  /**
    * Can use Chakra Style Props custom button style.
    *
    * Also can use css control, e.g,
@@ -122,22 +114,7 @@ export type CopyAddressType = {
    *
    * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
    */
-  buttonStyleProps?: object;
-  /**
-   * Can use Chakra Style Props custom icon style.
-   *
-   * Also can use css control, e.g,
-   * <code>
-   *  {
-   *     '.my-button:hover &': {
-   *       color: 'green.500',
-   *     }
-   *  }
-   * </code>
-   *
-   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-   */
-  iconStyleProps?: object;
+  styleProps?: object;
 };
 
 /* ====================================================== */
@@ -237,10 +214,6 @@ export type ChangeChainDropdownType = {
    */
   className?: string;
   /**
-   * Current color theme.
-   */
-  theme?: string;
-  /**
    * Can use Chakra Style Props custom dropdown style.
    *
    * Also can use css control, e.g,
@@ -257,6 +230,19 @@ export type ChangeChainDropdownType = {
    * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
    */
   styleProps?: object;
+  /**
+   * Can custom dropdown, default:
+   * <code>
+   *  {
+   *    DropdownIndicator,
+   *    IndicatorSeparator,
+   *    LoadingIndicator,
+   *    Placeholder,
+   *    Option
+   *  }
+   * </code>
+   */
+  customComponents?: object;
   /**
    * A function called to handle select item.
    *
@@ -359,10 +345,6 @@ export type InstallWalletButtonType = {
    */
   className?: string;
   /**
-   * Current color theme.
-   */
-  theme?: string;
-  /**
    * Can use Chakra Style Props custom button style, also can use css.
    *
    * Also can use css control, e.g,
@@ -420,6 +402,29 @@ export type ConnectModalContentType = {
    * Props the link component.
    */
   bottomLink?: ReactNode;
+  /**
+   * Can add a stable class name to control CSS.
+   */
+  className?: string;
+  /**
+   * Current color theme.
+   */
+  theme?: string;
+  /**
+   * Can use Chakra Style Props custom modal content style, also can use css.
+   *
+   * Also can use css control, e.g,
+   * <code>
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * </code>
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   */
+  styleProps?: object;
 };
 
 export type QRCodeType = {

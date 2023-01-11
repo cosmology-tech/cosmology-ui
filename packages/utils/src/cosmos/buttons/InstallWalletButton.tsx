@@ -1,7 +1,7 @@
 import { Button, Icon } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { InstallWalletButtonType } from '../../index';
+import { InstallWalletButtonType, ThemeContext } from '../../index';
 
 export const InstallWalletButtonBaseStyle = (theme: string) => ({
   w: 'full',
@@ -34,15 +34,16 @@ export const InstallWalletButton = ({
   buttonText = 'Install Wallet',
   disabled = false,
   className,
-  theme = 'light',
-  styleProps = InstallWalletButtonBaseStyle(theme),
+  styleProps,
   onClick
 }: InstallWalletButtonType) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Button
       className={className}
       variant="unstyled"
-      sx={styleProps}
+      sx={styleProps ? styleProps : InstallWalletButtonBaseStyle(theme)}
       leftIcon={icon ? <Icon as={icon} /> : undefined}
       isDisabled={disabled}
       onClick={onClick}
