@@ -1,4 +1,4 @@
-import { Box, Icon, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Icon, Text } from '@chakra-ui/react';
 import {
   ConnectWalletButton as ConnectWalletButtonKit,
   ConnectWalletButtonType,
@@ -6,7 +6,7 @@ import {
 } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, Story } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   RiDeviceLine,
   RiDoorOpenFill,
@@ -82,17 +82,7 @@ function handleStatus(status: WalletStatus) {
 
 // eslint-disable-next-line react/prop-types
 const Template: Story<TypeWithStatus> = ({ status, ...rest }) => {
-  const { colorMode } = useColorMode();
   const currentStatus = handleStatus(status);
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
-
-  useEffect(() => {
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
-  }, []);
 
   return (
     <Box maxW={52} mx="auto" py={16}>
@@ -102,7 +92,6 @@ const Template: Story<TypeWithStatus> = ({ status, ...rest }) => {
         loading={currentStatus.isLoading}
         leftIcon={currentStatus.leftIcon}
         rightIcon={currentStatus.rightIcon}
-        theme={currentTheme}
         {...rest}
       />
     </Box>
@@ -133,7 +122,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  className="the class name of connect wallet button"\n  theme={currentTheme}\n  styleProps={objectOfCustomConnectWalletButtonStyle}\n  onClick={clickFunction}\n/>`,
+        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  className="the class name of connect wallet button"\n  styleProps={objectOfCustomConnectWalletButtonStyle}\n  onClick={clickFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

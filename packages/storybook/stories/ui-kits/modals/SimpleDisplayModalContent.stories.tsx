@@ -218,7 +218,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleDisplayModalContent } from '@cosmology-ui/utils';\n\n<SimpleDisplayModalContent\n  logo="logo link"\n  status="warning"\n  username="user"\n  walletIcon="wallet icon link"\n  contentHeader="la la la"\n  contentDesc="bla bla bla"\n  addressButton={<CopyAddressButton />}\n  bottomButton={<ConnectWalletButton />}\n  bottomLink={<Link />}\n/>`,
+        code: `import { SimpleDisplayModalContent } from '@cosmology-ui/utils';\n\n<SimpleDisplayModalContent\n  logo="logo link"\n  status="warning"\n  username="user"\n  walletIcon="wallet icon link"\n  contentHeader="la la la"\n  contentDesc="bla bla bla"\n  addressButton={<CopyAddressButton />}\n  bottomButton={<ConnectWalletButton />}\n  bottomLink={<Link />}\n  className="the class name of display modal content"\n  styleProps={objectOfCustomSimpleDisplayModalStyle}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

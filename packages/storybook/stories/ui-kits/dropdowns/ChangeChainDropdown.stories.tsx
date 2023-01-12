@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import {
   ChangeChainDropdown as ChangeChainDropdownKit,
   DataType
@@ -14,17 +14,8 @@ const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
   data,
   ...rest
 }) => {
-  const { colorMode } = useColorMode();
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [demoData, setDemoData] = useState<DataType[]>([]);
 
-  useEffect(() => {
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
-  }, []);
   useEffect(() => {
     if (data) setDemoData(data);
     if (!data) {
@@ -53,7 +44,7 @@ const Template: ComponentStory<typeof ChangeChainDropdownKit> = ({
 
   return (
     <Box maxW={72} mx="auto" py={56}>
-      <ChangeChainDropdownKit data={demoData} theme={currentTheme} {...rest} />
+      <ChangeChainDropdownKit data={demoData} {...rest} />
     </Box>
   );
 };
@@ -82,7 +73,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { ChangeChainDropdown } from '@cosmology-ui/utils';\n\n<ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={false}\n  disabled={false}\n  className="the class name of chain dropdown"\n  theme={currentTheme}\n  styleProps={objectOfCustomChainDropdownButtonStyle}\n  onChange={selectFunction}\n/>`,
+        code: `import { ChangeChainDropdown } from '@cosmology-ui/utils';\n\n<ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={false}\n  disabled={false}\n  className="the class name of chain dropdown"\n  styleProps={objectOfCustomChainDropdownButtonStyle}\n  onChange={selectFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

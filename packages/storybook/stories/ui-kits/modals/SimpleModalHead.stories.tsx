@@ -1,21 +1,10 @@
-import { Box, Center, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Center, Text } from '@chakra-ui/react';
 import { SimpleModalHead as SimpleModalHeadKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const Template: ComponentStory<typeof SimpleModalHeadKit> = ({ ...args }) => {
-  const { colorMode } = useColorMode();
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
-
-  useEffect(() => {
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
-  }, []);
-
   return (
     <Center py={16}>
       <Box
@@ -26,7 +15,7 @@ const Template: ComponentStory<typeof SimpleModalHeadKit> = ({ ...args }) => {
         borderColor="gray.300"
         borderRadius="lg"
       >
-        <SimpleModalHeadKit theme={currentTheme} {...args} />
+        <SimpleModalHeadKit {...args} />
         <Text textAlign="center" p={6}>
           I&apos;m fake modal
         </Text>
@@ -59,7 +48,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleModalHead } from '@cosmology-ui/utils';\n\n<SimpleModalHead\n  title="your modal header"\n  backButton={false}\n  className="the class name of modal head"\n  theme={currentTheme}\n  styleProps={objectOfCustomModalHeadStyle}\n  onBack={backFunction}\n  onClose={closeFunction}\n/>`,
+        code: `import { SimpleModalHead } from '@cosmology-ui/utils';\n\n<SimpleModalHead\n  title="your modal header"\n  backButton={false}\n  className="the class name of modal head"\n  styleProps={objectOfCustomModalHeadStyle}\n  onBack={backFunction}\n  onClose={closeFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

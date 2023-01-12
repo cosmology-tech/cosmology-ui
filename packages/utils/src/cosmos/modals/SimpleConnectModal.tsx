@@ -51,7 +51,8 @@ export const SimpleConnectModal = ({
   const resizeObserver = new ResizeObserver(handleElementResized);
 
   useEffect(() => {
-    if (nodeRef.current) resizeObserver.observe(nodeRef.current);
+    if (nodeRef.current && resizeObserver)
+      resizeObserver.observe(nodeRef.current);
 
     // clear resizeObserver after get value
     return function cleanup() {

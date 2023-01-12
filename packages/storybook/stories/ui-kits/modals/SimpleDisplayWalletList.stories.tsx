@@ -26,12 +26,10 @@ interface TypeWithStatus extends Wallet {
 const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
   const { colorMode } = useColorMode();
   const initialFocus = useRef<HTMLButtonElement>(null);
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [data, setData] = useState<Wallet[]>(WalletData);
   const display = useBreakpointValue({ base: 'mobile', md: 'desktop' });
 
   useEffect(() => {
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
     switch (wallet) {
       case 'Keplr': {
         const format = keplrData.filter(({ buttonShape, mobileDisabled }) => {
@@ -73,9 +71,6 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
         setData(WalletData);
         break;
     }
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
   }, [wallet, display, signal]);
 
   return (
@@ -98,7 +93,6 @@ const Template: Story<TypeWithStatus> = ({ wallet, signal }) => {
           <Text textAlign="center">I&apos;m fake header</Text>
         </Box>
         <SimpleDisplayWalletListKit
-          theme={currentTheme}
           walletsData={data}
           initialFocus={initialFocus}
         />
@@ -131,7 +125,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletList\n  initialFocus={buttonRef}\n  walletsData={[wallets]}\n  className="the class name of wallet list"\n  theme={currentTheme}\n  listStyleProps={objectOfCustomListStyle}\n  shadowAnimateProps={objectOfCustomShadowAnimate}\n  shadowAnimateStyleProps={objectOfCustomShadowAnimateStyle}\n/>`,
+        code: `import { SimpleDisplayWalletList } from '@cosmology-ui/utils';\n\n<SimpleDisplayWalletList\n  initialFocus={buttonRef}\n  walletsData={[wallets]}\n  className="the class name of wallet list"\n  styleProps={objectOfCustomListStyle}\n  shadowAnimateProps={objectOfCustomShadowAnimate}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

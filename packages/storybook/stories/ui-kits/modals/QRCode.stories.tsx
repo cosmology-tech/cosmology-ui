@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Center, Text } from '@chakra-ui/react';
 import { QRCode as QRCodeKit } from '@cosmology-ui/utils';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
@@ -5,7 +6,6 @@ import { ComponentStory } from '@storybook/react';
 import React from 'react';
 
 const Template: ComponentStory<typeof QRCodeKit> = ({
-  // eslint-disable-next-line react/prop-types
   description,
   loading,
   ...args
@@ -58,7 +58,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n  qrCodeSize={230}\n  className="the class name of qr code"\n  theme={currentTheme}\n  styleProps={objectOfCustomQRCodeStyle}\n/>`,
+        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n  qrCodeSize={230}\n  loading={false}\n  className="the class name of qr code"\n  styleProps={objectOfCustomQRCodeStyle}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

@@ -332,7 +332,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { SimpleConnectModal } from '@cosmology-ui/utils';\n\n<SimpleConnectModal\n  initialRef={initialRef}\n  modalHead={<SimpleModalHead />}\n  modalContent={<SimpleDisplayModalContent />|<SimpleDisplayModalList />}\n  modalOpen={false}\n  modalOnClose={closeFunction}\n/>`,
+        code: `import { SimpleConnectModal } from '@cosmology-ui/utils';\n\n<SimpleConnectModal\n  initialRef={initialRef}\n  modalHead={<SimpleModalHead />}\n  modalContent={<SimpleDisplayModalContent />|<SimpleDisplayModalList />}\n  modalOpen={false}\n  className="the class name of modal"\n  styleProps={objectOfCustomModalStyle}\n  modalOnClose={closeFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

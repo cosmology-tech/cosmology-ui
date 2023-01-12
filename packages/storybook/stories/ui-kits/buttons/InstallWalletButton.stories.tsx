@@ -1,4 +1,4 @@
-import { Box, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import {
   DownloadInfo,
   InstallWalletButton as InstallWalletButtonKit
@@ -14,8 +14,6 @@ import { handleDevice } from '../../util/config';
 const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
   ...args
 }) => {
-  const { colorMode } = useColorMode();
-  const [currentTheme, setCurrentTheme] = useState<string>(colorMode);
   const [userBrowserInfo, setUserBrowserInfo] = useState<
     DownloadInfo | string | undefined
   >();
@@ -29,11 +27,6 @@ const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
     };
 
     setUserBrowserInfo(handleDevice(info));
-    setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-
-    window.addEventListener('storage', () => {
-      setCurrentTheme(sessionStorage.getItem('current-theme') || 'light');
-    });
   }, []);
 
   return (
@@ -44,7 +37,6 @@ const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
             ? HiDownload
             : userBrowserInfo?.icon
         }
-        theme={currentTheme}
         {...args}
       />
     </Box>
@@ -75,7 +67,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { InstallWalletButton } from '@cosmology-ui/utils';\n\n<InstallWalletButton\n  buttonText="Install Wallet"\n  disabled={false}\n  icon={<Icon />}\n  className="the class name of install wallet button"\n  theme={currentTheme}\n  styleProps={objectOfCustomInstallWalletButtonStyle}\n  onClick={linkFunction}\n/>`,
+        code: `import { InstallWalletButton } from '@cosmology-ui/utils';\n\n<InstallWalletButton\n  buttonText="Install Wallet"\n  disabled={false}\n  icon={<Icon />}\n  className="the class name of install wallet button"\n  styleProps={objectOfCustomInstallWalletButtonStyle}\n  onClick={linkFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
