@@ -2,14 +2,14 @@ import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 export const ThemeContext = createContext({
   theme: 'light',
-  handleTheme: (theme: string) => {},
+  handleTheme: (theme: string) => {}
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [currentTheme, setCurrentTheme] = useState('light');
   const defaultThemeValue = {
     theme: 'light',
-    handleTheme: (theme: string) => setCurrentTheme(theme),
+    handleTheme: (theme: string) => setCurrentTheme(theme)
   };
   const [theme, setTheme] = useState(defaultThemeValue);
 
@@ -32,7 +32,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setTheme((pre) => ({
       ...pre,
-      theme: currentTheme,
+      theme: currentTheme
     }));
   }, [currentTheme]);
 
