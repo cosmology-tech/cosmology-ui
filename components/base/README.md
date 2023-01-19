@@ -1,9 +1,9 @@
-# @cosmology-ui/utils
+# @cosmology-ui/base
 
 ## Install
 
 ```
-yarn add @chakra-ui^2.4.2 @cosmology-ui/utils
+yarn add @chakra-ui^2.4.2 @cosmology-ui/base
 ```
 
 ## Our Website
