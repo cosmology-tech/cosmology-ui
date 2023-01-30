@@ -5,3 +5,4 @@ module/
 types/
 coverage/
 /index.ts
+/index.tsx

@@ -103,7 +103,7 @@
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.4.2",
     "@cosmology-ui/animation": "^0.1.1",
-    "@cosmology-ui/button": "^0.1.1",
+    "@cosmology-ui/buttons": "^0.1.1",
     "@cosmology-ui/chain-dropdown": "^0.1.1",
     "@cosmology-ui/connect-modal": "^0.1.1",
     "@cosmology-ui/copy-address-button": "^0.1.1",
