@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Center, Text } from '@chakra-ui/react';
-import { QRCode as QRCodeKit } from '@cosmology-ui/utils';
+import { QRCode as QRCodeKit } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';

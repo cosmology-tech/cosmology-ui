@@ -3,7 +3,7 @@ import {
   ConnectWalletButton as ConnectWalletButtonKit,
   ConnectWalletButtonType,
   WalletStatus
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, Story } from '@storybook/react';
 import React from 'react';

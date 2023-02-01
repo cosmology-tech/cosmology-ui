@@ -11,7 +11,7 @@ import {
   handleChangeColorModeValue,
   SimpleDisplayWalletList as SimpleDisplayWalletListKit,
   Wallet
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { Story } from '@storybook/react';
 import React, { useEffect, useRef, useState } from 'react';

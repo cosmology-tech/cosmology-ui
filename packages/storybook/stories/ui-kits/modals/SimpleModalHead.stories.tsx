@@ -1,5 +1,5 @@
 import { Box, Center, Text } from '@chakra-ui/react';
-import { SimpleModalHead as SimpleModalHeadKit } from '@cosmology-ui/utils';
+import { SimpleModalHead as SimpleModalHeadKit } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import React from 'react';

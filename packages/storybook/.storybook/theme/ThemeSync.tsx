@@ -2,7 +2,7 @@ import { useColorMode } from '@chakra-ui/react';
 import React, { useContext, useEffect, useState } from 'react';
 import addons from '@storybook/addons';
 import { EVENTS } from './constants';
-import { ThemeContext, themeList } from '@cosmology-ui/utils';
+import { ThemeContext, themeList } from '@cosmology-ui/react';
 
 export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const { setColorMode } = useColorMode();

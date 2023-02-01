@@ -12,7 +12,7 @@ import {
   ConnectWalletButton,
   ThemeContext,
   themeList
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import Image from 'next/image';
 import { MouseEventHandler, useContext } from 'react';
 

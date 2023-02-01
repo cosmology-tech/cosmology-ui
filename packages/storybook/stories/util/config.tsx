@@ -1,4 +1,4 @@
-import { ButtonShape, shuffledArray, WalletMode } from '@cosmology-ui/utils';
+import { ButtonShape, shuffledArray, WalletMode } from '@cosmology-ui/react';
 import { assets, chains } from 'chain-registry';
 import { FaFirefox } from 'react-icons/fa';
 import { GrAndroid } from 'react-icons/gr';

@@ -4,7 +4,7 @@ import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 
-import { defaultTheme, ThemeProvider } from '@cosmology-ui/utils';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/react';
 // import { ColorModeSync } from './color-mode/ColorModeSync';
 import { ThemeSync } from './theme/ThemeSync';
 

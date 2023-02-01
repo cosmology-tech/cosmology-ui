@@ -4,7 +4,7 @@ import {
   WithTooltip,
   TooltipLinkList
 } from '@storybook/components';
-import { themeList, ThemeListType } from '@cosmology-ui/utils';
+import { themeList, ThemeListType } from '@cosmology-ui/react';
 import addons from '@storybook/addons';
 import { useAddonState } from '@storybook/api';
 import { ADDON_ID, EVENTS } from './constants';

@@ -2,7 +2,7 @@ import { Box, Text } from '@chakra-ui/react';
 import {
   DownloadInfo,
   InstallWalletButton as InstallWalletButtonKit
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentStory } from '@storybook/react';
 import Bowser from 'bowser';

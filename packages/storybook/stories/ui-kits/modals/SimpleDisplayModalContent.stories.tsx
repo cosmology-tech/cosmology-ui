@@ -10,7 +10,7 @@ import {
   LogoStatus,
   SimpleDisplayModalContent as SimpleDisplayModalContentKit,
   WalletStatus
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { Story } from '@storybook/react';
 import Bowser from 'bowser';
