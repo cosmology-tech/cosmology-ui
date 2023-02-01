@@ -1,8 +1,13 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
-export const ThemeContext = createContext({
+type ThemeContextType = {
+  theme: string;
+  handleTheme: (theme: string) => void;
+};
+
+export const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
-  handleTheme: (theme: string) => {}
+  handleTheme: () => {}
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

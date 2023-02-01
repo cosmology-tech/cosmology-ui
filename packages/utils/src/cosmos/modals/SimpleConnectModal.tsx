@@ -1,6 +1,7 @@
 import { Modal, ModalContent, ModalOverlay, Stack } from '@chakra-ui/react';
 import { useAnimationControls } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 
 import {
   AnimateBox,
@@ -28,37 +29,9 @@ export const SimpleConnectModal = ({
   modalOpen,
   modalOnClose
 }: SimpleConnectModalType) => {
-  const nodeRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState<number>(290);
-  const [height, setHeight] = useState<number>(250);
   const controls = useAnimationControls();
   const contentControls = useAnimationControls();
-
-  // to get resize width/height
-  // https://stackoverflow.com/questions/73247936/how-to-dynamically-track-width-height-of-div-in-react-js
-  const handleElementResized = () => {
-    if (nodeRef.current) {
-      if (nodeRef.current.scrollWidth !== width) {
-        setWidth(nodeRef.current.scrollWidth);
-      }
-      if (nodeRef.current.scrollHeight !== height) {
-        setHeight(nodeRef.current.scrollHeight);
-      }
-    }
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const resizeObserver = new ResizeObserver(handleElementResized);
-
-  useEffect(() => {
-    if (nodeRef.current && resizeObserver)
-      resizeObserver.observe(nodeRef.current);
-
-    // clear resizeObserver after get value
-    return function cleanup() {
-      resizeObserver.disconnect();
-    };
-  }, [resizeObserver, nodeRef]);
+  const { width, height, ref: nodeRef } = useResizeDetector();
 
   useEffect(() => {
     if (modalOpen) {
@@ -83,7 +56,7 @@ export const SimpleConnectModal = ({
         className={className}
         sx={styleProps ? styleProps : SimpleConnectModalBaseStyle()}
         motionProps={{
-          custom: { width: width, height: height },
+          custom: { width: width ? width : 290, height: height ? height : 250 },
           animate: controls,
           variants: ModalVariants
         }}
