@@ -1,9 +1,9 @@
 import { Box, Icon, Text } from '@chakra-ui/react';
 import {
-  ConnectWalletButton as ConnectWalletButtonKit,
-  ConnectWalletButtonType,
+  BaseButtonType,
+  ConnectWalletButton,
   WalletStatus
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, Story } from '@storybook/react';
 import React from 'react';
@@ -14,7 +14,7 @@ import {
   RiShuffleFill
 } from 'react-icons/ri';
 
-interface TypeWithStatus extends ConnectWalletButtonType {
+interface TypeWithStatus extends BaseButtonType {
   status: WalletStatus;
 }
 
@@ -86,7 +86,7 @@ const Template: Story<TypeWithStatus> = ({ status, ...rest }) => {
 
   return (
     <Box maxW={52} mx="auto" py={16}>
-      <ConnectWalletButtonKit
+      <ConnectWalletButton
         buttonText={currentStatus.buttonText}
         disabled={currentStatus.isDisabled}
         loading={currentStatus.isLoading}
@@ -98,18 +98,18 @@ const Template: Story<TypeWithStatus> = ({ status, ...rest }) => {
   );
 };
 
-export const ConnectWalletButton = Template.bind({});
+export const connectWalletButton = Template.bind({});
 
 // to hide controls
-ConnectWalletButton.parameters = {
+connectWalletButton.parameters = {
   controls: {
-    include: ['status', 'onClickConnectBtn']
+    include: ['status', 'onClick']
   }
 };
 
 export default {
   title: 'Components/Buttons',
-  component: ConnectWalletButtonKit,
+  component: ConnectWalletButton,
   parameters: {
     docs: {
       page: () => (
@@ -118,11 +118,11 @@ export default {
             Connect Wallet Button
           </Text>
           <Primary />
-          <ArgsTable of={ConnectWalletButtonKit} />
+          <ArgsTable of={ConnectWalletButton} />
         </>
       ),
       source: {
-        code: `import { ConnectWalletButton } from '@cosmology-ui/utils';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  className="the class name of connect wallet button"\n  styleProps={objectOfCustomConnectWalletButtonStyle}\n  onClick={clickFunction}\n/>`,
+        code: `import { ConnectWalletButton } from '@cosmology-ui/react';\n\n<ConnectWalletButton\n  buttonText="Connect Wallet"\n  loading={false}\n  disabled={false}\n  leftIcon={<Icon />}\n  rightIcon={<Icon />}\n  className="the class name of connect wallet button"\n  styleProps={objectOfCustomConnectWalletButtonStyle}\n  onClick={clickFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
@@ -136,4 +136,4 @@ export default {
       action: 'clicked'
     }
   }
-} as ComponentMeta<typeof ConnectWalletButtonKit>;
+} as ComponentMeta<typeof ConnectWalletButton>;

@@ -4,6 +4,7 @@ import {
   Code,
   Container,
   Flex,
+  Icon,
   Stack,
   Text,
   useColorMode
@@ -12,10 +13,12 @@ import {
   ConnectWalletButton,
   ThemeContext,
   themeList
-} from '@cosmology-ui/utils';
+} from '@cosmology-ui/react';
 import Image from 'next/image';
 import { MouseEventHandler, useContext } from 'react';
+import { RiDeviceLine } from 'react-icons/ri';
 
+// @ts-ignore
 import Avatar from '../public/cosmology-avatar.svg';
 
 const ThemeButton = ({
@@ -85,7 +88,7 @@ export default function Home() {
           This is test svg
         </Text>
       </Flex>
-      <ConnectWalletButton />
+      <ConnectWalletButton rightIcon={<Icon as={RiDeviceLine} />} />
     </Container>
   );
 }

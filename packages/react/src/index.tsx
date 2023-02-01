@@ -1,4 +1,5 @@
 export * from '@cosmology-ui/animation';
+export * from '@cosmology-ui/base';
 export * from '@cosmology-ui/buttons';
 export * from '@cosmology-ui/chain-dropdown';
 export * from '@cosmology-ui/connect-modal';

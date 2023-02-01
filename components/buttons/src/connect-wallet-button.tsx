@@ -1,10 +1,11 @@
 import { Button, Center, Icon } from '@chakra-ui/react';
+import { ThemeContext } from '@cosmology-ui/theme';
 import React, { useContext } from 'react';
 import { RiWallet3Fill } from 'react-icons/ri';
 
-import { ConnectWalletButtonType, ThemeContext } from '../../index';
+import { BaseButtonType } from './button-base-type';
 
-export const ConnectWalletButtonBaseStyle = (theme: string) => ({
+export const ConnectWalletButtonStyle = (theme: string) => ({
   display: 'flex',
   alignItems: 'center',
   px: 2.5,
@@ -63,6 +64,12 @@ export const ConnectWalletButtonBaseStyle = (theme: string) => ({
       color: `connect-wallet-button-disabled-text-color-${theme}`,
       boxShadow: 'none'
     }
+  },
+  '>.connect-wallet-button-left-icon': {
+    mr: 1.5
+  },
+  '>.connect-wallet-button-right-icon': {
+    ml: 1.5
   }
 });
 
@@ -72,10 +79,10 @@ export const ConnectWalletButton = ({
   disabled,
   leftIcon = <Icon as={RiWallet3Fill} />,
   rightIcon,
-  className,
+  className = 'connect-wallet-button',
   styleProps,
   onClick
-}: ConnectWalletButtonType) => {
+}: BaseButtonType) => {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -83,13 +90,24 @@ export const ConnectWalletButton = ({
       className={className}
       isLoading={loading}
       isDisabled={disabled}
-      iconSpacing={!buttonText ? 0 : 1.5}
-      leftIcon={leftIcon ? <Center>{leftIcon}</Center> : undefined}
-      rightIcon={rightIcon ? <Center>{rightIcon}</Center> : undefined}
+      sx={styleProps ? styleProps : ConnectWalletButtonStyle(theme)}
       onClick={onClick}
-      sx={styleProps ? styleProps : ConnectWalletButtonBaseStyle(theme)}
     >
+      {leftIcon ? (
+        <Center
+          className={
+            !buttonText ? undefined : 'connect-wallet-button-left-icon'
+          }
+        >
+          {leftIcon}
+        </Center>
+      ) : undefined}
       {buttonText}
+      {rightIcon ? (
+        <Center className="connect-wallet-button-right-icon">
+          {rightIcon}
+        </Center>
+      ) : undefined}
     </Button>
   );
 };

@@ -4,8 +4,8 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+    config
+    // { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
   ) => {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,

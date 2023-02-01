@@ -4,7 +4,7 @@ import {
   WithTooltip,
   TooltipLinkList
 } from '@storybook/components';
-import { themeList, ThemeListType } from '@cosmology-ui/utils';
+import { themeList, ThemeListType } from '@cosmology-ui/react';
 import addons from '@storybook/addons';
 import { useAddonState } from '@storybook/api';
 import { ADDON_ID, EVENTS } from './constants';
@@ -23,7 +23,6 @@ const Tooltip = ({
 
   function handleClick(selectedTheme: ThemeListType) {
     onHide(); // close dropdown
-    sessionStorage.setItem('current-theme', selectedTheme.name); // update current theme in session
     channel.emit(EVENTS.CHANGE_THEME, selectedTheme.name); // add the event to handle theme
     setTheme(selectedTheme);
   }
@@ -56,19 +55,17 @@ const Tooltip = ({
 };
 
 export const ThemeTool = () => {
-  const getCurrent =
+  const defaultDisplayTheme =
     sessionStorage.getItem('current-theme') ||
-    localStorage.getItem('chakra-ui-color-mode');
+    localStorage.getItem('chakra-ui-color-mode') ||
+    'light';
   const [theme, setTheme] = useAddonState(
     `${ADDON_ID}/current-theme`,
-    themeList.filter(({ name }) => name === getCurrent)[0]
+    themeList.filter(({ name }) => name === defaultDisplayTheme)[0]
   );
 
   // update theme button display when view mode changed
   useEffect(() => {
-    if (!sessionStorage.getItem('current-theme'))
-      sessionStorage.setItem('current-theme', 'light');
-
     window.addEventListener('storage', () => {
       const current = sessionStorage.getItem('current-theme') || 'light';
       const getTheme = themeList.filter(({ name }) => name === current)[0];

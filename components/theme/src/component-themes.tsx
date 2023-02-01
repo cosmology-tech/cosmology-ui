@@ -105,10 +105,10 @@ export const styleData: StyleDataType[] = [
   {
     componentName: 'connect-wallet-button',
     category: 'colors',
-    style: 'active-text-color',
+    style: 'disabled-text-color',
     theme: [
-      { themeName: 'light', themeValue: 'primary.500' },
-      { themeName: 'dark', themeValue: 'primary.400' }
+      { themeName: 'light', themeValue: 'gray.400' },
+      { themeName: 'dark', themeValue: 'gray.500' }
     ]
   },
   {

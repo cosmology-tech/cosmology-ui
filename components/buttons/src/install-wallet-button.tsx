@@ -1,18 +1,17 @@
-import { Button, Icon } from '@chakra-ui/react';
+import { Button, Center } from '@chakra-ui/react';
+import { ThemeContext } from '@cosmology-ui/theme';
 import React, { useContext } from 'react';
 
-import { InstallWalletButtonType, ThemeContext } from '../../index';
+import { BaseButtonType } from './button-base-type';
 
 export const InstallWalletButtonBaseStyle = (theme: string) => ({
+  px: 2.5,
   w: 'full',
   h: 'auto',
-  py: 3,
+  minH: 12,
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
   whiteSpace: 'break-spaces',
-  fontWeight: 'medium',
-  fontSize: 'md',
   border: '1px solid',
   borderColor: `install-wallet-button-border-color-${theme}`,
   color: `install-wallet-button-text-color-${theme}`,
@@ -26,17 +25,28 @@ export const InstallWalletButtonBaseStyle = (theme: string) => ({
     cursor: 'not-allowed',
     _hover: { opacity: 0.5 },
     _active: { opacity: 0.5 }
+  },
+  _loading: {
+    cursor: 'progress'
+  },
+  '.install-wallet-button-left-icon': {
+    mr: 1.5
+  },
+  '.install-wallet-button-right-icon': {
+    ml: 1.5
   }
 });
 
 export const InstallWalletButton = ({
-  icon,
   buttonText = 'Install Wallet',
+  loading = false,
   disabled = false,
-  className,
+  leftIcon,
+  rightIcon,
+  className = 'install-wallet-button',
   styleProps,
   onClick
-}: InstallWalletButtonType) => {
+}: BaseButtonType) => {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -44,11 +54,19 @@ export const InstallWalletButton = ({
       className={className}
       variant="unstyled"
       sx={styleProps ? styleProps : InstallWalletButtonBaseStyle(theme)}
-      leftIcon={icon ? <Icon as={icon} /> : undefined}
+      isLoading={loading}
       isDisabled={disabled}
       onClick={onClick}
     >
+      {!leftIcon ? undefined : (
+        <Center className="install-wallet-button-left-icon">{leftIcon}</Center>
+      )}
       {buttonText}
+      {rightIcon ? (
+        <Center className="install-wallet-button-right-icon">
+          {rightIcon}
+        </Center>
+      ) : undefined}
     </Button>
   );
 };
