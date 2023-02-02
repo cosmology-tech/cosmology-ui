@@ -102,7 +102,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.4.2",
-    "@cosmology-ui/utils": "^0.1.10",
+    "@cosmology-ui/theme": "^0.1.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
     "chain-registry": "^1.5.0",

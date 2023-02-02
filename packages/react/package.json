@@ -1,6 +1,6 @@
 {
   "name": "@cosmology-ui/react",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "cosmology-ui",
   "author": "developers@cosmology.tech",
   "contributors": [
@@ -109,7 +109,6 @@
     "@cosmology-ui/connect-modal": "^0.1.1",
     "@cosmology-ui/copy-address-button": "^0.1.1",
     "@cosmology-ui/theme": "^0.1.1",
-    "@cosmology-ui/utils": "^0.1.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
     "bowser": "2.11.0",
@@ -119,7 +118,8 @@
     "framer-motion": "^6",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-resize-detector": "^8.0.3"
   },
   "peerDependencies": {
     "react": "18.2.0"

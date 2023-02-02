@@ -9,6 +9,16 @@ export enum WalletStatus {
   Error = 'Error'
 }
 
+export enum ButtonShape {
+  Square = 'Square',
+  Rectangle = 'Rectangle'
+}
+
+export enum WalletMode {
+  Extension = 'extension',
+  WalletConnect = 'wallet-connect'
+}
+
 export type DownloadInfo = {
   browser?: string;
   os?: string;
