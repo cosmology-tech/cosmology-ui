@@ -68,8 +68,8 @@ export const Placeholder = (
   if (props.hasValue) {
     return (
       <chakraComponents.Placeholder {...props}>
-        <Center className="change-chain-dropdown-value-image-box">
-          <Center className="change-chain-dropdown-value-image-padding">
+        <Center className="chain-dropdown-value-image-box">
+          <Center className="chain-dropdown-value-image-padding">
             <Image
               src={
                 props.getValue()[0].icon?.png ||
@@ -83,7 +83,7 @@ export const Placeholder = (
             />
           </Center>
         </Center>
-        <Text className="change-chain-dropdown-value-name">
+        <Text className="chain-dropdown-value-name">
           {props.getValue()[0].label}
         </Text>
       </chakraComponents.Placeholder>
@@ -97,8 +97,8 @@ export const Option = (
 ) => {
   return (
     <chakraComponents.Option {...props}>
-      <Center className="change-chain-dropdown-option-box">
-        <Center className="change-chain-dropdown-option-image-padding">
+      <Center className="chain-dropdown-option-box">
+        <Center className="chain-dropdown-option-image-padding">
           <Image
             alt={props.data.name}
             src={
@@ -113,9 +113,7 @@ export const Option = (
           />
         </Center>
       </Center>
-      <Text className="change-chain-dropdown-option-name">
-        {props.data.label}
-      </Text>
+      <Text className="chain-dropdown-option-name">{props.data.label}</Text>
     </chakraComponents.Option>
   );
 };
@@ -135,7 +133,7 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
       borderRadius: 'lg',
       _focus: {
         borderColor: 'transparent',
-        boxShadow: `change-chain-dropdown-shadow-${theme}`
+        boxShadow: `chain-dropdown-shadow-${theme}`
       }
     }),
     menu: (provided) => ({
@@ -144,8 +142,8 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
       mt: 2,
       mb: 2,
       overflow: 'hidden',
-      bg: `change-chain-dropdown-menu-background-color-${theme}`,
-      boxShadow: `change-chain-dropdown-menu-shadow-${theme}`,
+      bg: `chain-dropdown-menu-background-color-${theme}`,
+      boxShadow: `chain-dropdown-menu-shadow-${theme}`,
       borderRadius: 'base'
     }),
     menuList: (provided) => ({
@@ -158,15 +156,15 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
       pr: 0.5,
       // For Firefox
       scrollbarWidth: 'thin',
-      scrollbarColor: `var(--chakra-colors-change-chain-dropdown-firefox-scrollbar-color-${theme})`,
+      scrollbarColor: `var(--chakra-colors-chain-dropdown-firefox-scrollbar-color-${theme})`,
       // For Chrome and other browsers except Firefox
       '&::-webkit-scrollbar': {
         width: '8px',
-        background: `change-chain-dropdown-scrollbar-background-color-${theme}`,
+        background: `chain-dropdown-scrollbar-background-color-${theme}`,
         borderRadius: '3px'
       },
       '&::-webkit-scrollbar-thumb': {
-        background: `change-chain-dropdown-scrollbar-thumb-color-${theme}`,
+        background: `chain-dropdown-scrollbar-thumb-color-${theme}`,
         borderRadius: '10px',
         border: '2px solid transparent', // make it like padding
         backgroundClip: 'content-box'
@@ -182,10 +180,10 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
       wordBreak: 'break-word',
       w: 'full',
       color: state.hasValue
-        ? `change-chain-dropdown-placeholder-selected-text-color-${theme}`
-        : `change-chain-dropdown-placeholder-text-color-${theme}`,
-      borderColor: `change-chain-dropdown-icon-border-color-${theme}`,
-      '>.change-chain-dropdown-value-image-box': {
+        ? `chain-dropdown-placeholder-selected-text-color-${theme}`
+        : `chain-dropdown-placeholder-text-color-${theme}`,
+      borderColor: `chain-dropdown-icon-border-color-${theme}`,
+      '>.chain-dropdown-value-image-box': {
         minW: 8,
         minH: 8,
         maxW: 8,
@@ -197,20 +195,20 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
         borderColor: 'inherit',
         borderRadius: 'full',
         overflow: 'hidden',
-        '>.change-chain-dropdown-value-image-padding': {
+        '>.chain-dropdown-value-image-padding': {
           m: '1px',
           overflow: 'hidden',
           borderRadius: 'full'
         }
       },
-      '>.change-chain-dropdown-value-name': {
+      '>.chain-dropdown-value-name': {
         opacity: 0.85
       }
     }),
     clearIndicator: (provided) => ({
       ...provided,
       borderRadius: 'full',
-      color: `change-chain-dropdown-indicator-text-color-${theme}`,
+      color: `chain-dropdown-indicator-text-color-${theme}`,
       w: 6,
       h: 6,
       '>svg': {
@@ -220,12 +218,12 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
     }),
     loadingIndicator: (provided) => ({
       ...provided,
-      color: `change-chain-dropdown-loading-indicator-color-${theme}`
+      color: `chain-dropdown-loading-indicator-color-${theme}`
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      bg: `change-chain-dropdown-indicator-background-color-${theme}`,
-      color: `change-chain-dropdown-indicator-text-color-${theme}`,
+      bg: `chain-dropdown-indicator-background-color-${theme}`,
+      color: `chain-dropdown-indicator-text-color-${theme}`,
       pl: 0.5
     }),
     option: (provided, { isSelected }) => {
@@ -242,33 +240,33 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
         overflow: 'hidden',
         wordBreak: 'break-word',
         bg: isSelected
-          ? `change-chain-dropdown-option-selected-background-color-${theme}`
-          : `change-chain-dropdown-option-background-color-${theme}`,
-        color: `change-chain-dropdown-text-color-${theme}`,
+          ? `chain-dropdown-option-selected-background-color-${theme}`
+          : `chain-dropdown-option-background-color-${theme}`,
+        color: `chain-dropdown-text-color-${theme}`,
         borderColor: isSelected
-          ? `change-chain-dropdown-icon-border-color-${theme}`
-          : `change-chain-dropdown-icon-border-color-${theme}`,
+          ? `chain-dropdown-icon-border-color-${theme}`
+          : `chain-dropdown-icon-border-color-${theme}`,
         _hover: {
           bg: isSelected
-            ? `change-chain-dropdown-option-selected-background-color-${theme}`
-            : `change-chain-dropdown-option-hover-background-color-${theme}`
+            ? `chain-dropdown-option-selected-background-color-${theme}`
+            : `chain-dropdown-option-hover-background-color-${theme}`
         },
         _active: {
-          bg: `change-chain-dropdown-option-active-background-color-${theme}`
+          bg: `chain-dropdown-option-active-background-color-${theme}`
         },
         _focus: {
-          bg: `change-chain-dropdown-option-focus-background-color-${theme}`
+          bg: `chain-dropdown-option-focus-background-color-${theme}`
         },
         _disabled: {
-          bg: `change-chain-dropdown-option-disabled-background-color-${theme}`,
+          bg: `chain-dropdown-option-disabled-background-color-${theme}`,
           _hover: {
-            bg: `change-chain-dropdown-option-disabled-background-color-${theme}`
+            bg: `chain-dropdown-option-disabled-background-color-${theme}`
           }
         },
         _notFirst: {
           mt: 1
         },
-        '>.change-chain-dropdown-option-box': {
+        '>.chain-dropdown-option-box': {
           minW: 8,
           minH: 8,
           maxW: 8,
@@ -281,12 +279,12 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
           borderRadius: 'full',
           overflow: 'hidden'
         },
-        '>.change-chain-dropdown-option-image-padding': {
+        '>.chain-dropdown-option-image-padding': {
           m: '1px',
           overflow: 'hidden',
           borderRadius: 'full'
         },
-        '>.change-chain-dropdown-option-name': {
+        '>.chain-dropdown-option-name': {
           opacity: 0.8
         }
       };

@@ -42,8 +42,7 @@ export const CopyAddressButtonBaseStyle = (
   borderColor: `copy-address-button-border-color-${theme}`,
   w: 'full',
   h: 'auto',
-  minH: 'fit-content',
-  py: 0.5,
+  minH: 7,
   px: 2,
   color: `copy-address-button-text-color-${theme}`,
   transition: 'all .3s ease-in-out',
@@ -55,7 +54,6 @@ export const CopyAddressButtonBaseStyle = (
     boxShadow: 'none'
   },
   _loading: {
-    py: 3.5,
     cursor: 'progress'
   },
   _disabled: {

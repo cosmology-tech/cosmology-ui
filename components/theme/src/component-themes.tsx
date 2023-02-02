@@ -180,9 +180,9 @@ export const styleData: StyleDataType[] = [
       { themeName: 'dark', themeValue: '0 0 1px 2px rgba(196, 203, 255, 0.5)' }
     ]
   },
-  // change-chain-dropdown
+  // chain-dropdown
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'firefox-scrollbar-color',
     theme: [
@@ -197,7 +197,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'scrollbar-background-color',
     theme: [
@@ -212,7 +212,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'scrollbar-thumb-color',
     theme: [
@@ -227,7 +227,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'indicator-text-color',
     theme: [
@@ -242,7 +242,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'indicator-background-color',
     theme: [
@@ -257,7 +257,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'loading-indicator-color',
     theme: [
@@ -272,7 +272,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'text-color',
     theme: [
@@ -287,7 +287,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'placeholder-text-color',
     theme: [
@@ -302,7 +302,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'placeholder-selected-text-color',
     theme: [
@@ -317,7 +317,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'icon-border-color',
     theme: [
@@ -332,7 +332,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'menu-background-color',
     theme: [
@@ -347,7 +347,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-background-color',
     theme: [
@@ -362,7 +362,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-hover-background-color',
     theme: [
@@ -377,7 +377,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-active-background-color',
     theme: [
@@ -392,7 +392,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-focus-background-color',
     theme: [
@@ -407,7 +407,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-disabled-background-color',
     theme: [
@@ -422,7 +422,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'colors',
     style: 'option-selected-background-color',
     theme: [
@@ -437,7 +437,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'shadows',
     style: 'menu-shadow',
     theme: [
@@ -452,7 +452,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'change-chain-dropdown',
+    componentName: 'chain-dropdown',
     category: 'shadows',
     style: 'shadow',
     theme: [
