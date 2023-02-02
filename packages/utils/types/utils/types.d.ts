@@ -258,6 +258,10 @@ export declare type SimpleModalHeadType = {
      */
     onClose: MouseEventHandler<HTMLButtonElement>;
 };
+export declare type SimpleModalViewType = {
+    modalHead: ReactNode;
+    modalContent: ReactNode;
+};
 export declare type SimpleConnectModalType = {
     /**
      * The ref of element to receive focus when the modal opens.
@@ -268,13 +272,9 @@ export declare type SimpleConnectModalType = {
      */
     initialRef: RefObject<HTMLButtonElement>;
     /**
-     * The component of modal head.
+     * The component of display on modal content.
      */
-    modalHead: ReactNode;
-    /**
-     * The component of modal content.
-     */
-    modalContent: ReactNode;
+    modalView: ReactNode;
     /**
      * If true, the modal will be open.
      */

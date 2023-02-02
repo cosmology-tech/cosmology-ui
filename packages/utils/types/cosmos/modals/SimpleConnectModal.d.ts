@@ -11,4 +11,4 @@ export declare const SimpleConnectModalBaseStyle: () => {
     };
     overflow: string;
 };
-export declare const SimpleConnectModal: ({ initialRef, modalHead, modalContent, className, styleProps, modalOpen, modalOnClose }: SimpleConnectModalType) => JSX.Element;
+export declare const SimpleConnectModal: ({ initialRef, modalView, className, styleProps, modalOpen, modalOnClose }: SimpleConnectModalType) => JSX.Element;

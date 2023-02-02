@@ -7,6 +7,7 @@ export * from './cosmos/modals/SimpleConnectModal';
 export * from './cosmos/modals/SimpleDisplayModalContent';
 export * from './cosmos/modals/SimpleDisplayWalletList';
 export * from './cosmos/modals/SimpleModalHead';
+export * from './cosmos/modals/SimpleModalView';
 export * from './theme/component-theme';
 export * from './theme/default-theme';
 export * from './theme/theme-provider';
