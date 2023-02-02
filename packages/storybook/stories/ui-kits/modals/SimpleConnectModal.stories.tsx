@@ -11,7 +11,6 @@ import {
   ConnectWalletButton,
   CopyAddressButton,
   Downloads,
-  handleChangeColorModeValue,
   InstallWalletButton,
   LogoStatus,
   QRCode,
@@ -20,6 +19,7 @@ import {
   SimpleDisplayModalContent,
   SimpleDisplayWalletList,
   SimpleModalHead,
+  SimpleModalView,
   Wallet,
   WalletMode,
   WalletStatus
@@ -68,72 +68,111 @@ function handleDownloadData(
 function handleContentStatus(
   status: WalletStatus,
   selectedItem: Wallet,
-  browserInfo: UserDeviceInfoType
+  browserInfo?: UserDeviceInfoType
 ) {
-  const installInfo = selectedItem.downloads
-    ? handleDownloadData(selectedItem.downloads, browserInfo)
-    : undefined;
+  const installInfo =
+    selectedItem.downloads && browserInfo
+      ? handleDownloadData(selectedItem.downloads, browserInfo)
+      : undefined;
 
-  switch (status) {
-    case WalletStatus.Disconnected:
-      return {
-        logo: selectedItem.logo,
-        logoStatus: LogoStatus.Warning,
-        contentHeader: 'Wallet is Disconnected',
-        contentDesc: undefined,
-        buttonText: 'Connect Wallet'
-      };
-    case WalletStatus.NotExist:
-      return {
-        logo: selectedItem.logo,
-        logoStatus: LogoStatus.Error,
-        contentHeader: 'Wallet Not Installed',
-        contentDesc: 'Please install wallet',
-        installLink: installInfo?.link,
-        installIcon: installInfo?.icon,
-        buttonText: `Install ${selectedItem.prettyName}`
-      };
-    case WalletStatus.Connecting:
-      return {
-        logo: selectedItem.logo,
-        logoStatus: LogoStatus.Loading,
-        contentHeader: 'Connecting Wallet',
-        contentDesc: 'Open browser extension/app to connect your wallet.'
-      };
-    case WalletStatus.Connected:
-      return {
-        logo: Astronaut,
-        logoStatus: undefined,
-        contentHeader: undefined,
-        contentDesc: undefined,
-        buttonText: 'Disconnect'
-      };
-    case WalletStatus.Rejected:
-      return {
-        logo: selectedItem.logo,
-        logoStatus: LogoStatus.Error,
-        contentHeader: 'Request Rejected',
-        contentDesc: 'Connection permission is denied.',
-        buttonText: 'Reconnect'
-      };
-    case WalletStatus.Error:
-      return {
-        logo: selectedItem.logo,
-        logoStatus: LogoStatus.Error,
-        contentHeader: 'Oops! Something wrong...',
-        contentDesc:
-          'Seems something went wrong :(\n\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque repellat exercitationem, obcaecati, ipsa deleniti iure consequuntur excepturi optio quas nihil perferendis suscipit pariatur nulla amet beatae itaque unde fuga! Laboriosam, veniam? Beatae, rem rerum perspiciatis placeat obcaecati earum itaque laboriosam fugiat et ipsa praesentium non repellendus officia dolore quos ullam sint voluptates eligendi debitis magnam? Voluptas quis error, facere aspernatur velit suscipit cumque voluptate excepturi accusantium cum architecto rem, totam harum minus odio voluptatum illo veritatis voluptates nulla repellat culpa! At repellendus nemo harum, vitae enim autem natus quaerat possimus, eum, mollitia neque dolore accusantium! Officiis repellat itaque quae qui.',
-        buttonText: 'Change Wallet'
-      };
+  if (selectedItem.mode === WalletMode.WalletConnect) {
+    return (
+      <QRCode
+        link={selectedItem.downloads ? selectedItem.downloads.default : ''}
+        description={`Use ${selectedItem.prettyName} App to scan`}
+      />
+    );
+  }
+  if (selectedItem.mode === WalletMode.Extension && browserInfo) {
+    switch (status) {
+      case WalletStatus.Disconnected:
+        return (
+          <SimpleDisplayModalContent
+            logo={selectedItem.logo}
+            status={LogoStatus.Warning}
+            contentHeader="Wallet is Disconnected"
+            bottomButton={<ConnectWalletButton buttonText="Connect Wallet" />}
+            bottomLink={
+              <NextLink href="/" target="_blank">
+                <Text
+                  fontSize="sm"
+                  opacity={0.7}
+                  transition="all 0.2s ease-in"
+                  textDecoration="none"
+                  _hover={{
+                    opacity: 0.8
+                  }}
+                >
+                  Don&apos;t have a wallet?
+                </Text>
+              </NextLink>
+            }
+          />
+        );
+      case WalletStatus.NotExist:
+        return (
+          <SimpleDisplayModalContent
+            logo={selectedItem.logo}
+            status={LogoStatus.Error}
+            contentHeader="Wallet Not Installed"
+            contentDesc="Please install wallet"
+            bottomButton={
+              <InstallWalletButton
+                buttonText={`Install ${selectedItem.prettyName}`}
+                icon={installInfo?.icon}
+                disabled={false}
+              />
+            }
+          />
+        );
+      case WalletStatus.Connecting:
+        return (
+          <SimpleDisplayModalContent
+            logo={selectedItem.logo}
+            status={LogoStatus.Loading}
+            contentHeader="Connecting Wallet"
+            contentDesc="Open browser extension/app to connect your wallet."
+          />
+        );
+      case WalletStatus.Connected:
+        return (
+          <SimpleDisplayModalContent
+            logo={Astronaut}
+            status={undefined}
+            username="Rex Barkshire"
+            walletIcon={selectedItem.logo as string}
+            addressButton={<CopyAddressButton address="MediBlocLCpH" />}
+            bottomButton={<ConnectWalletButton buttonText="Disconnect" />}
+          />
+        );
+      case WalletStatus.Rejected:
+        return (
+          <SimpleDisplayModalContent
+            logo={selectedItem.logo}
+            status={LogoStatus.Error}
+            contentHeader="Request Rejected"
+            contentDesc="Connection permission is denied."
+            bottomButton={<ConnectWalletButton buttonText="Reconnect" />}
+          />
+        );
+      case WalletStatus.Error:
+        return (
+          <SimpleDisplayModalContent
+            logo={selectedItem.logo}
+            status={LogoStatus.Error}
+            contentHeader="Oops! Something wrong..."
+            contentDesc="Seems something went wrong :(\n\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque repellat exercitationem, obcaecati, ipsa deleniti iure consequuntur excepturi optio quas nihil perferendis suscipit pariatur nulla amet beatae itaque unde fuga! Laboriosam, veniam? Beatae, rem rerum perspiciatis placeat obcaecati earum itaque laboriosam fugiat et ipsa praesentium non repellendus officia dolore quos ullam sint voluptates eligendi debitis magnam? Voluptas quis error, facere aspernatur velit suscipit cumque voluptate excepturi accusantium cum architecto rem, totam harum minus odio voluptatum illo veritatis voluptates nulla repellat culpa! At repellendus nemo harum, vitae enim autem natus quaerat possimus, eum, mollitia neque dolore accusantium! Officiis repellat itaque quae qui."
+            bottomButton={<ConnectWalletButton buttonText="Change Wallet" />}
+          />
+        );
 
-    default:
-      return {
-        logo: undefined,
-        logoStatus: undefined,
-        contentHeader: undefined,
-        contentDesc: undefined,
-        buttonText: 'Connect Wallet'
-      };
+      default:
+        return (
+          <SimpleDisplayModalContent
+            bottomButton={<ConnectWalletButton buttonText="Change Wallet" />}
+          />
+        );
+    }
   }
 }
 
@@ -145,11 +184,9 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   const [selectedItem, setSelectedItem] = useState<Wallet>();
   const [walletList, setWalletList] = useState<Wallet[]>([]);
   const [modalContent, setModalContent] = useState<ReactNode>();
-  const [modalHead, setModalHead] = useState<ReactNode>();
   const [browserInfo, setBrowserInfo] = useState<UserDeviceInfoType>();
 
   function handleClear() {
-    setModalHead(undefined);
     setModalContent(undefined);
     setSelectedItem(undefined);
   }
@@ -181,116 +218,48 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   }, []);
 
   useEffect(() => {
-    if (selectedItem) {
-      setModalHead(
-        <SimpleModalHead
-          title={
-            selectedItem.prettyName
-              ? selectedItem.prettyName
-              : selectedItem.name
-          }
-          backButton={true}
-          onBack={handleClear}
-          onClose={handleClose}
-        />
-      );
-      if (selectedItem.mode === WalletMode.Extension && browserInfo) {
-        const statusContent = handleContentStatus(
-          walletStatus,
-          selectedItem,
-          browserInfo
-        );
-        setModalContent(
-          <SimpleDisplayModalContent
-            logo={statusContent.logo}
-            status={statusContent.logoStatus}
-            contentHeader={statusContent.contentHeader}
-            contentDesc={statusContent.contentDesc}
-            username={
-              walletStatus === WalletStatus.Connected
-                ? 'Rex Barkshire'
-                : undefined
-            }
-            walletIcon={
-              walletStatus === WalletStatus.Connected
-                ? (selectedItem.logo as string)
-                : undefined
-            }
-            addressButton={
-              walletStatus === WalletStatus.Connected ? (
-                <CopyAddressButton address="MediBlocLCpH" />
-              ) : undefined
-            }
-            bottomButton={
-              walletStatus ===
-              WalletStatus.Connecting ? undefined : walletStatus ===
-                WalletStatus.NotExist ? (
-                <InstallWalletButton
-                  disabled={false}
-                  icon={statusContent.installIcon}
-                  buttonText={statusContent.buttonText}
-                  onClick={() => {
-                    window.open(statusContent.installLink);
-                  }}
-                />
-              ) : (
-                <ConnectWalletButton buttonText={statusContent.buttonText} />
-              )
-            }
-            bottomLink={
-              walletStatus === WalletStatus.Disconnected ? (
-                <NextLink href="/" target="_blank">
-                  <Text
-                    fontSize="sm"
-                    opacity={0.7}
-                    transition="all 0.2s ease-in"
-                    textDecoration="none"
-                    _hover={{
-                      color: handleChangeColorModeValue(
-                        colorMode,
-                        'primary.500',
-                        'primary.200'
-                      ),
-                      opacity: 0.8,
-                      textDecoration: handleChangeColorModeValue(
-                        colorMode,
-                        'underline #4657d1',
-                        'underline #6674d9'
-                      )
-                    }}
-                  >
-                    Don&apos;t have a wallet?
-                  </Text>
-                </NextLink>
-              ) : undefined
-            }
-          />
-        );
-      }
-      if (selectedItem.mode === WalletMode.WalletConnect) {
-        setModalContent(
-          <QRCode
-            link={selectedItem.downloads ? selectedItem.downloads.default : ''}
-            description={`Use ${selectedItem.prettyName} App to scan`}
-          />
-        );
-      }
-    }
-    if (!selectedItem) {
-      setModalHead(
-        <SimpleModalHead
-          title="Select a wallet"
-          backButton={false}
-          onClose={handleClose}
-        />
-      );
+    if (selectedItem)
       setModalContent(
-        <SimpleDisplayWalletList
-          initialFocus={initialFocus}
-          walletsData={walletList}
+        <SimpleModalView
+          modalHead={
+            <SimpleModalHead
+              title={
+                selectedItem.prettyName
+                  ? selectedItem.prettyName
+                  : selectedItem.name
+              }
+              backButton={true}
+              onBack={handleClear}
+              onClose={handleClose}
+            />
+          }
+          modalContent={handleContentStatus(
+            walletStatus,
+            selectedItem,
+            browserInfo
+          )}
         />
       );
-    }
+
+    if (!selectedItem)
+      setModalContent(
+        <SimpleModalView
+          modalHead={
+            <SimpleModalHead
+              title="Select a wallet"
+              backButton={false}
+              onClose={handleClose}
+            />
+          }
+          modalContent={
+            <SimpleDisplayWalletList
+              initialFocus={initialFocus}
+              walletsData={walletList}
+            />
+          }
+        />
+      );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorMode, selectedItem, walletList, walletStatus, browserInfo]);
 
@@ -301,8 +270,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
         initialRef={initialFocus}
         modalOpen={isOpen}
         modalOnClose={handleClose}
-        modalHead={modalHead}
-        modalContent={modalContent}
+        modalView={modalContent}
       />
     </Center>
   );

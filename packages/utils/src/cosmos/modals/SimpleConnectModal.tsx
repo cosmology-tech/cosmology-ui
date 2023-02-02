@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalOverlay, Stack } from '@chakra-ui/react';
+import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { useAnimationControls } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
@@ -22,8 +22,7 @@ export const SimpleConnectModalBaseStyle = () => ({
 
 export const SimpleConnectModal = ({
   initialRef,
-  modalHead,
-  modalContent,
+  modalView,
   className,
   styleProps,
   modalOpen,
@@ -40,7 +39,7 @@ export const SimpleConnectModal = ({
       controls.start('animate');
       contentControls.start('animate');
     }
-  }, [modalHead, modalContent, modalOpen, controls, contentControls]);
+  }, [modalView, modalOpen, controls, contentControls]);
 
   return (
     <Modal
@@ -62,10 +61,7 @@ export const SimpleConnectModal = ({
         }}
       >
         <AnimateBox animate={contentControls} variants={ModalContentVariants}>
-          <Stack flex={1} spacing={1} h="full">
-            {modalHead}
-            {modalContent}
-          </Stack>
+          {modalView}
         </AnimateBox>
       </ModalContent>
     </Modal>
