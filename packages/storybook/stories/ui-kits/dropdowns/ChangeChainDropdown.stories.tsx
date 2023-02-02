@@ -67,7 +67,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { ChainDropdown } from '@cosmology-ui/react';\n\n<ChangeChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={false}\n  disabled={false}\n  className="the class name of chain dropdown"\n  styleProps={objectOfCustomChainDropdownButtonStyle}\n  onChange={selectFunction}\n/>`,
+        code: `import { ChainDropdown } from '@cosmology-ui/react';\n\n<ChainDropdown\n  data={[chainData]}\n  selectedItem={value}\n  loading={false}\n  disabled={false}\n  className="the class name of chain dropdown"\n  styleProps={objectOfCustomChainDropdownButtonStyle}\n  customComponents={objectOfCustomComponents}\n  onChange={selectFunction}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true

@@ -85,6 +85,8 @@ export type ChangeChainDropdownType = {
    *    Option
    *  }
    * ```
+   *
+   * about customizing-components: https://github.com/csandman/chakra-react-select#customizing-components
    */
   customComponents?: object;
   /**
