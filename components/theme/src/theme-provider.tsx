@@ -1,9 +1,6 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
-type ThemeContextType = {
-  theme: string;
-  handleTheme: (theme: string) => void;
-};
+import { ThemeContextType } from './type';
 
 export const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',

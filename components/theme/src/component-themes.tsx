@@ -1,15 +1,4 @@
-export type StyleDataType = {
-  componentName: string;
-  category: string;
-  style: string;
-  theme: { themeName: string; themeValue: string }[];
-};
-
-export type ThemeListType = {
-  name: string;
-  displayColor: string;
-  colorMode: string;
-};
+import { StyleDataType, ThemeListType } from './type';
 
 function groupBy(objectArray: any[], property: string): object {
   return objectArray.reduce((acc: object, obj: object) => {
