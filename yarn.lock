@@ -2239,26 +2239,6 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@cosmology-ui/utils@^0.1.10", "@cosmology-ui/utils@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@cosmology-ui/utils/-/utils-0.1.11.tgz#5ab2f2c3665f6765488981a0da12c93caced7b94"
-  integrity sha512-EIBcMd0nZEqU1mjXJKW7i2gjGbW2Adf9nYaeC9PZLrfAK9840/YClpozVbTTCDH367f4hwEfQZeXafuqdpzDGA==
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    "@chakra-ui/react" "^2.4.2"
-    "@cosmology-ui/utils" "^0.1.11"
-    "@emotion/react" "^11.10.5"
-    "@emotion/styled" "^11"
-    bowser "2.11.0"
-    chain-registry "^1.5.0"
-    chakra-react-select "^4.4.2"
-    fast-fuzzy "^1.12.0"
-    framer-motion "^6"
-    qrcode.react "^3.1.0"
-    react "18.2.0"
-    react-icons "^4.4.0"
-    react-resize-detector "^8.0.3"
-
 "@design-systems/utils@2.12.0":
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/@design-systems/utils/-/utils-2.12.0.tgz#955c108be07cb8f01532207cbfea8f848fa760c9"
