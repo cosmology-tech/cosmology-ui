@@ -1,4 +1,4 @@
-import { OptionBase } from 'chakra-react-select';
+import { ActionMeta, OnChangeValue, OptionBase } from 'chakra-react-select';
 
 export interface DataType extends OptionBase {
   /**
