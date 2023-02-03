@@ -95,9 +95,7 @@ export const ConnectWalletButton = ({
     >
       {leftIcon ? (
         <Center
-          className={
-            !buttonText ? undefined : 'connect-wallet-button-left-icon'
-          }
+          className={!buttonText ? '' : 'connect-wallet-button-left-icon'}
         >
           {leftIcon}
         </Center>

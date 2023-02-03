@@ -102,6 +102,8 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.4.2",
+    "@cosmology-ui/animation": "^0.1.1",
+    "@cosmology-ui/theme": "^0.1.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
     "bowser": "2.11.0",
@@ -109,7 +111,8 @@
     "framer-motion": "^6",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-resize-detector": "^8.0.3"
   },
   "peerDependencies": {
     "react": "18.2.0"

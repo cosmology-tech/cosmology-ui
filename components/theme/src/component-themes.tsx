@@ -466,9 +466,9 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
-  // simple-modal-head
+  // connect-modal-head
   {
-    componentName: 'simple-modal-head',
+    componentName: 'connect-modal-head',
     category: 'colors',
     style: 'text-color',
     theme: [
@@ -483,7 +483,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-modal-head',
+    componentName: 'connect-modal-head',
     category: 'colors',
     style: 'button-icon-color',
     theme: [
@@ -497,9 +497,9 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
-  // simple-display-wallet-list
+  // connect-modal-wallet-list
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'button-text-color',
     theme: [
@@ -514,7 +514,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'button-background-color',
     theme: [
@@ -529,7 +529,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'button-hover-background-color',
     theme: [
@@ -544,7 +544,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'icon-border-color',
     theme: [
@@ -559,7 +559,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'hover-icon-border-color',
     theme: [
@@ -574,7 +574,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-wallet-list',
+    componentName: 'connect-modal-wallet-list',
     category: 'colors',
     style: 'shadow-background-color',
     theme: [
@@ -590,9 +590,24 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
-  // qr-code
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-wallet-list',
+    category: 'shadows',
+    style: 'button-hover-shadow',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: '0 0 0 1px #6A66FF'
+      },
+      {
+        themeName: 'dark',
+        themeValue: '0 0 0 1px #6A66FF'
+      }
+    ]
+  },
+  // connect-modal-qr-code
+  {
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
     style: 'border-color',
     theme: [
@@ -607,7 +622,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
     style: 'qr-background-color',
     theme: [
@@ -622,7 +637,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
     style: 'qr-text-color',
     theme: [
@@ -637,7 +652,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'shadows',
     style: 'shadow',
     theme: [
@@ -651,9 +666,9 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
-  // display-modal-content
+  // connect-modal-content
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'loading-border-color',
     theme: [
@@ -668,7 +683,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'warning-border-color',
     theme: [
@@ -683,7 +698,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'error-border-color',
     theme: [
@@ -698,7 +713,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'warning-header-text-color',
     theme: [
@@ -713,7 +728,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'error-header-text-color',
     theme: [
@@ -728,7 +743,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'simple-display-modal-content',
+    componentName: 'connect-modal-content',
     category: 'colors',
     style: 'shadow-background-color',
     theme: [
