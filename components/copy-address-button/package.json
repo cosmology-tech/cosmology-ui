@@ -89,7 +89,6 @@
     "@cosmology-ui/theme": "*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
-    "chain-registry": "^1.5.0",
     "framer-motion": "^6",
     "react-icons": "^4.4.0"
   },

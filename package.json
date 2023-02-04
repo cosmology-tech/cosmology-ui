@@ -16,7 +16,7 @@
     "test": "lerna run test",
     "clear:node_modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "clear:packages": "find -E ./packages -iregex '.*/packages/[a-z]*/(main|module|types)' -type d -prune -print | xargs rm -rf",
-    "clear:components": "find -E ./components -iregex '.*/components/[a-z]*/(main|module|types)' -type d -prune -print | xargs rm -rf",
+    "clear:components": "find -E ./components -iregex '.*/components/[a-z-]*/(main|module|types)' -type d -prune -print | xargs rm -rf",
     "clear:all": "yarn run clear:packages & yarn run clear:components"
   },
   "resolutions": {
