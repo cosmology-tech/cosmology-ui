@@ -4,7 +4,7 @@
   "conventionalCommits": true,
   "npmClient": "yarn",
   "npmClientArgs": ["--no-lockfile"],
-  "packages": ["packages/*"],
+  "packages": ["packages/*", "components/*"],
   "version": "independent",
   "registry": "https://registry.npmjs.org",
   "command": {
@@ -14,7 +14,7 @@
       "access": "restricted"
     },
     "publish": {
-      "allowBranch": "main",
+      "allowBranch": "main, stage",
       "message": "chore(release): publish"
     }
   }

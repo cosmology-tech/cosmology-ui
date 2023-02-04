@@ -1,5 +1,7 @@
 # @cosmology-ui/copy-address-button
 
+## 👉 Make sure you are using `react^18.2`
+
 ## Install
 
 ```
