@@ -5,7 +5,25 @@
 ## Install
 
 ```
-yarn add @chakra-ui^2.4.2 @cosmology-ui/chain-dropdown
+yarn add @chakra-ui^2.4.2 @cosmology-ui/chain-dropdown @cosmology-ui/theme
+```
+
+## Usage
+
+```
+import { ChakraProvider } from '@chakra-ui/react';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/theme';
+import { ChainDropdown } from '@cosmology-ui/chain-dropdown';
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <ChakraProvider theme={defaultTheme}>
+        <ChainDropdown />
+      </ChakraProvider>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Our Website

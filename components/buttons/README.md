@@ -5,7 +5,25 @@
 ## Install
 
 ```
-yarn add @chakra-ui^2.4.2 @cosmology-ui/button
+yarn add @chakra-ui^2.4.2 @cosmology-ui/button @cosmology-ui/theme
+```
+
+## Usage
+
+```
+import { ChakraProvider } from '@chakra-ui/react';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/theme';
+import { ConnectWalletButton } from '@cosmology-ui/buttons';
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <ChakraProvider theme={defaultTheme}>
+        <ConnectWalletButton />
+      </ChakraProvider>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Our Website

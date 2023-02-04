@@ -5,7 +5,25 @@
 ## Install
 
 ```
-yarn add @chakra-ui^2.4.2 @cosmology-ui/connect-modal
+yarn add @chakra-ui^2.4.2 @cosmology-ui/connect-modal @cosmology-ui/theme
+```
+
+## Usage
+
+```
+import { ChakraProvider } from '@chakra-ui/react';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/theme';
+import { ConnectModal } from '@cosmology-ui/connect-modal';
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <ChakraProvider theme={defaultTheme}>
+        <ConnectModal />
+      </ChakraProvider>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Our Website

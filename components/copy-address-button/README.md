@@ -5,7 +5,25 @@
 ## Install
 
 ```
-yarn add @chakra-ui^2.4.2 @cosmology-ui/copy-address-button
+yarn add @chakra-ui^2.4.2 @cosmology-ui/copy-address-button @cosmology-ui/theme
+```
+
+## Usage
+
+```
+import { ChakraProvider } from '@chakra-ui/react';
+import { defaultTheme, ThemeProvider } from '@cosmology-ui/theme';
+import { CopyAddressButton } from '@cosmology-ui/copy-address-button';
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <ChakraProvider theme={defaultTheme}>
+        <CopyAddressButton />
+      </ChakraProvider>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Our Website
