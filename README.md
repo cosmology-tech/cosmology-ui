@@ -6,15 +6,15 @@
 
 All the Cosmology UI kits.
 
-#### [@cosmology-ui/buttons](components/theme)
+#### [@cosmology-ui/theme](components/theme)
 
 Cosmology UI base theme.
 
-#### [@cosmology-ui/buttons](components/base)
+#### [@cosmology-ui/base](components/base)
 
 Cosmology UI base items.
 
-#### [@cosmology-ui/buttons](components/animation)
+#### [@cosmology-ui/animation](components/animation)
 
 Cosmology UI base animation.
 
@@ -22,15 +22,15 @@ Cosmology UI base animation.
 
 Cosmology UI base buttons.
 
-#### [@cosmology-ui/buttons](components/copy-address-button)
+#### [@cosmology-ui/copy-address-button](components/copy-address-button)
 
 Cosmology UI copy address button.
 
-#### [@cosmology-ui/buttons](components/chain-dropdown)
+#### [@cosmology-ui/chain-dropdown](components/chain-dropdown)
 
 Cosmology UI chain dropdown.
 
-#### [@cosmology-ui/buttons](components/connect-modal)
+#### [@cosmology-ui/connect-modal](components/connect-modal)
 
 Cosmology UI connect modal.
 
