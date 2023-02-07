@@ -31,5 +31,8 @@
       "!cwd": false
     }
   ],
-  "cSpell.words": ["Bowser", "chakra", "Cosmostation", "keplr"]
+  "cSpell.words": ["Bowser", "chakra", "Cosmostation", "keplr"],
+  "editor.snippetSuggestions": "top",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showExpandedAbbreviation": "always"
 }
