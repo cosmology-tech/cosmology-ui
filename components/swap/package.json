@@ -86,12 +86,13 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.4.2",
-    "@cosmology-ui/theme": "*",
     "@cosmology-ui/animation": "*",
+    "@cosmology-ui/theme": "*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11",
     "chain-registry": "^1.5.0",
     "chakra-react-select": "^4.4.2",
+    "decimal.js": "^10.4.3",
     "framer-motion": "^6",
     "react-icons": "^4.4.0"
   },
