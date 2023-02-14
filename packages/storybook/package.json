@@ -16,7 +16,7 @@
     "invalidate": "AWS_PROFILE=webinc aws cloudfront create-invalidation --distribution-id E2YEMOBBOGNKLT --paths \"/*\"",
     "invalidate:test": "AWS_PROFILE=webinc aws cloudfront create-invalidation --distribution-id E2SMNXRC02SKJF --paths \"/*\"",
     "deploy:all": "npm run build-storybook && npm run deploy",
-    "deploy:all:test": "npm run build-storybook && npm run deploy"
+    "deploy:all:test": "npm run build-storybook && npm run deploy:test"
   },
   "resolutions": {
     "@types/react": "18.0.26"
