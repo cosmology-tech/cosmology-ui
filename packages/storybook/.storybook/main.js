@@ -4,16 +4,14 @@ module.exports = {
     '../stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
-    '@chakra-ui/storybook-addon',
-    '@storybook/addon-links',
-    'storybook-addon-next-router',
-    '@storybook/addon-interactions',
     {
       name: '@storybook/addon-essentials',
       options: {
         outline: false
       }
-    }
+    },
+    '@storybook/addon-links',
+    '@storybook/addon-interactions'
   ],
   staticDirs: ['./public'],
   framework: '@storybook/react',
