@@ -11,7 +11,7 @@
     "lint:fix": "eslint --ext '**/*.{ts,tsx}' --fix",
     "storybook": "start-storybook -p 11001",
     "style": "prettier --write '**/*.{ts,tsx}' --config .prettierrc.json",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "build-storybook public",
     "deploy": "AWS_PROFILE=webinc aws s3 sync storybook-static/ s3://storybook.cosmology.tech",
     "deploy:test": "AWS_PROFILE=webinc aws s3 sync storybook-static/ s3://storybook-test.cosmology.tech",
     "invalidate": "AWS_PROFILE=webinc aws cloudfront create-invalidation --distribution-id E2YEMOBBOGNKLT --paths \"/*\"",
