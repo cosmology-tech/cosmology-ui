@@ -21,6 +21,7 @@ export const ModalVariants: Variants = {
     }
   }
 };
+
 export const ModalContentVariants: Variants = {
   initial: {
     scale: 0.95,
@@ -34,6 +35,7 @@ export const ModalContentVariants: Variants = {
     transition: { duration: 0.21, delay: 0.1, ease: [0.15, 1.15, 0.6, 1] }
   }
 };
+
 export const LoadingVariants: Variants = {
   hidden: {
     rotate: 0,
@@ -47,6 +49,31 @@ export const LoadingVariants: Variants = {
       type: 'easeInOut',
       repeat: Infinity,
       repeatType: 'loop'
+    }
+  }
+};
+
+export const DropdownVariants: Variants = {
+  initial: {
+    display: 'none',
+    opacity: 0.8,
+    scaleY: 0.95
+  },
+  animate: {
+    display: 'block',
+    opacity: 1,
+    scaleY: 1,
+    transition: {
+      type: 'tween',
+      duration: 0.18
+    }
+  },
+  exit: {
+    opacity: 0.75,
+    scaleY: 0.8,
+    transition: {
+      type: 'tween',
+      duration: 0.03
     }
   }
 };

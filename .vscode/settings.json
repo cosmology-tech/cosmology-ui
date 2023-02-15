@@ -31,5 +31,16 @@
       "!cwd": false
     }
   ],
-  "cSpell.words": ["Bowser", "chakra", "Cosmostation", "keplr"]
+  "cSpell.words": [
+    "Bowser",
+    "chakra",
+    "Cosmostation",
+    "keplr",
+    "NOTPOSITIVE",
+    "NOVALUE",
+    "OVERMAXIMUM"
+  ],
+  "editor.snippetSuggestions": "top",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showExpandedAbbreviation": "always"
 }

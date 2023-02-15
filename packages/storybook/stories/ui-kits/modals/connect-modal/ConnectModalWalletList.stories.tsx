@@ -15,7 +15,7 @@ import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { Story } from '@storybook/react';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { cosmostationData, keplrData, WalletData } from '../../util/config';
+import { cosmostationData, keplrData, WalletData } from '../../../util/config';
 
 interface TypeWithStatus extends Wallet {
   wallet: string;

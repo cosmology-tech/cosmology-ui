@@ -2,6 +2,7 @@ export type ChainListType = {
   chainName: string;
   label: string;
   value: string;
+  symbol: string;
   icon?: {
     png?: string;
     jpeg?: string;
@@ -13,6 +14,8 @@ export type ChainListType = {
     dst_channel?: string;
   };
   address: string;
+  amountValue: string;
+  fiatValue: string;
 };
 
 export type UserDeviceInfoType = {

@@ -17,7 +17,7 @@ import NextLink from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { HiDownload } from 'react-icons/hi';
 
-import { handleDevice, WalletIcons } from '../../util/config';
+import { handleDevice, WalletIcons } from '../../../util/config';
 
 interface TypeWithStatus extends ConnectModalContentType {
   walletStatus: WalletStatus;

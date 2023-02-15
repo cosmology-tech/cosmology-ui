@@ -758,6 +758,143 @@ export const styleData: StyleDataType[] = [
           'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
       }
     ]
+  },
+  // swap-dropdown
+  {
+    componentName: 'swap-dropdown',
+    category: 'colors',
+    style: 'background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.100'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdown',
+    category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdown',
+    category: 'colors',
+    style: 'option-hover-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.200'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdown',
+    category: 'colors',
+    style: 'option-selected-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.300'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.900'
+      }
+    ]
+  },
+  // swap-panel
+  {
+    componentName: 'swap-panel',
+    category: 'colors',
+    style: 'header-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.500'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.500'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-panel',
+    category: 'colors',
+    style: 'available-value-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.800'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-panel',
+    category: 'colors',
+    style: 'input-control-button-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.400'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-panel',
+    category: 'colors',
+    style: 'input-control-button-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'white'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'white'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-editable-input',
+    category: 'colors',
+    style: 'invalid-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'red.500'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'red.500'
+      }
+    ]
   }
 ];
 

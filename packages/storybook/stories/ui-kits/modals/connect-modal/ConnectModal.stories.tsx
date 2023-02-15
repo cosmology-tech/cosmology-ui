@@ -31,8 +31,8 @@ import Bowser from 'bowser';
 import NextLink from 'next/link';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { WalletData } from '../../util/config';
-import { UserDeviceInfoType } from '../../util/types';
+import { WalletData } from '../../../util/config';
+import { UserDeviceInfoType } from '../../../util/types';
 
 interface TypeWithStatus extends ConnectModalType {
   walletStatus: WalletStatus;
