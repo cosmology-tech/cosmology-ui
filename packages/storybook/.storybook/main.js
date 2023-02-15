@@ -13,7 +13,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-interactions'
   ],
-  staticDirs: ['./public'],
+  staticDirs: ['../public'],
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-webpack5'
