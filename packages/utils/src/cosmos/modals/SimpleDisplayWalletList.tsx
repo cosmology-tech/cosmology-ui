@@ -24,11 +24,11 @@ export const SimpleDisplayWalletListBaseStyle = (
     base: '1fr',
     md: dataLength > 1 ? '1fr 1fr' : 'var(--chakra-space-36)'
   },
-  gridTemplateRows: { base: 'max-content', md: 'auto' },
+  gridTemplateRows: { base: 'fit-content', md: 'auto' },
   columnGap: 2.5,
   rowGap: 1,
   maxH: 80,
-  minH: 36,
+  minH: { base: 24, md: 36 },
   w: 80,
   overflowY: 'scroll',
   py: 0.5,
@@ -135,7 +135,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       maxW: 5,
       maxH: 5
     },
-    '+.simple-display-wallet-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
+    '+.simple-display-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
       {
         bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
         borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
@@ -236,7 +236,7 @@ export const SimpleDisplayWalletList = ({
                 id={name}
                 key={name}
                 as="button"
-                className="simple-display-wallet-wallet-button"
+                className="simple-display-wallet-button"
                 ref={
                   i === 0
                     ? (initialFocus as unknown as RefObject<

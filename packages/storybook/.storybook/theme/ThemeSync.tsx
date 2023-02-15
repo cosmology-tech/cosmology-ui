@@ -1,5 +1,5 @@
 import { useColorMode } from '@chakra-ui/react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import addons from '@storybook/addons';
 import { EVENTS } from './constants';
 import { ThemeContext, themeList } from '@cosmology-ui/react';
@@ -8,6 +8,27 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const { setColorMode } = useColorMode();
   const { handleTheme } = useContext(ThemeContext);
   const channel = addons.getChannel();
+
+  useEffect(() => {
+    // update when selected a theme
+    const themeToolCallback = (value: string) => {
+      handleTheme(value);
+      sessionStorage.setItem('current-theme', value);
+      themeList.map(({ name, colorMode }) => {
+        if (value === name) {
+          setColorMode(colorMode);
+        }
+      });
+    };
+
+    // call the function when selecting theme
+    channel.on(EVENTS.CHANGE_THEME, themeToolCallback);
+
+    return () => {
+      // remove event listener
+      channel.removeListener(EVENTS.CHANGE_THEME, themeToolCallback);
+    };
+  }, []);
 
   useEffect(() => {
     // update theme provider and color mode when view mode changed
@@ -28,23 +49,6 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
         handleTheme(current.name);
       }
     }
-
-    // update when selected a theme
-    const themeToolCallback = (value: string) => {
-      themeList.map(({ name, colorMode }) => {
-        if (value === name) {
-          setColorMode(colorMode);
-        }
-      });
-    };
-
-    // call the function when selecting theme
-    channel.on(EVENTS.CHANGE_THEME, themeToolCallback);
-
-    return () => {
-      // remove event listener
-      channel.removeListener(EVENTS.CHANGE_THEME, themeToolCallback);
-    };
   }, [viewMode, setColorMode]);
 
   return null;
