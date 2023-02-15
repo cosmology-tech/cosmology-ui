@@ -12,8 +12,11 @@
     "style": "prettier --write '**/*.{ts,tsx}' --config .prettierrc.json",
     "build-storybook": "build-storybook",
     "deploy": "AWS_PROFILE=webinc aws s3 sync storybook-static/ s3://storybook.cosmology.tech",
+    "deploy:test": "AWS_PROFILE=webinc aws s3 sync storybook-static/ s3://storybook-test.cosmology.tech",
     "invalidate": "AWS_PROFILE=webinc aws cloudfront create-invalidation --distribution-id E2YEMOBBOGNKLT --paths \"/*\"",
-    "deploy:all": "npm run build-storybook && npm run deploy"
+    "invalidate:test": "AWS_PROFILE=webinc aws cloudfront create-invalidation --distribution-id E2SMNXRC02SKJF --paths \"/*\"",
+    "deploy:all": "npm run build-storybook && npm run deploy",
+    "deploy:all:test": "npm run build-storybook && npm run deploy:test"
   },
   "resolutions": {
     "@types/react": "18.0.26"
