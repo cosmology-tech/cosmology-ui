@@ -4,6 +4,7 @@ export enum SwapType {
   from = 'From',
   to = 'To'
 }
+
 export enum SwapInputType {
   INPUT = 'INPUT',
   INVALID = 'INVALID'
@@ -162,4 +163,9 @@ export type SwapControlPanelType = {
   styleProps?: object;
   onAmountInputChange: (newValue: string) => void;
   onDropdownChange: handleSwapDropdown;
+};
+
+export type SwapSettingType = {
+  className?: string;
+  styleProps?: object;
 };

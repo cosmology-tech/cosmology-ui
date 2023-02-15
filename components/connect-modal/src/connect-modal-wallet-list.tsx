@@ -84,7 +84,7 @@ export const ConnectModalWalletListBaseStyle = (theme: string) => ({
         base: 'start',
         md: 'center'
       },
-      justifyContent: 'center',
+      justifyContent: { md: 'center' },
       py: { md: 7 },
       mt: { md: 0 },
       '>.connect-modal-wallet-list-icon': {
