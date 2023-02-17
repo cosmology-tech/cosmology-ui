@@ -14,7 +14,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [currentTheme, setCurrentTheme] = useState('light');
   const defaultThemeValue = {
     theme: 'light',
-    handleTheme: (theme: string) => setCurrentTheme(theme)
+    handleTheme: (theme: string) => {
+      setCurrentTheme(theme);
+      sessionStorage.setItem('current-theme', theme);
+    }
   };
   const [theme, setTheme] = useState(defaultThemeValue);
 

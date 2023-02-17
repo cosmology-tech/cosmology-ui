@@ -58,19 +58,22 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       base: 'row',
       md: buttonShape === ButtonShape.Square ? 'column' : 'row'
     },
-    justifyContent: 'start',
+    justifyContent: {
+      base: 'start',
+      md: buttonShape === ButtonShape.Square ? 'center' : 'start'
+    },
     alignItems: 'center',
     position: 'relative',
     w: 'full',
     h: 'full',
     p: 2,
-    py: { md: buttonShape === ButtonShape.Square ? 6 : 2 },
+    py: { md: buttonShape === ButtonShape.Square ? 7 : 2 },
     mt: { md: buttonShape === ButtonShape.Square ? 0 : 1 },
     borderRadius: 'md',
     whiteSpace: 'break-spaces',
     fontSize: 'sm',
     fontWeight: 'normal',
-    lineHeight: 1.1,
+    lineHeight: 'none',
     textAlign: {
       base: 'start',
       md: buttonShape === ButtonShape.Square ? 'center' : 'start'
@@ -86,10 +89,13 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       borderRadius: 'md',
       boxShadow: '0 0 0 1px #6A66FF'
     },
+    '>.simple-display-wallet-list-text': {
+      flex: buttonShape === ButtonShape.Rectangle ? 1 : 'none'
+    },
     '>.simple-display-wallet-list-icon': {
       position: 'relative',
       mr: { base: 4, md: buttonShape === ButtonShape.Square ? 0 : 4 },
-      mb: { base: 0, md: buttonShape === ButtonShape.Square ? 3.5 : 0 },
+      mb: { base: 0, md: buttonShape === ButtonShape.Square ? 2.5 : 0 },
       w: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       h: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       minW: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
@@ -271,7 +277,9 @@ export const SimpleDisplayWalletList = ({
                     </Flex>
                   ) : undefined}
                 </Box>
-                <Text flex={1}>{prettyName}</Text>
+                <Text className="simple-display-wallet-list-text">
+                  {prettyName}
+                </Text>
                 {subLogo && buttonShape !== ButtonShape.Square ? (
                   <Box className="simple-display-wallet-list-sub-icon">
                     {typeof subLogo === 'string' ? (

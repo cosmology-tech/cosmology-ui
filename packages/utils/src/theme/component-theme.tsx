@@ -624,6 +624,21 @@ export const styleData: StyleDataType[] = [
   {
     componentName: 'qr-code',
     category: 'colors',
+    style: 'qr-blur-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'whiteAlpha.700'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'blackAlpha.400'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'colors',
     style: 'qr-text-color',
     theme: [
       {
@@ -633,6 +648,36 @@ export const styleData: StyleDataType[] = [
       {
         themeName: 'dark',
         themeValue: 'var(--chakra-colors-white)'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'colors',
+    style: 'qr-expired-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'orange.300'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'orange.200'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'colors',
+    style: 'qr-error-text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'red.500'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'red.400'
       }
     ]
   },
@@ -648,6 +693,40 @@ export const styleData: StyleDataType[] = [
       {
         themeName: 'dark',
         themeValue: '0 2px 5px -1px var(--chakra-colors-blackAlpha-900)'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'shadows',
+    style: 'button-shadow',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue:
+          '0 1px 4px var(--chakra-colors-blackAlpha-600), 0 5px 12px var(--chakra-colors-blackAlpha-400), 0 0 25px 6px var(--chakra-colors-whiteAlpha-600)'
+      },
+      {
+        themeName: 'dark',
+        themeValue:
+          '0 1px 4px var(--chakra-colors-blackAlpha-900), 0 5px 12px var(--chakra-colors-blackAlpha-800), 0 0 25px 6px var(--chakra-colors-whiteAlpha-400)'
+      }
+    ]
+  },
+  {
+    componentName: 'qr-code',
+    category: 'colors',
+    style: 'shadow-background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue:
+          'linear-gradient(0deg, rgba(255,255,255,1) 6%, rgba(255,255,255,0.95) 16%, rgba(255,255,255,0.85) 24%, rgba(255,255,255,0.75) 32%, rgba(255,255,255,0.65) 48%, rgba(255,255,255,0.4) 65%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0.1) 95%)'
+      },
+      {
+        themeName: 'dark',
+        themeValue:
+          'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
       }
     ]
   },

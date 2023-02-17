@@ -14,7 +14,7 @@ export const SimpleModalHeadBaseStyle = (
     h: 'fit-content',
     mb: 1,
     p: 4,
-    pb: 0,
+    pb: 1.5,
     '>.modal-header-text': {
       flex: 1,
       mr: backButton ? 0 : -10,

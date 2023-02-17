@@ -209,6 +209,12 @@ export declare enum ButtonShape {
     Square = "Square",
     Rectangle = "Rectangle"
 }
+export declare enum QRCodeStatus {
+    Pending = "Pending",
+    Done = "Done",
+    Error = "Error",
+    Expired = "Expired"
+}
 export declare type DownloadInfo = {
     browser?: string;
     os?: string;
@@ -405,6 +411,10 @@ export declare type ConnectModalContentType = {
 };
 export declare type QRCodeType = {
     /**
+     * The QRCode display status.
+     */
+    status: QRCodeStatus;
+    /**
      * Link for connecting wallet from app.
      */
     link: string;
@@ -413,13 +423,21 @@ export declare type QRCodeType = {
      */
     description?: string;
     /**
+     * The title describes the QR code error.
+     */
+    errorTitle?: string;
+    /**
+     * The description for the QR code error.
+     */
+    errorDesc?: string;
+    /**
      * QRCode size. Default is `230px`.
      */
     qrCodeSize?: number;
     /**
-     * Display the loading state.
+     * A function called to handle refresh.
      */
-    loading?: boolean;
+    onRefresh: () => void;
     /**
      * Can add a stable class name to control CSS.
      */
@@ -439,6 +457,20 @@ export declare type QRCodeType = {
      * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
      */
     styleProps?: object;
+};
+export declare type QRCodeDisplayErrorType = {
+    /**
+     * Current theme.
+     */
+    theme: string;
+    /**
+     * QRCode size. Default is `230px`.
+     */
+    qrCodeSize?: number;
+    /**
+     * A function called to handle refresh.
+     */
+    onRefresh: () => void;
 };
 export declare type Wallet = {
     /**
