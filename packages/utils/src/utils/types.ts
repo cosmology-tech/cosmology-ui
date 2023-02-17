@@ -470,7 +470,7 @@ export type QRCodeType = {
   /**
    * A function called to handle refresh.
    */
-  onRefresh: () => void;
+  onRefresh?: () => void;
   /**
    * Can add a stable class name to control CSS.
    */
