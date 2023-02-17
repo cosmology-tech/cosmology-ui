@@ -13,7 +13,6 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
     // update when selected a theme
     const themeToolCallback = (value: string) => {
       handleTheme(value);
-      // localStorage.setItem('cosmology-ui-theme', value);
       themeList.map(({ name, colorMode }) => {
         if (value === name) {
           setColorMode(colorMode);
