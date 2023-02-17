@@ -16,21 +16,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     theme: 'light',
     handleTheme: (theme: string) => {
       setCurrentTheme(theme);
-      sessionStorage.setItem('current-theme', theme);
+      localStorage.setItem('current-theme', theme);
     }
   };
   const [theme, setTheme] = useState(defaultThemeValue);
 
   useEffect(() => {
-    if (!sessionStorage.getItem('current-theme')) {
-      sessionStorage.setItem('current-theme', 'light');
+    if (!localStorage.getItem('current-theme')) {
+      localStorage.setItem('current-theme', 'light');
       setCurrentTheme('light');
     }
 
     window.addEventListener(
       'storage',
       () => {
-        const current = sessionStorage.getItem('current-theme');
+        const current = localStorage.getItem('current-theme');
         setCurrentTheme(current);
       },
       false
