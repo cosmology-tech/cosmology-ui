@@ -14,7 +14,10 @@ export declare const SimpleDisplayWalletListBaseStyle: (theme: string, dataLengt
     columnGap: number;
     rowGap: number;
     maxH: number;
-    minH: number;
+    minH: {
+        base: number;
+        md: number;
+    };
     w: number;
     overflowY: string;
     py: number;
@@ -41,7 +44,10 @@ export declare const SimpleDisplayWalletListItemBaseStyle: (theme: string, butto
         base: string;
         md: string;
     };
-    justifyContent: string;
+    justifyContent: {
+        base: string;
+        md: string;
+    };
     alignItems: string;
     position: string;
     w: string;
@@ -57,7 +63,7 @@ export declare const SimpleDisplayWalletListItemBaseStyle: (theme: string, butto
     whiteSpace: string;
     fontSize: string;
     fontWeight: string;
-    lineHeight: number;
+    lineHeight: string;
     textAlign: {
         base: string;
         md: string;
@@ -72,6 +78,9 @@ export declare const SimpleDisplayWalletListItemBaseStyle: (theme: string, butto
     _focus: {
         borderRadius: string;
         boxShadow: string;
+    };
+    '>.simple-display-wallet-list-text': {
+        flex: string | number;
     };
     '>.simple-display-wallet-list-icon': {
         position: string;
@@ -146,7 +155,7 @@ export declare const SimpleDisplayWalletListItemBaseStyle: (theme: string, butto
         maxW: number;
         maxH: number;
     };
-    '+.simple-display-wallet-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon': {
+    '+.simple-display-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon': {
         bg: string;
         borderColor: string;
     };

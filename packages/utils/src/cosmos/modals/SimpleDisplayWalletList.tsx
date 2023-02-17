@@ -24,11 +24,11 @@ export const SimpleDisplayWalletListBaseStyle = (
     base: '1fr',
     md: dataLength > 1 ? '1fr 1fr' : 'var(--chakra-space-36)'
   },
-  gridTemplateRows: { base: 'max-content', md: 'auto' },
+  gridTemplateRows: { base: 'fit-content', md: 'auto' },
   columnGap: 2.5,
   rowGap: 1,
   maxH: 80,
-  minH: 36,
+  minH: { base: 24, md: 36 },
   w: 80,
   overflowY: 'scroll',
   py: 0.5,
@@ -58,19 +58,22 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       base: 'row',
       md: buttonShape === ButtonShape.Square ? 'column' : 'row'
     },
-    justifyContent: 'start',
+    justifyContent: {
+      base: 'start',
+      md: buttonShape === ButtonShape.Square ? 'center' : 'start'
+    },
     alignItems: 'center',
     position: 'relative',
     w: 'full',
     h: 'full',
     p: 2,
-    py: { md: buttonShape === ButtonShape.Square ? 6 : 2 },
+    py: { md: buttonShape === ButtonShape.Square ? 7 : 2 },
     mt: { md: buttonShape === ButtonShape.Square ? 0 : 1 },
     borderRadius: 'md',
     whiteSpace: 'break-spaces',
     fontSize: 'sm',
     fontWeight: 'normal',
-    lineHeight: 1.1,
+    lineHeight: 'none',
     textAlign: {
       base: 'start',
       md: buttonShape === ButtonShape.Square ? 'center' : 'start'
@@ -86,10 +89,13 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       borderRadius: 'md',
       boxShadow: '0 0 0 1px #6A66FF'
     },
+    '>.simple-display-wallet-list-text': {
+      flex: buttonShape === ButtonShape.Rectangle ? 1 : 'none'
+    },
     '>.simple-display-wallet-list-icon': {
       position: 'relative',
       mr: { base: 4, md: buttonShape === ButtonShape.Square ? 0 : 4 },
-      mb: { base: 0, md: buttonShape === ButtonShape.Square ? 3.5 : 0 },
+      mb: { base: 0, md: buttonShape === ButtonShape.Square ? 2.5 : 0 },
       w: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       h: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
       minW: { base: 8, md: buttonShape === ButtonShape.Square ? 14 : 8 },
@@ -135,7 +141,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
       maxW: 5,
       maxH: 5
     },
-    '+.simple-display-wallet-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
+    '+.simple-display-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
       {
         bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
         borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
@@ -236,7 +242,7 @@ export const SimpleDisplayWalletList = ({
                 id={name}
                 key={name}
                 as="button"
-                className="simple-display-wallet-wallet-button"
+                className="simple-display-wallet-button"
                 ref={
                   i === 0
                     ? (initialFocus as unknown as RefObject<
@@ -271,7 +277,9 @@ export const SimpleDisplayWalletList = ({
                     </Flex>
                   ) : undefined}
                 </Box>
-                <Text flex={1}>{prettyName}</Text>
+                <Text className="simple-display-wallet-list-text">
+                  {prettyName}
+                </Text>
                 {subLogo && buttonShape !== ButtonShape.Square ? (
                   <Box className="simple-display-wallet-list-sub-icon">
                     {typeof subLogo === 'string' ? (
