@@ -6,14 +6,14 @@ import { ThemeContext, themeList } from '@cosmology-ui/react';
 
 export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const { setColorMode } = useColorMode();
-  const { handleTheme } = useContext(ThemeContext);
+  const { theme, handleTheme } = useContext(ThemeContext);
   const channel = addons.getChannel();
 
   useEffect(() => {
     // update when selected a theme
     const themeToolCallback = (value: string) => {
       handleTheme(value);
-      sessionStorage.setItem('current-theme', value);
+      // localStorage.setItem('cosmology-ui-theme', value);
       themeList.map(({ name, colorMode }) => {
         if (value === name) {
           setColorMode(colorMode);
@@ -37,17 +37,9 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       handleTheme('light');
     }
     if (viewMode === 'story') {
-      if (!sessionStorage.getItem('current-theme')) {
-        setColorMode('light');
-        handleTheme('light');
-      }
-      if (sessionStorage.getItem('current-theme')) {
-        const current = themeList.filter(
-          ({ name }) => sessionStorage.getItem('current-theme') === name
-        )[0];
-        setColorMode(current.colorMode);
-        handleTheme(current.name);
-      }
+      const current = themeList.filter(({ name }) => theme === name)[0];
+      setColorMode(current.colorMode);
+      handleTheme(current.name);
     }
   }, [viewMode, setColorMode]);
 

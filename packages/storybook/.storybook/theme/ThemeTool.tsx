@@ -1,10 +1,10 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch, useContext, useEffect } from 'react';
 import {
   IconButton,
   WithTooltip,
   TooltipLinkList
 } from '@storybook/components';
-import { themeList, ThemeListType } from '@cosmology-ui/react';
+import { ThemeContext, themeList, ThemeListType } from '@cosmology-ui/react';
 import addons from '@storybook/addons';
 import { useAddonState } from '@storybook/api';
 import { ADDON_ID, EVENTS } from './constants';
@@ -55,30 +55,24 @@ const Tooltip = ({
 };
 
 export const ThemeTool = () => {
-  const defaultDisplayTheme =
-    sessionStorage.getItem('current-theme') ||
-    localStorage.getItem('chakra-ui-color-mode') ||
-    'light';
-  const [theme, setTheme] = useAddonState(
+  const { theme } = useContext(ThemeContext);
+  const [themeTool, setThemeTool] = useAddonState(
     `${ADDON_ID}/current-theme`,
-    themeList.filter(({ name }) => name === defaultDisplayTheme)[0]
+    themeList.filter(({ name }) => name === theme)[0]
   );
 
   // update theme button display when view mode changed
   useEffect(() => {
-    window.addEventListener('storage', () => {
-      const current = sessionStorage.getItem('current-theme') || 'light';
-      const getTheme = themeList.filter(({ name }) => name === current)[0];
-      setTheme(getTheme);
-    });
-  }, []);
+    const getTheme = themeList.filter(({ name }) => name === theme)[0];
+    setThemeTool(getTheme);
+  }, [theme]);
 
   return (
     <WithTooltip
       trigger="click"
       closeOnClick={true}
       tooltip={({ onHide }) => (
-        <Tooltip theme={theme} onHide={onHide} setTheme={setTheme} />
+        <Tooltip theme={themeTool} onHide={onHide} setTheme={setThemeTool} />
       )}
     >
       <IconButton active={true}>
@@ -90,11 +84,11 @@ export const ThemeTool = () => {
             marginRight: '5px',
             padding: '1px',
             border: '1px solid',
-            backgroundColor: theme.displayColor,
+            backgroundColor: themeTool.displayColor,
             overflow: 'hidden'
           }}
         ></div>
-        {theme.name}
+        {themeTool.name}
       </IconButton>
     </WithTooltip>
   );
