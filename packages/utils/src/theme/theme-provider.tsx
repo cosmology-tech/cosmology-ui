@@ -1,17 +1,19 @@
-import React, { createContext, ReactNode, useReducer, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+  useState
+} from 'react';
 
-interface ThemeContextType {
-  theme: string;
-  handleTheme: (theme: string) => void;
+import { Themes } from '../utils/types';
+export interface ThemeContextType {
+  theme: Themes;
+  setTheme: (theme: Themes) => void;
 }
 interface ThemeContextReducerAction {
-  theme: string;
+  theme: Themes;
 }
-
-export const ThemeContext = createContext<ThemeContextType>({
-  theme: 'light',
-  handleTheme: () => {}
-});
 
 function handleThemeChange(
   state: ThemeContextType,
@@ -27,10 +29,10 @@ function handleThemeChange(
 }
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currentTheme, setCurrentTheme] = useState('light');
+  const [currentTheme, setCurrentTheme] = useState(Themes.Light);
   const [theme, updateTheme] = useReducer(handleThemeChange, {
     theme: currentTheme,
-    handleTheme: (value: string) => {
+    setTheme: (value: Themes) => {
       updateTheme({ theme: value });
       setCurrentTheme(value);
       localStorage.setItem('cosmology-ui-theme', value);
@@ -40,4 +42,19 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   );
+};
+
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: Themes.Light,
+  setTheme: () => {}
+});
+
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error('You have forgot to use ThemeProvider.');
+  }
+
+  return context;
 };

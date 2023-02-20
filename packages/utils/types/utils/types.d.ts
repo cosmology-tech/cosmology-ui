@@ -9,8 +9,12 @@ export declare enum WalletStatus {
     Rejected = "Rejected",
     Error = "Error"
 }
+export declare enum Themes {
+    Light = "light",
+    Dark = "dark"
+}
 export declare type ThemeListType = {
-    name: string;
+    name: Themes;
     displayColor: string;
     colorMode: string;
 };
@@ -19,7 +23,7 @@ export declare type StyleDataType = {
     category: string;
     style: string;
     theme: {
-        themeName: string;
+        themeName: Themes;
         themeValue: string;
     }[];
 };

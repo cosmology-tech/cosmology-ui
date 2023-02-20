@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
-interface ThemeContextType {
-    theme: string;
-    handleTheme: (theme: string) => void;
+import { Themes } from '../utils/types';
+export interface ThemeContextType {
+    theme: Themes;
+    setTheme: (theme: Themes) => void;
 }
-export declare const ThemeContext: React.Context<ThemeContextType>;
 export declare const ThemeProvider: ({ children }: {
     children: ReactNode;
 }) => JSX.Element;
-export {};
+export declare const ThemeContext: React.Context<ThemeContextType>;
+export declare const useTheme: () => ThemeContextType;

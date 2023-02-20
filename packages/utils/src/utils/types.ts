@@ -13,8 +13,13 @@ export enum WalletStatus {
   Rejected = 'Rejected',
   Error = 'Error'
 }
+export enum Themes {
+  Light = 'light',
+  Dark = 'dark'
+  // TestTheme = 'test-theme'
+}
 export type ThemeListType = {
-  name: string;
+  name: Themes;
   displayColor: string;
   colorMode: string;
 };
@@ -22,7 +27,7 @@ export type StyleDataType = {
   componentName: string;
   category: string;
   style: string;
-  theme: { themeName: string; themeValue: string }[];
+  theme: { themeName: Themes; themeValue: string }[];
 };
 
 /* ====================================================== */

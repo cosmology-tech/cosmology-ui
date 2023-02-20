@@ -2,16 +2,16 @@ import { useColorMode } from '@chakra-ui/react';
 import React, { useContext, useEffect } from 'react';
 import addons from '@storybook/addons';
 import { EVENTS } from './constants';
-import { ThemeContext, themeList } from '@cosmology-ui/react';
+import { ThemeContext, themeList, Themes } from '@cosmology-ui/react';
 
 export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const { setColorMode } = useColorMode();
-  const { theme, handleTheme } = useContext(ThemeContext);
+  const { theme, setTheme: handleTheme } = useContext(ThemeContext);
   const channel = addons.getChannel();
 
   useEffect(() => {
     // update when selected a theme
-    const themeToolCallback = (value: string) => {
+    const themeToolCallback = (value: Themes) => {
       handleTheme(value);
       localStorage.setItem('cosmology-ui-storybook-theme', value);
       themeList.map(({ name, colorMode }) => {
@@ -34,7 +34,7 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
     // update theme provider and color mode when view mode changed
     if (viewMode === 'docs') {
       setColorMode('light');
-      handleTheme('light');
+      handleTheme(Themes.Light);
     }
     if (viewMode === 'story') {
       const storedTheme = localStorage.getItem('cosmology-ui-storybook-theme');
