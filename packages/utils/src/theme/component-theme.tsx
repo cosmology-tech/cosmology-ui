@@ -822,6 +822,36 @@ export const styleData: StyleDataType[] = [
           'linear-gradient(0deg, rgba(45,55,72,1) 6%, rgba(45,55,72,0.95) 16%, rgba(45,55,72,0.85) 36%, rgba(45,55,72,0.75) 45%, rgba(45,55,72,0.65) 55%, rgba(45,55,72,0.4) 70%, rgba(45,55,72,0.2) 80%, rgba(45,55,72,0.1) 95%)'
       }
     ]
+  },
+  {
+    componentName: 'simple-modal',
+    category: 'colors',
+    style: 'background-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'white'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  {
+    componentName: 'simple-modal',
+    category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: 'light',
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: 'dark',
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
   }
 ];
 

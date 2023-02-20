@@ -36,7 +36,11 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       handleTheme('light');
     }
     if (viewMode === 'story') {
-      const current = themeList.filter(({ name }) => theme === name)[0];
+      const storeTheme = localStorage.getItem('cosmology-ui-theme');
+      const current = themeList.filter(({ name }) => {
+        if (storeTheme) return storeTheme === name;
+        if (!storeTheme) return theme === name;
+      })[0];
       setColorMode(current.colorMode);
       handleTheme(current.name);
     }

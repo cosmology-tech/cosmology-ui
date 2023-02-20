@@ -25,6 +25,7 @@ const Tooltip = ({
     onHide(); // close dropdown
     channel.emit(EVENTS.CHANGE_THEME, selectedTheme.name); // add the event to handle theme
     setTheme(selectedTheme);
+    localStorage.setItem('cosmology-ui-theme', selectedTheme.name);
   }
 
   return (

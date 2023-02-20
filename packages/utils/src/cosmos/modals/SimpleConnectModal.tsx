@@ -1,23 +1,26 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { useAnimationControls } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 
 import {
   AnimateBox,
   ModalContentVariants,
   ModalVariants,
-  SimpleConnectModalType
+  SimpleConnectModalType,
+  ThemeContext
 } from '../../index';
 
-export const SimpleConnectModalBaseStyle = () => ({
+export const SimpleConnectModalBaseStyle = (theme: string) => ({
   position: 'relative',
   alignSelf: 'center',
   borderRadius: 'xl',
+  overflow: 'hidden',
   w: 'fit-content',
   mx: 4,
-  _focus: { outline: 'none' },
-  overflow: 'hidden'
+  bg: `simple-modal-background-color-${theme}`,
+  color: `simple-modal-text-color-${theme}`,
+  _focus: { outline: 'none' }
 });
 
 export const SimpleConnectModal = ({
@@ -28,6 +31,7 @@ export const SimpleConnectModal = ({
   modalOpen,
   modalOnClose
 }: SimpleConnectModalType) => {
+  const { theme } = useContext(ThemeContext);
   const controls = useAnimationControls();
   const contentControls = useAnimationControls();
   const { width, height, ref: nodeRef } = useResizeDetector();
@@ -53,7 +57,7 @@ export const SimpleConnectModal = ({
       <ModalContent
         ref={nodeRef}
         className={className}
-        sx={styleProps ? styleProps : SimpleConnectModalBaseStyle()}
+        sx={styleProps ? styleProps : SimpleConnectModalBaseStyle(theme)}
         motionProps={{
           custom: { width: width ? width : 290, height: height ? height : 250 },
           animate: controls,
