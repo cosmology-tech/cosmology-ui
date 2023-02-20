@@ -56,7 +56,7 @@ function handleStatus(
 
 const Template: ComponentStory<typeof QRCodeKit> = ({
   status,
-  description,
+  link,
   ...args
 }) => {
   const [event, updateEvent] = useReducer(handleStatus, {
@@ -122,6 +122,7 @@ const Template: ComponentStory<typeof QRCodeKit> = ({
         </Box>
         <QRCodeKit
           status={status}
+          link={link}
           description={event.descriptionText}
           errorTitle={event.errorTitle}
           errorDesc={event.errorDesc}
@@ -137,7 +138,7 @@ export const QRCode = Template.bind({});
 // to hide controls
 QRCode.parameters = {
   controls: {
-    include: ['link', 'description', 'loading', 'status']
+    include: ['status', 'link']
   }
 };
 
@@ -156,7 +157,7 @@ export default {
         </>
       ),
       source: {
-        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  link="wallet link"\n  description='how to connect'\n  qrCodeSize={230}\n  loading={false}\n  className="the class name of qr code"\n  styleProps={objectOfCustomQRCodeStyle}\n/>`,
+        code: `import { QRCode } from '@cosmology-ui/utils';\n\n<QRCode\n  status={qrCodeStatus}\n  link="wallet link"\n  description='how to connect'\n  qrCodeSize={230}\n  loading={false}\n  errorTitle="Something error:("\n  errorDesc="Description of this error."\n  onRefresh={refreshFunction}\n  className="the class name of qr code"\n  styleProps={objectOfCustomQRCodeStyle}\n/>`,
         language: 'tsx',
         type: 'auto',
         format: true
@@ -164,9 +165,7 @@ export default {
     }
   },
   args: {
-    link: 'https://cosmoskit.com/',
-    description: 'Use wallet app to scan this QRCode',
-    loading: false
+    link: 'https://cosmoskit.com/'
   },
   argTypes: {
     status: {

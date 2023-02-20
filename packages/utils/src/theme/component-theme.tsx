@@ -30,7 +30,6 @@ function handleData(data: StyleDataType[]) {
 export const themeList: ThemeListType[] = [
   { name: Themes.Light, displayColor: '#fff', colorMode: Themes.Light },
   { name: Themes.Dark, displayColor: '#1A202C', colorMode: Themes.Dark }
-  // { name: Themes.TestTheme, displayColor: '#2539c9', colorMode: Themes.Light }
 ];
 
 export const styleData: StyleDataType[] = [
@@ -42,7 +41,6 @@ export const styleData: StyleDataType[] = [
     theme: [
       { themeName: Themes.Light, themeValue: 'primary.500' },
       { themeName: Themes.Dark, themeValue: 'primary.400' }
-      // { themeName: Themes.TestTheme, themeValue: 'pink.200' }
     ]
   },
   {
@@ -79,7 +77,6 @@ export const styleData: StyleDataType[] = [
     theme: [
       { themeName: Themes.Light, themeValue: 'white' },
       { themeName: Themes.Dark, themeValue: 'white' }
-      // { themeName: Themes.TestTheme, themeValue: 'pink.800' }
     ]
   },
   {
@@ -829,6 +826,7 @@ export const styleData: StyleDataType[] = [
       }
     ]
   },
+  // simple-modal
   {
     componentName: 'simple-modal',
     category: 'colors',
