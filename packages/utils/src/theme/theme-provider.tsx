@@ -28,6 +28,11 @@ function handleThemeChange(
   return state;
 }
 
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: Themes.Light,
+  setTheme: () => {}
+});
+
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [currentTheme, setCurrentTheme] = useState(Themes.Light);
   const [theme, updateTheme] = useReducer(handleThemeChange, {
@@ -43,11 +48,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   );
 };
-
-export const ThemeContext = createContext<ThemeContextType>({
-  theme: Themes.Light,
-  setTheme: () => {}
-});
 
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);

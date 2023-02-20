@@ -14,6 +14,7 @@ import {
   InstallWalletButton,
   LogoStatus,
   QRCode,
+  QRCodeStatus,
   SimpleConnectModal as SimpleConnectModalKit,
   SimpleConnectModalType,
   SimpleDisplayModalContent,
@@ -35,6 +36,7 @@ import { UserDeviceInfoType } from '../../util/types';
 
 interface TypeWithStatus extends SimpleConnectModalType {
   walletStatus: WalletStatus;
+  qrCodeStatus: QRCodeStatus;
 }
 
 function handleDownloadData(
@@ -67,6 +69,7 @@ function handleDownloadData(
 
 function handleContentStatus(
   status: WalletStatus,
+  qrStatus: QRCodeStatus,
   selectedItem: Wallet,
   browserInfo?: UserDeviceInfoType
 ) {
@@ -78,6 +81,7 @@ function handleContentStatus(
   if (selectedItem.mode === WalletMode.WalletConnect) {
     return (
       <QRCode
+        status={qrStatus}
         link={selectedItem.downloads ? selectedItem.downloads.default : ''}
         description={`Use ${selectedItem.prettyName} App to scan`}
       />
@@ -177,7 +181,11 @@ function handleContentStatus(
 }
 
 // eslint-disable-next-line react/prop-types
-const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
+const Template: Story<TypeWithStatus> = ({
+  walletStatus,
+  qrCodeStatus,
+  ...rest
+}) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialFocus = useRef<HTMLButtonElement>(null);
@@ -235,6 +243,7 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
           }
           modalContent={handleContentStatus(
             walletStatus,
+            qrCodeStatus,
             selectedItem,
             browserInfo
           )}
@@ -281,7 +290,7 @@ export const SimpleConnectModal = Template.bind({});
 // to hide controls
 SimpleConnectModal.parameters = {
   controls: {
-    include: ['walletStatus']
+    include: ['walletStatus', 'qrCodeStatus']
   }
 };
 
@@ -311,6 +320,11 @@ export default {
     walletStatus: {
       options: Object.values(WalletStatus),
       defaultValue: WalletStatus.Disconnected,
+      control: { type: 'radio' }
+    },
+    qrCodeStatus: {
+      options: Object.values(QRCodeStatus),
+      defaultValue: QRCodeStatus.Done,
       control: { type: 'radio' }
     }
   }
