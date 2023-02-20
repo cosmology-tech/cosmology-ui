@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.24](https://github.com/cosmology-tech/cosmology-ui/compare/@cosmology-ui/storybook@0.1.23...@cosmology-ui/storybook@0.1.24) (2023-02-20)
+
+**Note:** Version bump only for package @cosmology-ui/storybook
+
+
+
+
+
 ## [0.1.23](https://github.com/cosmology-tech/cosmology-ui/compare/@cosmology-ui/storybook@0.1.22...@cosmology-ui/storybook@0.1.23) (2023-02-20)
 
 **Note:** Version bump only for package @cosmology-ui/storybook
