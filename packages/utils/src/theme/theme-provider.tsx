@@ -33,6 +33,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     handleTheme: (value: string) => {
       updateTheme({ theme: value });
       setCurrentTheme(value);
+      localStorage.setItem('cosmology-ui-theme', value);
     }
   });
 

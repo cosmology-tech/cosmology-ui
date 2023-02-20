@@ -25,7 +25,6 @@ const Tooltip = ({
     onHide(); // close dropdown
     channel.emit(EVENTS.CHANGE_THEME, selectedTheme.name); // add the event to handle theme
     setTheme(selectedTheme);
-    localStorage.setItem('cosmology-ui-theme', selectedTheme.name);
   }
 
   return (
@@ -61,12 +60,6 @@ export const ThemeTool = () => {
     `${ADDON_ID}/current-theme`,
     themeList.filter(({ name }) => name === theme)[0]
   );
-
-  // update theme button display when view mode changed
-  useEffect(() => {
-    const getTheme = themeList.filter(({ name }) => name === theme)[0];
-    setThemeTool(getTheme);
-  }, [theme]);
 
   return (
     <WithTooltip

@@ -13,6 +13,7 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
     // update when selected a theme
     const themeToolCallback = (value: string) => {
       handleTheme(value);
+      localStorage.setItem('cosmology-ui-storybook-theme', value);
       themeList.map(({ name, colorMode }) => {
         if (value === name) {
           setColorMode(colorMode);
@@ -36,15 +37,27 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       handleTheme('light');
     }
     if (viewMode === 'story') {
-      const storeTheme = localStorage.getItem('cosmology-ui-theme');
+      const storedTheme = localStorage.getItem('cosmology-ui-storybook-theme');
       const current = themeList.filter(({ name }) => {
-        if (storeTheme) return storeTheme === name;
-        if (!storeTheme) return theme === name;
+        if (!storedTheme) return theme === name;
+        if (storedTheme) return storedTheme === name;
       })[0];
+      channel.emit(EVENTS.CHANGE_THEME, current.name);
       setColorMode(current.colorMode);
       handleTheme(current.name);
     }
   }, [viewMode, setColorMode]);
+
+  useEffect(() => {
+    function handleThemeChange() {
+      localStorage.removeItem('cosmology-ui-storybook-theme');
+    }
+    window.addEventListener('beforeunload', handleThemeChange);
+
+    return () => {
+      window.addEventListener('beforeunload', handleThemeChange);
+    };
+  }, []);
 
   return null;
 };
