@@ -24,7 +24,7 @@ export const SimpleDisplayWalletListBaseStyle = (
     base: '1fr',
     md: dataLength > 1 ? '1fr 1fr' : 'var(--chakra-space-36)'
   },
-  gridTemplateRows: { base: 'fit-content', md: 'auto' },
+  gridTemplateRows: { base: 'min-content', md: 'auto' },
   columnGap: 2.5,
   rowGap: 1,
   maxH: 80,
