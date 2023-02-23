@@ -1,44 +1,53 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+  useState
+} from 'react';
 
-import { ThemeContextType } from './type';
+import { ThemeContextReducerAction, ThemeContextType, Themes } from './type';
+
+function handleThemeChange(
+  state: ThemeContextType,
+  action: ThemeContextReducerAction
+): ThemeContextType {
+  if (action.theme !== state.theme) {
+    return {
+      ...state,
+      theme: action.theme
+    };
+  }
+  return state;
+}
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: 'light',
-  handleTheme: () => {}
+  theme: Themes.Light,
+  setTheme: () => {}
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currentTheme, setCurrentTheme] = useState('light');
-  const defaultThemeValue = {
-    theme: 'light',
-    handleTheme: (theme: string) => setCurrentTheme(theme)
-  };
-  const [theme, setTheme] = useState(defaultThemeValue);
-
-  useEffect(() => {
-    if (!sessionStorage.getItem('current-theme')) {
-      sessionStorage.setItem('current-theme', 'light');
-      setCurrentTheme('light');
+  const [currentTheme, setCurrentTheme] = useState(Themes.Light);
+  const [theme, updateTheme] = useReducer(handleThemeChange, {
+    theme: currentTheme,
+    setTheme: (value: Themes) => {
+      updateTheme({ theme: value });
+      setCurrentTheme(value);
+      localStorage.setItem('cosmology-ui-theme', value);
     }
-
-    window.addEventListener(
-      'storage',
-      () => {
-        const current = sessionStorage.getItem('current-theme');
-        setCurrentTheme(current);
-      },
-      false
-    );
-  }, []);
-
-  useEffect(() => {
-    setTheme((pre) => ({
-      ...pre,
-      theme: currentTheme
-    }));
-  }, [currentTheme]);
+  });
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   );
+};
+
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error('You have forgot to use ThemeProvider.');
+  }
+
+  return context;
 };

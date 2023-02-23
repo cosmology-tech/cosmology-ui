@@ -1,7 +1,16 @@
-export type ThemeContextType = {
-  theme: string;
-  handleTheme: (theme: string) => void;
-};
+export enum Themes {
+  Light = 'light',
+  Dark = 'dark'
+}
+
+export interface ThemeContextType {
+  theme: Themes;
+  setTheme: (theme: Themes) => void;
+}
+
+export interface ThemeContextReducerAction {
+  theme: Themes;
+}
 
 export type StyleDataType = {
   componentName: string;
