@@ -79,13 +79,45 @@ function handleContentStatus(
       : undefined;
 
   if (selectedItem.mode === WalletMode.WalletConnect) {
-    return (
-      <QRCode
-        status={qrStatus}
-        link={selectedItem.downloads ? selectedItem.downloads.default : ''}
-        description={`Use ${selectedItem.prettyName} App to scan`}
-      />
-    );
+    switch (qrStatus) {
+      case QRCodeStatus.Pending:
+        return (
+          <QRCode
+            status={QRCodeStatus.Pending}
+            description="Initializing QRCode..."
+            link="https://"
+          />
+        );
+      case QRCodeStatus.Done:
+        return (
+          <QRCode
+            status={qrStatus}
+            link={selectedItem.downloads ? selectedItem.downloads.default : ''}
+            description={`Use ${selectedItem.prettyName} App to scan`}
+          />
+        );
+      case QRCodeStatus.Expired:
+        return (
+          <QRCode
+            status={QRCodeStatus.Expired}
+            link="https://"
+            errorTitle="This QR Code is Expired."
+            errorDesc="Please refresh QR Code."
+          />
+        );
+      case QRCodeStatus.Error:
+        return (
+          <QRCode
+            status={QRCodeStatus.Error}
+            link="https://"
+            errorTitle="Seems something went wrong :("
+            errorDesc="Dolor lorem ipsum sit amet consectetur adipisicing elit. Eos necessitatibus eveniet ipsa itaque provident recusandae exercitationem numquam aperiam officia facere."
+          />
+        );
+
+      default:
+        break;
+    }
   }
   if (selectedItem.mode === WalletMode.Extension && browserInfo) {
     switch (status) {
@@ -270,7 +302,14 @@ const Template: Story<TypeWithStatus> = ({
       );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colorMode, selectedItem, walletList, walletStatus, browserInfo]);
+  }, [
+    colorMode,
+    selectedItem,
+    walletList,
+    walletStatus,
+    qrCodeStatus,
+    browserInfo
+  ]);
 
   return (
     <Center py={16}>
