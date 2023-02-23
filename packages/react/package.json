@@ -1,6 +1,6 @@
 {
   "name": "@cosmology-ui/react",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "cosmology-ui",
   "author": "developers@cosmology.tech",
   "contributors": [
@@ -103,7 +103,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@chakra-ui/react": "^2.5.1",
-    "@cosmology-ui/utils": "^0.1.20",
+    "@cosmology-ui/utils": "^0.1.21",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "bowser": "2.11.0",
