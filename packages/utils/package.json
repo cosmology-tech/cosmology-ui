@@ -64,8 +64,7 @@
     ]
   },
   "resolutions": {
-    "@types/react": "18.0.26",
-    "framer-motion": "6.5.1"
+    "@types/react": "18.0.26"
   },
   "devDependencies": {
     "@babel/cli": "7.18.10",

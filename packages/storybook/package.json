@@ -19,8 +19,7 @@
     "deploy:all:test": "npm run build-storybook && npm run deploy:test"
   },
   "resolutions": {
-    "@types/react": "18.0.26",
-    "framer-motion": "6.5.1"
+    "@types/react": "18.0.26"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
