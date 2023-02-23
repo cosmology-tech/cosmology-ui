@@ -128,7 +128,7 @@ export const SimpleDisplayModalContentBaseStyle = (
     '>.modal-content-bottom-button': {
       w: 'full',
       pt: 3.5,
-      px: 5
+      px: 3
     },
     '>.modal-content-bottom-link': {
       w: 'full',

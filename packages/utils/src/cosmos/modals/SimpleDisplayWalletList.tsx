@@ -108,7 +108,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
         alignItems: 'center',
         overflow: 'hidden',
         border: '2px solid',
-        bg: `simple-display-wallet-list-button-background-color-${theme}`,
+        bg: `simple-display-wallet-list-icon-border-color-${theme}`,
         borderColor: `simple-display-wallet-list-icon-border-color-${theme}`,
         borderRadius: 'full',
         position: 'absolute',
@@ -143,7 +143,7 @@ export const SimpleDisplayWalletListItemBaseStyle = (
     },
     '+.simple-display-wallet-button:hover>.simple-display-wallet-list-icon>.simple-display-wallet-list-sub-icon':
       {
-        bg: `simple-display-wallet-list-button-hover-background-color-${theme}`,
+        bg: `simple-display-wallet-list-button-hover-border-color-${theme}`,
         borderColor: `simple-display-wallet-list-hover-icon-border-color-${theme}`
       }
   };
