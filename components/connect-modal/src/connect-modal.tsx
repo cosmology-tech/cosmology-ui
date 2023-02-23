@@ -4,20 +4,23 @@ import {
   ModalContentVariants,
   ModalVariants
 } from '@cosmology-ui/animation';
+import { Themes, useTheme } from '@cosmology-ui/theme';
 import { useAnimationControls } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 
 import { ConnectModalType } from './type';
 
-export const ConnectModalBaseStyle = () => ({
+export const ConnectModalBaseStyle = (theme: Themes) => ({
   position: 'relative',
   alignSelf: 'center',
+  overflow: 'hidden',
   borderRadius: 'xl',
   w: 'fit-content',
   mx: 4,
-  _focus: { outline: 'none' },
-  overflow: 'hidden'
+  bg: `simple-modal-background-color-${theme}`,
+  color: `simple-modal-text-color-${theme}`,
+  _focus: { outline: 'none' }
 });
 
 export const ConnectModal = ({
@@ -28,6 +31,7 @@ export const ConnectModal = ({
   modalOpen,
   modalOnClose
 }: ConnectModalType) => {
+  const { theme } = useTheme();
   const controls = useAnimationControls();
   const contentControls = useAnimationControls();
   const { width, height, ref: nodeRef } = useResizeDetector();
@@ -53,7 +57,7 @@ export const ConnectModal = ({
       <ModalContent
         ref={nodeRef}
         className={className}
-        sx={styleProps ? styleProps : ConnectModalBaseStyle()}
+        sx={styleProps ? styleProps : ConnectModalBaseStyle(theme)}
         motionProps={{
           custom: { width: width ? width : 290, height: height ? height : 250 },
           animate: controls,

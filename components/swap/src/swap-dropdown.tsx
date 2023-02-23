@@ -12,7 +12,7 @@ import {
   useOutsideClick
 } from '@chakra-ui/react';
 import { AnimateBox, DropdownVariants } from '@cosmology-ui/animation';
-import { ThemeContext } from '@cosmology-ui/theme';
+import { useTheme } from '@cosmology-ui/theme';
 import {
   AsyncSelect,
   chakraComponents,
@@ -24,7 +24,7 @@ import {
 } from 'chakra-react-select';
 import { Searcher } from 'fast-fuzzy';
 import { AnimatePresence } from 'framer-motion';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 
 import { SwapSkeletonOptions } from './swap-skeleton';
@@ -367,7 +367,7 @@ export const SwapDropdown = ({
   onClose,
   onDropdownChange
 }: SwapDropdownType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick({

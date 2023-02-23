@@ -1,13 +1,7 @@
 import { Box, Flex, Grid, GridItem, Icon, Image, Text } from '@chakra-ui/react';
 import { AnimateGridItem } from '@cosmology-ui/animation';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, {
-  RefObject,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 
 import { ButtonShape, DisplayWalletListType } from './type';
 
@@ -182,7 +176,7 @@ export const ConnectModalWalletList = ({
   styleProps: listStyleProps,
   shadowAnimateProps = ConnectModalWalletListBaseShadowAnimate(false)
 }: DisplayWalletListType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const listRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);
   const [animateShadow, setAnimateShadow] = useState(shadowAnimateProps);

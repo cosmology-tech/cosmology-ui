@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react';
 import {
   ConnectWalletButton,
-  ThemeContext,
-  themeList
+  themeList,
+  Themes,
+  useTheme
 } from '@cosmology-ui/react';
 import Image from 'next/image';
-import { MouseEventHandler, useContext } from 'react';
+import { MouseEventHandler } from 'react';
 import { RiDeviceLine } from 'react-icons/ri';
 
 // @ts-ignore
@@ -57,10 +58,10 @@ const ThemeButton = ({
 
 export default function Home() {
   const { setColorMode } = useColorMode();
-  const { handleTheme } = useContext(ThemeContext);
-  const handleThemeChange = (name: string, colorMode: string) => {
+  const { setTheme } = useTheme();
+  const handleThemeChange = (name: Themes, colorMode: string) => {
     setColorMode(colorMode);
-    handleTheme(name);
+    setTheme(name);
   };
 
   return (

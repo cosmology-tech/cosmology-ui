@@ -1,6 +1,6 @@
 import { Button, Center } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React from 'react';
 
 import { BaseButtonType } from './button-base-type';
 
@@ -47,7 +47,7 @@ export const InstallWalletButton = ({
   styleProps,
   onClick
 }: BaseButtonType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
 
   return (
     <Button

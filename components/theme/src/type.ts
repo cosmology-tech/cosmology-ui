@@ -20,7 +20,7 @@ export type StyleDataType = {
 };
 
 export type ThemeListType = {
-  name: string;
+  name: Themes;
   displayColor: string;
   colorMode: string;
 };

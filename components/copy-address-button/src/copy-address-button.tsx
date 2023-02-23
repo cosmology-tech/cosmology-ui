@@ -1,6 +1,6 @@
 import { Button, Icon, useClipboard } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext, useEffect, useState } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React, { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FiCopy } from 'react-icons/fi';
 
@@ -85,7 +85,7 @@ export const CopyAddressButton = ({
   styleProps,
   maxDisplayLength = 14
 }: CopyAddressType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const [displayAddress, setDisplayAddress] = useState(address);
   const [displayIsDisabled, setDisplayIsDisabled] = useState(disabled);
   const { hasCopied, onCopy, setValue } = useClipboard('');

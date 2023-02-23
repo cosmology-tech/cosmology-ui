@@ -1,7 +1,7 @@
 import { Center, Skeleton, Stack, Text } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
+import { useTheme } from '@cosmology-ui/theme';
 import { QRCodeSVG } from 'qrcode.react';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { QRCodeType } from './type';
 
@@ -52,7 +52,7 @@ export const ConnectModalQRCode = ({
   className = 'connect-modal-qr-code',
   styleProps
 }: QRCodeType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   return (
     <Stack
       className={className}

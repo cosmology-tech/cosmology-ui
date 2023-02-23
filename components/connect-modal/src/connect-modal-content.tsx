@@ -1,7 +1,7 @@
 import { Box, Center, Flex, Icon, Image, Stack, Text } from '@chakra-ui/react';
 import { AnimateBox, LoadingVariants } from '@cosmology-ui/animation';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ConnectModalContentType, LogoStatus } from './type';
 
@@ -192,7 +192,7 @@ export const ConnectModalContent = ({
   className = 'connect-modal-content',
   styleProps
 }: ConnectModalContentType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const descRef = useRef(null);
   const [displayBlur, setDisplayBlur] = useState(false);
 

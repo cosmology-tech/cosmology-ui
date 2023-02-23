@@ -6,8 +6,8 @@ import {
   Text,
   useDisclosure
 } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React from 'react';
 
 import { SwapControlDropdownButton, SwapDropdown } from './swap-dropdown';
 import { SwapEditableInput, SwapInputControlPanel } from './swap-input';
@@ -246,7 +246,7 @@ export const SwapControlPanel = ({
   onDropdownChange,
   onAmountInputChange
 }: SwapControlPanelType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

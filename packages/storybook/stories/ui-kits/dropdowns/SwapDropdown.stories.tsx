@@ -4,12 +4,11 @@ import { Box, Button, Text, useDisclosure } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
   SwapDataType,
-  SwapDropdown,
-  ThemeContext
+  SwapDropdown
 } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { chainList } from '../../util/config';
 
@@ -18,7 +17,6 @@ const Template: ComponentStory<typeof SwapDropdown> = ({
   ...rest
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { theme } = useContext(ThemeContext);
   const [demoSelectedToken, setDemoSelectedToken] = useState<SwapDataType>();
   const [chainData, setChainData] = useState<SwapDataType[]>([]);
 

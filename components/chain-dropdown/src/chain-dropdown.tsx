@@ -9,7 +9,7 @@ import {
   Text,
   useBreakpointValue
 } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
+import { useTheme } from '@cosmology-ui/theme';
 import {
   AsyncSelect,
   chakraComponents,
@@ -21,7 +21,7 @@ import {
   PlaceholderProps
 } from 'chakra-react-select';
 import { Searcher } from 'fast-fuzzy';
-import React, { useContext } from 'react';
+import React from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
 import { ChangeChainDropdownType, DataType } from './type';
@@ -309,7 +309,7 @@ export const ChainDropdown = ({
   },
   onChange
 }: ChangeChainDropdownType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
 
   return (
     <Box w="full" h="full" position="relative" zIndex={150}>

@@ -1,6 +1,6 @@
 import { IconButton, Stack, Text } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React from 'react';
 import { FiChevronLeft, FiX } from 'react-icons/fi';
 
 import { ConnectModalHeadType } from './type';
@@ -51,7 +51,7 @@ export const ConnectModalHead = ({
   onBack,
   onClose
 }: ConnectModalHeadType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   return (
     <Stack
       isInline={true}

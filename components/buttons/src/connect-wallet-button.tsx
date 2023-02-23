@@ -1,6 +1,6 @@
 import { Button, Center, Icon } from '@chakra-ui/react';
-import { ThemeContext } from '@cosmology-ui/theme';
-import React, { useContext } from 'react';
+import { useTheme } from '@cosmology-ui/theme';
+import React from 'react';
 import { RiWallet3Fill } from 'react-icons/ri';
 
 import { BaseButtonType } from './button-base-type';
@@ -83,7 +83,7 @@ export const ConnectWalletButton = ({
   styleProps,
   onClick
 }: BaseButtonType) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
 
   return (
     <Button
