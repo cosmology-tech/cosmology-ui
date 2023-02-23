@@ -1,7 +1,14 @@
-export declare type ThemeContextType = {
-    theme: string;
-    handleTheme: (theme: string) => void;
-};
+export declare enum Themes {
+    Light = "light",
+    Dark = "dark"
+}
+export interface ThemeContextType {
+    theme: Themes;
+    setTheme: (theme: Themes) => void;
+}
+export interface ThemeContextReducerAction {
+    theme: Themes;
+}
 export declare type StyleDataType = {
     componentName: string;
     category: string;
@@ -12,7 +19,7 @@ export declare type StyleDataType = {
     }[];
 };
 export declare type ThemeListType = {
-    name: string;
+    name: Themes;
     displayColor: string;
     colorMode: string;
 };

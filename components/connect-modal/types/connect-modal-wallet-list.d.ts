@@ -82,7 +82,9 @@ export declare const ConnectModalWalletListBaseStyle: (theme: string) => {
                 base: string;
                 md: string;
             };
-            justifyContent: string;
+            justifyContent: {
+                md: string;
+            };
             py: {
                 md: number;
             };
