@@ -13,5 +13,6 @@ export * from './theme/default-theme';
 export * from './theme/theme-provider';
 export * from './utils/astronaut';
 export * from './utils/base';
+export * from './utils/logger';
 export * from './utils/motion-component';
 export * from './utils/types';

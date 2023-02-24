@@ -55,12 +55,14 @@ const ThemeButton = ({
 
 export default function Home() {
   const { setColorMode } = useColorMode();
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const handleThemeChange = (name: Themes, colorMode: string) => {
     setColorMode(colorMode);
     setTheme(name);
   };
-
+  // useEffect(() => {
+  //   console.log(`log:theme`, theme);
+  // }, [theme]);
   return (
     <Container py={16}>
       <Stack isInline={true} justify="end">
