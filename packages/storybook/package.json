@@ -1,6 +1,6 @@
 {
   "name": "@cosmology-ui/storybook",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
-    "@cosmology-ui/react": "^0.1.19",
+    "@cosmology-ui/react": "^0.1.20",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@types/node": "18.11.10",
