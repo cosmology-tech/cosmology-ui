@@ -2,10 +2,11 @@ import React, {
   createContext,
   ReactNode,
   useContext,
-  useReducer,
-  useState
+  useEffect,
+  useReducer
 } from 'react';
 
+import { logger } from '../utils/logger';
 import { Themes } from '../utils/types';
 export interface ThemeContextType {
   theme: Themes;
@@ -34,15 +35,27 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currentTheme, setCurrentTheme] = useState(Themes.Light);
   const [theme, updateTheme] = useReducer(handleThemeChange, {
-    theme: currentTheme,
+    theme: Themes.Light,
     setTheme: (value: Themes) => {
       updateTheme({ theme: value });
-      setCurrentTheme(value);
       localStorage.setItem('cosmology-ui-theme', value);
     }
   });
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('cosmology-ui-theme');
+    if (currentTheme && theme.theme !== currentTheme) {
+      theme.setTheme(currentTheme as unknown as Themes);
+    }
+    if (!currentTheme) {
+      theme.setTheme(theme.theme);
+    }
+  }, []);
+
+  useEffect(() => {
+    logger.INFO('[ThemeProvider] theme ->', theme.theme);
+  }, [theme.theme]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
