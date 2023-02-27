@@ -1,13 +1,3 @@
-// let color mode value fit Rules of Hooks
-export function handleChangeColorModeValue(
-  colorMode: string,
-  light: string,
-  dark: string
-) {
-  if (colorMode === 'light') return light;
-  if (colorMode === 'dark') return dark;
-}
-
 // to random an array
 export function shuffledArray(arr: any[]) {
   for (let i = arr.length - 1; i > 0; i--) {
