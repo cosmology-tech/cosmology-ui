@@ -1,8 +1,8 @@
-import Home from '../pages/index';
+import { DefaultButton } from '@cosmology-ui/core';
 
 export default {
-  title: 'Pages/Home',
-  component: Home
+  title: 'Core/Button',
+  component: DefaultButton
 };
 
-export const HomePage = () => <Home />;
+export const defaultButton = () => <DefaultButton>test button</DefaultButton>;
