@@ -319,7 +319,7 @@ export declare type InstallWalletButtonType = {
      *
      * see `IconType` : https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
      */
-    icon?: IconType;
+    icon?: string | IconType;
     /**
      * Text to display for button.
      */

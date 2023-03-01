@@ -34,5 +34,15 @@ export declare const InstallWalletButtonBaseStyle: (theme: string) => {
             opacity: number;
         };
     };
+    '>.install-wallet-button': {
+        '>svg': {
+            mr: number;
+            w: string;
+        };
+        '>img': {
+            mr: number;
+            maxW: number;
+        };
+    };
 };
 export declare const InstallWalletButton: ({ icon, buttonText, disabled, className, styleProps, onClick }: InstallWalletButtonType) => JSX.Element;
