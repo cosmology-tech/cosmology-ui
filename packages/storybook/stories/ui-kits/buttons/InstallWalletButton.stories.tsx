@@ -12,6 +12,7 @@ import { HiDownload } from 'react-icons/hi';
 import { handleDevice } from '../../util/config';
 
 const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
+  icon,
   ...args
 }) => {
   const [userBrowserInfo, setUserBrowserInfo] = useState<
@@ -33,7 +34,9 @@ const Template: ComponentStory<typeof InstallWalletButtonKit> = ({
     <Box maxW={60} mx="auto" py={16}>
       <InstallWalletButtonKit
         icon={
-          typeof userBrowserInfo === 'string'
+          icon === 'string'
+            ? 'https://dummyimage.com/400x400/b535b5/ffffff.jpg&text=▼'
+            : typeof userBrowserInfo === 'string'
             ? HiDownload
             : userBrowserInfo?.icon
         }
@@ -48,7 +51,7 @@ export const InstallWalletButton = Template.bind({});
 // to hide controls
 InstallWalletButton.parameters = {
   controls: {
-    exclude: ['icon', 'styleProps', 'theme', 'className']
+    exclude: ['styleProps', 'theme', 'className']
   }
 };
 
@@ -79,6 +82,11 @@ export default {
     disabled: false
   },
   argTypes: {
+    icon: {
+      defaultValue: 'svg',
+      options: ['svg', 'string'],
+      control: { type: 'radio' }
+    },
     onClick: {
       control: false,
       action: 'clicked'
