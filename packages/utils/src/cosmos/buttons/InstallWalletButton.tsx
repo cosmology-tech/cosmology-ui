@@ -1,4 +1,4 @@
-import { Button, Icon } from '@chakra-ui/react';
+import { Button, Center, Icon, Image } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 
 import { InstallWalletButtonType, ThemeContext } from '../../index';
@@ -26,6 +26,16 @@ export const InstallWalletButtonBaseStyle = (theme: string) => ({
     cursor: 'not-allowed',
     _hover: { opacity: 0.5 },
     _active: { opacity: 0.5 }
+  },
+  '>.install-wallet-button': {
+    '>svg': {
+      mr: 1,
+      w: 'inherit'
+    },
+    '>img': {
+      mr: 1.5,
+      maxW: 3.5
+    }
   }
 });
 
@@ -44,10 +54,16 @@ export const InstallWalletButton = ({
       className={className}
       variant="unstyled"
       sx={styleProps ? styleProps : InstallWalletButtonBaseStyle(theme)}
-      leftIcon={icon ? <Icon as={icon} /> : undefined}
       isDisabled={disabled}
       onClick={onClick}
     >
+      <Center className="install-wallet-button">
+        {typeof icon === 'string' ? (
+          <Image src={icon} w="full" h="full" alt="logo" />
+        ) : (
+          <Icon as={icon} w="full" h="full" />
+        )}
+      </Center>
       {buttonText}
     </Button>
   );
