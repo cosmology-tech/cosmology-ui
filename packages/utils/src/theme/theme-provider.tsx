@@ -6,7 +6,6 @@ import React, {
   useReducer
 } from 'react';
 
-import { logger } from '../utils/logger';
 import { Themes } from '../utils/types';
 export interface ThemeContextType {
   theme: Themes;
@@ -52,10 +51,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       theme.setTheme(theme.theme);
     }
   }, []);
-
-  useEffect(() => {
-    logger.INFO('[ThemeProvider] theme ->', theme.theme);
-  }, [theme.theme]);
 
   return (
     <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
