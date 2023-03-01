@@ -1038,6 +1038,82 @@ export const styleData: StyleDataType[] = [
         themeValue: 'red.500'
       }
     ]
+  },
+  // swap-setting
+  {
+    componentName: 'swap-setting',
+    category: 'colors',
+    style: 'button-background-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.100'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-setting',
+    category: 'colors',
+    style: 'hover-button-background-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.200'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.600'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-setting',
+    category: 'colors',
+    style: 'selected-button-background-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.600'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'white'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-setting',
+    category: 'colors',
+    style: 'button-text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.500'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-setting',
+    category: 'colors',
+    style: 'selected-button-text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'white'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.900'
+      }
+    ]
   }
 ];
 

@@ -36,6 +36,8 @@
     "chakra",
     "Cosmostation",
     "keplr",
+    "LOGLEVEL",
+    "LOGTYPE",
     "NOTPOSITIVE",
     "NOVALUE",
     "OVERMAXIMUM"
