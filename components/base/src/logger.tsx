@@ -127,6 +127,8 @@ export class Logger {
 
   public [LOGTYPE.LOG](message?: any, label?: string): void {
     if (this.compare(this.logLevel, LOGLEVEL.ALL) >= 0) {
+      if (typeof message === 'object')
+        return console.log(`${label ? label : this.label} -> `, message);
       return console.log(
         ...wrap(LOGLEVEL.ALL, label ? label : this.label, message)
       );

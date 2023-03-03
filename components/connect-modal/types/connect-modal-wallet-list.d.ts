@@ -39,7 +39,10 @@ export declare const ConnectModalWalletListBaseStyle: (theme: string) => {
         alignItems: string;
         position: string;
         w: string;
-        h: string;
+        h: {
+            base: string;
+            md: string;
+        };
         p: number;
         py: {
             md: number;

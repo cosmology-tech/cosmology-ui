@@ -1,6 +1,7 @@
 import { useColorMode } from '@chakra-ui/react';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import addons from '@storybook/addons';
+import { useGlobals } from '@storybook/api';
 import { EVENTS } from './constants';
 import { useTheme, themeList, Themes } from '@cosmology-ui/react';
 
@@ -10,6 +11,10 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
   const channel = addons.getChannel();
 
   useEffect(() => {
+    const handleThemeChange = () => {
+      localStorage.removeItem('cosmology-ui-storybook-theme');
+    };
+
     // update when selected a theme
     const themeToolCallback = (value: Themes) => {
       setTheme(value);
@@ -21,10 +26,12 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       });
     };
 
+    window.addEventListener('beforeunload', handleThemeChange);
     // call the function when selecting theme
     channel.on(EVENTS.CHANGE_THEME, themeToolCallback);
 
     return () => {
+      window.addEventListener('beforeunload', handleThemeChange);
       // remove event listener
       channel.removeListener(EVENTS.CHANGE_THEME, themeToolCallback);
     };
@@ -47,17 +54,6 @@ export const ThemeSync = ({ viewMode }: { viewMode: 'story' | 'docs' }) => {
       setTheme(current.name);
     }
   }, [viewMode, setColorMode]);
-
-  useEffect(() => {
-    function handleThemeChange() {
-      localStorage.removeItem('cosmology-ui-storybook-theme');
-    }
-    window.addEventListener('beforeunload', handleThemeChange);
-
-    return () => {
-      window.addEventListener('beforeunload', handleThemeChange);
-    };
-  }, []);
 
   return null;
 };

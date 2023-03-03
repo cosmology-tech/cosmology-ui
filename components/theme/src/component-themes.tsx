@@ -643,6 +643,21 @@ export const styleData: StyleDataType[] = [
   {
     componentName: 'connect-modal-qr-code',
     category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.800'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'white'
+      }
+    ]
+  },
+  {
+    componentName: 'connect-modal-qr-code',
+    category: 'colors',
     style: 'border-color',
     theme: [
       {
@@ -671,9 +686,9 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
-    style: 'qr-blur-background-color',
+    style: 'blur-qr-background-color',
     theme: [
       {
         themeName: Themes.Light,
@@ -701,9 +716,9 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
-    style: 'qr-expired-text-color',
+    style: 'expired-text-color',
     theme: [
       {
         themeName: Themes.Light,
@@ -716,39 +731,9 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
-    style: 'qr-error-text-color',
-    theme: [
-      {
-        themeName: Themes.Light,
-        themeValue: 'red.500'
-      },
-      {
-        themeName: Themes.Dark,
-        themeValue: 'red.400'
-      }
-    ]
-  },
-  {
-    componentName: 'qr-code',
-    category: 'colors',
-    style: 'qr-expired-text-color',
-    theme: [
-      {
-        themeName: Themes.Light,
-        themeValue: 'orange.300'
-      },
-      {
-        themeName: Themes.Dark,
-        themeValue: 'orange.200'
-      }
-    ]
-  },
-  {
-    componentName: 'qr-code',
-    category: 'colors',
-    style: 'qr-error-text-color',
+    style: 'error-text-color',
     theme: [
       {
         themeName: Themes.Light,
@@ -776,9 +761,9 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'shadows',
-    style: 'button-shadow',
+    style: 'refresh-button-shadow',
     theme: [
       {
         themeName: Themes.Light,
@@ -793,7 +778,7 @@ export const styleData: StyleDataType[] = [
     ]
   },
   {
-    componentName: 'qr-code',
+    componentName: 'connect-modal-qr-code',
     category: 'colors',
     style: 'shadow-background-color',
     theme: [
@@ -967,6 +952,21 @@ export const styleData: StyleDataType[] = [
   {
     componentName: 'swap-panel',
     category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-panel',
+    category: 'colors',
     style: 'header-color',
     theme: [
       {
@@ -1051,7 +1051,7 @@ export const styleData: StyleDataType[] = [
       },
       {
         themeName: Themes.Dark,
-        themeValue: 'gray.700'
+        themeValue: 'gray.900'
       }
     ]
   },
@@ -1112,6 +1112,192 @@ export const styleData: StyleDataType[] = [
       {
         themeName: Themes.Dark,
         themeValue: 'gray.900'
+      }
+    ]
+  },
+  // swap-dropdowns-view
+  {
+    componentName: 'swap-dropdowns-view',
+    category: 'colors',
+    style: 'switch-button-text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.500'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdowns-view',
+    category: 'colors',
+    style: 'switch-button-border-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'white'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  // swap-view
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'header-text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.500'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.500'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'price-text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'whiteAlpha.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-background-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'primary.500' },
+      { themeName: Themes.Dark, themeValue: 'primary.400' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-hover-background-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'primary.400' },
+      { themeName: Themes.Dark, themeValue: 'primary.500' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-active-background-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'primary.50' },
+      { themeName: Themes.Dark, themeValue: 'primary.50' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-disabled-background-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'gray.50' },
+      { themeName: Themes.Dark, themeValue: 'gray.700' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-text-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'white' },
+      { themeName: Themes.Dark, themeValue: 'white' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-active-text-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'primary.500' },
+      { themeName: Themes.Dark, themeValue: 'primary.400' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'colors',
+    style: 'submit-disabled-text-color',
+    theme: [
+      { themeName: Themes.Light, themeValue: 'gray.400' },
+      { themeName: Themes.Dark, themeValue: 'gray.500' }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'shadows',
+    style: 'submit-shadow',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: '0 4px 5px -1px var(--chakra-colors-gray-400)'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: '0 4px 4px 0 var(--chakra-colors-gray-900)'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-view',
+    category: 'shadows',
+    style: 'submit-focus-shadow',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: '0 0 0 2px var(--chakra-colors-primary-200)'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: '0 0 0 2px var(--chakra-colors-primary-200)'
+      }
+    ]
+  },
+  // swap-modal
+  {
+    componentName: 'swap-modal',
+    category: 'colors',
+    style: 'background-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'white'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.700'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-modal',
+    category: 'colors',
+    style: 'text-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.700'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'whiteAlpha.900'
       }
     ]
   }

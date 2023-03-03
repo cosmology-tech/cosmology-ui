@@ -13,42 +13,6 @@ import React, { useRef, useState } from 'react';
 
 import { SwapControlInputValuePanelType, SwapEditableInputType } from './type';
 
-// function inputReducer(
-//   state: SwapInputReducerType,
-//   action: SwapInputReducerAction
-// ): SwapInputReducerType {
-//   const decimalInput = new Decimal(action.inputValue ? action.inputValue : '0');
-//   const formatValue = decimalInput.toString();
-
-//   switch (action.type) {
-//     case SwapInputType.INPUT: {
-//       action.onAmountInputChange(action.inputValue);
-//       return {
-//         ...state,
-//         displayValue: formatValue,
-//         defaultValue: action.defaultValue,
-//         inputValue: action.inputValue,
-//         invalid: false,
-//         invalidText: ''
-//       };
-//     }
-//     case SwapInputType.INVALID: {
-//       return {
-//         ...state,
-//         displayValue: formatValue,
-//         defaultValue: action.defaultValue,
-//         inputValue: action.inputValue,
-//         invalid: action.invalid,
-//         invalidText: action.invalidText
-//       };
-//     }
-
-//     default: {
-//       return state;
-//     }
-//   }
-// }
-
 export const SwapEditableInput = ({
   id,
   selectedToken,

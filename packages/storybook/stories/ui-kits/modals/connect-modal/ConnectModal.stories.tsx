@@ -21,6 +21,7 @@ import {
   Downloads,
   InstallWalletButton,
   LogoStatus,
+  QRCodeStatus,
   Wallet,
   WalletMode,
   WalletStatus
@@ -29,13 +30,28 @@ import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, Story } from '@storybook/react';
 import Bowser from 'bowser';
 import NextLink from 'next/link';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, {
+  ReactNode,
+  useEffect,
+  useReducer,
+  useRef,
+  useState
+} from 'react';
 
 import { WalletData } from '../../../util/config';
 import { UserDeviceInfoType } from '../../../util/types';
 
 interface TypeWithStatus extends ConnectModalType {
   walletStatus: WalletStatus;
+  qrCodeStatus: QRCodeStatus;
+}
+interface QRCodeReducer {
+  descriptionText: string;
+  errorTitle?: string;
+  errorDesc?: string;
+}
+interface QRCodeReducerAction extends QRCodeReducer {
+  type: QRCodeStatus;
 }
 
 function handleDownloadData(
@@ -65,10 +81,11 @@ function handleDownloadData(
       return undefined;
   }
 }
-
 function handleContentStatus(
   status: WalletStatus,
+  qrCodeStatus: QRCodeStatus,
   selectedItem: Wallet,
+  qrCode: QRCodeReducer,
   browserInfo?: UserDeviceInfoType
 ) {
   const installInfo =
@@ -79,8 +96,11 @@ function handleContentStatus(
   if (selectedItem.mode === WalletMode.WalletConnect) {
     return (
       <ConnectModalQRCode
+        qrCodeStatus={qrCodeStatus}
         link={selectedItem.downloads ? selectedItem.downloads.default : ''}
-        description={`Use ${selectedItem.prettyName} App to scan`}
+        description={qrCode.descriptionText}
+        errorTitle={qrCode.errorTitle}
+        errorDesc={qrCode.errorDesc}
       />
     );
   }
@@ -176,9 +196,52 @@ function handleContentStatus(
     }
   }
 }
+function handleQRCodeStatus(
+  state: QRCodeReducer,
+  action: QRCodeReducerAction
+): QRCodeReducer {
+  switch (action.type) {
+    case QRCodeStatus.Pending:
+      return {
+        ...state,
+        descriptionText: action.descriptionText,
+        errorTitle: action.errorTitle,
+        errorDesc: action.errorDesc
+      };
+    case QRCodeStatus.Done:
+      return {
+        ...state,
+        descriptionText: action.descriptionText,
+        errorTitle: action.errorTitle,
+        errorDesc: action.errorDesc
+      };
+    case QRCodeStatus.Expired:
+      return {
+        ...state,
+        descriptionText: action.descriptionText,
+        errorTitle: action.errorTitle,
+        errorDesc: action.errorDesc
+      };
+    case QRCodeStatus.Error:
+      return {
+        ...state,
+        descriptionText: action.descriptionText,
+        errorTitle: action.errorTitle,
+        errorDesc: action.errorDesc
+      };
+
+    default: {
+      return state;
+    }
+  }
+}
 
 // eslint-disable-next-line react/prop-types
-const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
+const Template: Story<TypeWithStatus> = ({
+  walletStatus,
+  qrCodeStatus,
+  ...rest
+}) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialFocus = useRef<HTMLButtonElement>(null);
@@ -186,6 +249,11 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   const [walletList, setWalletList] = useState<Wallet[]>([]);
   const [modalContent, setModalContent] = useState<ReactNode>();
   const [browserInfo, setBrowserInfo] = useState<UserDeviceInfoType>();
+  const [qrCode, updateQRCode] = useReducer(handleQRCodeStatus, {
+    descriptionText: '',
+    errorTitle: '',
+    errorDesc: ''
+  });
 
   function handleClear() {
     setModalContent(undefined);
@@ -219,6 +287,47 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
   }, []);
 
   useEffect(() => {
+    switch (qrCodeStatus) {
+      case QRCodeStatus.Pending:
+        updateQRCode({
+          type: QRCodeStatus.Pending,
+          descriptionText: 'Initializing QRCode...',
+          errorTitle: '',
+          errorDesc: ''
+        });
+        break;
+      case QRCodeStatus.Done:
+        updateQRCode({
+          type: QRCodeStatus.Done,
+          descriptionText: 'Use Wallet App to scan this QR code.',
+          errorTitle: '',
+          errorDesc: ''
+        });
+        break;
+      case QRCodeStatus.Expired:
+        updateQRCode({
+          type: QRCodeStatus.Expired,
+          descriptionText: '',
+          errorTitle: 'This QR Code is Expired.',
+          errorDesc: 'Please refresh QR Code.'
+        });
+        break;
+      case QRCodeStatus.Error:
+        updateQRCode({
+          type: QRCodeStatus.Error,
+          descriptionText: '',
+          errorTitle: 'Seems something went wrong :(',
+          errorDesc:
+            'Dolor lorem ipsum sit amet consectetur adipisicing elit. Eos necessitatibus eveniet ipsa itaque provident recusandae exercitationem numquam aperiam officia facere.'
+        });
+        break;
+
+      default:
+        break;
+    }
+  }, [qrCodeStatus]);
+
+  useEffect(() => {
     if (selectedItem)
       setModalContent(
         <ConnectModalView
@@ -236,7 +345,9 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
           }
           modalContent={handleContentStatus(
             walletStatus,
+            qrCodeStatus,
             selectedItem,
+            qrCode,
             browserInfo
           )}
         />
@@ -262,7 +373,14 @@ const Template: Story<TypeWithStatus> = ({ walletStatus, ...rest }) => {
       );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colorMode, selectedItem, walletList, walletStatus, browserInfo]);
+  }, [
+    colorMode,
+    selectedItem,
+    walletList,
+    walletStatus,
+    browserInfo,
+    qrCodeStatus
+  ]);
 
   return (
     <Center py={16}>
@@ -282,7 +400,7 @@ export const connectModal = Template.bind({});
 // to hide controls
 connectModal.parameters = {
   controls: {
-    include: ['walletStatus']
+    include: ['walletStatus', 'qrCodeStatus']
   }
 };
 
@@ -312,6 +430,11 @@ export default {
     walletStatus: {
       options: Object.values(WalletStatus),
       defaultValue: WalletStatus.Disconnected,
+      control: { type: 'radio' }
+    },
+    qrCodeStatus: {
+      options: Object.values(QRCodeStatus),
+      defaultValue: QRCodeStatus.Pending,
       control: { type: 'radio' }
     }
   }

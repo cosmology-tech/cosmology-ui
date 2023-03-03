@@ -136,6 +136,10 @@ export declare type SwapEditableInputType = {
     invalidText?: string;
     onAmountInputChange: (newValue: string) => void;
 };
+export declare type SwapDisplayAmountType = {
+    id: string;
+    selectedToken?: SwapDataType;
+};
 export declare type SwapControlPanelType = {
     inputLoading?: boolean;
     dropdownLoading?: boolean;
@@ -149,10 +153,116 @@ export declare type SwapControlPanelType = {
     invalidText?: string;
     className?: string;
     styleProps?: object;
-    onAmountInputChange: (newValue: string) => void;
+    onAmountInputChange?: (newValue: string) => void;
     onDropdownChange: handleSwapDropdown;
 };
 export declare type SwapSettingType = {
+    /**
+     * Selected setting token.
+     */
+    settingToken?: string;
+    /**
+     * Display setting token list.
+     */
+    tokenArray?: string[];
+    /**
+     * Can add a stable class name to control CSS.
+     */
     className?: string;
+    /**
+     * Can use Chakra Style Props custom dropdown style.
+     *
+     * Also can use css control, e.g,
+     * ```
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * ```
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     *
+     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+     */
     styleProps?: object;
+    /**
+     * A function called to handle select item.
+     *
+     * see `handleSwapDropdown` :
+     */
+    onSelectSetting: (value: string) => void;
 };
+export declare type SwapSettingControlButtonType = {
+    settingMenuOpen: boolean;
+    toggleOpenSettingMenu: () => void;
+};
+export interface SwapSettingTokenButtonType {
+    selectedToken?: string;
+    text: string;
+    onSettingTokenClick: (value: string) => void;
+    onCloseSettingMenu: () => void;
+}
+export interface SwapDropdownsViewType {
+    dropdownData: SwapDataType[];
+    fromDropdownLoading?: boolean;
+    fromInputLoading?: boolean;
+    fromToken?: SwapDataType;
+    toDropdownLoading?: boolean;
+    toInputLoading?: boolean;
+    toToken?: SwapDataType;
+    amountValue?: string;
+    fiatValue?: string;
+    invalid?: boolean;
+    invalidText?: string;
+    /**
+     * Can add a stable class name to control CSS.
+     */
+    className?: string;
+    /**
+     * Can use Chakra Style Props custom dropdown style.
+     *
+     * Also can use css control, e.g,
+     * ```
+     *  {
+     *     '.my-button:hover &': {
+     *       color: 'green.500',
+     *     }
+     *  }
+     * ```
+     *
+     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+     *
+     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+     */
+    styleProps?: object;
+    onAmountInputChange: (newValue: string) => void;
+    onFromDropdownChange: handleSwapDropdown;
+    onToDropdownChange: handleSwapDropdown;
+    onSwapSwitch: () => void;
+}
+export declare type SwapSwitchButtonType = {
+    onSwapSwitch: () => void;
+};
+export interface SwapViewType extends SwapDropdownsViewType {
+    /**
+     * Selected setting token.
+     */
+    settingToken?: string;
+    /**
+     * Display setting token list.
+     */
+    tokenArray?: string[];
+    priceValue?: {
+        loading: boolean;
+        amountValue: string;
+        fiatValue: string;
+    };
+    submitDisabled?: boolean;
+    onSelectSetting: (value: string) => void;
+    onSwapSubmit: () => void;
+}
+export interface SwapModalType extends SwapViewType {
+    isOpen: boolean;
+    onClose: () => void;
+}

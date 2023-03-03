@@ -5,7 +5,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React from 'react';
 
 import { defaultTheme, ThemeProvider } from '@cosmology-ui/react';
-// import { ColorModeSync } from './color-mode/ColorModeSync';
 import { ThemeSync } from './theme/ThemeSync';
 
 const OriginalNextImage = NextImage.default;
@@ -69,7 +68,6 @@ const withChakraProvider = (StoryFn: Function, context: StoryContext) => {
   return (
     <ThemeProvider>
       <ChakraProvider theme={defaultTheme} resetCSS={true}>
-        {/* <ColorModeSync viewMode={context.viewMode} /> */}
         <ThemeSync viewMode={context.viewMode} />
         <StoryFn {...context} />
       </ChakraProvider>

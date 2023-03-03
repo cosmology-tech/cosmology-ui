@@ -41,7 +41,7 @@ export const ConnectModalWalletListBaseStyle = (theme: string) => ({
     alignItems: 'center',
     position: 'relative',
     w: 'full',
-    h: 'full',
+    h: { base: 'fit-content', md: 'full' },
     p: 2,
     py: { md: 2 },
     mt: { md: 1 },

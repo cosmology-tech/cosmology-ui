@@ -18,8 +18,8 @@ export const ConnectModalBaseStyle = (theme: Themes) => ({
   borderRadius: 'xl',
   w: 'fit-content',
   mx: 4,
-  bg: `simple-modal-background-color-${theme}`,
-  color: `simple-modal-text-color-${theme}`,
+  bg: `connect-modal-background-color-${theme}`,
+  color: `connect-modal-text-color-${theme}`,
   _focus: { outline: 'none' }
 });
 

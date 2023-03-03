@@ -3,14 +3,13 @@
 import { Box, Text } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
-  SwapControlPanel,
   SwapDataType,
-  SwapType
+  SwapDropdownsView
 } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Decimal from 'decimal.js';
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 
 import { chainList } from '../../../util/config';
 
@@ -25,6 +24,7 @@ enum SwapValueType {
 interface UpdateDropdownReducer {
   selectedToken?: SwapDataType;
   dropdownLoading?: boolean;
+  inputLoading?: boolean;
 }
 interface UpdateInputReducer {
   amountValue?: string;
@@ -44,7 +44,8 @@ function updateDropdownReducer(
   return {
     ...state,
     selectedToken: action.selectedToken,
-    dropdownLoading: action.dropdownLoading
+    dropdownLoading: action.dropdownLoading,
+    inputLoading: action.inputLoading
   };
 }
 function updateInputReducer(
@@ -107,15 +108,18 @@ function updateInputReducer(
   }
 }
 
-const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
+const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
   const [chainData, setChainData] = useState<SwapDataType[]>([]);
-  const [dropdownEvent, updateDropdownEvent] = useReducer(
-    updateDropdownReducer,
-    {
-      selectedToken: undefined,
-      dropdownLoading: true
-    }
-  );
+  const [fromToken, updateFromToken] = useReducer(updateDropdownReducer, {
+    selectedToken: undefined,
+    dropdownLoading: true,
+    inputLoading: true
+  });
+  const [toToken, updateToToken] = useReducer(updateDropdownReducer, {
+    selectedToken: undefined,
+    dropdownLoading: true,
+    inputLoading: true
+  });
   const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
     amountValue: undefined,
     fiatValue: '$-',
@@ -169,9 +173,7 @@ const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
       }
     }
   };
-
-  const handleOnChange: handleSwapDropdown = (value) => {
-    console.log('selected', value);
+  const handleFromDropdownChange: handleSwapDropdown = (value) => {
     if (value) {
       updateInputEvent({
         type: SwapValueType.UPDATE,
@@ -180,11 +182,34 @@ const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
         amountValue: value.amountValue,
         fiatValue: value.fiatValue
       });
-      updateDropdownEvent({
+      updateFromToken({
         selectedToken: value
       });
     }
   };
+  const handleToDropdownChange: handleSwapDropdown = (value) => {
+    if (value) {
+      updateToToken({
+        selectedToken: value
+      });
+    }
+  };
+  const handleSwapSwitch = useCallback(() => {
+    updateFromToken({
+      selectedToken: toToken.selectedToken
+    });
+    updateToToken({
+      selectedToken: fromToken.selectedToken
+    });
+    if (toToken.selectedToken)
+      updateInputEvent({
+        type: SwapValueType.INITIAL,
+        isInputLoading: false,
+        invalid: false,
+        amountValue: toToken.selectedToken.amountValue,
+        fiatValue: toToken.selectedToken.fiatValue
+      });
+  }, [fromToken.selectedToken, toToken.selectedToken]);
 
   useEffect(() => {
     const formatData = chainList.map(
@@ -198,94 +223,89 @@ const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
         fiatValue
       })
     );
-
     setTimeout(() => {
       setChainData(formatData);
-      updateDropdownEvent({
-        selectedToken: formatData[0],
+    }, 800);
+  }, []);
+
+  useEffect(() => {
+    if (chainData.length > 0) {
+      updateFromToken({
+        selectedToken: chainData[0],
         dropdownLoading: false
+      });
+      updateToToken({
+        selectedToken: chainData[1],
+        dropdownLoading: false,
+        inputLoading: false
       });
       updateInputEvent({
         type: SwapValueType.INITIAL,
         isInputLoading: false,
         invalid: false,
-        amountValue: formatData[0].amountValue,
-        fiatValue: formatData[0].fiatValue
+        amountValue: chainData[0].amountValue,
+        fiatValue: chainData[0].fiatValue
       });
-    }, 100);
-  }, []);
+    }
+  }, [chainData]);
 
   return (
     <Box py={16}>
-      <Box maxW="lg" mx="auto" px={8}>
-        <SwapControlPanel
-          swapType={swapType}
-          dropdownLoading={dropdownEvent.dropdownLoading}
-          inputLoading={inputEvent.isInputLoading}
+      <Box maxW="md" mx="auto">
+        <SwapDropdownsView
           dropdownData={chainData}
-          selectedToken={dropdownEvent.selectedToken}
-          invalid={inputEvent.invalid}
-          invalidText={inputEvent.invalidText}
-          inputControlPanel={swapType === SwapType.from ? true : false}
+          fromDropdownLoading={fromToken.dropdownLoading}
+          fromInputLoading={inputEvent.isInputLoading}
+          fromToken={fromToken.selectedToken}
+          toDropdownLoading={toToken.dropdownLoading}
+          toInputLoading={toToken.inputLoading}
+          toToken={toToken.selectedToken}
           amountValue={inputEvent.amountValue}
           fiatValue={inputEvent.fiatValue}
+          invalid={inputEvent.invalid}
+          invalidText={inputEvent.invalidText}
           onAmountInputChange={(value) => {
-            if (dropdownEvent.selectedToken)
-              handleInputChange(value, dropdownEvent.selectedToken);
+            if (fromToken.selectedToken)
+              handleInputChange(value, fromToken.selectedToken);
           }}
-          onDropdownChange={handleOnChange}
+          onFromDropdownChange={handleFromDropdownChange}
+          onToDropdownChange={handleToDropdownChange}
+          onSwapSwitch={handleSwapSwitch}
         />
       </Box>
     </Box>
   );
 };
 
-export const swapControlPanel = Template.bind({});
+export const swapDropdownsView = Template.bind({});
 
-swapControlPanel.parameters = {
+// to hide controls
+swapDropdownsView.parameters = {
   controls: {
-    include: [
-      'swapType',
-      'onDropdownChange',
-      'onAmountInputChange',
-      'onFiatInputChange'
-    ]
+    include: ['onDropdownChange']
   }
 };
 
 export default {
   title: 'Components/Modals/Swap',
-  component: SwapControlPanel,
+  component: SwapDropdownsView,
   parameters: {
     docs: {
       page: () => (
         <>
           <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap Panel
+            Swap Dropdowns view
           </Text>
           <Primary />
-          <ArgsTable of={SwapControlPanel} />
+          <ArgsTable of={SwapDropdownsView} />
         </>
       )
     }
   },
   argTypes: {
-    swapType: {
-      control: { type: 'radio' },
-      options: SwapType,
-      defaultValue: SwapType.from
-    },
-    onAmountInputChange: {
-      control: false,
-      action: 'amount-value'
-    },
-    onFiatInputChange: {
-      control: false,
-      action: 'amount-value'
-    },
-    onDropdownChange: {
+    onChange: {
       control: false,
       action: 'selected'
     }
   }
-} as ComponentMeta<typeof SwapControlPanel>;
+} as ComponentMeta<typeof SwapDropdownsView>;

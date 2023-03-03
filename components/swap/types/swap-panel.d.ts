@@ -7,6 +7,7 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
     position: string;
     borderRadius: string;
     bg: string;
+    color: string;
     '>.swap-header': {
         w: string;
         minH: number;
@@ -50,7 +51,6 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
     };
     '>.swap-control-panel-box': {
         w: string;
-        mt: number;
         '>.swap-control-dropdown-button': {
             flex: number;
             display: string;
@@ -211,9 +211,7 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
         mx: number;
         position: string;
         top: number;
-    };
-    '&swap-editable-input-tip': {
-        color: string;
+        zIndex: number;
     };
 };
 export declare const SwapControlPanel: ({ inputLoading, dropdownLoading, dropdownData, selectedToken, swapType, inputControlPanel, amountValue, fiatValue, invalid, invalidText, className, styleProps, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;

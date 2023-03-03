@@ -22,6 +22,7 @@ export const SwapPanelBaseStyle = (theme: string) => {
     position: 'relative',
     borderRadius: 'lg',
     bg: `swap-dropdown-background-color-${theme}`,
+    color: `swap-panel-text-color-${theme}`,
     '>.swap-header': {
       w: 'full',
       minH: 7,
@@ -62,7 +63,6 @@ export const SwapPanelBaseStyle = (theme: string) => {
     },
     '>.swap-control-panel-box': {
       w: 'full',
-      mt: 2,
       '>.swap-control-dropdown-button': {
         flex: 1,
         display: 'flex',
@@ -222,10 +222,8 @@ export const SwapPanelBaseStyle = (theme: string) => {
       w: 'full',
       mx: -5,
       position: 'absolute',
-      top: 12
-    },
-    '&swap-editable-input-tip': {
-      color: 'red.500'
+      top: 12,
+      zIndex: 10
     }
   };
 };
@@ -324,173 +322,3 @@ export const SwapControlPanel = ({
     </Box>
   );
 };
-
-{
-  /* 
-export const SwapDropdownControlPanelBaseStyle = (
-  theme: string,
-  focusInput: string
-) => {
-  return {
-    '>.swap-control-panel': {
-      bg: `swap-dropdown-background-color-${theme}`,
-      '>.swap-control-dropdown-button': {
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'start',
-        minW: 'fit-content',
-        w: 'full',
-        h: 14,
-        '>:first-of-type': {
-          w: 12,
-          h: 12,
-          mr: 5,
-          '>img': {
-            w: 'full'
-          }
-        },
-        '>:last-child>:first-of-type': {
-          display: 'flex',
-          alignItems: 'center',
-          fontWeight: 'semibold',
-          fontSize: '2xl',
-          lineHeight: 'none',
-          mb: 1,
-          '>svg': {
-            ml: 2
-          }
-        },
-        '>:last-child>:last-child': {
-          textAlign: 'start',
-          fontSize: 'sm',
-          fontWeight: 'normal',
-          lineHeight: 'none',
-          opacity: 0.7
-        }
-      },
-      '>.swap-dropdown-edit-box': {
-        flex: 1,
-        alignItems: 'end',
-        justifyContent: 'center',
-        '>.swap-dropdown-main-input, .swap-dropdown-sub-input': {
-          display: 'flex',
-          justifyContent: 'end',
-          textAlign: 'end',
-          lineHeight: 'none',
-          '>:focus-within': {
-            fontSize: '2xl',
-            boxShadow: 'none'
-          },
-          '>input[pattern]:invalid': {
-            color: 'red'
-          }
-        },
-        '>.swap-dropdown-main-input': {
-          '>span': {
-            fontSize: focusInput === 'swap-dropdown-sub-input' ? 'sm' : 'xl',
-            fontWeight: 'semibold',
-            opacity: focusInput === 'swap-dropdown-sub-input' ? 0.5 : 1,
-            py: 0.5
-          }
-        },
-        '>.swap-dropdown-sub-input': {
-          '>span': {
-            fontSize: focusInput === 'swap-dropdown-main-input' ? 'sm' : 'sm',
-            opacity: focusInput === 'swap-dropdown-main-input' ? 0.4 : 0.7,
-            py: 0.5
-          }
-        }
-      },
-      '>.swap-dropdown-control-panel-skeleton': {
-        justifyContent: 'center',
-        _first: { flex: 1, alignItems: 'start' },
-        _last: { flex: 1, alignItems: 'end' }
-      }
-    }
-  };
-};
-
-<Flex className="swap-control-panel" display={isOpen ? 'none' : 'flex'}>
-{selectedToken ? (
-  <Button
-    className="swap-control-dropdown-button"
-    variant="unstyled"
-    isLoading={selectedToken ? false : true}
-    onClick={onOpen}
-  >
-    <Center>
-      <Image
-        alt={selectedToken ? selectedToken.name : 'chain-icon'}
-        src={
-          selectedToken
-            ? selectedToken.icon.png ||
-              selectedToken.icon.jpeg ||
-              selectedToken.icon.svg
-            : undefined
-        }
-      />
-    </Center>
-    <Box>
-      <Text>
-        {selectedToken.symbol ? selectedToken.symbol : undefined}
-        <Icon as={RiArrowDownSLine} />
-      </Text>
-      <Text>
-        {selectedToken.label ?? selectedToken.name ?? undefined}
-      </Text>
-    </Box>
-  </Button>
-) : (
-  <SwapSkeletonControlPanel />
-)}
-{inputLoading ? (
-  <SwapSkeletonControlPanel />
-) : (
-  <Stack className="swap-dropdown-edit-box" spacing={0}>
-    <Editable
-      id="swap-dropdown-main-input"
-      className="swap-dropdown-main-input"
-      defaultValue={amountInput ?? selectedToken.amountValue ?? '0'}
-      onBlur={() => setFocusInput(undefined)}
-      onFocus={(event) => {
-        setFocusInput(event.target.id);
-      }}
-      onChange={onAmountInputChange}
-    >
-      <EditableInput
-        id="swap-dropdown-main-input"
-        required
-        inputMode="decimal"
-        pattern={`^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$`}
-      />
-      <EditablePreview />
-    </Editable>
-    <Editable
-      id="swap-dropdown-sub-input"
-      className="swap-dropdown-sub-input"
-      submitOnBlur={false}
-      defaultValue={fiatInput ?? selectedToken.fiatValue ?? '0'}
-      onBlur={() => setFocusInput(undefined)}
-      onFocus={(event) => {
-        setFocusInput(event.target.id);
-      }}
-      // onChange={onFiatInputChange}
-    >
-      <EditableInput
-        required
-        inputMode="decimal"
-        title="Must contain a currency symbol and at least one number."
-        pattern={`^[${fiatInput.slice(
-          0,
-          1
-        )}]{1}-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$`}
-        onSubmit={(e) => {
-          console.log('e', e);
-        }}
-      />
-      <EditablePreview />
-    </Editable>
-  </Stack>
-)}
-</Flex> */
-}

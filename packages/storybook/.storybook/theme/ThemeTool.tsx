@@ -1,11 +1,11 @@
-import React, { Dispatch, useContext, useEffect } from 'react';
+import React, { Dispatch } from 'react';
 import {
   IconButton,
   WithTooltip,
   TooltipLinkList
 } from '@storybook/components';
 import { useTheme, themeList, ThemeListType } from '@cosmology-ui/react';
-import addons from '@storybook/addons';
+import addons, { useGlobals } from '@storybook/addons';
 import { useAddonState } from '@storybook/api';
 import { ADDON_ID, EVENTS } from './constants';
 
