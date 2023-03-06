@@ -27,11 +27,11 @@
     "@babel/core": "7.19.1",
     "@pyramation/babel-preset-env": "0.2.0",
     "babel-eslint": "10.1.0",
-    "eslint": "8.23.1",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint": "8.35.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "lerna": "3.22.1",
-    "prettier": "2.7.1"
+    "prettier": "2.8.4"
   },
   "workspaces": [
     "packages/*",

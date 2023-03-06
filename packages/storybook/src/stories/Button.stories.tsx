@@ -1,8 +1,8 @@
-import { DefaultButton } from '@cosmology-ui/core';
+import { UnstyledButton } from '@cosmology-ui/react';
 
 export default {
   title: 'Core/Button',
-  component: DefaultButton
+  component: UnstyledButton
 };
 
-export const defaultButton = () => <DefaultButton>test button</DefaultButton>;
+export const defaultButton = () => <UnstyledButton>test</UnstyledButton>;
