@@ -35,10 +35,7 @@ export const SwapModalBaseStyle = (theme: string) => {
         right: -1.5,
         p: 2.5,
         w: 'fit-content',
-        h: 'fit-content',
-        _hover: {
-          // bg: 'none'
-        }
+        h: 'fit-content'
       }
     }
   };

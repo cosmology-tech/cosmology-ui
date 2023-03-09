@@ -154,19 +154,74 @@ export type SwapDisplayAmountType = {
 };
 
 export type SwapControlPanelType = {
+  /**
+   * Display input loading skeleton.
+   */
   inputLoading?: boolean;
+  /**
+   * Display dropdown loading skeleton.
+   */
   dropdownLoading?: boolean;
+  /**
+   * Data of dropdown options.
+   */
   dropdownData?: SwapDataType[];
+  /**
+   * Selected options.
+   */
   selectedToken?: SwapDataType;
+  /**
+   * Display `from` or `To` panel.
+   */
   swapType?: SwapType;
+  /**
+   * Display control input panel.
+   */
   inputControlPanel?: boolean;
+  /**
+   * Amount of the token.
+   */
   amountValue?: string;
+  /**
+   * Equal to the fiat currency value.
+   */
   fiatValue?: string;
+  /**
+   * Display input invalid style.
+   */
   invalid?: boolean;
+  /**
+   * Tips text of why invalid.
+   */
   invalidText?: string;
+  /**
+   * Can add a stable class name to control CSS.
+   */
   className?: string;
+  /**
+   * Can use Chakra Style Props custom dropdown style.
+   *
+   * Also can use css control, e.g,
+   * ```
+   *  {
+   *     '.my-button:hover &': {
+   *       color: 'green.500',
+   *     }
+   *  }
+   * ```
+   *
+   * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
+   *
+   * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+   */
   styleProps?: object;
+  /**
+   *  A function called to handle amount input change.
+   */
   onAmountInputChange?: (newValue: string) => void;
+  /**
+   *  A function called to handle dropdown change.
+   */
   onDropdownChange: handleSwapDropdown;
 };
 
@@ -221,16 +276,49 @@ export interface SwapSettingTokenButtonType {
 }
 
 export interface SwapDropdownsViewType {
+  /**
+   * Data of dropdown options.
+   */
   dropdownData: SwapDataType[];
+  /**
+   * Display dropdown loading skeleton.
+   */
   fromDropdownLoading?: boolean;
+  /**
+   * Display input loading skeleton.
+   */
   fromInputLoading?: boolean;
+  /**
+   * Swap from this token.
+   */
   fromToken?: SwapDataType;
+  /**
+   * Display dropdown loading skeleton.
+   */
   toDropdownLoading?: boolean;
+  /**
+   * Display input loading skeleton.
+   */
   toInputLoading?: boolean;
+  /**
+   * Swap to this token.
+   */
   toToken?: SwapDataType;
+  /**
+   * Amount of the token.
+   */
   amountValue?: string;
+  /**
+   * Equal to the fiat currency value.
+   */
   fiatValue?: string;
+  /**
+   * Display input invalid style.
+   */
   invalid?: boolean;
+  /**
+   * Tips text of why invalid.
+   */
   invalidText?: string;
   /**
    * Can add a stable class name to control CSS.
@@ -253,9 +341,21 @@ export interface SwapDropdownsViewType {
    * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
    */
   styleProps?: object;
+  /**
+   *  A function called to handle to amount input change.
+   */
   onAmountInputChange: (newValue: string) => void;
+  /**
+   *  A function called to handle from dropdown change.
+   */
   onFromDropdownChange: handleSwapDropdown;
+  /**
+   *  A function called to handle to dropdown change.
+   */
   onToDropdownChange: handleSwapDropdown;
+  /**
+   *  A function called to handle switch dropdowns.
+   */
   onSwapSwitch: () => void;
 }
 
@@ -272,16 +372,34 @@ export interface SwapViewType extends SwapDropdownsViewType {
    * Display setting token list.
    */
   tokenArray?: string[];
+  /**
+   * An object of the current price exchange rate.
+   */
   priceValue?: {
     loading: boolean;
     amountValue: string;
     fiatValue: string;
   };
+  /**
+   * Submit button display disabled.
+   */
   submitDisabled?: boolean;
+  /**
+   * A function called to control setting.
+   */
   onSelectSetting: (value: string) => void;
+  /**
+   * A function called to control submit.
+   */
   onSwapSubmit: () => void;
 }
 export interface SwapModalType extends SwapViewType {
+  /**
+   * If `true`, the modal will be open.
+   */
   isOpen: boolean;
+  /**
+   * A function called to close modal.
+   */
   onClose: () => void;
 }

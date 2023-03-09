@@ -151,7 +151,7 @@ export const SwapView = ({
       <Divider />
       <Flex className="swap-price-box">
         <Text className="swap-price-title">Price</Text>
-        <Text className="swap-price-value">
+        <Box className="swap-price-value">
           {priceValue.loading ? (
             <Flex className="swap-skeleton-box">
               <Skeleton className="swap-skeleton-amount" />
@@ -168,7 +168,7 @@ export const SwapView = ({
               </Text>
             </>
           )}
-        </Text>
+        </Box>
       </Flex>
       <Button
         className="swap-submit-button"
