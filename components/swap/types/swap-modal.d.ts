@@ -23,7 +23,6 @@ export declare const SwapModalBaseStyle: (theme: string) => {
             p: number;
             w: string;
             h: string;
-            _hover: {};
         };
     };
 };
