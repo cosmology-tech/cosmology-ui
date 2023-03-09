@@ -21,6 +21,7 @@ import { RiDeviceLine } from 'react-icons/ri';
 
 // @ts-ignore
 import Avatar from '../public/cosmology-avatar.svg';
+import { SwapDropdownDemo } from './swap-dropdown';
 
 const ThemeButton = ({
   name,
@@ -90,6 +91,7 @@ export default function Home() {
         </Text>
       </Flex>
       <ConnectWalletButton rightIcon={<Icon as={RiDeviceLine} />} />
+      <SwapDropdownDemo />
     </Container>
   );
 }

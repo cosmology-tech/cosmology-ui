@@ -1,20 +1,14 @@
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable react/prop-types */
-import { Box, Button, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, useDisclosure } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
   SwapDataType,
   SwapDropdown
 } from '@cosmology-ui/react';
-import { ArgsTable, Primary } from '@storybook/addon-docs';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { chainList } from '../../util/config';
+import { chainList } from '../stories/util/config';
 
-const Template: ComponentStory<typeof SwapDropdown> = ({
-  onDropdownChange
-}) => {
+export const SwapDropdownDemo = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [demoSelectedToken, setDemoSelectedToken] = useState<SwapDataType>();
   const [chainData, setChainData] = useState<SwapDataType[]>([]);
@@ -77,36 +71,3 @@ const Template: ComponentStory<typeof SwapDropdown> = ({
     </Box>
   );
 };
-
-export const swapDropdown = Template.bind({});
-
-// to hide controls
-swapDropdown.parameters = {
-  controls: {
-    include: ['onDropdownChange']
-  }
-};
-
-export default {
-  title: 'Components/Dropdowns',
-  component: SwapDropdown,
-  parameters: {
-    docs: {
-      page: () => (
-        <>
-          <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap Dropdown
-          </Text>
-          <Primary />
-          <ArgsTable of={SwapDropdown} />
-        </>
-      )
-    }
-  },
-  argTypes: {
-    onChange: {
-      control: false,
-      action: 'selected'
-    }
-  }
-} as ComponentMeta<typeof SwapDropdown>;

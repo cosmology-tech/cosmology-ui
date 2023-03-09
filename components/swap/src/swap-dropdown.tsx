@@ -20,7 +20,8 @@ import {
   GroupBase,
   MenuListProps,
   OptionProps,
-  PlaceholderProps
+  PlaceholderProps,
+  SelectInstance
 } from 'chakra-react-select';
 import { Searcher } from 'fast-fuzzy';
 import { AnimatePresence } from 'framer-motion';
@@ -369,11 +370,34 @@ export const SwapDropdown = ({
 }: SwapDropdownType) => {
   const { theme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
+  const selectRef =
+    useRef<SelectInstance<SwapDataType, false, GroupBase<SwapDataType>>>(null);
 
   useOutsideClick({
     ref: menuRef,
     handler: onClose
   });
+
+  const [active, setActive] = useState<Element>(null);
+
+  const handleFocusIn = () => {
+    setActive(document.activeElement);
+  };
+
+  useEffect(() => {
+    document.addEventListener('focusin', handleFocusIn);
+    return () => {
+      document.removeEventListener('focusin', handleFocusIn);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (active && isOpen && selectRef.current) {
+      if (active.id === 'swap-control-dropdown-button') {
+        selectRef.current.inputRef.focus();
+      }
+    }
+  }, [active, isOpen]);
 
   return (
     <AnimatePresence>
@@ -386,6 +410,7 @@ export const SwapDropdown = ({
           exit="exit"
         >
           <AsyncSelect
+            ref={selectRef}
             id="select-swap-token"
             instanceId="select-swap-token"
             className={className}
@@ -441,6 +466,7 @@ export const SwapControlDropdownButton = ({
 }: SwapControlDropdownButtonType) => {
   return (
     <Button
+      id="swap-control-dropdown-button"
       className="swap-control-dropdown-button"
       variant="unstyled"
       onClick={onOpen}

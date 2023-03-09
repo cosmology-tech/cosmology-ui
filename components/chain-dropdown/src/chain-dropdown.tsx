@@ -226,7 +226,7 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
       color: `chain-dropdown-indicator-text-color-${theme}`,
       pl: 0.5
     }),
-    option: (provided, { isSelected }) => {
+    option: (provided, { isSelected, isFocused }) => {
       return {
         ...provided,
         display: 'flex',
@@ -241,6 +241,8 @@ export const ChangeChainDropdownBaseStyle = (theme: string) => {
         wordBreak: 'break-word',
         bg: isSelected
           ? `chain-dropdown-option-selected-background-color-${theme}`
+          : isFocused
+          ? `chain-dropdown-option-hover-background-color-${theme}`
           : `chain-dropdown-option-background-color-${theme}`,
         color: `chain-dropdown-text-color-${theme}`,
         borderColor: isSelected

@@ -55,12 +55,12 @@ export const LoadingVariants: Variants = {
 
 export const DropdownVariants: Variants = {
   initial: {
-    display: 'none',
+    height: 0,
     opacity: 0.8,
     scaleY: 0.95
   },
   animate: {
-    display: 'block',
+    height: 'auto',
     opacity: 1,
     scaleY: 1,
     transition: {
@@ -69,6 +69,7 @@ export const DropdownVariants: Variants = {
     }
   },
   exit: {
+    height: 0,
     opacity: 0.75,
     scaleY: 0.8,
     transition: {
