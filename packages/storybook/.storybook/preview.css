@@ -1,0 +1,11 @@
+:root:not([data-theme='dark']) {
+  --bg-color: #fff;
+}
+
+[data-theme='dark'] {
+  --bg-color: #171923;
+}
+
+body {
+  background-color: var(--bg-color);
+}

@@ -86,6 +86,7 @@
   "dependencies": {
     "@babel/runtime": "^7.21.0",
     "@cosmology-ui/base": "*",
+    "@cosmology-ui/theme": "*",
     "bowser": "2.11.0",
     "decimal.js": "^10.4.3",
     "fast-fuzzy": "^1.12.0",

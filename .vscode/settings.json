@@ -31,7 +31,7 @@
       "!cwd": false
     }
   ],
-  "cSpell.words": ["Bowser", "chakra", "Cosmostation", "keplr"],
+  "cSpell.words": ["Bowser", "chakra", "Cosmostation", "Flexbox", "keplr"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.eol": "\n"
 }

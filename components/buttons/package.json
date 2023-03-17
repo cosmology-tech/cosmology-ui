@@ -1,5 +1,5 @@
 {
-  "name": "@cosmology-ui/base",
+  "name": "@cosmology-ui/buttons",
   "version": "0.2.0",
   "description": "cosmology-ui",
   "author": "developers@cosmology.tech",
@@ -89,9 +89,12 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.21.0",
+    "@cosmology-ui/base": "*",
+    "@cosmology-ui/theme": "*",
     "react-icons": "^4.8.0",
     "styled-components": "^5.3.8",
     "styled-system": "^5.1.5",
+    "styled-theming": "^2.2.0",
     "system-props": "^0.22.0"
   },
   "peerDependencies": {
