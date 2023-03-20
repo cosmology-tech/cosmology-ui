@@ -6,7 +6,7 @@ import {
 } from '@cosmology-ui/react';
 import { useEffect, useState } from 'react';
 
-import { chainList } from '../stories/util/config';
+import { chainList } from '../../stories/util/config';
 
 export const SwapDropdownDemo = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
