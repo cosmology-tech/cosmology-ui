@@ -1,6 +1,6 @@
-import { DefaultTheme } from 'styled-components';
+// import { DefaultTheme } from 'styled-components';
 
-import { _ConnectWalletButtonStyle } from './components';
+import { componentThemes } from './components';
 import {
   borderStyle,
   borderWidth,
@@ -16,7 +16,9 @@ import {
   sizes,
   space
 } from './foundations';
-import { GeneralThemeType } from './types';
+import { ComponentsThemeType, GeneralThemeType } from './types';
+
+interface DefaultTheme extends GeneralThemeType, ComponentsThemeType {}
 
 export const generalTheme: GeneralThemeType = {
   borderWidth,
@@ -34,11 +36,7 @@ export const generalTheme: GeneralThemeType = {
   lineHeights
 };
 
-export const componentsTheme: DefaultTheme = {
-  ConnectWalletButton: _ConnectWalletButtonStyle
-};
-
 export const defaultTheme: DefaultTheme = {
   ...generalTheme,
-  ...componentsTheme
+  ...componentThemes
 };

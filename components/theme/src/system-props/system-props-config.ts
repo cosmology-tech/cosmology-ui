@@ -31,7 +31,7 @@ export type BaseProps<Prefix extends PrefixOptions = 'prefix'> =
     [k in keyof typeof extraProps]?: SystemProp<CSS.Properties[k]>;
   };
 
-export interface BoxProps<Prefix extends PrefixOptions = 'prefix'>
+export interface DefaultProps<Prefix extends PrefixOptions = 'prefix'>
   extends BaseProps<Prefix>,
     PseudoProps<BaseProps<Prefix>> {
   className?: string;

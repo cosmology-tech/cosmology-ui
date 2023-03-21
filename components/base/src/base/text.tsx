@@ -9,11 +9,11 @@ const system = createSystem({
   pseudoSelectors: PseudoSelectors
 });
 
-export const Box = styled('div').withConfig({
+export const Text = styled('p').withConfig({
   shouldForwardProp: (prop, defaultValidtorFn) =>
     shouldForwardProp(prop) && defaultValidtorFn(prop)
 })<DefaultProps>(
-  { boxSizing: 'border-box' },
+  { margin: 0 },
   system(config),
   ({ sx, ...props }) => css(sx)(props) as CSSObject
 );

@@ -41,6 +41,9 @@ export interface GeneralThemeType {
   letterSpacings: BaseThemeObject;
   lineHeights: BaseThemeObject;
 }
+export interface ComponentsThemeType {
+  ConnectWalletButtonStyle: Object;
+}
 
 export const themeList: ThemeListType[] = [
   { name: Themes.Light, displayColor: '#fff' },

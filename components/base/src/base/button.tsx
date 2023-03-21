@@ -1,5 +1,5 @@
 import { PseudoSelectors } from '@cosmology-ui/theme';
-import { BoxProps, config } from '@cosmology-ui/theme';
+import { config, DefaultProps } from '@cosmology-ui/theme';
 import styled, { CSSObject } from 'styled-components';
 import { createSystem, css, shouldForwardProp } from 'system-props';
 
@@ -12,7 +12,7 @@ const system = createSystem({
 export const Button = styled('button').withConfig({
   shouldForwardProp: (prop, defaultValidtorFn) =>
     shouldForwardProp(prop) && defaultValidtorFn(prop)
-})<BoxProps>(
+})<DefaultProps>(
   {
     boxSizing: 'border-box',
     font: 'inherit',

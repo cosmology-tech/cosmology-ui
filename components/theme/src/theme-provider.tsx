@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-import { defaultTheme } from './defaultTheme';
+import { defaultTheme } from './default-theme';
 import { ThemeContextReducerAction, ThemeContextType, Themes } from './types';
 
 function handleThemeChange(

@@ -1,6 +1,7 @@
 export const fonts = {
-  body: 'Inter, system-ui, sans-serif',
-  heading: 'Work Sans, system-ui, sans-serif'
+  body: 'Inter',
+  system: 'system-ui',
+  default: 'sans-serif'
 };
 
 export const letterSpacings = {
@@ -20,17 +21,7 @@ export const lineHeights = {
   base: 1.5,
   tall: 1.625,
   taller: 1.75,
-  '2x': 2,
-  '1': '0.25rem',
-  '2': '0.5rem',
-  '3': '0.75rem',
-  '4': '1rem',
-  '5': '1.25rem',
-  '6': '1.5rem',
-  '7': '1.75rem',
-  '8': '2rem',
-  '9': '2.25rem',
-  '10': '2.5rem'
+  '2x': 2
 };
 
 export const fontWeights = {
@@ -66,6 +57,5 @@ export const fontSizes = {
   '12xl': '4rem', // ≈64px
   '13xl': '4.5rem', // ≈72px
   '14xl': '5rem', // ≈80px
-  '15xl': '5.5rem', // ≈88px
-  '16xl': '6rem' // ≈96px
+  '15xl': '5.5rem' // ≈88px
 };
