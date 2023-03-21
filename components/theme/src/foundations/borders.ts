@@ -7,10 +7,7 @@ export const borderWidth = {
   sm: '2px',
   md: '4px',
   lg: '8px',
-  xl: '12px',
-  '2xl': '16px',
-  '3xl': '20px',
-  '4xl': '24px'
+  xl: '16px'
 };
 
 export const borderStyle = {

@@ -16,12 +16,11 @@ export const letterSpacings = {
 export const lineHeights = {
   normal: 'normal',
   none: 1,
-  shorter: 1.25,
-  short: 1.375,
+  shorter: 1.1,
+  short: 1.25,
   base: 1.5,
-  tall: 1.625,
-  taller: 1.75,
-  '2x': 2
+  tall: 1.75,
+  taller: 2
 };
 
 export const fontWeights = {
