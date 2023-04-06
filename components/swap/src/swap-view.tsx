@@ -37,7 +37,7 @@ export const SwapViewBaseStyle = (theme: string) => {
         '>.swap-skeleton-box': {
           alignItems: 'center',
           '>.swap-skeleton-amount': {
-            width: 24,
+            width: 36,
             height: 4,
             mr: 5
           },
@@ -103,12 +103,13 @@ export const SwapView = ({
   toDropdownLoading,
   toInputLoading,
   toToken,
-  amountValue,
-  fiatValue,
+  inputAmount,
+  inputDollarValue,
   tokenArray,
   settingToken,
   priceValue,
   submitDisabled,
+  submitLoading,
   className = 'swap-view',
   styleProps,
   onAmountInputChange,
@@ -132,8 +133,8 @@ export const SwapView = ({
         toDropdownLoading={toDropdownLoading}
         toInputLoading={toInputLoading}
         toToken={toToken}
-        amountValue={amountValue}
-        fiatValue={fiatValue}
+        inputAmount={inputAmount}
+        inputDollarValue={inputDollarValue}
         onAmountInputChange={onAmountInputChange}
         onFromDropdownChange={onFromDropdownChange}
         onToDropdownChange={onToDropdownChange}
@@ -161,10 +162,11 @@ export const SwapView = ({
           ) : (
             <>
               <Text as="span" className="swap-price-amount">
-                {priceValue.amountValue} {toToken.symbol}
+                {priceValue.rate.fromValue} {fromToken.symbol}&nbsp;=&nbsp;
+                {priceValue.rate.toValue} {toToken.symbol}
               </Text>
               <Text as="span" className="swap-price-fiat">
-                ~&nbsp;{priceValue.fiatValue}
+                ~&nbsp;{priceValue.rate.dollarValue}
               </Text>
             </>
           )}
@@ -173,6 +175,7 @@ export const SwapView = ({
       <Button
         className="swap-submit-button"
         isDisabled={submitDisabled}
+        isLoading={submitLoading}
         onClick={onSwapSubmit}
       >
         Swap

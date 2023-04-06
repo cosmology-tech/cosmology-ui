@@ -214,4 +214,4 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
         zIndex: number;
     };
 };
-export declare const SwapControlPanel: ({ inputLoading, dropdownLoading, dropdownData, selectedToken, swapType, inputControlPanel, amountValue, fiatValue, invalid, invalidText, className, styleProps, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;
+export declare const SwapControlPanel: ({ inputLoading, dropdownLoading, dropdownData, selectedToken, swapType, inputControlPanel, inputAmount, inputDollarValue, invalid, invalidText, className, styleProps, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;

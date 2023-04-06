@@ -27,11 +27,11 @@ interface UpdateDropdownReducer {
   inputLoading?: boolean;
 }
 interface UpdateInputReducer {
-  amountValue?: string;
-  fiatValue?: string;
+  inputLoading?: boolean;
+  inputAmount?: string;
+  inputDollarValue?: string;
   invalid: boolean;
   invalidText?: string;
-  isInputLoading?: boolean;
 }
 interface UpdateReducerAction extends UpdateInputReducer {
   type: SwapValueType;
@@ -56,50 +56,50 @@ function updateInputReducer(
     case SwapValueType.INITIAL:
       return {
         ...state,
-        isInputLoading: action.isInputLoading,
+        inputLoading: action.inputLoading,
         invalid: action.invalid,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.UPDATE:
       return {
         ...state,
-        isInputLoading: action.isInputLoading,
+        inputLoading: action.inputLoading,
         invalid: action.invalid,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.NOTPOSITIVE:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.OVERMAXIMUM:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.NOVALUE:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.VALID:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
 
     default: {
@@ -111,6 +111,7 @@ function updateInputReducer(
 const Template: ComponentStory<typeof SwapModal> = ({
   tokenArray,
   submitDisabled,
+  submitLoading,
   ...rest
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -126,43 +127,46 @@ const Template: ComponentStory<typeof SwapModal> = ({
     inputLoading: true
   });
   const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
-    amountValue: undefined,
-    fiatValue: '$-',
+    inputAmount: undefined,
+    inputDollarValue: '$-',
     invalid: false,
     invalidText: undefined,
-    isInputLoading: true
+    inputLoading: true
   });
   const [selectedToken, setSelectToken] = useState<string | undefined>(
     tokenArray ? tokenArray[0] : undefined
   );
   const [priceValue, setPrice] = useState({
     loading: true,
-    amountValue: '0',
-    fiatValue: '$-'
+    rate: {
+      fromValue: '0',
+      toValue: '0',
+      dollarValue: '$-'
+    }
   });
 
-  function handleSelectTolerance(value: string) {
+  const handleSelectTolerance = (value: string) => {
     console.log(`log:tolerance`, value);
     setSelectToken(value);
-  }
+  };
   const handleInputChange = (value: string, selectedToken: SwapDataType) => {
     if (!value) {
       updateInputEvent({
         type: SwapValueType.NOVALUE,
-        amountValue: '0',
-        fiatValue: '$-',
+        inputAmount: '0',
+        inputDollarValue: '$-',
         invalid: true,
         invalidText: 'Please enter a value.'
       });
     }
     if (value) {
       const decimalInput = new Decimal(value);
-      const decimalDefault = new Decimal(selectedToken.amountValue);
+      const decimalDefault = new Decimal(selectedToken.amount);
       if (!decimalInput.isPositive()) {
         updateInputEvent({
           type: SwapValueType.NOTPOSITIVE,
-          amountValue: selectedToken.amountValue,
-          fiatValue: selectedToken.fiatValue,
+          inputAmount: selectedToken.amount,
+          inputDollarValue: selectedToken.dollarValue,
           invalid: true,
           invalidText: 'Please enter a positive value.'
         });
@@ -170,10 +174,10 @@ const Template: ComponentStory<typeof SwapModal> = ({
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
         updateInputEvent({
           type: SwapValueType.OVERMAXIMUM,
-          amountValue: selectedToken.amountValue,
-          fiatValue: selectedToken.fiatValue,
+          inputAmount: selectedToken.amount,
+          inputDollarValue: selectedToken.dollarValue,
           invalid: true,
-          invalidText: `Please enter a value less than ${selectedToken.amountValue}.`
+          invalidText: `Please enter a value less than ${selectedToken.amount}.`
         });
       }
       if (
@@ -182,11 +186,40 @@ const Template: ComponentStory<typeof SwapModal> = ({
       ) {
         updateInputEvent({
           type: SwapValueType.VALID,
-          amountValue: value,
-          fiatValue: decimalInput.div(0.05).toString(),
+          inputAmount: value,
+          inputDollarValue: decimalInput.div(0.05).toString(),
           invalid: false,
           invalidText: undefined
         });
+      }
+      if (decimalDefault.eq(decimalInput)) {
+        if (toToken.selectedToken) {
+          updateToToken({
+            selectedToken: {
+              ...toToken.selectedToken,
+              currentAmount: toToken.selectedToken.amount
+            },
+            dropdownLoading: false,
+            inputLoading: false
+          });
+        }
+      }
+      if (!decimalDefault.eq(decimalInput)) {
+        if (toToken.selectedToken) {
+          const fromAmount = new Decimal(selectedToken.amount);
+          const toDecimal = new Decimal(toToken.selectedToken.amount);
+          const i = fromAmount.div(decimalInput);
+          const toAmount = toDecimal.div(i).toFixed(6);
+
+          updateToToken({
+            selectedToken: {
+              ...toToken.selectedToken,
+              currentAmount: toAmount
+            },
+            dropdownLoading: false,
+            inputLoading: false
+          });
+        }
       }
     }
   };
@@ -194,10 +227,10 @@ const Template: ComponentStory<typeof SwapModal> = ({
     if (value) {
       updateInputEvent({
         type: SwapValueType.UPDATE,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: value.amountValue,
-        fiatValue: value.fiatValue
+        inputAmount: value.amount,
+        inputDollarValue: value.dollarValue
       });
       updateFromToken({
         selectedToken: value
@@ -221,10 +254,10 @@ const Template: ComponentStory<typeof SwapModal> = ({
     if (toToken.selectedToken)
       updateInputEvent({
         type: SwapValueType.INITIAL,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: toToken.selectedToken.amountValue,
-        fiatValue: toToken.selectedToken.fiatValue
+        inputAmount: toToken.selectedToken.amount,
+        inputDollarValue: toToken.selectedToken.dollarValue
       });
   }, [fromToken.selectedToken, toToken.selectedToken]);
   const handleSubmit = () => {
@@ -233,14 +266,15 @@ const Template: ComponentStory<typeof SwapModal> = ({
 
   useEffect(() => {
     const formatData = chainList.map(
-      ({ chainName, label, value, symbol, icon, amountValue, fiatValue }) => ({
-        name: chainName,
-        label,
-        value,
+      ({ label, symbol, icon, denom, amount, dollarValue }) => ({
+        value: label,
         symbol,
         icon,
-        amountValue,
-        fiatValue
+        denom,
+        amount,
+        dollarValue,
+        currentAmount: amount,
+        currentDollarValue: dollarValue
       })
     );
     setTimeout(() => {
@@ -260,29 +294,29 @@ const Template: ComponentStory<typeof SwapModal> = ({
       });
       updateInputEvent({
         type: SwapValueType.INITIAL,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: chainData[0].amountValue,
-        fiatValue: chainData[0].fiatValue
+        inputAmount: chainData[0].currentAmount,
+        inputDollarValue: chainData[0].currentDollarValue
       });
     }
   }, [chainData]);
   useEffect(() => {
     if (fromToken.selectedToken && toToken.selectedToken) {
-      const decimalValue = new Decimal(fromToken.selectedToken.amountValue);
+      const decimalValue = new Decimal(fromToken.selectedToken.amount);
       setPrice({
         loading: false,
-        amountValue: decimalValue
-          .mul(toToken.selectedToken.amountValue)
-          .div(decimalValue)
-          .div(100)
-          .toFixed(5),
-        fiatValue:
-          '$' +
-          decimalValue
-            .div(toToken.selectedToken.amountValue)
-            .mul(100)
-            .toFixed(5)
+        rate: {
+          fromValue: '1',
+          toValue: decimalValue
+            .mul(toToken.selectedToken.amount)
+            .div(decimalValue)
+            .div(100)
+            .toFixed(5),
+          dollarValue:
+            '$' +
+            decimalValue.div(toToken.selectedToken.amount).mul(100).toFixed(4)
+        }
       });
     }
   }, [fromToken.selectedToken, toToken.selectedToken]);
@@ -297,16 +331,17 @@ const Template: ComponentStory<typeof SwapModal> = ({
           isOpen={isOpen}
           dropdownData={chainData}
           fromDropdownLoading={fromToken.dropdownLoading}
-          fromInputLoading={inputEvent.isInputLoading}
+          fromInputLoading={inputEvent.inputLoading}
           fromToken={fromToken.selectedToken}
           toDropdownLoading={toToken.dropdownLoading}
           toInputLoading={toToken.inputLoading}
           toToken={toToken.selectedToken}
-          amountValue={inputEvent.amountValue}
-          fiatValue={inputEvent.fiatValue}
+          inputAmount={inputEvent.inputAmount}
+          inputDollarValue={inputEvent.inputDollarValue}
           settingToken={selectedToken}
           tokenArray={tokenArray}
           priceValue={priceValue}
+          submitLoading={submitLoading}
           submitDisabled={submitDisabled}
           onClose={onClose}
           onSelectSetting={handleSelectTolerance}
@@ -329,7 +364,12 @@ export const swapModal = Template.bind({});
 // to hide controls
 swapModal.parameters = {
   controls: {
-    include: ['tokenArray', 'submitDisabled', 'onDropdownChange']
+    include: [
+      'tokenArray',
+      'submitLoading',
+      'submitDisabled',
+      'onDropdownChange'
+    ]
   }
 };
 
@@ -341,7 +381,7 @@ export default {
       page: () => (
         <>
           <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap View
+            Swap Modal
           </Text>
           <Primary />
           <ArgsTable of={SwapModal} />
@@ -351,7 +391,8 @@ export default {
   },
   args: {
     tokenArray: ['1%', '2.5%', '3%', '5%'],
-    submitDisabled: false
+    submitDisabled: false,
+    submitLoading: false
   },
   argTypes: {
     onChange: {

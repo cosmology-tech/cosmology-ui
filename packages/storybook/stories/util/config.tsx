@@ -48,14 +48,15 @@ export const chainList = assets
           value.base.slice(0, 1) === 'u'
             ? handleShuffledLetters(value.name, 12)
             : handleShuffledLetters(value.name),
-        amountValue: (
+        denom: value.base,
+        amount: (
           parseFloat(
             shuffledArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
               .toString()
               .replaceAll(',', '')
           ) / 100000000
         ).toFixed(6),
-        fiatValue: `$${(
+        dollarValue: `$${(
           parseFloat(
             shuffledArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
               .toString()

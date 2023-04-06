@@ -16,8 +16,8 @@ import { SwapControlInputValuePanelType, SwapEditableInputType } from './type';
 export const SwapEditableInput = ({
   id,
   selectedToken,
-  fiatValue,
-  amountValue,
+  inputAmount,
+  inputDollarValue,
   invalid,
   invalidText,
   onAmountInputChange
@@ -47,11 +47,11 @@ export const SwapEditableInput = ({
             type="number"
             step={0.000001}
             min={0}
-            max={selectedToken.amountValue}
+            max={selectedToken.amount}
             ref={inputRef}
             autoFocus={true}
             isInvalid={invalid}
-            value={amountValue}
+            value={inputAmount}
             onChange={(e) => onAmountInputChange(e.target.value)}
             onKeyDown={(e) => {
               switch (e.code) {
@@ -72,20 +72,20 @@ export const SwapEditableInput = ({
           className="swap-editable-text"
           onClick={() => setInputVisible(true)}
         >
-          {amountValue}
+          {inputAmount}
         </Text>
       )}
-      <Text className="swap-fiat-text">~&nbsp;{fiatValue}</Text>
+      <Text className="swap-fiat-text">~&nbsp;{inputDollarValue}</Text>
     </Box>
   );
 };
 
 export const SwapInputControlPanel = ({
   loading,
-  amountValue,
+  amount,
   onAmountInputChange
 }: SwapControlInputValuePanelType) => {
-  const decimal = new Decimal(amountValue ? amountValue : 0);
+  const decimal = new Decimal(amount ? amount : 0);
 
   return (
     <Flex className="swap-input-control-panel">

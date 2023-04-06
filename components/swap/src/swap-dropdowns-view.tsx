@@ -1,8 +1,7 @@
 import { Box, Center, useDisclosure, useOutsideClick } from '@chakra-ui/react';
 import { AnimateIconButton } from '@cosmology-ui/animation';
 import { useTheme } from '@cosmology-ui/theme';
-import React, { useRef, useState } from 'react';
-import { IconType } from 'react-icons';
+import React, { ReactNode, useRef, useState } from 'react';
 import { ImArrowDown2 } from 'react-icons/im';
 import { TbArrowsRightLeft } from 'react-icons/tb';
 
@@ -10,7 +9,7 @@ import { SwapControlPanel } from './swap-panel';
 import { SwapDropdownsViewType, SwapSwitchButtonType, SwapType } from './type';
 
 const SwapSwitchButton = ({ onSwapSwitch }: SwapSwitchButtonType) => {
-  const [icon, setIcon] = useState<IconType>(ImArrowDown2);
+  const [icon, setIcon] = useState<ReactNode>(<ImArrowDown2 />);
   return (
     <AnimateIconButton
       variant="unstyled"
@@ -23,8 +22,8 @@ const SwapSwitchButton = ({ onSwapSwitch }: SwapSwitchButtonType) => {
         scale: 1.1,
         transition: { duration: 0.1, ease: 'circInOut' }
       }}
-      onHoverStart={() => setIcon(TbArrowsRightLeft)}
-      onHoverEnd={() => setIcon(ImArrowDown2)}
+      onHoverStart={() => setIcon(<TbArrowsRightLeft />)}
+      onHoverEnd={() => setIcon(<ImArrowDown2 />)}
     />
   );
 };
@@ -66,8 +65,8 @@ export const SwapDropdownsView = ({
   toDropdownLoading,
   toInputLoading,
   toToken,
-  amountValue,
-  fiatValue,
+  inputAmount,
+  inputDollarValue,
   invalid,
   invalidText,
   className = 'swap-dropdowns-view',
@@ -103,8 +102,8 @@ export const SwapDropdownsView = ({
         inputLoading={fromInputLoading}
         dropdownData={dropdownData}
         selectedToken={fromToken}
-        amountValue={amountValue}
-        fiatValue={fiatValue}
+        inputAmount={inputAmount}
+        inputDollarValue={inputDollarValue}
         inputControlPanel={true}
         invalid={invalid}
         invalidText={invalidText}

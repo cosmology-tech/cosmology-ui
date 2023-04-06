@@ -93,7 +93,7 @@ export const styleData: StyleDataType[] = [
     category: 'colors',
     style: 'disabled-text-color',
     theme: [
-      { themeName: Themes.Light, themeValue: 'gray.400' },
+      { themeName: Themes.Light, themeValue: 'white' },
       { themeName: Themes.Dark, themeValue: 'gray.500' }
     ]
   },
@@ -1209,8 +1209,8 @@ export const styleData: StyleDataType[] = [
     category: 'colors',
     style: 'submit-disabled-background-color',
     theme: [
-      { themeName: Themes.Light, themeValue: 'gray.50' },
-      { themeName: Themes.Dark, themeValue: 'gray.700' }
+      { themeName: Themes.Light, themeValue: 'primary.200' },
+      { themeName: Themes.Dark, themeValue: 'primary.600' }
     ]
   },
   {
@@ -1236,8 +1236,8 @@ export const styleData: StyleDataType[] = [
     category: 'colors',
     style: 'submit-disabled-text-color',
     theme: [
-      { themeName: Themes.Light, themeValue: 'gray.400' },
-      { themeName: Themes.Dark, themeValue: 'gray.500' }
+      { themeName: Themes.Light, themeValue: 'white' },
+      { themeName: Themes.Dark, themeValue: 'white' }
     ]
   },
   {

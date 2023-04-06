@@ -14,8 +14,9 @@ export type ChainListType = {
     dst_channel?: string;
   };
   address: string;
-  amountValue: string;
-  fiatValue: string;
+  denom: string;
+  amount: string;
+  dollarValue: string;
 };
 
 export type UserDeviceInfoType = {

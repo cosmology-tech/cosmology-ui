@@ -128,7 +128,7 @@ export const SwapOption = (
       <Flex className="swap-dropdown-option">
         <Center>
           <Image
-            alt={optionData.name}
+            alt={optionData.value}
             src={
               optionData.icon.png || optionData.icon.jpeg || optionData.icon.svg
             }
@@ -136,11 +136,11 @@ export const SwapOption = (
         </Center>
         <Stack spacing={1}>
           <Text>{optionData.symbol}</Text>
-          <Text>{optionData.label}</Text>
+          <Text>{optionData.value}</Text>
         </Stack>
         <Stack spacing={1}>
-          <Text>{optionData.amountValue}</Text>
-          <Text>{optionData.fiatValue}</Text>
+          <Text>{optionData.amount}</Text>
+          <Text>{optionData.dollarValue}</Text>
         </Stack>
       </Flex>
     </chakraComponents.Option>
@@ -434,7 +434,7 @@ export const SwapDropdown = ({
             menuPlacement="auto"
             loadOptions={(inputValue, callback) => {
               const searcher = new Searcher(dropdownData, {
-                keySelector: (obj) => obj.label
+                keySelector: (obj) => obj.value
               });
               callback(searcher.search(inputValue));
             }}
@@ -473,7 +473,7 @@ export const SwapControlDropdownButton = ({
     >
       <Center>
         <Image
-          alt={selectedToken ? selectedToken.name : 'chain-icon'}
+          alt={selectedToken ? selectedToken.value : 'chain-icon'}
           src={
             selectedToken
               ? selectedToken.icon.png ||
@@ -488,7 +488,7 @@ export const SwapControlDropdownButton = ({
           {selectedToken.symbol ? selectedToken.symbol : undefined}
           <Icon as={RiArrowDownSLine} />
         </Text>
-        <Text>{selectedToken.label ?? selectedToken.name ?? undefined}</Text>
+        <Text>{selectedToken.value ? selectedToken.value : undefined}</Text>
       </Box>
     </Button>
   );

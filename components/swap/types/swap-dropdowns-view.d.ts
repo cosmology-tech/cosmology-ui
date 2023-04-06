@@ -28,4 +28,4 @@ export declare const SwapDropdownsViewBaseStyle: (theme: string) => {
         };
     };
 };
-export declare const SwapDropdownsView: ({ dropdownData, fromDropdownLoading, fromInputLoading, fromToken, toDropdownLoading, toInputLoading, toToken, amountValue, fiatValue, invalid, invalidText, className, styleProps, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch }: SwapDropdownsViewType) => JSX.Element;
+export declare const SwapDropdownsView: ({ dropdownData, fromDropdownLoading, fromInputLoading, fromToken, toDropdownLoading, toInputLoading, toToken, inputAmount, inputDollarValue, invalid, invalidText, className, styleProps, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch }: SwapDropdownsViewType) => JSX.Element;

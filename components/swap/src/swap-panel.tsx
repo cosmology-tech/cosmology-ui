@@ -235,8 +235,8 @@ export const SwapControlPanel = ({
   selectedToken,
   swapType, // from or to
   inputControlPanel,
-  amountValue,
-  fiatValue,
+  inputAmount,
+  inputDollarValue,
   invalid,
   invalidText,
   className = 'swap-control-panel',
@@ -257,7 +257,7 @@ export const SwapControlPanel = ({
         {inputControlPanel ? (
           <SwapInputControlPanel
             loading={inputLoading}
-            amountValue={selectedToken?.amountValue}
+            amount={selectedToken?.amount}
             onAmountInputChange={onAmountInputChange}
           />
         ) : undefined}
@@ -287,8 +287,8 @@ export const SwapControlPanel = ({
             {inputControlPanel ? (
               <SwapEditableInput
                 id="swap-amount-input"
-                amountValue={amountValue}
-                fiatValue={fiatValue}
+                inputAmount={inputAmount}
+                inputDollarValue={inputDollarValue}
                 invalid={invalid}
                 invalidText={invalidText}
                 selectedToken={selectedToken}
@@ -298,10 +298,10 @@ export const SwapControlPanel = ({
             {!inputControlPanel ? (
               <Box className="swap-display-box">
                 <Text className="swap-amount-text">
-                  {selectedToken.amountValue}
+                  {selectedToken.currentAmount}
                 </Text>
                 <Text className="swap-fiat-text">
-                  ~&nbsp;{selectedToken.fiatValue}
+                  ~&nbsp;{selectedToken.currentDollarValue}
                 </Text>
               </Box>
             ) : undefined}

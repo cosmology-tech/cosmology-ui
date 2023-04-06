@@ -86,4 +86,4 @@ export declare const SwapViewBaseStyle: (theme: string) => {
         };
     };
 };
-export declare const SwapView: ({ dropdownData, fromDropdownLoading, fromInputLoading, fromToken, toDropdownLoading, toInputLoading, toToken, amountValue, fiatValue, tokenArray, settingToken, priceValue, submitDisabled, className, styleProps, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSelectSetting, onSwapSubmit }: SwapViewType) => JSX.Element;
+export declare const SwapView: ({ dropdownData, fromDropdownLoading, fromInputLoading, fromToken, toDropdownLoading, toInputLoading, toToken, inputAmount, inputDollarValue, tokenArray, settingToken, priceValue, submitDisabled, submitLoading, className, styleProps, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSelectSetting, onSwapSubmit }: SwapViewType) => JSX.Element;

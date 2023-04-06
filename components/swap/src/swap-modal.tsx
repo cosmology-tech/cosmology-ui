@@ -50,11 +50,12 @@ export const SwapModal = ({
   toDropdownLoading,
   toInputLoading,
   toToken,
-  amountValue,
-  fiatValue,
+  inputAmount,
+  inputDollarValue,
   tokenArray,
   settingToken,
   priceValue,
+  submitLoading,
   submitDisabled,
   className = 'swap-modal',
   styleProps,
@@ -87,11 +88,12 @@ export const SwapModal = ({
           toDropdownLoading={toDropdownLoading}
           toInputLoading={toInputLoading}
           toToken={toToken}
-          amountValue={amountValue}
-          fiatValue={fiatValue}
+          inputAmount={inputAmount}
+          inputDollarValue={inputDollarValue}
           settingToken={settingToken}
           tokenArray={tokenArray}
           priceValue={priceValue}
+          submitLoading={submitLoading}
           submitDisabled={submitDisabled}
           onSelectSetting={onSelectSetting}
           onAmountInputChange={onAmountInputChange}

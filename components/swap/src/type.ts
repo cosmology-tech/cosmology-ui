@@ -12,15 +12,8 @@ export enum SwapInputType {
 
 export interface SwapDataType extends OptionBase {
   /**
+   * Chain name.
    * Unique identifier for option.
-   */
-  name: string;
-  /**
-   * Text to display for option.
-   */
-  label: string;
-  /**
-   * Value of option.
    */
   value: string;
   /**
@@ -36,13 +29,25 @@ export interface SwapDataType extends OptionBase {
     svg?: string;
   };
   /**
+   * Unit of the chain.
+   */
+  denom?: string;
+  /**
    * Current balance of this chain.
    */
-  amountValue: string;
+  amount: string;
   /**
    * Amount denominated in fiat currency.
    */
-  fiatValue: string;
+  dollarValue: string;
+  /**
+   * Current balance of this chain.
+   */
+  currentAmount: string;
+  /**
+   * Amount denominated in fiat currency.
+   */
+  currentDollarValue: string;
   /**
    * Disabled the option.
    */
@@ -134,14 +139,14 @@ export type SwapControlDropdownButtonType = {
 
 export type SwapControlInputValuePanelType = {
   loading: boolean;
-  amountValue?: string;
+  amount?: string;
   onAmountInputChange: (newValue: string) => void;
 };
 
 export type SwapEditableInputType = {
   id: string;
-  amountValue: string;
-  fiatValue: string;
+  inputAmount: string;
+  inputDollarValue: string;
   selectedToken?: SwapDataType;
   invalid?: boolean;
   invalidText?: string;
@@ -181,11 +186,11 @@ export type SwapControlPanelType = {
   /**
    * Amount of the token.
    */
-  amountValue?: string;
+  inputAmount?: string;
   /**
    * Equal to the fiat currency value.
    */
-  fiatValue?: string;
+  inputDollarValue?: string;
   /**
    * Display input invalid style.
    */
@@ -307,11 +312,11 @@ export interface SwapDropdownsViewType {
   /**
    * Amount of the token.
    */
-  amountValue?: string;
+  inputAmount?: string;
   /**
    * Equal to the fiat currency value.
    */
-  fiatValue?: string;
+  inputDollarValue?: string;
   /**
    * Display input invalid style.
    */
@@ -377,9 +382,16 @@ export interface SwapViewType extends SwapDropdownsViewType {
    */
   priceValue?: {
     loading: boolean;
-    amountValue: string;
-    fiatValue: string;
+    rate: {
+      fromValue: string;
+      toValue: string;
+      dollarValue: string;
+    };
   };
+  /**
+   * Submit button display loading.
+   */
+  submitLoading?: boolean;
   /**
    * Submit button display disabled.
    */

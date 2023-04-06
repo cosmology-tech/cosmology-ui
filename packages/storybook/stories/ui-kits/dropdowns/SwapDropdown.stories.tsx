@@ -13,7 +13,8 @@ import React, { useEffect, useState } from 'react';
 import { chainList } from '../../util/config';
 
 const Template: ComponentStory<typeof SwapDropdown> = ({
-  onDropdownChange
+  onDropdownChange,
+  ...rest
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [demoSelectedToken, setDemoSelectedToken] = useState<SwapDataType>();
@@ -27,35 +28,38 @@ const Template: ComponentStory<typeof SwapDropdown> = ({
 
   useEffect(() => {
     const formatData = chainList.map(
-      ({ chainName, label, value, symbol, icon, amountValue, fiatValue }) => ({
-        name: chainName,
-        label,
-        value,
+      ({ label, symbol, icon, denom, amount, dollarValue }) => ({
+        value: label,
         symbol,
         icon,
-        amountValue,
-        fiatValue
+        denom,
+        amount,
+        dollarValue,
+        currentAmount: amount,
+        currentDollarValue: dollarValue
       })
     );
     setTimeout(() => {
       setChainData([
         {
-          name: 'disabled',
-          label: 'disabled',
           value: 'disabled',
           symbol: 'disabled',
           icon: {
             png: 'https://dummyimage.com/400x400/5c5c5c/ffffff.png&text=D'
           },
-          amountValue: '0',
-          fiatValue: '$0',
+          denom:
+            'ibc/4A3AAD07BC4EBEBC10FC2560EAA3B7A1D3B541B5264ED8E5E13E6B74AC76127B',
+          amount: '0',
+          dollarValue: '$0',
+          currentAmount: '0',
+          currentDollarValue: '$0',
           disabled: true
         },
         ...formatData
       ]);
     }, 800);
 
-    setDemoSelectedToken(formatData[0]);
+    if (formatData) setDemoSelectedToken(formatData[0]);
   }, []);
 
   return (
@@ -83,7 +87,7 @@ export const swapDropdown = Template.bind({});
 // to hide controls
 swapDropdown.parameters = {
   controls: {
-    include: ['onDropdownChange']
+    include: []
   }
 };
 
@@ -101,12 +105,6 @@ export default {
           <ArgsTable of={SwapDropdown} />
         </>
       )
-    }
-  },
-  argTypes: {
-    onChange: {
-      control: false,
-      action: 'selected'
     }
   }
 } as ComponentMeta<typeof SwapDropdown>;

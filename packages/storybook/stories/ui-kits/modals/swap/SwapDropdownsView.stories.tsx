@@ -27,11 +27,11 @@ interface UpdateDropdownReducer {
   inputLoading?: boolean;
 }
 interface UpdateInputReducer {
-  amountValue?: string;
-  fiatValue?: string;
+  inputLoading?: boolean;
+  inputAmount?: string;
+  inputDollarValue?: string;
   invalid: boolean;
   invalidText?: string;
-  isInputLoading?: boolean;
 }
 interface UpdateReducerAction extends UpdateInputReducer {
   type: SwapValueType;
@@ -56,50 +56,50 @@ function updateInputReducer(
     case SwapValueType.INITIAL:
       return {
         ...state,
-        isInputLoading: action.isInputLoading,
+        inputLoading: action.inputLoading,
         invalid: action.invalid,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.UPDATE:
       return {
         ...state,
-        isInputLoading: action.isInputLoading,
+        inputLoading: action.inputLoading,
         invalid: action.invalid,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.NOTPOSITIVE:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.OVERMAXIMUM:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.NOVALUE:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
     case SwapValueType.VALID:
       return {
         ...state,
         invalid: action.invalid,
         invalidText: action.invalidText,
-        amountValue: action.amountValue,
-        fiatValue: action.fiatValue
+        inputAmount: action.inputAmount,
+        inputDollarValue: action.inputDollarValue
       };
 
     default: {
@@ -108,7 +108,14 @@ function updateInputReducer(
   }
 }
 
-const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
+const Template: ComponentStory<typeof SwapDropdownsView> = ({
+  dropdownData,
+  onAmountInputChange,
+  onFromDropdownChange,
+  onToDropdownChange,
+  onSwapSwitch,
+  ...rest
+}) => {
   const [chainData, setChainData] = useState<SwapDataType[]>([]);
   const [fromToken, updateFromToken] = useReducer(updateDropdownReducer, {
     selectedToken: undefined,
@@ -121,31 +128,31 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
     inputLoading: true
   });
   const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
-    amountValue: undefined,
-    fiatValue: '$-',
+    inputAmount: undefined,
+    inputDollarValue: '$-',
     invalid: false,
     invalidText: undefined,
-    isInputLoading: true
+    inputLoading: true
   });
 
   const handleInputChange = (value: string, selectedToken: SwapDataType) => {
     if (!value) {
       updateInputEvent({
         type: SwapValueType.NOVALUE,
-        amountValue: '0',
-        fiatValue: '$-',
+        inputAmount: '0',
+        inputDollarValue: '$-',
         invalid: true,
         invalidText: 'Please enter a value.'
       });
     }
     if (value) {
       const decimalInput = new Decimal(value);
-      const decimalDefault = new Decimal(selectedToken.amountValue);
+      const decimalDefault = new Decimal(selectedToken.amount);
       if (!decimalInput.isPositive()) {
         updateInputEvent({
           type: SwapValueType.NOTPOSITIVE,
-          amountValue: selectedToken.amountValue,
-          fiatValue: selectedToken.fiatValue,
+          inputAmount: selectedToken.amount,
+          inputDollarValue: selectedToken.dollarValue,
           invalid: true,
           invalidText: 'Please enter a positive value.'
         });
@@ -153,10 +160,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
         updateInputEvent({
           type: SwapValueType.OVERMAXIMUM,
-          amountValue: selectedToken.amountValue,
-          fiatValue: selectedToken.fiatValue,
+          inputAmount: selectedToken.amount,
+          inputDollarValue: selectedToken.dollarValue,
           invalid: true,
-          invalidText: `Please enter a value less than ${selectedToken.amountValue}.`
+          invalidText: `Please enter a value less than ${selectedToken.amount}.`
         });
       }
       if (
@@ -165,11 +172,40 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
       ) {
         updateInputEvent({
           type: SwapValueType.VALID,
-          amountValue: value,
-          fiatValue: decimalInput.div(0.05).toString(),
+          inputAmount: value,
+          inputDollarValue: decimalInput.div(0.05).toString(),
           invalid: false,
           invalidText: undefined
         });
+      }
+      if (decimalDefault.eq(decimalInput)) {
+        if (toToken.selectedToken) {
+          updateToToken({
+            selectedToken: {
+              ...toToken.selectedToken,
+              currentAmount: toToken.selectedToken.amount
+            },
+            dropdownLoading: false,
+            inputLoading: false
+          });
+        }
+      }
+      if (!decimalDefault.eq(decimalInput)) {
+        if (toToken.selectedToken) {
+          const fromAmount = new Decimal(selectedToken.amount);
+          const toDecimal = new Decimal(toToken.selectedToken.amount);
+          const i = fromAmount.div(decimalInput);
+          const toAmount = toDecimal.div(i).toFixed(6);
+
+          updateToToken({
+            selectedToken: {
+              ...toToken.selectedToken,
+              currentAmount: toAmount
+            },
+            dropdownLoading: false,
+            inputLoading: false
+          });
+        }
       }
     }
   };
@@ -177,10 +213,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
     if (value) {
       updateInputEvent({
         type: SwapValueType.UPDATE,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: value.amountValue,
-        fiatValue: value.fiatValue
+        inputAmount: value.currentAmount,
+        inputDollarValue: value.currentDollarValue
       });
       updateFromToken({
         selectedToken: value
@@ -204,23 +240,24 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
     if (toToken.selectedToken)
       updateInputEvent({
         type: SwapValueType.INITIAL,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: toToken.selectedToken.amountValue,
-        fiatValue: toToken.selectedToken.fiatValue
+        inputAmount: toToken.selectedToken.amount,
+        inputDollarValue: toToken.selectedToken.dollarValue
       });
   }, [fromToken.selectedToken, toToken.selectedToken]);
 
   useEffect(() => {
     const formatData = chainList.map(
-      ({ chainName, label, value, symbol, icon, amountValue, fiatValue }) => ({
-        name: chainName,
-        label,
-        value,
+      ({ label, symbol, icon, denom, amount, dollarValue }) => ({
+        value: label,
         symbol,
         icon,
-        amountValue,
-        fiatValue
+        denom,
+        amount,
+        dollarValue,
+        currentAmount: amount,
+        currentDollarValue: dollarValue
       })
     );
     setTimeout(() => {
@@ -241,10 +278,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
       });
       updateInputEvent({
         type: SwapValueType.INITIAL,
-        isInputLoading: false,
+        inputLoading: false,
         invalid: false,
-        amountValue: chainData[0].amountValue,
-        fiatValue: chainData[0].fiatValue
+        inputAmount: chainData[0].currentAmount,
+        inputDollarValue: chainData[0].currentDollarValue
       });
     }
   }, [chainData]);
@@ -255,13 +292,13 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
         <SwapDropdownsView
           dropdownData={chainData}
           fromDropdownLoading={fromToken.dropdownLoading}
-          fromInputLoading={inputEvent.isInputLoading}
+          fromInputLoading={inputEvent.inputLoading}
           fromToken={fromToken.selectedToken}
           toDropdownLoading={toToken.dropdownLoading}
           toInputLoading={toToken.inputLoading}
           toToken={toToken.selectedToken}
-          amountValue={inputEvent.amountValue}
-          fiatValue={inputEvent.fiatValue}
+          inputAmount={inputEvent.inputAmount}
+          inputDollarValue={inputEvent.inputDollarValue}
           invalid={inputEvent.invalid}
           invalidText={inputEvent.invalidText}
           onAmountInputChange={(value) => {
@@ -271,6 +308,7 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({ ...rest }) => {
           onFromDropdownChange={handleFromDropdownChange}
           onToDropdownChange={handleToDropdownChange}
           onSwapSwitch={handleSwapSwitch}
+          {...rest}
         />
       </Box>
     </Box>
@@ -282,7 +320,7 @@ export const swapDropdownsView = Template.bind({});
 // to hide controls
 swapDropdownsView.parameters = {
   controls: {
-    include: ['onDropdownChange']
+    include: []
   }
 };
 
@@ -294,18 +332,12 @@ export default {
       page: () => (
         <>
           <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap Dropdowns view
+            Swap Dropdowns View
           </Text>
           <Primary />
           <ArgsTable of={SwapDropdownsView} />
         </>
       )
-    }
-  },
-  argTypes: {
-    onChange: {
-      control: false,
-      action: 'selected'
     }
   }
 } as ComponentMeta<typeof SwapDropdownsView>;
