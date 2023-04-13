@@ -1,8 +1,8 @@
 import { Box, Button, useDisclosure } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
-  SwapDataType,
-  SwapDropdown
+  SwapDropdown,
+  SwapOptionDataType
 } from '@cosmology-ui/react';
 import { useEffect, useState } from 'react';
 
@@ -10,8 +10,9 @@ import { chainList } from '../../stories/util/config';
 
 export const SwapDropdownDemo = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [demoSelectedToken, setDemoSelectedToken] = useState<SwapDataType>();
-  const [chainData, setChainData] = useState<SwapDataType[]>([]);
+  const [demoSelectedToken, setDemoSelectedToken] =
+    useState<SwapOptionDataType>();
+  const [chainData, setChainData] = useState<SwapOptionDataType[]>([]);
 
   const handleOnChange: handleSwapDropdown = (value) => {
     console.log('selected', value);

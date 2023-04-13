@@ -44,7 +44,6 @@ export const InstallWalletButton = ({
   leftIcon,
   rightIcon,
   className = 'install-wallet-button',
-  styleProps,
   onClick
 }: BaseButtonType) => {
   const { theme } = useTheme();
@@ -53,7 +52,7 @@ export const InstallWalletButton = ({
     <Button
       className={className}
       variant="unstyled"
-      sx={styleProps ? styleProps : InstallWalletButtonBaseStyle(theme)}
+      sx={InstallWalletButtonBaseStyle(theme)}
       isLoading={loading}
       isDisabled={disabled}
       onClick={onClick}

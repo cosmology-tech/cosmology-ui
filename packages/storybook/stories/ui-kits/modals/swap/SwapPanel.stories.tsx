@@ -1,158 +1,127 @@
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable react/prop-types */
-import { Box, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
+  handleSwapInput,
   SwapControlPanel,
-  SwapDataType,
+  SwapDropdownConfig,
+  SwapInputConfig,
+  SwapTokenType,
   SwapType
 } from '@cosmology-ui/react';
-import { ArgsTable, Primary } from '@storybook/addon-docs';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentStory } from '@storybook/react';
 import Decimal from 'decimal.js';
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import { chainList } from '../../../util/config';
 
-enum SwapValueType {
-  INITIAL = 'INITIAL',
-  VALID = 'VALID',
-  NOTPOSITIVE = 'NOTPOSITIVE',
-  NOVALUE = 'NOVALUE',
-  UPDATE = 'UPDATE',
-  OVERMAXIMUM = 'OVERMAXIMUM'
-}
-interface UpdateDropdownReducer {
-  selectedToken?: SwapDataType;
-  dropdownLoading?: boolean;
-}
-interface UpdateInputReducer {
-  inputLoading?: boolean;
-  inputAmount?: string;
-  inputDollarValue?: string;
-  invalid: boolean;
-  invalidText?: string;
-}
-interface UpdateReducerAction extends UpdateInputReducer {
-  type: SwapValueType;
+interface UpdateSelectedToken {
+  value: SwapTokenType | undefined;
 }
 
-function updateDropdownReducer(
-  state: UpdateDropdownReducer,
-  action: UpdateDropdownReducer
-): UpdateDropdownReducer {
+const updateDropdownReducer = (
+  state: SwapDropdownConfig,
+  action: SwapDropdownConfig
+): SwapDropdownConfig => {
   return {
     ...state,
-    selectedToken: action.selectedToken,
-    dropdownLoading: action.dropdownLoading
+    dropdownLoading: action.dropdownLoading,
+    dropdownData: action.dropdownData
   };
-}
-function updateInputReducer(
-  state: UpdateInputReducer,
-  action: UpdateReducerAction
-): UpdateInputReducer {
-  switch (action.type) {
-    case SwapValueType.INITIAL:
-      return {
-        ...state,
-        inputLoading: action.inputLoading,
-        invalid: action.invalid,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.UPDATE:
-      return {
-        ...state,
-        inputLoading: action.inputLoading,
-        invalid: action.invalid,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.NOTPOSITIVE:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.OVERMAXIMUM:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.NOVALUE:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.VALID:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
+};
+const updateInputReducer = (
+  state: SwapInputConfig,
+  action: SwapInputConfig
+): SwapInputConfig => {
+  return {
+    ...state,
+    inputLoading: action.inputLoading,
+    inputAmount: action.inputAmount,
+    inputDollarValue: action.inputDollarValue,
+    invalid: action.invalid,
+    invalidText: action.invalidText
+  };
+};
+const updateSelectedTokenReducer = (
+  state: UpdateSelectedToken,
+  action: UpdateSelectedToken
+): UpdateSelectedToken => {
+  return { ...state, value: action.value };
+};
 
-    default: {
-      return state;
+export const SwapControlPanelStory: ComponentStory<typeof SwapControlPanel> = (
+  args
+) => {
+  const { swapType } = args;
+  const [selectedToken, updateSelectedToken] = useReducer(
+    updateSelectedTokenReducer,
+    {
+      value: undefined
     }
-  }
-}
-
-const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
-  const [chainData, setChainData] = useState<SwapDataType[]>([]);
-  const [dropdownEvent, updateDropdownEvent] = useReducer(
+  );
+  const [dropdownConfig, updateDropdownConfig] = useReducer(
     updateDropdownReducer,
     {
-      selectedToken: undefined,
-      dropdownLoading: true
+      dropdownLoading: true,
+      dropdownData: undefined
     }
   );
   const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
+    inputLoading: true,
     inputAmount: undefined,
     inputDollarValue: '$-',
     invalid: false,
-    invalidText: undefined,
-    inputLoading: true
+    invalidText: undefined
   });
 
-  const handleInputChange = (value: string, selectedToken: SwapDataType) => {
-    if (!value) {
+  const handleDropdownChange: handleSwapDropdown = (newValue) => {
+    if (newValue) {
+      updateSelectedToken({
+        value: {
+          ...newValue,
+          currentDisplayAmount: newValue.balanceDisplayAmount,
+          currentDollarValue: newValue.dollarValue
+        }
+      });
       updateInputEvent({
-        type: SwapValueType.NOVALUE,
+        inputLoading: false,
+        inputAmount: newValue.balanceDisplayAmount,
+        inputDollarValue: `$${newValue.dollarValue}`,
+        invalid: false,
+        invalidText: undefined
+      });
+    }
+  };
+  const handleInputChange: handleSwapInput = (newValue) => {
+    if (!newValue) {
+      updateInputEvent({
+        inputLoading: false,
         inputAmount: '0',
         inputDollarValue: '$-',
         invalid: true,
         invalidText: 'Please enter a value.'
       });
     }
-    if (value) {
-      const decimalInput = new Decimal(value);
-      const decimalDefault = new Decimal(selectedToken.amount);
+    if (newValue && selectedToken.value) {
+      const decimalInput = new Decimal(newValue);
+      const decimalDefault = new Decimal(
+        selectedToken.value.balanceDisplayAmount
+      );
       if (!decimalInput.isPositive()) {
         updateInputEvent({
-          type: SwapValueType.NOTPOSITIVE,
-          inputAmount: selectedToken.amount,
-          inputDollarValue: selectedToken.dollarValue,
+          inputLoading: false,
+          inputAmount: selectedToken.value.balanceDisplayAmount,
+          inputDollarValue: selectedToken.value.dollarValue,
           invalid: true,
           invalidText: 'Please enter a positive value.'
         });
       }
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
         updateInputEvent({
-          type: SwapValueType.OVERMAXIMUM,
-          inputAmount: selectedToken.amount,
-          inputDollarValue: selectedToken.dollarValue,
+          inputLoading: false,
+          inputAmount: selectedToken.value.balanceDisplayAmount,
+          inputDollarValue: selectedToken.value.dollarValue,
           invalid: true,
-          invalidText: `Please enter a value less than ${selectedToken.amount}.`
+          invalidText: `Please enter a value less than ${selectedToken.value.balanceDisplayAmount}.`
         });
       }
       if (
@@ -160,8 +129,8 @@ const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
         decimalInput.isPositive()
       ) {
         updateInputEvent({
-          type: SwapValueType.VALID,
-          inputAmount: value,
+          inputLoading: false,
+          inputAmount: newValue,
           inputDollarValue: decimalInput.div(0.05).toString(),
           invalid: false,
           invalidText: undefined
@@ -170,124 +139,66 @@ const Template: ComponentStory<typeof SwapControlPanel> = ({ swapType }) => {
     }
   };
 
-  const handleOnChange: handleSwapDropdown = (value) => {
-    console.log('selected', value);
-    if (value) {
-      updateInputEvent({
-        type: SwapValueType.UPDATE,
-        inputLoading: false,
-        invalid: false,
-        inputAmount: value.currentAmount,
-        inputDollarValue: value.currentDollarValue
-      });
-      updateDropdownEvent({
-        selectedToken: value
-      });
-    }
-  };
-
   useEffect(() => {
     const formatData = chainList.map(
-      ({ chainName, label, value, symbol, icon, amount, dollarValue }) => ({
-        name: chainName,
-        label,
-        value,
+      ({ label, symbol, icon, denom, amount, dollarValue }) => ({
+        value: label,
         symbol,
         icon,
-        amount,
-        dollarValue,
-        currentAmount: amount,
-        currentDollarValue: dollarValue
+        denom,
+        balanceDisplayAmount: amount,
+        dollarValue
       })
     );
 
     setTimeout(() => {
-      setChainData(formatData);
-      updateDropdownEvent({
-        selectedToken: formatData[0],
-        dropdownLoading: false
+      updateDropdownConfig({
+        dropdownLoading: false,
+        dropdownData: formatData
       });
-      updateInputEvent({
-        type: SwapValueType.INITIAL,
-        inputLoading: false,
-        invalid: false,
-        inputAmount: formatData[0].currentAmount,
-        inputDollarValue: formatData[0].currentDollarValue
+      updateSelectedToken({
+        value: {
+          ...formatData[0],
+          currentDisplayAmount: formatData[0].balanceDisplayAmount,
+          currentDollarValue: formatData[0].dollarValue
+        }
       });
-    }, 100);
+    }, 1000);
   }, []);
+  useEffect(() => {
+    if (swapType === SwapType.from && selectedToken.value) {
+      updateInputEvent({
+        inputLoading: false,
+        inputAmount: selectedToken.value.balanceDisplayAmount,
+        inputDollarValue: `${selectedToken.value.dollarValue}`,
+        invalid: false,
+        invalidText: undefined
+      });
+    }
+  }, [swapType, selectedToken]);
 
   return (
-    <Box py={16}>
-      <Box maxW="lg" mx="auto" px={8}>
-        <SwapControlPanel
-          swapType={swapType}
-          dropdownLoading={dropdownEvent.dropdownLoading}
-          inputLoading={inputEvent.inputLoading}
-          dropdownData={chainData}
-          selectedToken={dropdownEvent.selectedToken}
-          invalid={inputEvent.invalid}
-          invalidText={inputEvent.invalidText}
-          inputControlPanel={swapType === SwapType.from ? true : false}
-          inputAmount={inputEvent.inputAmount}
-          inputDollarValue={inputEvent.inputDollarValue}
-          onAmountInputChange={(value) => {
-            if (dropdownEvent.selectedToken)
-              handleInputChange(value, dropdownEvent.selectedToken);
-          }}
-          onDropdownChange={handleOnChange}
-        />
-      </Box>
+    <Box position="relative" mx="auto" maxW="md" height={96} pt={10}>
+      <SwapControlPanel
+        {...args}
+        selectedToken={selectedToken.value}
+        dropdownConfig={dropdownConfig}
+        inputConfig={inputEvent}
+        onDropdownChange={handleDropdownChange}
+        onAmountInputChange={handleInputChange}
+      />
     </Box>
   );
 };
 
-export const swapControlPanel = Template.bind({});
-
-swapControlPanel.parameters = {
-  controls: {
-    include: [
-      'swapType',
-      'onDropdownChange',
-      'onAmountInputChange',
-      'onFiatInputChange'
-    ]
+SwapControlPanelStory.args = {
+  swapType: SwapType.from
+};
+SwapControlPanelStory.argTypes = {
+  swapType: {
+    control: { type: 'radio' },
+    options: [SwapType.to, SwapType.from]
   }
 };
 
-export default {
-  title: 'Components/Modals/Swap',
-  component: SwapControlPanel,
-  parameters: {
-    docs: {
-      page: () => (
-        <>
-          <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap Panel
-          </Text>
-          <Primary />
-          <ArgsTable of={SwapControlPanel} />
-        </>
-      )
-    }
-  },
-  argTypes: {
-    swapType: {
-      control: { type: 'radio' },
-      options: SwapType,
-      defaultValue: SwapType.from
-    },
-    onAmountInputChange: {
-      control: false,
-      action: 'amount-value'
-    },
-    onFiatInputChange: {
-      control: false,
-      action: 'amount-value'
-    },
-    onDropdownChange: {
-      control: false,
-      action: 'selected'
-    }
-  }
-} as ComponentMeta<typeof SwapControlPanel>;
+SwapControlPanelStory.storyName = 'Swap Control Panel';

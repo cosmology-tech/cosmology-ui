@@ -28,11 +28,14 @@ import { AnimatePresence } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 
-import { SwapSkeletonOptions } from './swap-skeleton';
+import {
+  SwapSkeletonControlDropdownButton,
+  SwapSkeletonOptions
+} from './swap-skeleton';
 import {
   SwapControlDropdownButtonType,
-  SwapDataType,
-  SwapDropdownType
+  SwapDropdownType,
+  SwapOptionDataType
 } from './type';
 
 export const SwapDropdownMenuBaseShadowAnimate = (displayBlur: boolean) =>
@@ -63,7 +66,7 @@ export const SwapDropdownIndicator = () => {
 };
 
 export const SwapDropdownMenuList = (
-  props: MenuListProps<SwapDataType, false, GroupBase<SwapDataType>>
+  props: MenuListProps<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
 ) => {
   const menuListRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);
@@ -94,7 +97,6 @@ export const SwapDropdownMenuList = (
       </chakraComponents.MenuList>
       <AnimateBox
         className="swap-dropdown-menu-list-box-scroll-shadow"
-        background="linear-gradient(0deg, rgba(237, 242, 247, 1) 6%, rgba(237, 242, 247, 0.85) 16%, rgba(237, 242, 247, 0.75) 24%, rgba(237, 242, 247, 0.65) 32%, rgba(237, 242, 247, 0.55) 48%, rgba(237, 242, 247, 0.35) 65%, rgba(237, 242, 247, 0.15) 80%, rgba(237, 242, 247, 0.05) 95%)"
         initial={false}
         animate={SwapDropdownMenuBaseShadowAnimate(displayBlur)}
       />
@@ -103,7 +105,11 @@ export const SwapDropdownMenuList = (
 };
 
 export const SwapPlaceholder = (
-  props: PlaceholderProps<SwapDataType, false, GroupBase<SwapDataType>>
+  props: PlaceholderProps<
+    SwapOptionDataType,
+    false,
+    GroupBase<SwapOptionDataType>
+  >
 ) => {
   return (
     <chakraComponents.Placeholder {...props}>
@@ -120,7 +126,7 @@ export const SwapPlaceholder = (
 };
 
 export const SwapOption = (
-  props: OptionProps<SwapDataType, false, GroupBase<SwapDataType>>
+  props: OptionProps<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
 ) => {
   const optionData = props.data;
   return (
@@ -139,7 +145,7 @@ export const SwapOption = (
           <Text>{optionData.value}</Text>
         </Stack>
         <Stack spacing={1}>
-          <Text>{optionData.amount}</Text>
+          <Text>{optionData.balanceDisplayAmount}</Text>
           <Text>{optionData.dollarValue}</Text>
         </Stack>
       </Flex>
@@ -149,9 +155,9 @@ export const SwapOption = (
 
 export const SwapDropdownBaseStyle = (theme: string) => {
   const dropdownStyle: ChakraStylesConfig<
-    SwapDataType,
+    SwapOptionDataType,
     false,
-    GroupBase<SwapDataType>
+    GroupBase<SwapOptionDataType>
   > = {
     control: (provided) => ({
       ...provided,
@@ -209,11 +215,13 @@ export const SwapDropdownBaseStyle = (theme: string) => {
       '>.swap-dropdown-display-placeholder': {
         w: 'full',
         alignItems: 'center',
+        color: `swap-dropdown-placeholder-color-${theme}`,
         '>p': {
           flex: 1,
           fontSize: 'lg',
           fontWeight: 'semibold',
-          ml: 3
+          ml: 3,
+          opacity: 0.5
         },
         '>.swap-skeleton-options-logo': {
           w: 12,
@@ -255,7 +263,8 @@ export const SwapDropdownBaseStyle = (theme: string) => {
           right: 0,
           bottom: 0,
           w: 'full',
-          zIndex: 10
+          zIndex: 10,
+          bg: `var(--chakra-shadows-swap-dropdown-animation-background-color-${theme})`
         }
       }
     }),
@@ -359,19 +368,17 @@ export const SwapDropdownBaseStyle = (theme: string) => {
 
 export const SwapDropdown = ({
   isOpen,
-  loading = false,
   dropdownData,
   selectedToken,
-  className = 'swap-dropdown',
-  styleProps,
-  customComponents,
   onClose,
   onDropdownChange
 }: SwapDropdownType) => {
   const { theme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
   const selectRef =
-    useRef<SelectInstance<SwapDataType, false, GroupBase<SwapDataType>>>(null);
+    useRef<
+      SelectInstance<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
+    >(null);
 
   useOutsideClick({
     ref: menuRef,
@@ -404,6 +411,7 @@ export const SwapDropdown = ({
       {isOpen ? (
         <AnimateBox
           ref={menuRef}
+          className="swap-dropdown"
           variants={DropdownVariants}
           initial="initial"
           animate="animate"
@@ -413,18 +421,16 @@ export const SwapDropdown = ({
             ref={selectRef}
             id="select-swap-token"
             instanceId="select-swap-token"
-            className={className}
+            className="swap-dropdown-menu"
             placeholder="Choose a token"
-            chakraStyles={
-              styleProps ? styleProps : SwapDropdownBaseStyle(theme)
-            }
+            chakraStyles={SwapDropdownBaseStyle(theme)}
             menuIsOpen={true}
             isDisabled={false}
-            isLoading={loading}
+            isLoading={false}
             isClearable={false}
             isMulti={false}
             isOptionDisabled={(option) =>
-              option.disabled ? option.disabled : false
+              option.isDisabled ? option.isDisabled : false
             }
             blurInputOnSelect={true}
             controlShouldRenderValue={false}
@@ -442,17 +448,13 @@ export const SwapDropdown = ({
               onClose();
               onDropdownChange(newValue, actionMeta);
             }}
-            components={
-              customComponents
-                ? customComponents
-                : {
-                    IndicatorSeparator: SwapIndicatorSeparator,
-                    DropdownIndicator: SwapDropdownIndicator,
-                    Placeholder: SwapPlaceholder,
-                    MenuList: SwapDropdownMenuList,
-                    Option: SwapOption
-                  }
-            }
+            components={{
+              IndicatorSeparator: SwapIndicatorSeparator,
+              DropdownIndicator: SwapDropdownIndicator,
+              Placeholder: SwapPlaceholder,
+              MenuList: SwapDropdownMenuList,
+              Option: SwapOption
+            }}
           />
         </AnimateBox>
       ) : undefined}
@@ -461,35 +463,40 @@ export const SwapDropdown = ({
 };
 
 export const SwapControlDropdownButton = ({
+  loading,
   selectedToken,
   onOpen
 }: SwapControlDropdownButtonType) => {
-  return (
-    <Button
-      id="swap-control-dropdown-button"
-      className="swap-control-dropdown-button"
-      variant="unstyled"
-      onClick={onOpen}
-    >
-      <Center>
-        <Image
-          alt={selectedToken ? selectedToken.value : 'chain-icon'}
-          src={
-            selectedToken
-              ? selectedToken.icon.png ||
-                selectedToken.icon.jpeg ||
-                selectedToken.icon.svg
-              : undefined
-          }
-        />
-      </Center>
-      <Box>
-        <Text>
-          {selectedToken.symbol ? selectedToken.symbol : undefined}
-          <Icon as={RiArrowDownSLine} />
-        </Text>
-        <Text>{selectedToken.value ? selectedToken.value : undefined}</Text>
-      </Box>
-    </Button>
-  );
+  if (loading) {
+    return <SwapSkeletonControlDropdownButton />;
+  }
+  if (!loading && selectedToken)
+    return (
+      <Button
+        id="swap-control-dropdown-button"
+        className="swap-control-dropdown-button"
+        variant="unstyled"
+        onClick={onOpen}
+      >
+        <Center>
+          <Image
+            alt={selectedToken ? selectedToken.value : 'chain-icon'}
+            src={
+              selectedToken
+                ? selectedToken.icon.png ||
+                  selectedToken.icon.jpeg ||
+                  selectedToken.icon.svg
+                : undefined
+            }
+          />
+        </Center>
+        <Box>
+          <Text>
+            {selectedToken.symbol ? selectedToken.symbol : undefined}
+            <Icon as={RiArrowDownSLine} />
+          </Text>
+          <Text>{selectedToken.value ? selectedToken.value : undefined}</Text>
+        </Box>
+      </Button>
+    );
 };

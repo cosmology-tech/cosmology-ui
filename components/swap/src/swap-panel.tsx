@@ -1,18 +1,15 @@
-import {
-  Box,
-  Flex,
-  SkeletonCircle,
-  Stack,
-  Text,
-  useDisclosure
-} from '@chakra-ui/react';
+import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { useTheme } from '@cosmology-ui/theme';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { SwapControlDropdownButton, SwapDropdown } from './swap-dropdown';
 import { SwapEditableInput, SwapInputControlPanel } from './swap-input';
-import { SwapSkeletonControlPanel } from './swap-skeleton';
-import { SwapControlPanelType } from './type';
+import { SwapSkeletonInputPanel } from './swap-skeleton';
+import { SwapControlPanelType, SwapInputConfig, SwapType } from './type';
+
+interface SwapInputPanel extends SwapInputConfig {
+  displayPanel: boolean;
+}
 
 export const SwapPanelBaseStyle = (theme: string) => {
   return {
@@ -62,6 +59,9 @@ export const SwapPanelBaseStyle = (theme: string) => {
       }
     },
     '>.swap-control-panel-box': {
+      display: 'flex',
+      justifyContent: 'end',
+      alignItems: 'center',
       w: 'full',
       '>.swap-control-dropdown-button': {
         flex: 1,
@@ -169,33 +169,6 @@ export const SwapPanelBaseStyle = (theme: string) => {
             lineHeight: 'normal',
             whiteSpace: 'nowrap'
           }
-        },
-        '>.swap-display-box': {
-          w: 'full',
-          textAlign: 'end',
-          '>.swap-amount-text': {
-            overflow: 'scroll',
-            scrollbarWidth: 'none', // for firefox
-            '::-webkit-scrollbar': {
-              display: 'none' // for chrome
-            },
-            fontSize: '2xl',
-            fontWeight: 'semibold',
-            lineHeight: 'none',
-            pb: 0.5,
-            whiteSpace: 'nowrap'
-          },
-          '>.swap-fiat-text': {
-            overflow: 'scroll',
-            whiteSpace: 'nowrap',
-            scrollbarWidth: 'none', // for firefox
-            '::-webkit-scrollbar': {
-              display: 'none' // for chrome
-            },
-            color: 'gray.500',
-            fontSize: 'sm',
-            lineHeight: 'normal'
-          }
         }
       },
       '>.swap-skeleton-input-panel': {
@@ -216,6 +189,33 @@ export const SwapPanelBaseStyle = (theme: string) => {
       },
       '&.swap-control-panel-hidden': {
         visibility: 'hidden'
+      },
+      '>.swap-display-box': {
+        w: 'full',
+        textAlign: 'end',
+        '>.swap-amount-text': {
+          overflow: 'scroll',
+          scrollbarWidth: 'none', // for firefox
+          '::-webkit-scrollbar': {
+            display: 'none' // for chrome
+          },
+          fontSize: '2xl',
+          fontWeight: 'semibold',
+          lineHeight: 'none',
+          pb: 0.5,
+          whiteSpace: 'nowrap'
+        },
+        '>.swap-fiat-text': {
+          overflow: 'scroll',
+          whiteSpace: 'nowrap',
+          scrollbarWidth: 'none', // for firefox
+          '::-webkit-scrollbar': {
+            display: 'none' // for chrome
+          },
+          color: 'gray.500',
+          fontSize: 'sm',
+          lineHeight: 'normal'
+        }
       }
     },
     '>.swap-dropdown-box': {
@@ -228,91 +228,96 @@ export const SwapPanelBaseStyle = (theme: string) => {
   };
 };
 
+/**
+ * The panel of swap dropdown and input.
+ * @see {@link SwapControlPanelType}
+ */
 export const SwapControlPanel = ({
-  inputLoading,
-  dropdownLoading,
-  dropdownData,
+  swapType,
+  inputConfig,
+  dropdownConfig,
   selectedToken,
-  swapType, // from or to
-  inputControlPanel,
-  inputAmount,
-  inputDollarValue,
-  invalid,
-  invalidText,
-  className = 'swap-control-panel',
-  styleProps,
   onDropdownChange,
   onAmountInputChange
 }: SwapControlPanelType) => {
   const { theme } = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { dropdownLoading, dropdownData } = dropdownConfig;
+  const [inputControlPanel, setInputControlPanel] = useState<SwapInputPanel>({
+    ...inputConfig,
+    displayPanel: swapType === SwapType.from ? true : false
+  });
+
+  useEffect(() => {
+    if (swapType === SwapType.from)
+      setInputControlPanel({
+        ...inputConfig,
+        displayPanel: true
+      });
+    if (swapType === SwapType.to)
+      setInputControlPanel({
+        ...inputConfig,
+        displayPanel: false
+      });
+  }, [inputConfig, swapType]);
 
   return (
-    <Box
-      className={className}
-      sx={styleProps ? styleProps : SwapPanelBaseStyle(theme)}
-    >
+    <Box className="swap-control-panel" sx={SwapPanelBaseStyle(theme)}>
       <Flex className="swap-header">
         <Text>{swapType}</Text>
-        {inputControlPanel ? (
-          <SwapInputControlPanel
-            loading={inputLoading}
-            amount={selectedToken?.amount}
-            onAmountInputChange={onAmountInputChange}
-          />
-        ) : undefined}
+        <SwapInputControlPanel
+          displayPanel={inputControlPanel.displayPanel}
+          loading={inputControlPanel.inputLoading}
+          amount={selectedToken?.balanceDisplayAmount}
+          onAmountInputChange={onAmountInputChange}
+        />
       </Flex>
       <Flex
         className={`swap-control-panel-box ${
           isOpen ? 'swap-control-panel-hidden' : ''
         }`}
       >
-        {dropdownLoading ? (
-          <Stack isInline={true} className="swap-skeleton-dropdown-button">
-            <SkeletonCircle />
-            <SwapSkeletonControlPanel />
-          </Stack>
-        ) : (
-          <SwapControlDropdownButton
-            selectedToken={selectedToken}
-            onOpen={onOpen}
-          />
-        )}
-        {inputLoading ? (
-          <Stack isInline={true} className="swap-skeleton-input-panel">
-            <SwapSkeletonControlPanel />
-          </Stack>
-        ) : (
-          <Flex className="swap-input-panel">
-            {inputControlPanel ? (
+        <SwapControlDropdownButton
+          loading={dropdownLoading}
+          selectedToken={selectedToken}
+          onOpen={onOpen}
+        />
+        {inputControlPanel.displayPanel ? (
+          inputControlPanel.inputLoading ? (
+            <SwapSkeletonInputPanel />
+          ) : (
+            <Flex className="swap-input-panel">
               <SwapEditableInput
                 id="swap-amount-input"
-                inputAmount={inputAmount}
-                inputDollarValue={inputDollarValue}
-                invalid={invalid}
-                invalidText={invalidText}
+                inputAmount={inputControlPanel.inputAmount}
+                inputDollarValue={inputControlPanel.inputDollarValue}
+                invalid={inputControlPanel.invalid}
+                invalidText={inputControlPanel.invalidText}
                 selectedToken={selectedToken}
                 onAmountInputChange={onAmountInputChange}
               />
-            ) : undefined}
-            {!inputControlPanel ? (
-              <Box className="swap-display-box">
-                <Text className="swap-amount-text">
-                  {selectedToken.currentAmount}
-                </Text>
-                <Text className="swap-fiat-text">
-                  ~&nbsp;{selectedToken.currentDollarValue}
-                </Text>
-              </Box>
-            ) : undefined}
-          </Flex>
-        )}
+            </Flex>
+          )
+        ) : undefined}
+        {!inputControlPanel.displayPanel ? (
+          dropdownLoading ? (
+            <SwapSkeletonInputPanel />
+          ) : (
+            <Box className="swap-display-box">
+              <Text className="swap-amount-text">
+                {selectedToken.currentDisplayAmount}
+              </Text>
+              <Text className="swap-fiat-text">
+                ~&nbsp;{selectedToken.currentDollarValue}
+              </Text>
+            </Box>
+          )
+        ) : undefined}
       </Flex>
 
       <Box className="swap-dropdown-box">
         <SwapDropdown
           isOpen={isOpen}
-          loading={dropdownLoading}
           selectedToken={selectedToken}
           dropdownData={dropdownData}
           onClose={onClose}

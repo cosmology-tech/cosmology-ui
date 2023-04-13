@@ -3,7 +3,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
-  SwapDataType,
+  SwapOptionDataType,
   SwapDropdownsView
 } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
@@ -22,7 +22,7 @@ enum SwapValueType {
   OVERMAXIMUM = 'OVERMAXIMUM'
 }
 interface UpdateDropdownReducer {
-  selectedToken?: SwapDataType;
+  selectedToken?: SwapOptionDataType;
   dropdownLoading?: boolean;
   inputLoading?: boolean;
 }
@@ -116,7 +116,7 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
   onSwapSwitch,
   ...rest
 }) => {
-  const [chainData, setChainData] = useState<SwapDataType[]>([]);
+  const [chainData, setChainData] = useState<SwapOptionDataType[]>([]);
   const [fromToken, updateFromToken] = useReducer(updateDropdownReducer, {
     selectedToken: undefined,
     dropdownLoading: true,
@@ -135,7 +135,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
     inputLoading: true
   });
 
-  const handleInputChange = (value: string, selectedToken: SwapDataType) => {
+  const handleInputChange = (
+    value: string,
+    selectedToken: SwapOptionDataType
+  ) => {
     if (!value) {
       updateInputEvent({
         type: SwapValueType.NOVALUE,
@@ -147,11 +150,11 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
     }
     if (value) {
       const decimalInput = new Decimal(value);
-      const decimalDefault = new Decimal(selectedToken.amount);
+      const decimalDefault = new Decimal(selectedToken.balanceDisplayAmount);
       if (!decimalInput.isPositive()) {
         updateInputEvent({
           type: SwapValueType.NOTPOSITIVE,
-          inputAmount: selectedToken.amount,
+          inputAmount: selectedToken.balanceDisplayAmount,
           inputDollarValue: selectedToken.dollarValue,
           invalid: true,
           invalidText: 'Please enter a positive value.'
@@ -160,10 +163,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
         updateInputEvent({
           type: SwapValueType.OVERMAXIMUM,
-          inputAmount: selectedToken.amount,
+          inputAmount: selectedToken.balanceDisplayAmount,
           inputDollarValue: selectedToken.dollarValue,
           invalid: true,
-          invalidText: `Please enter a value less than ${selectedToken.amount}.`
+          invalidText: `Please enter a value less than ${selectedToken.balanceDisplayAmount}.`
         });
       }
       if (
@@ -183,7 +186,7 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
           updateToToken({
             selectedToken: {
               ...toToken.selectedToken,
-              currentAmount: toToken.selectedToken.amount
+              currentAmount: toToken.selectedToken.balanceDisplayAmount
             },
             dropdownLoading: false,
             inputLoading: false
@@ -192,8 +195,10 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
       }
       if (!decimalDefault.eq(decimalInput)) {
         if (toToken.selectedToken) {
-          const fromAmount = new Decimal(selectedToken.amount);
-          const toDecimal = new Decimal(toToken.selectedToken.amount);
+          const fromAmount = new Decimal(selectedToken.balanceDisplayAmount);
+          const toDecimal = new Decimal(
+            toToken.selectedToken.balanceDisplayAmount
+          );
           const i = fromAmount.div(decimalInput);
           const toAmount = toDecimal.div(i).toFixed(6);
 
@@ -242,7 +247,7 @@ const Template: ComponentStory<typeof SwapDropdownsView> = ({
         type: SwapValueType.INITIAL,
         inputLoading: false,
         invalid: false,
-        inputAmount: toToken.selectedToken.amount,
+        inputAmount: toToken.selectedToken.balanceDisplayAmount,
         inputDollarValue: toToken.selectedToken.dollarValue
       });
   }, [fromToken.selectedToken, toToken.selectedToken]);

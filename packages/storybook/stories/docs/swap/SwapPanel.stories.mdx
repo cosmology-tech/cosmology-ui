@@ -1,0 +1,64 @@
+import { SwapControlPanel } from '@cosmology-ui/react';
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs';
+
+import { SwapControlPanelStory } from '../../ui-kits/modals/swap/SwapPanel.stories.tsx';
+
+# Swap Control Panel
+
+<Meta
+  component={SwapControlPanel}
+  title="components/Swap/SwapControlPanel"
+  parameters={{
+    docs: {
+      source: {
+        language: 'tsx',
+        format: true,
+        code: `import { SwapControlPanel } from '@cosmology-ui/react';`
+      }
+    },
+    controls: {
+      include: ['swapType']
+    }
+  }}
+/>
+
+<Canvas withSource="close">
+  <Story story={SwapControlPanelStory} />
+</Canvas>
+
+<ArgsTable of={SwapControlPanel} />
+
+## From
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+      <SwapControlPanel
+        swapType={SwapType.from}
+        selectedToken={selectedToken}
+        dropdownConfig={dropdownConfig}
+        inputConfig={inputConfig}
+        onDropdownChange={handleDropdownChange}
+        onAmountInputChange={handleInputChange}
+      />
+  `}
+/>
+
+## To
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+      <SwapControlPanel
+        swapType={SwapType.to}
+        selectedToken={selectedToken}
+        dropdownConfig={dropdownConfig}
+        inputConfig={inputConfig}
+        onDropdownChange={handleDropdownChange}
+      />
+  `}
+/>

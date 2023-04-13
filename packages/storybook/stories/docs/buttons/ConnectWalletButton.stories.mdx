@@ -1,0 +1,165 @@
+import { Box } from '@chakra-ui/react';
+import { ConnectWalletButton } from '@cosmology-ui/react';
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs';
+
+# Connect Wallet Button
+
+<Meta
+  component={ConnectWalletButton}
+  title="components/buttons/ConnectWalletButton"
+  parameters={{
+    docs: {
+      source: {
+        language: 'tsx',
+        format: true,
+        code: `import { ConnectWalletButton } from '@cosmology-ui/react';`
+      }
+    },
+    controls: {
+      include: []
+    }
+  }}
+/>
+
+export const ConnectWalletButtonTemplate = (args) => (
+  <Box mx="auto" maxW={48} py={16}>
+    <ConnectWalletButton {...args} />
+  </Box>
+);
+
+<Canvas>
+  <Story name="Basic">{ConnectWalletButtonTemplate.bind({})}</Story>
+</Canvas>
+
+<ArgsTable of={ConnectWalletButton} />
+
+## Disconnected
+
+<Story name="Disconnected">{ConnectWalletButtonTemplate.bind({})}</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    onClick={()=>{}}
+  />
+  `}
+/>
+
+## Connected
+
+<Story
+  name="Connected"
+  args={{
+    buttonText: 'Disconnected'
+  }}
+>
+  {ConnectWalletButtonTemplate.bind({})}
+</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    buttonText="Disconnected" 
+    onClick={()=>{}} 
+  />
+  `}
+/>
+
+## Connecting
+
+<Story
+  name="Connecting"
+  args={{
+    buttonText: 'Connecting',
+    loading: true
+  }}
+>
+  {ConnectWalletButtonTemplate.bind({})}
+</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    loading={true}
+    onClick={()=>{}} 
+  />
+  `}
+/>
+
+## NotExist
+
+<Story
+  name="NotExist"
+  args={{
+    buttonText: 'Installed wallet'
+  }}
+>
+  {ConnectWalletButtonTemplate.bind({})}
+</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    buttonText="Reconnect"
+    onClick={()=>{}} 
+  />
+  `}
+/>
+
+## Rejected
+
+<Story
+  name="Rejected"
+  args={{
+    buttonText: 'Reconnect'
+  }}
+>
+  {ConnectWalletButtonTemplate.bind({})}
+</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    buttonText="Reconnect"
+    onClick={()=>{}} 
+  />
+  `}
+/>
+
+## Error
+
+<Story
+  name="Error"
+  args={{
+    buttonText: 'Change Wallet'
+  }}
+>
+  {ConnectWalletButtonTemplate.bind({})}
+</Story>
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <ConnectWalletButton 
+    buttonText="Change Wallet"
+    onClick={()=>{}} 
+  />
+  `}
+/>

@@ -66,8 +66,8 @@ export const styleData: StyleDataType[] = [
     category: 'colors',
     style: 'disabled-background-color',
     theme: [
-      { themeName: Themes.Light, themeValue: 'gray.50' },
-      { themeName: Themes.Dark, themeValue: 'gray.700' }
+      { themeName: Themes.Light, themeValue: 'primary.200' },
+      { themeName: Themes.Dark, themeValue: 'primary.600' }
     ]
   },
   {
@@ -914,7 +914,22 @@ export const styleData: StyleDataType[] = [
       },
       {
         themeName: Themes.Dark,
-        themeValue: 'gray.900'
+        themeValue: 'whiteAlpha.800'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdown',
+    category: 'colors',
+    style: 'placeholder-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue: 'gray.600'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue: 'gray.400'
       }
     ]
   },
@@ -945,6 +960,23 @@ export const styleData: StyleDataType[] = [
       {
         themeName: Themes.Dark,
         themeValue: 'gray.900'
+      }
+    ]
+  },
+  {
+    componentName: 'swap-dropdown',
+    category: 'shadows',
+    style: 'animation-background-color',
+    theme: [
+      {
+        themeName: Themes.Light,
+        themeValue:
+          'linear-gradient(0deg, rgba(237, 242, 247, 1) 6%, rgba(237, 242, 247, 0.85) 16%, rgba(237, 242, 247, 0.75) 24%, rgba(237, 242, 247, 0.65) 32%, rgba(237, 242, 247, 0.55) 48%, rgba(237, 242, 247, 0.35) 65%, rgba(237, 242, 247, 0.15) 80%, rgba(237, 242, 247, 0.05) 95%)'
+      },
+      {
+        themeName: Themes.Dark,
+        themeValue:
+          'linear-gradient(0deg, rgba(24, 25, 35, 1) 6%, rgba(24, 25, 35, 0.85) 16%, rgba(24, 25, 35, 0.75) 24%, rgba(24, 25, 35, 0.65) 32%, rgba(24, 25, 35, 0.55) 48%, rgba(24, 25, 35, 0.35) 65%, rgba(24, 25, 35, 0.15) 80%, rgba(24, 25, 35, 0.05) 95%)'
       }
     ]
   },

@@ -80,7 +80,6 @@ export const ConnectWalletButton = ({
   leftIcon = <Icon as={RiWallet3Fill} />,
   rightIcon,
   className = 'connect-wallet-button',
-  styleProps,
   onClick
 }: BaseButtonType) => {
   const { theme } = useTheme();
@@ -90,7 +89,7 @@ export const ConnectWalletButton = ({
       className={className}
       isLoading={loading}
       isDisabled={disabled}
-      sx={styleProps ? styleProps : ConnectWalletButtonStyle(theme)}
+      sx={ConnectWalletButtonStyle(theme)}
       onClick={onClick}
     >
       {leftIcon ? (

@@ -47,7 +47,7 @@ export const SwapEditableInput = ({
             type="number"
             step={0.000001}
             min={0}
-            max={selectedToken.amount}
+            max={selectedToken.balanceDisplayAmount}
             ref={inputRef}
             autoFocus={true}
             isInvalid={invalid}
@@ -81,36 +81,41 @@ export const SwapEditableInput = ({
 };
 
 export const SwapInputControlPanel = ({
+  displayPanel,
   loading,
   amount,
   onAmountInputChange
 }: SwapControlInputValuePanelType) => {
   const decimal = new Decimal(amount ? amount : 0);
 
-  return (
-    <Flex className="swap-input-control-panel">
-      <Flex className="swap-available-value">
-        <Text as="span">Available</Text>
-        {loading ? (
-          <Box className="swap-available-value-skeleton">
-            <Skeleton />
-          </Box>
-        ) : (
-          <Text>{decimal.toFixed(2)}</Text>
-        )}
+  if (displayPanel) {
+    return (
+      <Flex className="swap-input-control-panel">
+        <Flex className="swap-available-value">
+          <Text as="span">Available</Text>
+          {loading ? (
+            <Box className="swap-available-value-skeleton">
+              <Skeleton />
+            </Box>
+          ) : (
+            <Text>{decimal.toFixed(2)}</Text>
+          )}
+        </Flex>
+        <Button
+          variant="unstyled"
+          onClick={() => onAmountInputChange(decimal.div(2).toString())}
+        >
+          Half
+        </Button>
+        <Button
+          variant="unstyled"
+          onClick={() => onAmountInputChange(decimal.toString())}
+        >
+          Max
+        </Button>
       </Flex>
-      <Button
-        variant="unstyled"
-        onClick={() => onAmountInputChange(decimal.div(2).toString())}
-      >
-        Half
-      </Button>
-      <Button
-        variant="unstyled"
-        onClick={() => onAmountInputChange(decimal.toString())}
-      >
-        Max
-      </Button>
-    </Flex>
-  );
+    );
+  }
+
+  if (!displayPanel) return undefined;
 };

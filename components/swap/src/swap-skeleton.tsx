@@ -35,3 +35,20 @@ export const SwapSkeletonOptions = () => {
     </>
   );
 };
+
+export const SwapSkeletonControlDropdownButton = () => {
+  return (
+    <Stack isInline={true} className="swap-skeleton-dropdown-button">
+      <SkeletonCircle />
+      <SwapSkeletonControlPanel />
+    </Stack>
+  );
+};
+
+export const SwapSkeletonInputPanel = () => {
+  return (
+    <Stack isInline={true} className="swap-skeleton-input-panel">
+      <SwapSkeletonControlPanel />
+    </Stack>
+  );
+};

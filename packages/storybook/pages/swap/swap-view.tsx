@@ -1,6 +1,6 @@
 import {
   handleSwapDropdown,
-  SwapDataType,
+  SwapOptionDataType,
   SwapView
 } from '@cosmology-ui/react';
 import Decimal from 'decimal.js';
@@ -17,7 +17,7 @@ enum SwapValueType {
   OVERMAXIMUM = 'OVERMAXIMUM'
 }
 interface UpdateDropdownReducer {
-  selectedToken?: SwapDataType;
+  selectedToken?: SwapOptionDataType;
   dropdownLoading?: boolean;
   inputLoading?: boolean;
 }
@@ -105,7 +105,7 @@ function updateInputReducer(
 
 export const SwapViewDemo = () => {
   const tokenArray = ['1%', '2.5%', '3%', '5%'];
-  const [chainData, setChainData] = useState<SwapDataType[]>([]);
+  const [chainData, setChainData] = useState<SwapOptionDataType[]>([]);
   const [fromToken, updateFromToken] = useReducer(updateDropdownReducer, {
     selectedToken: undefined,
     dropdownLoading: true,
@@ -136,7 +136,10 @@ export const SwapViewDemo = () => {
     console.log(`log:tolerance`, value);
     setSelectToken(value);
   }
-  const handleInputChange = (value: string, selectedToken: SwapDataType) => {
+  const handleInputChange = (
+    value: string,
+    selectedToken: SwapOptionDataType
+  ) => {
     if (!value) {
       updateInputEvent({
         type: SwapValueType.NOVALUE,
