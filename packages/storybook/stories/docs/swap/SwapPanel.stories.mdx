@@ -38,8 +38,17 @@ import { SwapControlPanelStory } from '../../ui-kits/modals/swap/SwapPanel.stori
       <SwapControlPanel
         swapType={SwapType.from}
         selectedToken={selectedToken}
-        dropdownConfig={dropdownConfig}
-        inputConfig={inputConfig}
+        dropdownConfig={{
+          dropdownLoading: boolean,
+          dropdownData: data[]
+        }}
+        inputConfig={{
+          inputLoading: boolean,
+          inputAmount: string,
+          inputDollarValue: string,
+          invalid: boolean,
+          invalidText: string | undefined
+        }}
         onDropdownChange={handleDropdownChange}
         onAmountInputChange={handleInputChange}
       />
@@ -56,8 +65,10 @@ import { SwapControlPanelStory } from '../../ui-kits/modals/swap/SwapPanel.stori
       <SwapControlPanel
         swapType={SwapType.to}
         selectedToken={selectedToken}
-        dropdownConfig={dropdownConfig}
-        inputConfig={inputConfig}
+        dropdownConfig={{
+          dropdownLoading: boolean,
+          dropdownData: data[]
+        }}
         onDropdownChange={handleDropdownChange}
       />
   `}

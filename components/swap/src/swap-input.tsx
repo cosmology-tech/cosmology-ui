@@ -16,7 +16,7 @@ import { SwapControlInputValuePanelType, SwapEditableInputType } from './type';
 export const SwapEditableInput = ({
   id,
   selectedToken,
-  inputAmount,
+  inputAmount = '0',
   inputDollarValue,
   invalid,
   invalidText,
@@ -72,10 +72,12 @@ export const SwapEditableInput = ({
           className="swap-editable-text"
           onClick={() => setInputVisible(true)}
         >
-          {inputAmount}
+          {inputAmount ? inputAmount : '0'}
         </Text>
       )}
-      <Text className="swap-fiat-text">~&nbsp;{inputDollarValue}</Text>
+      <Text className="swap-fiat-text">
+        {inputDollarValue ? `~ ${inputDollarValue}` : undefined}
+      </Text>
     </Box>
   );
 };

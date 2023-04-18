@@ -1,0 +1,29 @@
+import { SwapView } from '@cosmology-ui/react';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { SwapViewStory } from '../../ui-kits/modals/swap/SwapView.stories.tsx';
+
+# Swap View
+
+<Meta
+  component={SwapView}
+  title="components/Swap/SwapView"
+  parameters={{
+    docs: {
+      source: {
+        language: 'tsx',
+        format: true,
+        code: `import { SwapView } from '@cosmology-ui/react';`
+      }
+    },
+    controls: {
+      include: ['submitButtonConfig']
+    }
+  }}
+/>
+
+<Canvas withSource="close">
+  <Story story={SwapViewStory} />
+</Canvas>
+
+<ArgsTable of={SwapView} />

@@ -1,0 +1,52 @@
+import { SwapDropdownsView } from '@cosmology-ui/react';
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs';
+
+import { SwapDropdownsViewStory } from '../../ui-kits/modals/swap/SwapDropdownsView.stories.tsx';
+
+# Swap Control Panel
+
+<Meta
+  component={SwapDropdownsView}
+  title="components/Swap/SwapDropdownsView"
+  parameters={{
+    docs: {
+      source: {
+        language: 'tsx',
+        format: true,
+        code: `import { SwapDropdownsView } from '@cosmology-ui/react';`
+      }
+    },
+    controls: {
+      include: []
+    }
+  }}
+/>
+
+<Canvas withSource="close">
+  <Story story={SwapDropdownsViewStory} />
+</Canvas>
+
+<ArgsTable of={SwapDropdownsView} />
+
+<Source
+  language="tsx"
+  dark
+  format={true}
+  code={`
+  <SwapDropdownsView
+    fromConfig={{
+      selectedToken: selectedToken,
+      inputConfig: inputConfig,
+      dropdownConfig: dropdownConfig
+    }}
+    toConfig={{
+      selectedToken: selectedToken,
+      dropdownConfig: dropdownConfig
+    }}
+    onFromDropdownChange={onFromDropdownChange}
+    onToDropdownChange={onToDropdownChange}
+    onAmountInputChange={onInputChange}
+    onSwapSwitch={onSwitch}
+  />
+  `}
+/>

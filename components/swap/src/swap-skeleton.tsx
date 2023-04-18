@@ -1,4 +1,4 @@
-import { Skeleton, SkeletonCircle, Stack } from '@chakra-ui/react';
+import { Flex, Skeleton, SkeletonCircle, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 export const SwapSkeletonControlPanel = () => {
@@ -50,5 +50,15 @@ export const SwapSkeletonInputPanel = () => {
     <Stack isInline={true} className="swap-skeleton-input-panel">
       <SwapSkeletonControlPanel />
     </Stack>
+  );
+};
+
+export const SwapSkeletonPrice = () => {
+  return (
+    <Flex className="swap-skeleton-box">
+      <Skeleton className="swap-skeleton-amount" />
+      <Text className="swap-price-fiat">~ &nbsp;</Text>
+      <Skeleton className="swap-skeleton-fiat" />
+    </Flex>
   );
 };

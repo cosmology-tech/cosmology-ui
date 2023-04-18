@@ -68,7 +68,7 @@ export const SwapControlPanelStory: ComponentStory<typeof SwapControlPanel> = (
   const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
     inputLoading: true,
     inputAmount: undefined,
-    inputDollarValue: '$-',
+    inputDollarValue: undefined,
     invalid: false,
     invalidText: undefined
   });
@@ -95,8 +95,8 @@ export const SwapControlPanelStory: ComponentStory<typeof SwapControlPanel> = (
     if (!newValue) {
       updateInputEvent({
         inputLoading: false,
-        inputAmount: '0',
-        inputDollarValue: '$-',
+        inputAmount: undefined,
+        inputDollarValue: undefined,
         invalid: true,
         invalidText: 'Please enter a value.'
       });
@@ -115,23 +115,33 @@ export const SwapControlPanelStory: ComponentStory<typeof SwapControlPanel> = (
           invalidText: 'Please enter a positive value.'
         });
       }
+      if (decimalInput.toNumber() === 0) {
+        updateInputEvent({
+          inputLoading: false,
+          inputAmount: '0',
+          inputDollarValue: undefined,
+          invalid: false,
+          invalidText: undefined
+        });
+      }
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
         updateInputEvent({
           inputLoading: false,
           inputAmount: selectedToken.value.balanceDisplayAmount,
-          inputDollarValue: selectedToken.value.dollarValue,
+          inputDollarValue: `$${selectedToken.value.dollarValue}`,
           invalid: true,
           invalidText: `Please enter a value less than ${selectedToken.value.balanceDisplayAmount}.`
         });
       }
       if (
+        decimalInput.toNumber() !== 0 &&
         !(decimalInput.toNumber() > decimalDefault.toNumber()) &&
         decimalInput.isPositive()
       ) {
         updateInputEvent({
           inputLoading: false,
           inputAmount: newValue,
-          inputDollarValue: decimalInput.div(0.05).toString(),
+          inputDollarValue: `$${decimalInput.div(0.05).toString()}`,
           invalid: false,
           invalidText: undefined
         });
@@ -175,10 +185,19 @@ export const SwapControlPanelStory: ComponentStory<typeof SwapControlPanel> = (
         invalidText: undefined
       });
     }
+    if (swapType === SwapType.to) {
+      updateInputEvent({
+        inputLoading: true,
+        inputAmount: undefined,
+        inputDollarValue: undefined,
+        invalid: false,
+        invalidText: undefined
+      });
+    }
   }, [swapType, selectedToken]);
 
   return (
-    <Box position="relative" mx="auto" maxW="md" height={96} pt={10}>
+    <Box mx="auto" maxW="md" height={96} pt={10}>
       <SwapControlPanel
         {...args}
         selectedToken={selectedToken.value}

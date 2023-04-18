@@ -191,10 +191,13 @@ export const SwapPanelBaseStyle = (theme: string) => {
         visibility: 'hidden'
       },
       '>.swap-display-box': {
+        flex: 1,
         w: 'full',
+        maxW: 52,
         textAlign: 'end',
         '>.swap-amount-text': {
-          overflow: 'scroll',
+          w: 'full',
+          overflowX: 'scroll',
           scrollbarWidth: 'none', // for firefox
           '::-webkit-scrollbar': {
             display: 'none' // for chrome
@@ -206,7 +209,7 @@ export const SwapPanelBaseStyle = (theme: string) => {
           whiteSpace: 'nowrap'
         },
         '>.swap-fiat-text': {
-          overflow: 'scroll',
+          overflowX: 'scroll',
           whiteSpace: 'nowrap',
           scrollbarWidth: 'none', // for firefox
           '::-webkit-scrollbar': {
@@ -262,7 +265,10 @@ export const SwapControlPanel = ({
   }, [inputConfig, swapType]);
 
   return (
-    <Box className="swap-control-panel" sx={SwapPanelBaseStyle(theme)}>
+    <Box
+      className={`swap-${swapType}-control-panel`}
+      sx={SwapPanelBaseStyle(theme)}
+    >
       <Flex className="swap-header">
         <Text>{swapType}</Text>
         <SwapInputControlPanel
@@ -305,10 +311,14 @@ export const SwapControlPanel = ({
           ) : (
             <Box className="swap-display-box">
               <Text className="swap-amount-text">
-                {selectedToken.currentDisplayAmount}
+                {selectedToken && selectedToken.currentDisplayAmount
+                  ? selectedToken.currentDisplayAmount
+                  : '0'}
               </Text>
               <Text className="swap-fiat-text">
-                ~&nbsp;{selectedToken.currentDollarValue}
+                {selectedToken && selectedToken.currentDollarValue
+                  ? `~ ${selectedToken.currentDollarValue}`
+                  : undefined}
               </Text>
             </Box>
           )

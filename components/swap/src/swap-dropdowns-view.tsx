@@ -57,24 +57,17 @@ export const SwapDropdownsViewBaseStyle = (theme: string) => {
   };
 };
 
+/**
+ * From and to Panel with switch button.
+ * @see {@link SwapDropdownsViewType}
+ */
 export const SwapDropdownsView = ({
-  dropdownData,
-  fromDropdownLoading,
-  fromInputLoading,
-  fromToken,
-  toDropdownLoading,
-  toInputLoading,
-  toToken,
-  inputAmount,
-  inputDollarValue,
-  invalid,
-  invalidText,
-  className = 'swap-dropdowns-view',
-  styleProps,
-  onAmountInputChange,
+  fromConfig,
+  toConfig,
+  onSwapSwitch,
   onFromDropdownChange,
   onToDropdownChange,
-  onSwapSwitch
+  onAmountInputChange
 }: SwapDropdownsViewType) => {
   const { theme } = useTheme();
   const fromMenuRef = useRef<HTMLDivElement>(null);
@@ -92,21 +85,12 @@ export const SwapDropdownsView = ({
   });
 
   return (
-    <Box
-      className={className}
-      sx={styleProps ? styleProps : SwapDropdownsViewBaseStyle(theme)}
-    >
+    <Box className="swap-dropdowns-view" sx={SwapDropdownsViewBaseStyle(theme)}>
       <SwapControlPanel
         swapType={SwapType.from}
-        dropdownLoading={fromDropdownLoading}
-        inputLoading={fromInputLoading}
-        dropdownData={dropdownData}
-        selectedToken={fromToken}
-        inputAmount={inputAmount}
-        inputDollarValue={inputDollarValue}
-        inputControlPanel={true}
-        invalid={invalid}
-        invalidText={invalidText}
+        selectedToken={fromConfig.selectedToken}
+        inputConfig={fromConfig.inputConfig}
+        dropdownConfig={fromConfig.dropdownConfig}
         onDropdownChange={onFromDropdownChange}
         onAmountInputChange={onAmountInputChange}
       />
@@ -115,11 +99,8 @@ export const SwapDropdownsView = ({
       </Center>
       <SwapControlPanel
         swapType={SwapType.to}
-        dropdownLoading={toDropdownLoading}
-        inputLoading={toInputLoading}
-        dropdownData={dropdownData}
-        selectedToken={toToken}
-        inputControlPanel={false}
+        selectedToken={toConfig.selectedToken}
+        dropdownConfig={toConfig.dropdownConfig}
         onDropdownChange={onToDropdownChange}
       />
     </Box>
