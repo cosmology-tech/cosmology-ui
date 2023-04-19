@@ -69,4 +69,4 @@ export declare const ConnectWalletButtonStyle: (theme: string) => {
         ml: number;
     };
 };
-export declare const ConnectWalletButton: ({ buttonText, loading, disabled, leftIcon, rightIcon, className, styleProps, onClick }: BaseButtonType) => JSX.Element;
+export declare const ConnectWalletButton: ({ buttonText, loading, disabled, leftIcon, rightIcon, className, onClick }: BaseButtonType) => JSX.Element;

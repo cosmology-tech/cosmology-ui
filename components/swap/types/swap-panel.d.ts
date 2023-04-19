@@ -50,6 +50,9 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
         };
     };
     '>.swap-control-panel-box': {
+        display: string;
+        justifyContent: string;
+        alignItems: string;
         w: string;
         '>.swap-control-dropdown-button': {
             flex: number;
@@ -158,33 +161,6 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
                     whiteSpace: string;
                 };
             };
-            '>.swap-display-box': {
-                w: string;
-                textAlign: string;
-                '>.swap-amount-text': {
-                    overflow: string;
-                    scrollbarWidth: string;
-                    '::-webkit-scrollbar': {
-                        display: string;
-                    };
-                    fontSize: string;
-                    fontWeight: string;
-                    lineHeight: string;
-                    pb: number;
-                    whiteSpace: string;
-                };
-                '>.swap-fiat-text': {
-                    overflow: string;
-                    whiteSpace: string;
-                    scrollbarWidth: string;
-                    '::-webkit-scrollbar': {
-                        display: string;
-                    };
-                    color: string;
-                    fontSize: string;
-                    lineHeight: string;
-                };
-            };
         };
         '>.swap-skeleton-input-panel': {
             '>.swap-dropdown-control-panel-skeleton': {
@@ -205,6 +181,36 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
         '&.swap-control-panel-hidden': {
             visibility: string;
         };
+        '>.swap-display-box': {
+            flex: number;
+            w: string;
+            maxW: number;
+            textAlign: string;
+            '>.swap-amount-text': {
+                w: string;
+                overflowX: string;
+                scrollbarWidth: string;
+                '::-webkit-scrollbar': {
+                    display: string;
+                };
+                fontSize: string;
+                fontWeight: string;
+                lineHeight: string;
+                pb: number;
+                whiteSpace: string;
+            };
+            '>.swap-fiat-text': {
+                overflowX: string;
+                whiteSpace: string;
+                scrollbarWidth: string;
+                '::-webkit-scrollbar': {
+                    display: string;
+                };
+                color: string;
+                fontSize: string;
+                lineHeight: string;
+            };
+        };
     };
     '>.swap-dropdown-box': {
         w: string;
@@ -214,4 +220,8 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
         zIndex: number;
     };
 };
-export declare const SwapControlPanel: ({ inputLoading, dropdownLoading, dropdownData, selectedToken, swapType, inputControlPanel, inputAmount, inputDollarValue, invalid, invalidText, className, styleProps, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;
+/**
+ * The panel of swap dropdown and input.
+ * @see {@link SwapControlPanelType}
+ */
+export declare const SwapControlPanel: ({ swapType, inputConfig, dropdownConfig, selectedToken, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;

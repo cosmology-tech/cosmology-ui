@@ -117,7 +117,11 @@ export const SwapViewBaseStyle = (theme: string) => {
             minW: 'fit-content',
             borderRadius: 'base',
             bg: `swap-setting-button-background-color-${theme}`,
-            color: `swap-setting-button-text-color-${theme}`
+            color: `swap-setting-button-text-color-${theme}`,
+            '&.swap-detail-button-open': {
+              bg: `swap-setting-selected-button-background-color-${theme}`,
+              color: `swap-setting-selected-button-text-color-${theme}`
+            }
           }
         }
       },
@@ -127,7 +131,6 @@ export const SwapViewBaseStyle = (theme: string) => {
           my: 12,
           fontSize: 'sm',
           color: `swap-view-header-text-color-${theme}`,
-          '&.swap-detail-button-open': {},
           '>.swap-price-detail': {
             display: 'flex',
             justifyContent: 'space-between',
@@ -156,11 +159,16 @@ export const SwapViewBaseStyle = (theme: string) => {
               },
               '>.swap-route-details': {
                 alignItems: 'center',
+                color: `swap-view-header-text-color-${theme}`,
                 '>.swap-route-sellToken': {
                   mr: 4,
                   '&.swap-route-icon': {
-                    w: 10,
-                    h: 10
+                    w: 7,
+                    h: 7,
+                    minW: 7,
+                    minH: 7,
+                    maxW: 7,
+                    maxH: 7
                   }
                 },
                 '>.swap-route-divider-box': {
@@ -172,22 +180,43 @@ export const SwapViewBaseStyle = (theme: string) => {
                   }
                 },
                 '>.swap-route-pool-box': {
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   position: 'relative',
-                  w: 'lg',
+                  minW: 12,
                   h: 10,
-                  mr: 4,
                   '>.swap-route-icon': {
                     position: 'absolute',
-                    w: 10,
-                    h: 10,
+                    w: 7,
+                    h: 7,
+                    minW: 7,
+                    minH: 7,
+                    maxW: 7,
+                    maxH: 7,
                     '&.swap-route-icon-left': {
                       left: 0,
                       zIndex: 1
                     },
                     '&.swap-route-icon-right': {
-                      right: 0,
+                      right: 1,
                       zIndex: 2
                     }
+                  }
+                },
+                '>.swap-route-fee': {
+                  ml: 1,
+                  mr: 4,
+                  fontWeight: 'bold'
+                },
+                '>.swap-route-buyToken': {
+                  '&.swap-route-icon': {
+                    w: 7,
+                    h: 7,
+                    minW: 7,
+                    minH: 7,
+                    maxW: 7,
+                    maxH: 7
                   }
                 }
               }
@@ -232,6 +261,10 @@ export const SwapViewBaseStyle = (theme: string) => {
   };
 };
 
+/**
+ * TThe swap dropdowns and swap details.
+ * @see {@link SwapViewType}
+ */
 export const SwapView = ({
   fromConfig,
   toConfig,

@@ -1,272 +1,318 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Box, Button, Center, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Center, useDisclosure } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
-  SwapOptionDataType,
-  SwapModal
+  handleSwapInput,
+  SwapDropdownsViewFromConfig,
+  SwapDropdownsViewToConfig,
+  SwapModal,
+  SwapPriceType,
+  SwapSlippageConfig
 } from '@cosmology-ui/react';
-import { ArgsTable, Primary } from '@storybook/addon-docs';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentStory } from '@storybook/react';
 import Decimal from 'decimal.js';
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import { chainList } from '../../../util/config';
 
-enum SwapValueType {
-  INITIAL = 'INITIAL',
-  VALID = 'VALID',
-  NOTPOSITIVE = 'NOTPOSITIVE',
-  NOVALUE = 'NOVALUE',
-  UPDATE = 'UPDATE',
-  OVERMAXIMUM = 'OVERMAXIMUM'
-}
-interface UpdateDropdownReducer {
-  selectedToken?: SwapOptionDataType;
-  dropdownLoading?: boolean;
-  inputLoading?: boolean;
-}
-interface UpdateInputReducer {
-  inputLoading?: boolean;
-  inputAmount?: string;
-  inputDollarValue?: string;
-  invalid: boolean;
-  invalidText?: string;
-}
-interface UpdateReducerAction extends UpdateInputReducer {
-  type: SwapValueType;
+interface FromConfigReducer extends SwapDropdownsViewFromConfig {
+  updateType: 'dropdown' | 'input' | 'all';
 }
 
-function updateDropdownReducer(
-  state: UpdateDropdownReducer,
-  action: UpdateDropdownReducer
-): UpdateDropdownReducer {
+const handleFromConfig = (
+  state: SwapDropdownsViewFromConfig,
+  action: FromConfigReducer
+) => {
+  switch (action.updateType) {
+    case 'all':
+      return {
+        ...state,
+        selectedToken: action.selectedToken,
+        dropdownConfig: action.dropdownConfig,
+        inputConfig: action.inputConfig
+      };
+    case 'dropdown':
+      return {
+        ...state,
+        selectedToken: action.selectedToken,
+        inputConfig: action.inputConfig
+      };
+    case 'input':
+      return {
+        ...state,
+        inputConfig: action.inputConfig
+      };
+
+    default:
+      return {
+        ...state
+      };
+  }
+};
+const handleToConfig = (
+  state: SwapDropdownsViewToConfig,
+  action: SwapDropdownsViewToConfig
+) => {
   return {
     ...state,
     selectedToken: action.selectedToken,
-    dropdownLoading: action.dropdownLoading,
-    inputLoading: action.inputLoading
+    dropdownConfig: action.dropdownConfig
   };
-}
-function updateInputReducer(
-  state: UpdateInputReducer,
-  action: UpdateReducerAction
-): UpdateInputReducer {
-  switch (action.type) {
-    case SwapValueType.INITIAL:
-      return {
-        ...state,
-        inputLoading: action.inputLoading,
-        invalid: action.invalid,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.UPDATE:
-      return {
-        ...state,
-        inputLoading: action.inputLoading,
-        invalid: action.invalid,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.NOTPOSITIVE:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.OVERMAXIMUM:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.NOVALUE:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
-    case SwapValueType.VALID:
-      return {
-        ...state,
-        invalid: action.invalid,
-        invalidText: action.invalidText,
-        inputAmount: action.inputAmount,
-        inputDollarValue: action.inputDollarValue
-      };
+};
+const handleSlippageConfig = (
+  state: SwapSlippageConfig,
+  action: SwapSlippageConfig
+) => {
+  return {
+    ...state,
+    slippages: action.slippages,
+    selectedSlippage: action.selectedSlippage
+  };
+};
+const handlePriceConfig = (state: SwapPriceType, action: SwapPriceType) => {
+  return {
+    ...state,
+    loading: action.loading,
+    rate: action.rate,
+    detail: action.detail
+  };
+};
 
-    default: {
-      return state;
-    }
-  }
-}
+const defaultSlippages = ['1%', '2.5%', '3%', '5%'];
 
-const Template: ComponentStory<typeof SwapModal> = ({
-  tokenArray,
-  submitDisabled,
-  submitLoading,
-  ...rest
-}) => {
+export const SwapModalStory: ComponentStory<typeof SwapModal> = (args) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [chainData, setChainData] = useState<SwapOptionDataType[]>([]);
-  const [fromToken, updateFromToken] = useReducer(updateDropdownReducer, {
+  const [fromConfig, updateFromConfig] = useReducer(handleFromConfig, {
     selectedToken: undefined,
-    dropdownLoading: true,
-    inputLoading: true
+    inputConfig: {
+      inputLoading: true,
+      inputAmount: undefined,
+      inputDollarValue: undefined,
+      invalid: false,
+      invalidText: undefined
+    },
+    dropdownConfig: {
+      dropdownLoading: true,
+      dropdownData: []
+    }
   });
-  const [toToken, updateToToken] = useReducer(updateDropdownReducer, {
+  const [toConfig, updateToConfig] = useReducer(handleToConfig, {
     selectedToken: undefined,
-    dropdownLoading: true,
-    inputLoading: true
+    dropdownConfig: {
+      dropdownLoading: true,
+      dropdownData: []
+    }
   });
-  const [inputEvent, updateInputEvent] = useReducer(updateInputReducer, {
-    inputAmount: undefined,
-    inputDollarValue: '$-',
-    invalid: false,
-    invalidText: undefined,
-    inputLoading: true
-  });
-  const [selectedToken, setSelectToken] = useState<string | undefined>(
-    tokenArray ? tokenArray[0] : undefined
+  const [slippageConfig, updateSlippageConfig] = useReducer(
+    handleSlippageConfig,
+    {
+      slippages: defaultSlippages,
+      selectedSlippage: defaultSlippages[0]
+    }
   );
-  const [priceValue, setPrice] = useState({
+  const [priceConfig, updatePriceConfig] = useReducer(handlePriceConfig, {
     loading: true,
     rate: {
-      fromValue: '0',
-      toValue: '0',
-      dollarValue: '$-'
-    }
+      from: {
+        symbol: undefined,
+        value: undefined
+      },
+      to: {
+        symbol: undefined,
+        value: undefined
+      },
+      dollar: undefined
+    },
+    detail: undefined
   });
 
-  const handleSelectTolerance = (value: string) => {
-    console.log(`log:tolerance`, value);
-    setSelectToken(value);
-  };
-  const handleInputChange = (
-    value: string,
-    selectedToken: SwapOptionDataType
-  ) => {
-    if (!value) {
-      updateInputEvent({
-        type: SwapValueType.NOVALUE,
-        inputAmount: '0',
-        inputDollarValue: '$-',
-        invalid: true,
-        invalidText: 'Please enter a value.'
+  const handleFromDropdownChange: handleSwapDropdown = (newValue) => {
+    if (newValue)
+      updateFromConfig({
+        updateType: 'dropdown',
+        selectedToken: {
+          ...newValue,
+          currentDisplayAmount: newValue.balanceDisplayAmount,
+          currentDollarValue: newValue.dollarValue
+        },
+        inputConfig: {
+          inputLoading: false,
+          inputAmount: newValue.balanceDisplayAmount,
+          inputDollarValue: newValue.dollarValue,
+          invalid: false,
+          invalidText: undefined
+        },
+        dropdownConfig: fromConfig.dropdownConfig
       });
-    }
-    if (value) {
-      const decimalInput = new Decimal(value);
-      const decimalDefault = new Decimal(selectedToken.balanceDisplayAmount);
-      if (!decimalInput.isPositive()) {
-        updateInputEvent({
-          type: SwapValueType.NOTPOSITIVE,
-          inputAmount: selectedToken.balanceDisplayAmount,
-          inputDollarValue: selectedToken.dollarValue,
+  };
+  const handleToDropdownChange: handleSwapDropdown = (newValue) => {
+    if (newValue)
+      updateToConfig({
+        selectedToken: {
+          ...newValue,
+          currentDisplayAmount: newValue.balanceDisplayAmount,
+          currentDollarValue: newValue.dollarValue
+        },
+        dropdownConfig: toConfig.dropdownConfig
+      });
+  };
+  const handleInputChange: handleSwapInput = (newValue) => {
+    if (!newValue) {
+      updateFromConfig({
+        updateType: 'input',
+        selectedToken: fromConfig.selectedToken,
+        dropdownConfig: fromConfig.dropdownConfig,
+        inputConfig: {
+          inputLoading: false,
+          inputAmount: undefined,
+          inputDollarValue: undefined,
           invalid: true,
-          invalidText: 'Please enter a positive value.'
+          invalidText: 'Please enter a value.'
+        }
+      });
+      if (toConfig.selectedToken)
+        updateToConfig({
+          selectedToken: {
+            ...toConfig.selectedToken,
+            currentDisplayAmount: undefined,
+            currentDollarValue: undefined
+          },
+          dropdownConfig: toConfig.dropdownConfig
+        });
+    }
+    if (newValue && fromConfig.selectedToken && toConfig.selectedToken) {
+      const decimalInput = new Decimal(newValue);
+      const decimalDefault = new Decimal(
+        fromConfig.selectedToken.balanceDisplayAmount
+      );
+      if (decimalInput.toNumber() === 0) {
+        updateFromConfig({
+          updateType: 'input',
+          selectedToken: fromConfig.selectedToken,
+          dropdownConfig: fromConfig.dropdownConfig,
+          inputConfig: {
+            inputLoading: false,
+            inputAmount: '0',
+            inputDollarValue: undefined,
+            invalid: false,
+            invalidText: undefined
+          }
+        });
+        updateToConfig({
+          selectedToken: {
+            ...toConfig.selectedToken,
+            currentDisplayAmount: '0',
+            currentDollarValue: undefined
+          },
+          dropdownConfig: toConfig.dropdownConfig
+        });
+      }
+      if (decimalInput.toNumber() !== 0) {
+        if (decimalInput.toNumber() === decimalDefault.toNumber()) {
+          updateToConfig({
+            selectedToken: {
+              ...toConfig.selectedToken,
+              currentDisplayAmount: toConfig.selectedToken.balanceDisplayAmount,
+              currentDollarValue: toConfig.selectedToken.dollarValue
+            },
+            dropdownConfig: toConfig.dropdownConfig
+          });
+        }
+        if (
+          decimalInput.toNumber() > 0 &&
+          decimalDefault.toNumber() > decimalInput.toNumber()
+        ) {
+          const decimalToAmount = new Decimal(
+            toConfig.selectedToken.balanceDisplayAmount
+          );
+          updateToConfig({
+            selectedToken: {
+              ...toConfig.selectedToken,
+              currentDisplayAmount: decimalToAmount
+                .div(decimalDefault.div(decimalInput))
+                .toString(),
+              currentDollarValue: decimalToAmount
+                .div(decimalDefault.div(decimalInput))
+                .toString()
+            },
+            dropdownConfig: toConfig.dropdownConfig
+          });
+        }
+      }
+      if (!decimalInput.isPositive()) {
+        updateFromConfig({
+          updateType: 'input',
+          selectedToken: fromConfig.selectedToken,
+          dropdownConfig: fromConfig.dropdownConfig,
+          inputConfig: {
+            inputLoading: false,
+            inputAmount: fromConfig.selectedToken.balanceDisplayAmount,
+            inputDollarValue: fromConfig.selectedToken.dollarValue,
+            invalid: true,
+            invalidText: 'Please enter a positive value.'
+          }
         });
       }
       if (decimalInput.toNumber() > decimalDefault.toNumber()) {
-        updateInputEvent({
-          type: SwapValueType.OVERMAXIMUM,
-          inputAmount: selectedToken.balanceDisplayAmount,
-          inputDollarValue: selectedToken.dollarValue,
-          invalid: true,
-          invalidText: `Please enter a value less than ${selectedToken.balanceDisplayAmount}.`
+        updateFromConfig({
+          updateType: 'input',
+          selectedToken: fromConfig.selectedToken,
+          dropdownConfig: fromConfig.dropdownConfig,
+          inputConfig: {
+            inputLoading: false,
+            inputAmount: fromConfig.selectedToken.balanceDisplayAmount,
+            inputDollarValue: fromConfig.selectedToken.dollarValue,
+            invalid: true,
+            invalidText: `Please enter a value less than ${fromConfig.selectedToken.balanceDisplayAmount}.`
+          }
         });
       }
       if (
+        decimalInput.toNumber() !== 0 &&
         !(decimalInput.toNumber() > decimalDefault.toNumber()) &&
         decimalInput.isPositive()
       ) {
-        updateInputEvent({
-          type: SwapValueType.VALID,
-          inputAmount: value,
-          inputDollarValue: decimalInput.div(0.05).toString(),
-          invalid: false,
-          invalidText: undefined
+        updateFromConfig({
+          updateType: 'input',
+          selectedToken: fromConfig.selectedToken,
+          dropdownConfig: fromConfig.dropdownConfig,
+          inputConfig: {
+            inputLoading: false,
+            inputAmount: newValue,
+            inputDollarValue: `$${decimalInput.div(0.05).toString()}`,
+            invalid: false,
+            invalidText: undefined
+          }
         });
       }
-      if (decimalDefault.eq(decimalInput)) {
-        if (toToken.selectedToken) {
-          updateToToken({
-            selectedToken: {
-              ...toToken.selectedToken,
-              currentAmount: toToken.selectedToken.balanceDisplayAmount
-            },
-            dropdownLoading: false,
-            inputLoading: false
-          });
-        }
-      }
-      if (!decimalDefault.eq(decimalInput)) {
-        if (toToken.selectedToken) {
-          const fromAmount = new Decimal(selectedToken.balanceDisplayAmount);
-          const toDecimal = new Decimal(
-            toToken.selectedToken.balanceDisplayAmount
-          );
-          const i = fromAmount.div(decimalInput);
-          const toAmount = toDecimal.div(i).toFixed(6);
-
-          updateToToken({
-            selectedToken: {
-              ...toToken.selectedToken,
-              currentAmount: toAmount
-            },
-            dropdownLoading: false,
-            inputLoading: false
-          });
-        }
-      }
     }
   };
-  const handleFromDropdownChange: handleSwapDropdown = (value) => {
-    if (value) {
-      updateInputEvent({
-        type: SwapValueType.UPDATE,
-        inputLoading: false,
-        invalid: false,
-        inputAmount: value.balanceDisplayAmount,
-        inputDollarValue: value.dollarValue
+  const handleSwitch = () => {
+    if (fromConfig.selectedToken && toConfig.selectedToken) {
+      updateFromConfig({
+        updateType: 'all',
+        selectedToken: toConfig.selectedToken,
+        inputConfig: {
+          inputLoading: false,
+          inputAmount: toConfig.selectedToken.balanceDisplayAmount,
+          inputDollarValue: toConfig.selectedToken.dollarValue,
+          invalid: false,
+          invalidText: undefined
+        },
+        dropdownConfig: toConfig.dropdownConfig
       });
-      updateFromToken({
-        selectedToken: value
+      updateToConfig({
+        selectedToken: fromConfig.selectedToken,
+        dropdownConfig: fromConfig.dropdownConfig
       });
     }
   };
-  const handleToDropdownChange: handleSwapDropdown = (value) => {
-    if (value) {
-      updateToToken({
-        selectedToken: value
-      });
-    }
-  };
-  const handleSwapSwitch = useCallback(() => {
-    updateFromToken({
-      selectedToken: toToken.selectedToken
+  const handleSlippageChange = (value: string) => {
+    updateSlippageConfig({
+      slippages: slippageConfig.slippages,
+      selectedSlippage: value
     });
-    updateToToken({
-      selectedToken: fromToken.selectedToken
-    });
-    if (toToken.selectedToken)
-      updateInputEvent({
-        type: SwapValueType.INITIAL,
-        inputLoading: false,
-        invalid: false,
-        inputAmount: toToken.selectedToken.balanceDisplayAmount,
-        inputDollarValue: toToken.selectedToken.dollarValue
-      });
-  }, [fromToken.selectedToken, toToken.selectedToken]);
-  const handleSubmit = () => {
-    console.log('submit');
   };
 
   useEffect(() => {
@@ -276,60 +322,103 @@ const Template: ComponentStory<typeof SwapModal> = ({
         symbol,
         icon,
         denom,
-        amount,
-        dollarValue,
-        currentAmount: amount,
-        currentDollarValue: dollarValue
+        balanceDisplayAmount: amount,
+        dollarValue
       })
     );
-    setTimeout(() => {
-      setChainData(formatData);
-    }, 800);
-  }, []);
-  useEffect(() => {
-    if (chainData.length > 0) {
-      updateFromToken({
-        selectedToken: chainData[0],
-        dropdownLoading: false
-      });
-      updateToToken({
-        selectedToken: chainData[1],
-        dropdownLoading: false,
-        inputLoading: false
-      });
-      updateInputEvent({
-        type: SwapValueType.INITIAL,
+
+    updateFromConfig({
+      updateType: 'all',
+      selectedToken: {
+        ...formatData[0],
+        currentDisplayAmount: formatData[0].balanceDisplayAmount,
+        currentDollarValue: formatData[0].dollarValue
+      },
+      inputConfig: {
         inputLoading: false,
+        inputAmount: formatData[0].balanceDisplayAmount,
+        inputDollarValue: formatData[0].dollarValue,
         invalid: false,
-        inputAmount: chainData[0].currentAmount,
-        inputDollarValue: chainData[0].currentDollarValue
-      });
-    }
-  }, [chainData]);
-  useEffect(() => {
-    if (fromToken.selectedToken && toToken.selectedToken) {
-      const decimalValue = new Decimal(
-        fromToken.selectedToken.balanceDisplayAmount
-      );
-      setPrice({
-        loading: false,
-        rate: {
-          fromValue: '1',
-          toValue: decimalValue
-            .mul(toToken.selectedToken.balanceDisplayAmount)
-            .div(decimalValue)
-            .div(100)
-            .toFixed(5),
-          dollarValue:
-            '$' +
-            decimalValue
-              .div(toToken.selectedToken.balanceDisplayAmount)
-              .mul(100)
-              .toFixed(4)
+        invalidText: undefined
+      },
+      dropdownConfig: {
+        dropdownLoading: false,
+        dropdownData: formatData
+      }
+    });
+    updateToConfig({
+      selectedToken: {
+        ...formatData[1],
+        currentDisplayAmount: formatData[1].balanceDisplayAmount,
+        currentDollarValue: formatData[1].dollarValue
+      },
+      dropdownConfig: {
+        dropdownLoading: false,
+        dropdownData: formatData
+      }
+    });
+    updatePriceConfig({
+      loading: false,
+      rate: {
+        from: {
+          symbol: formatData[0].symbol,
+          value: '1'
+        },
+        to: {
+          symbol: formatData[1].symbol,
+          value: '0.123456'
+        },
+        dollar: '$0.123'
+      },
+      detail: {
+        priceImpact: '-0.07',
+        swapFee: {
+          percentage: '0.199%',
+          value: '< $0.01'
+        },
+        expectedOutput: {
+          value: '0.00096882373984234982',
+          symbol: formatData[1].symbol
+        },
+        minimumReceived: {
+          value: '0.00096882373984234982',
+          symbol: formatData[1].symbol
+        },
+        route: {
+          sellToken: {
+            logoUrl: formatData[0].icon,
+            denom: formatData[0].denom,
+            amount: '0.15',
+            name: formatData[0].value
+          },
+          routes: [
+            {
+              poolId: 'poolId1',
+              swapFee: '0.199%',
+              baseLogo: formatData[0].icon,
+              baseSymbol: formatData[0].symbol,
+              quoteLogo: formatData[2].icon,
+              quoteSymbol: formatData[2].symbol
+            },
+            {
+              poolId: 'poolId2',
+              swapFee: '0.199%',
+              baseLogo: formatData[2].icon,
+              baseSymbol: formatData[2].symbol,
+              quoteLogo: formatData[1].icon,
+              quoteSymbol: formatData[1].symbol
+            }
+          ],
+          buyToken: {
+            logoUrl: formatData[1].icon,
+            denom: formatData[1].denom,
+            amount: '0.15',
+            name: formatData[1].value
+          }
         }
-      });
-    }
-  }, [fromToken.selectedToken, toToken.selectedToken]);
+      }
+    });
+  }, []);
 
   return (
     <Box py={16}>
@@ -338,76 +427,31 @@ const Template: ComponentStory<typeof SwapModal> = ({
           <Button onClick={onOpen}>open modal</Button>
         </Center>
         <SwapModal
+          {...args}
           isOpen={isOpen}
-          dropdownData={chainData}
-          fromDropdownLoading={fromToken.dropdownLoading}
-          fromInputLoading={inputEvent.inputLoading}
-          fromToken={fromToken.selectedToken}
-          toDropdownLoading={toToken.dropdownLoading}
-          toInputLoading={toToken.inputLoading}
-          toToken={toToken.selectedToken}
-          inputAmount={inputEvent.inputAmount}
-          inputDollarValue={inputEvent.inputDollarValue}
-          settingToken={selectedToken}
-          tokenArray={tokenArray}
-          priceValue={priceValue}
-          submitLoading={submitLoading}
-          submitDisabled={submitDisabled}
-          onClose={onClose}
-          onSelectSetting={handleSelectTolerance}
-          onAmountInputChange={(value) => {
-            if (fromToken.selectedToken)
-              handleInputChange(value, fromToken.selectedToken);
+          fromConfig={{
+            selectedToken: fromConfig.selectedToken,
+            inputConfig: fromConfig.inputConfig,
+            dropdownConfig: fromConfig.dropdownConfig
           }}
+          toConfig={{
+            selectedToken: toConfig.selectedToken,
+            dropdownConfig: toConfig.dropdownConfig
+          }}
+          slippageConfig={slippageConfig}
+          price={priceConfig}
+          submitButtonConfig={{ loading: false, disabled: false }}
           onFromDropdownChange={handleFromDropdownChange}
           onToDropdownChange={handleToDropdownChange}
-          onSwapSwitch={handleSwapSwitch}
-          onSwapSubmit={handleSubmit}
+          onAmountInputChange={handleInputChange}
+          onSwapSwitch={handleSwitch}
+          setSelectedSlippage={handleSlippageChange}
+          onSwapSubmit={() => console.log('submit')}
+          onClose={onClose}
         />
       </Box>
     </Box>
   );
 };
 
-export const swapModal = Template.bind({});
-
-// to hide controls
-swapModal.parameters = {
-  controls: {
-    include: [
-      'tokenArray',
-      'submitLoading',
-      'submitDisabled',
-      'onDropdownChange'
-    ]
-  }
-};
-
-export default {
-  title: 'Components/Modals/Swap',
-  component: SwapModal,
-  parameters: {
-    docs: {
-      page: () => (
-        <>
-          <Text as="h1" fontSize={32} fontWeight="bold">
-            Swap Modal
-          </Text>
-          <Primary />
-          <ArgsTable of={SwapModal} />
-        </>
-      )
-    }
-  },
-  args: {
-    tokenArray: ['1%', '2.5%', '3%', '5%'],
-    submitDisabled: false,
-    submitLoading: false
-  },
-  argTypes: {
-    onChange: {
-      control: false,
-      action: 'selected'
-    }
-  }
-} as ComponentMeta<typeof SwapModal>;
+SwapModalStory.storyName = 'Swap Modal';

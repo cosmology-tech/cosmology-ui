@@ -43,63 +43,40 @@ export const SwapModalBaseStyle = (theme: string) => {
 
 export const SwapModal = ({
   isOpen,
-  dropdownData,
-  fromDropdownLoading,
-  fromInputLoading,
-  fromToken,
-  toDropdownLoading,
-  toInputLoading,
-  toToken,
-  inputAmount,
-  inputDollarValue,
-  tokenArray,
-  settingToken,
-  priceValue,
-  submitLoading,
-  submitDisabled,
-  className = 'swap-modal',
-  styleProps,
-  onClose,
+  fromConfig,
+  toConfig,
+  slippageConfig,
+  price,
+  submitButtonConfig,
   onAmountInputChange,
   onFromDropdownChange,
   onToDropdownChange,
   onSwapSwitch,
-  onSelectSetting,
-  onSwapSubmit
+  onSwapSubmit,
+  setSelectedSlippage,
+  onClose
 }: SwapModalType) => {
   const { theme } = useTheme();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent
-        className={className}
-        sx={styleProps ? styleProps : SwapModalBaseStyle(theme)}
-      >
+      <ModalContent className="swap-modal" sx={SwapModalBaseStyle(theme)}>
         <ModalHeader className="swap-modal-header">
           <Text className="swap-modal-title">Swap</Text>
           <ModalCloseButton className="swap-modal-close" variant="unstyled" />
         </ModalHeader>
 
         <SwapView
-          dropdownData={dropdownData}
-          fromDropdownLoading={fromDropdownLoading}
-          fromInputLoading={fromInputLoading}
-          fromToken={fromToken}
-          toDropdownLoading={toDropdownLoading}
-          toInputLoading={toInputLoading}
-          toToken={toToken}
-          inputAmount={inputAmount}
-          inputDollarValue={inputDollarValue}
-          settingToken={settingToken}
-          tokenArray={tokenArray}
-          priceValue={priceValue}
-          submitLoading={submitLoading}
-          submitDisabled={submitDisabled}
-          onSelectSetting={onSelectSetting}
-          onAmountInputChange={onAmountInputChange}
+          fromConfig={fromConfig}
+          toConfig={toConfig}
+          slippageConfig={slippageConfig}
+          price={price}
+          submitButtonConfig={submitButtonConfig}
           onFromDropdownChange={onFromDropdownChange}
           onToDropdownChange={onToDropdownChange}
+          onAmountInputChange={onAmountInputChange}
           onSwapSwitch={onSwapSwitch}
+          setSelectedSlippage={setSelectedSlippage}
           onSwapSubmit={onSwapSubmit}
         />
       </ModalContent>

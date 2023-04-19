@@ -28,4 +28,8 @@ export declare const SwapDropdownsViewBaseStyle: (theme: string) => {
         };
     };
 };
-export declare const SwapDropdownsView: ({ dropdownData, fromDropdownLoading, fromInputLoading, fromToken, toDropdownLoading, toInputLoading, toToken, inputAmount, inputDollarValue, invalid, invalidText, className, styleProps, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch }: SwapDropdownsViewType) => JSX.Element;
+/**
+ * From and to Panel with switch button.
+ * @see {@link SwapDropdownsViewType}
+ */
+export declare const SwapDropdownsView: ({ fromConfig, toConfig, onSwapSwitch, onFromDropdownChange, onToDropdownChange, onAmountInputChange }: SwapDropdownsViewType) => JSX.Element;

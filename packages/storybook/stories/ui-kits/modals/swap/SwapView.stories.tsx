@@ -418,7 +418,7 @@ export const SwapViewStory: ComponentStory<typeof SwapView> = (args) => {
   }, []);
 
   return (
-    <Box mx="auto" maxW="md" height="640px" pt={10}>
+    <Box mx="auto" maxW="md" h="fit-content" minH="640px" pt={10}>
       <SwapView
         {...args}
         fromConfig={{
@@ -432,6 +432,7 @@ export const SwapViewStory: ComponentStory<typeof SwapView> = (args) => {
         }}
         slippageConfig={slippageConfig}
         price={priceConfig}
+        submitButtonConfig={{ loading: false, disabled: false }}
         onFromDropdownChange={handleFromDropdownChange}
         onToDropdownChange={handleToDropdownChange}
         onAmountInputChange={handleInputChange}
@@ -441,19 +442,6 @@ export const SwapViewStory: ComponentStory<typeof SwapView> = (args) => {
       />
     </Box>
   );
-};
-
-SwapViewStory.args = {
-  submitButtonConfig: {
-    loading: true,
-    disabled: false
-  }
-};
-
-SwapViewStory.argTypes = {
-  submitButtonConfig: {
-    control: { type: 'object' }
-  }
 };
 
 SwapViewStory.storyName = 'Swap View';

@@ -42,4 +42,4 @@ export declare const InstallWalletButtonBaseStyle: (theme: string) => {
         ml: number;
     };
 };
-export declare const InstallWalletButton: ({ buttonText, loading, disabled, leftIcon, rightIcon, className, styleProps, onClick }: BaseButtonType) => JSX.Element;
+export declare const InstallWalletButton: ({ buttonText, loading, disabled, leftIcon, rightIcon, className, onClick }: BaseButtonType) => JSX.Element;

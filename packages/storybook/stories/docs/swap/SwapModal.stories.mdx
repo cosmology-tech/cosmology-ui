@@ -1,19 +1,19 @@
-import { SwapView } from '@cosmology-ui/react';
+import { SwapModal } from '@cosmology-ui/react';
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs';
 
-import { SwapViewStory } from '../../ui-kits/modals/swap/SwapView.stories.tsx';
+import { SwapModalStory } from '../../ui-kits/modals/swap/SwapModal.stories.tsx';
 
-# Swap View
+# Swap Modal
 
 <Meta
-  component={SwapView}
-  title="components/Swap/SwapView"
+  component={SwapModal}
+  title="components/Swap"
   parameters={{
     docs: {
       source: {
         language: 'tsx',
         format: true,
-        code: `import { SwapView } from '@cosmology-ui/react';`
+        code: `import { SwapModal } from '@cosmology-ui/react';`
       }
     },
     controls: {
@@ -23,17 +23,18 @@ import { SwapViewStory } from '../../ui-kits/modals/swap/SwapView.stories.tsx';
 />
 
 <Canvas withSource="close">
-  <Story story={SwapViewStory} />
+  <Story story={SwapModalStory} />
 </Canvas>
 
-<ArgsTable of={SwapView} />
+<ArgsTable of={SwapModal} />
 
 <Source
   language="tsx"
   dark
   format={true}
   code={`
-      <SwapView
+      <SwapModal
+        isOpen={isOpen}
         fromConfig={{
           selectedToken,
           inputConfig,
@@ -52,6 +53,7 @@ import { SwapViewStory } from '../../ui-kits/modals/swap/SwapView.stories.tsx';
         onSwapSwitch={handleSwitch}
         setSelectedSlippage={handleSlippageChange}
         onSwapSubmit={handleSwapSubmit}
+        onClose={onClose}
       />
   `}
 />

@@ -1,20 +1,22 @@
 import { ActionMeta, OnChangeValue, OptionBase } from 'chakra-react-select';
+/**
+ * Swap display `From` or `To`.
+ */
 export declare enum SwapType {
-    from = "From",
-    to = "To"
+    from = "from",
+    to = "to"
 }
 export declare enum SwapInputType {
     INPUT = "INPUT",
     INVALID = "INVALID"
 }
-export interface SwapDataType extends OptionBase {
+export interface SwapOptionDataType extends OptionBase {
     /**
-     * Chain name.
-     * Unique identifier for option.
+     * Required. Unique identifier for option, also the display chain name.
      */
     value: string;
     /**
-     * Chain symbol name.
+     * Display symbol name.
      */
     symbol: string;
     /**
@@ -32,144 +34,85 @@ export interface SwapDataType extends OptionBase {
     /**
      * Current balance of this chain.
      */
-    amount: string;
+    balanceDisplayAmount: string;
     /**
      * Amount denominated in fiat currency.
      */
     dollarValue: string;
+}
+export interface SwapTokenType extends SwapOptionDataType {
     /**
      * Current balance of this chain.
      */
-    currentAmount: string;
+    currentDisplayAmount?: string;
     /**
      * Amount denominated in fiat currency.
      */
-    currentDollarValue: string;
-    /**
-     * Disabled the option.
-     */
-    disabled?: boolean;
+    currentDollarValue?: string;
 }
-export declare type handleSwapDropdown = (newValue: OnChangeValue<SwapDataType, false>, actionMeta: ActionMeta<SwapDataType>) => void;
+export declare type handleSwapDropdown = (newValue: OnChangeValue<SwapOptionDataType, false>, actionMeta: ActionMeta<SwapOptionDataType>) => void;
+export declare type handleSwapInput = (newValue: string) => void;
 export declare type SwapDropdownType = {
     /**
      * Display dropdown or not.
      */
     isOpen: boolean;
     /**
-     * Display loading status.
-     */
-    loading?: boolean;
-    /**
      * Data of options.
-     *
-     * see `SwapDataType` :
+     * @see {@link SwapOptionDataType}
      */
-    dropdownData: SwapDataType[];
+    dropdownData: SwapOptionDataType[];
     /**
      * Selected item.
-     *
-     * see `SwapDataType` :
+     * @see {@link SwapOptionDataType}
      */
-    selectedToken?: SwapDataType;
-    /**
-     * Can add a stable class name to control CSS.
-     */
-    className?: string;
-    /**
-     * Can use Chakra Style Props custom dropdown style.
-     *
-     * Also can use css control, e.g,
-     * ```
-     *  {
-     *     '.my-button:hover &': {
-     *       color: 'green.500',
-     *     }
-     *  }
-     * ```
-     *
-     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-     *
-     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
-     */
-    styleProps?: object;
-    /**
-     * Can use Framer Motion Props control animation.
-     *
-     * see framer-motion docs: https://www.framer.com/docs/
-     */
-    shadowAnimateProps?: object;
-    /**
-     * Can custom dropdown, default:
-     * ```
-     *  {
-     *    DropdownIndicator,
-     *    IndicatorSeparator,
-     *    LoadingIndicator,
-     *    Placeholder,
-     *    Option
-     *  }
-     * ```
-     */
-    customComponents?: object;
+    selectedToken?: SwapOptionDataType;
     /**
      * Close dropdown when selected token.
      */
     onClose: () => void;
     /**
      * A function called to handle select item.
-     *
-     * see `handleSwapDropdown` :
+     * @see {@link handleSwapDropdown}
      */
     onDropdownChange: handleSwapDropdown;
 };
 export declare type SwapControlDropdownButtonType = {
-    selectedToken: SwapDataType;
+    loading: boolean;
+    /**
+     * The selected item.
+     * @see {@link SwapTokenType}
+     */
+    selectedToken: SwapTokenType;
+    /**
+     * The function to open dropdown.
+     */
     onOpen: () => void;
 };
 export declare type SwapControlInputValuePanelType = {
+    displayPanel: boolean;
     loading: boolean;
     amount?: string;
-    onAmountInputChange: (newValue: string) => void;
+    onAmountInputChange: handleSwapInput;
 };
 export declare type SwapEditableInputType = {
     id: string;
     inputAmount: string;
     inputDollarValue: string;
-    selectedToken?: SwapDataType;
+    selectedToken?: SwapOptionDataType;
     invalid?: boolean;
     invalidText?: string;
-    onAmountInputChange: (newValue: string) => void;
+    onAmountInputChange: handleSwapInput;
 };
 export declare type SwapDisplayAmountType = {
     id: string;
-    selectedToken?: SwapDataType;
+    selectedToken?: SwapOptionDataType;
 };
-export declare type SwapControlPanelType = {
+export interface SwapInputConfig {
     /**
      * Display input loading skeleton.
      */
-    inputLoading?: boolean;
-    /**
-     * Display dropdown loading skeleton.
-     */
-    dropdownLoading?: boolean;
-    /**
-     * Data of dropdown options.
-     */
-    dropdownData?: SwapDataType[];
-    /**
-     * Selected options.
-     */
-    selectedToken?: SwapDataType;
-    /**
-     * Display `from` or `To` panel.
-     */
-    swapType?: SwapType;
-    /**
-     * Display control input panel.
-     */
-    inputControlPanel?: boolean;
+    inputLoading: boolean;
     /**
      * Amount of the token.
      */
@@ -186,161 +129,108 @@ export declare type SwapControlPanelType = {
      * Tips text of why invalid.
      */
     invalidText?: string;
+}
+export declare type SwapDropdownConfig = {
+    /**
+     * Display dropdown loading skeleton.
+     */
+    dropdownLoading: boolean;
+    /**
+     * Data of dropdown options.
+     */
+    dropdownData?: SwapOptionDataType[];
+};
+export interface SwapControlPanelType {
+    /**
+     * Required. Display `From` or `To` panel.
+     * @see {@link SwapType}
+     */
+    swapType: SwapType;
+    /**
+     * Selected options.
+     * @see {@link SwapTokenType}
+     */
+    selectedToken?: SwapTokenType;
+    /**
+     * Config to from token input.
+     * @see {@link SwapInputConfig}
+     */
+    inputConfig?: SwapInputConfig;
+    /**
+     * Config to token dropdown.
+     * @see {@link SwapDropdownConfig}
+     */
+    dropdownConfig: SwapDropdownConfig;
     /**
      * Can add a stable class name to control CSS.
      */
     className?: string;
     /**
-     * Can use Chakra Style Props custom dropdown style.
-     *
-     * Also can use css control, e.g,
-     * ```
-     *  {
-     *     '.my-button:hover &': {
-     *       color: 'green.500',
-     *     }
-     *  }
-     * ```
-     *
-     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-     *
-     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
-     */
-    styleProps?: object;
-    /**
-     *  A function called to handle amount input change.
-     */
-    onAmountInputChange?: (newValue: string) => void;
-    /**
-     *  A function called to handle dropdown change.
+     * A function called to handle dropdown change.
+     * @see {@link handleSwapDropdown}
      */
     onDropdownChange: handleSwapDropdown;
-};
-export declare type SwapSettingType = {
     /**
-     * Selected setting token.
+     * A function called to handle amount input change.
+     * @see {@link handleSwapInput}
      */
-    settingToken?: string;
+    onAmountInputChange?: handleSwapInput;
+}
+export interface SwapDropdownsViewFromConfig {
     /**
-     * Display setting token list.
+     * Selected options.
+     * @see {@link SwapTokenType}
      */
-    tokenArray?: string[];
+    selectedToken?: SwapTokenType;
     /**
-     * Can add a stable class name to control CSS.
+     * Config to from token input.
+     * @see {@link SwapInputConfig}
      */
-    className?: string;
+    inputConfig?: SwapInputConfig;
     /**
-     * Can use Chakra Style Props custom dropdown style.
-     *
-     * Also can use css control, e.g,
-     * ```
-     *  {
-     *     '.my-button:hover &': {
-     *       color: 'green.500',
-     *     }
-     *  }
-     * ```
-     *
-     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-     *
-     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
+     * Config to token dropdown.
+     * @see {@link SwapDropdownConfig}
      */
-    styleProps?: object;
+    dropdownConfig: SwapDropdownConfig;
+}
+export interface SwapDropdownsViewToConfig {
     /**
-     * A function called to handle select item.
-     *
-     * see `handleSwapDropdown` :
+     * Selected options.
+     * @see {@link SwapTokenType}
      */
-    onSelectSetting: (value: string) => void;
-};
-export declare type SwapSettingControlButtonType = {
-    settingMenuOpen: boolean;
-    toggleOpenSettingMenu: () => void;
-};
-export interface SwapSettingTokenButtonType {
-    selectedToken?: string;
-    text: string;
-    onSettingTokenClick: (value: string) => void;
-    onCloseSettingMenu: () => void;
+    selectedToken?: SwapTokenType;
+    /**
+     * Config to token dropdown.
+     * @see {@link SwapDropdownConfig}
+     */
+    dropdownConfig: SwapDropdownConfig;
 }
 export interface SwapDropdownsViewType {
     /**
-     * Data of dropdown options.
+     * Config to the `From` panel.
+     * @see {@link SwapDropdownsViewFromConfig}
      */
-    dropdownData: SwapDataType[];
+    fromConfig: SwapDropdownsViewFromConfig;
     /**
-     * Display dropdown loading skeleton.
+     * Config to the `To` panel.
+     * @see {@link SwapDropdownsViewToConfig}
      */
-    fromDropdownLoading?: boolean;
+    toConfig: SwapDropdownsViewToConfig;
     /**
-     * Display input loading skeleton.
-     */
-    fromInputLoading?: boolean;
-    /**
-     * Swap from this token.
-     */
-    fromToken?: SwapDataType;
-    /**
-     * Display dropdown loading skeleton.
-     */
-    toDropdownLoading?: boolean;
-    /**
-     * Display input loading skeleton.
-     */
-    toInputLoading?: boolean;
-    /**
-     * Swap to this token.
-     */
-    toToken?: SwapDataType;
-    /**
-     * Amount of the token.
-     */
-    inputAmount?: string;
-    /**
-     * Equal to the fiat currency value.
-     */
-    inputDollarValue?: string;
-    /**
-     * Display input invalid style.
-     */
-    invalid?: boolean;
-    /**
-     * Tips text of why invalid.
-     */
-    invalidText?: string;
-    /**
-     * Can add a stable class name to control CSS.
-     */
-    className?: string;
-    /**
-     * Can use Chakra Style Props custom dropdown style.
-     *
-     * Also can use css control, e.g,
-     * ```
-     *  {
-     *     '.my-button:hover &': {
-     *       color: 'green.500',
-     *     }
-     *  }
-     * ```
-     *
-     * see docs: https://chakra-ui.com/docs/styled-system/css-variables#creating-scoped-theme-aware-css-variables
-     *
-     * about chakra-react-select: https://github.com/csandman/chakra-react-select#chakrastyles
-     */
-    styleProps?: object;
-    /**
-     *  A function called to handle to amount input change.
-     */
-    onAmountInputChange: (newValue: string) => void;
-    /**
-     *  A function called to handle from dropdown change.
+     * A function called to handle dropdown change.
+     * @see {@link handleSwapDropdown}
      */
     onFromDropdownChange: handleSwapDropdown;
     /**
-     *  A function called to handle to dropdown change.
+     * A function called to handle dropdown change.
+     * @see {@link handleSwapDropdown}
      */
     onToDropdownChange: handleSwapDropdown;
+    /**
+     * A function called to handle amount input change.
+     * @see {@link handleSwapInput}
+     */
+    onAmountInputChange?: handleSwapInput;
     /**
      *  A function called to handle switch dropdowns.
      */
@@ -349,38 +239,122 @@ export interface SwapDropdownsViewType {
 export declare type SwapSwitchButtonType = {
     onSwapSwitch: () => void;
 };
-export interface SwapViewType extends SwapDropdownsViewType {
+export declare type SwapSlippageConfig = {
     /**
-     * Selected setting token.
+     * Selected slippage.
      */
-    settingToken?: string;
+    slippages: string[];
     /**
-     * Display setting token list.
+     * Display slippages list.
      */
-    tokenArray?: string[];
+    selectedSlippage: string;
+};
+export declare type SwapPriceRate = {
+    from: {
+        symbol?: string;
+        value?: string;
+    };
+    to: {
+        symbol?: string;
+        value?: string;
+    };
+    dollar?: string;
+};
+export declare type SwapPriceDetailCoin = {
+    logoUrl: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    denom: string;
+    amount: string;
+    name: string;
+};
+export declare type SwapPriceDetailRoute = {
+    poolId: string;
+    swapFee: string;
+    baseLogo: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    baseSymbol: string;
+    quoteLogo: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    quoteSymbol: string;
+};
+export declare type SwapPriceDetailRouteDetail = {
+    sellToken: SwapPriceDetailCoin;
+    routes: SwapPriceDetailRoute[];
+    buyToken: SwapPriceDetailCoin;
+};
+export declare type SwapPriceDetail = {
+    priceImpact?: string;
+    swapFee?: {
+        percentage: string;
+        value: string;
+    };
+    expectedOutput?: {
+        value: string;
+        symbol: string;
+    };
+    minimumReceived?: {
+        value: string;
+        symbol: string;
+    };
+    route?: SwapPriceDetailRouteDetail;
+};
+export interface SwapPriceType {
+    loading: boolean;
+    rate: SwapPriceRate;
+    detail?: SwapPriceDetail;
+}
+export declare type SwapToggleSlippagesListButtonType = {
+    slippagesListOpen: boolean;
+    toggleOpenSlippagesList: () => void;
+};
+export declare type SwapSlippageButtonType = {
+    label: string;
+    selectedSlippage: string;
+    setSelectedSlippage: (value: string) => void;
+    onCloseSettingList: () => void;
+};
+export declare type SwapSettingType = {
+    /**
+     * Slippage tolerance config.
+     * @see {@link SwapSlippageConfig}
+     */
+    slippageConfig: SwapSlippageConfig;
+    /**
+     * A function called to set slippage.
+     */
+    setSelectedSlippage: (value: string) => void;
+};
+/**
+ * @see {@link SwapDropdownsViewType}
+ */
+export interface SwapViewType extends SwapDropdownsViewType, SwapSettingType {
     /**
      * An object of the current price exchange rate.
+     * @see {@link SwapPriceType}
      */
-    priceValue?: {
-        loading: boolean;
-        rate: {
-            fromValue: string;
-            toValue: string;
-            dollarValue: string;
-        };
+    price: SwapPriceType;
+    /**
+     * Submit button status.
+     */
+    submitButtonConfig: {
+        /**
+         * Submit button display loading.
+         */
+        loading?: boolean;
+        /**
+         * Submit button display disabled.
+         */
+        disabled?: boolean;
     };
-    /**
-     * Submit button display loading.
-     */
-    submitLoading?: boolean;
-    /**
-     * Submit button display disabled.
-     */
-    submitDisabled?: boolean;
-    /**
-     * A function called to control setting.
-     */
-    onSelectSetting: (value: string) => void;
     /**
      * A function called to control submit.
      */

@@ -440,7 +440,7 @@ export const SwapDropdown = ({
             menuPlacement="auto"
             loadOptions={(inputValue, callback) => {
               const searcher = new Searcher(dropdownData, {
-                keySelector: (obj) => obj.value
+                keySelector: (obj) => obj.value || obj.symbol
               });
               callback(searcher.search(inputValue));
             }}
