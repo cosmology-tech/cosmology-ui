@@ -439,10 +439,21 @@ export const SwapDropdown = ({
             defaultOptions={dropdownData}
             menuPlacement="auto"
             loadOptions={(inputValue, callback) => {
-              const searcher = new Searcher(dropdownData, {
-                keySelector: (obj) => obj.value || obj.symbol
+              const searchName = new Searcher(dropdownData, {
+                keySelector: (obj) => obj.value
               });
-              callback(searcher.search(inputValue));
+              const searchSymbol = new Searcher(dropdownData, {
+                keySelector: (obj) => obj.symbol
+              });
+              const array = [
+                ...searchName.search(inputValue),
+                ...searchSymbol.search(inputValue)
+              ];
+              const result: SwapOptionDataType[] = Object.values(
+                array.reduce((a, c) => Object.assign(a, { [c.value]: c }), {})
+              );
+
+              callback(result);
             }}
             onChange={(newValue, actionMeta) => {
               onClose();
