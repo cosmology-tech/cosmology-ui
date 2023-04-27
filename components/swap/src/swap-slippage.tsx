@@ -4,8 +4,8 @@ import { CgClose } from 'react-icons/cg';
 import { RiSettings4Fill } from 'react-icons/ri';
 
 import {
-  SwapSettingType,
   SwapSlippageButtonType,
+  SwapSlippageConfig,
   SwapToggleSlippagesListButtonType
 } from './type';
 
@@ -47,9 +47,10 @@ const SwapSlippageButton = ({
 };
 
 export const SwapSlippage = ({
-  slippageConfig,
+  slippages,
+  selectedSlippage,
   setSelectedSlippage
-}: SwapSettingType) => {
+}: SwapSlippageConfig) => {
   const {
     isOpen: settingListOpen,
     onToggle: toggleOpenSettingList,
@@ -63,11 +64,11 @@ export const SwapSlippage = ({
           settingListOpen ? 'swap-slippage-list' : ''
         }`}
       >
-        {slippageConfig.slippages.map((label) => (
+        {slippages.map((label) => (
           <SwapSlippageButton
             key={label}
             label={label}
-            selectedSlippage={slippageConfig.selectedSlippage}
+            selectedSlippage={selectedSlippage}
             setSelectedSlippage={setSelectedSlippage}
             onCloseSettingList={onCloseSettingList}
           />

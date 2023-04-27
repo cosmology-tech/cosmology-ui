@@ -1,3 +1,3 @@
 /// <reference types="react" />
-import { SwapSettingType } from './type';
-export declare const SwapSlippage: ({ slippageConfig, setSelectedSlippage }: SwapSettingType) => JSX.Element;
+import { SwapSlippageConfig } from './type';
+export declare const SwapSlippage: ({ slippages, selectedSlippage, setSelectedSlippage }: SwapSlippageConfig) => JSX.Element;

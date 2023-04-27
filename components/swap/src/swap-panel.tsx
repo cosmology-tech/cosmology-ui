@@ -1,15 +1,12 @@
 import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { useTheme } from '@cosmology-ui/theme';
-import React, { useEffect, useState } from 'react';
+import Decimal from 'decimal.js';
+import React from 'react';
 
 import { SwapControlDropdownButton, SwapDropdown } from './swap-dropdown';
 import { SwapEditableInput, SwapInputControlPanel } from './swap-input';
 import { SwapSkeletonInputPanel } from './swap-skeleton';
-import { SwapControlPanelType, SwapInputConfig, SwapType } from './type';
-
-interface SwapInputPanel extends SwapInputConfig {
-  displayPanel: boolean;
-}
+import { SwapControlPanelType, SwapType } from './type';
 
 export const SwapPanelBaseStyle = (theme: string) => {
   return {
@@ -236,33 +233,17 @@ export const SwapPanelBaseStyle = (theme: string) => {
  * @see {@link SwapControlPanelType}
  */
 export const SwapControlPanel = ({
+  loading,
   swapType,
-  inputConfig,
-  dropdownConfig,
+  inputData,
+  dropdownData,
   selectedToken,
   onDropdownChange,
   onAmountInputChange
 }: SwapControlPanelType) => {
   const { theme } = useTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { dropdownLoading, dropdownData } = dropdownConfig;
-  const [inputControlPanel, setInputControlPanel] = useState<SwapInputPanel>({
-    ...inputConfig,
-    displayPanel: swapType === SwapType.from ? true : false
-  });
-
-  useEffect(() => {
-    if (swapType === SwapType.from)
-      setInputControlPanel({
-        ...inputConfig,
-        displayPanel: true
-      });
-    if (swapType === SwapType.to)
-      setInputControlPanel({
-        ...inputConfig,
-        displayPanel: false
-      });
-  }, [inputConfig, swapType]);
+  const inputDataToDollar = new Decimal(inputData.to.dollar || 0).gt(0);
 
   return (
     <Box
@@ -271,12 +252,13 @@ export const SwapControlPanel = ({
     >
       <Flex className="swap-header">
         <Text>{swapType}</Text>
-        <SwapInputControlPanel
-          displayPanel={inputControlPanel.displayPanel}
-          loading={inputControlPanel.inputLoading}
-          amount={selectedToken?.balanceDisplayAmount}
-          onAmountInputChange={onAmountInputChange}
-        />
+        {swapType === SwapType.FROM && (
+          <SwapInputControlPanel
+            loading={loading}
+            amount={selectedToken?.displayAmount}
+            onAmountInputChange={onAmountInputChange}
+          />
+        )}
       </Flex>
       <Flex
         className={`swap-control-panel-box ${
@@ -284,45 +266,35 @@ export const SwapControlPanel = ({
         }`}
       >
         <SwapControlDropdownButton
-          loading={dropdownLoading}
+          loading={loading}
           selectedToken={selectedToken}
           onOpen={onOpen}
         />
-        {inputControlPanel.displayPanel ? (
-          inputControlPanel.inputLoading ? (
-            <SwapSkeletonInputPanel />
-          ) : (
-            <Flex className="swap-input-panel">
-              <SwapEditableInput
-                id="swap-amount-input"
-                inputAmount={inputControlPanel.inputAmount}
-                inputDollarValue={inputControlPanel.inputDollarValue}
-                invalid={inputControlPanel.invalid}
-                invalidText={inputControlPanel.invalidText}
-                selectedToken={selectedToken}
-                onAmountInputChange={onAmountInputChange}
-              />
-            </Flex>
-          )
-        ) : undefined}
-        {!inputControlPanel.displayPanel ? (
-          dropdownLoading ? (
-            <SwapSkeletonInputPanel />
-          ) : (
-            <Box className="swap-display-box">
-              <Text className="swap-amount-text">
-                {selectedToken && selectedToken.currentDisplayAmount
-                  ? selectedToken.currentDisplayAmount
-                  : '0'}
-              </Text>
-              <Text className="swap-fiat-text">
-                {selectedToken && selectedToken.currentDollarValue
-                  ? `~ ${selectedToken.currentDollarValue}`
-                  : undefined}
-              </Text>
-            </Box>
-          )
-        ) : undefined}
+        {loading ? (
+          <SwapSkeletonInputPanel />
+        ) : swapType === SwapType.FROM ? (
+          <Flex className="swap-input-panel">
+            <SwapEditableInput
+              id="swap-amount-input"
+              initialAmount={selectedToken?.displayAmount}
+              inputAmount={inputData?.from.amount || '0'}
+              inputDollarValue={inputData?.from.dollar || '0'}
+              invalidText={inputData.invalidText}
+              onAmountInputChange={onAmountInputChange}
+            />
+          </Flex>
+        ) : swapType === SwapType.TO ? (
+          <Box className="swap-display-box">
+            <Text className="swap-amount-text">
+              {inputData?.to.amount || '0'}
+            </Text>
+            <Text className="swap-fiat-text">
+              {inputDataToDollar ? `~ $${inputData?.to.dollar}` : void 0}
+            </Text>
+          </Box>
+        ) : (
+          void 0
+        )}
       </Flex>
 
       <Box className="swap-dropdown-box">

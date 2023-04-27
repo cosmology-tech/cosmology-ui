@@ -4,7 +4,7 @@ import { Box, Button, Text, useDisclosure } from '@chakra-ui/react';
 import {
   handleSwapDropdown,
   SwapDropdown,
-  SwapOptionDataType
+  SwapOptionType
 } from '@cosmology-ui/react';
 import { ArgsTable, Primary } from '@storybook/addon-docs';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
@@ -12,14 +12,10 @@ import React, { useEffect, useState } from 'react';
 
 import { chainList } from '../../util/config';
 
-const Template: ComponentStory<typeof SwapDropdown> = ({
-  className,
-  ...arg
-}) => {
+const Template: ComponentStory<typeof SwapDropdown> = (arg) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [demoSelectedToken, setDemoSelectedToken] =
-    useState<SwapOptionDataType>();
-  const [chainData, setChainData] = useState<SwapOptionDataType[]>([]);
+  const [demoSelectedToken, setDemoSelectedToken] = useState<SwapOptionType>();
+  const [chainData, setChainData] = useState<SwapOptionType[]>([]);
   const [loading, setLoading] = useState(true);
 
   const handleOnChange: handleSwapDropdown = (value) => {
@@ -31,30 +27,18 @@ const Template: ComponentStory<typeof SwapDropdown> = ({
   useEffect(() => {
     const formatData = chainList.map(
       ({ label, symbol, icon, denom, amount, dollarValue }) => ({
-        value: label,
+        value: denom,
         symbol,
         icon,
         denom,
-        balanceDisplayAmount: amount,
-        dollarValue
+        amount: amount,
+        displayAmount: amount,
+        dollarValue,
+        chainName: label
       })
     );
     setTimeout(() => {
-      setChainData([
-        {
-          value: 'disabled',
-          symbol: 'disabled',
-          icon: {
-            png: 'https://dummyimage.com/400x400/5c5c5c/ffffff.png&text=D'
-          },
-          denom:
-            'ibc/4A3AAD07BC4EBEBC10FC2560EAA3B7A1D3B541B5264ED8E5E13E6B74AC76127B',
-          balanceDisplayAmount: '0',
-          dollarValue: '$0',
-          disabled: true
-        },
-        ...formatData
-      ]);
+      setChainData(formatData);
     }, 800);
   }, []);
 
@@ -74,9 +58,9 @@ const Template: ComponentStory<typeof SwapDropdown> = ({
       </Box>
       <Box maxW="md" mx="auto">
         <SwapDropdown
+          {...arg}
           isOpen={isOpen}
           onClose={onClose}
-          className={className}
           dropdownData={chainData}
           selectedToken={demoSelectedToken}
           onDropdownChange={handleOnChange}

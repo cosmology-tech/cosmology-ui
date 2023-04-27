@@ -1,57 +1,52 @@
 import { ActionMeta, OnChangeValue, OptionBase } from 'chakra-react-select';
-/**
- * Swap display `From` or `To`.
- */
 export declare enum SwapType {
-    from = "from",
-    to = "to"
+    FROM = "from",
+    TO = "to"
 }
 export declare enum SwapInputType {
-    INPUT = "INPUT",
-    INVALID = "INVALID"
+    INPUT = "input",
+    INVALID = "invalid"
 }
-export interface SwapOptionDataType extends OptionBase {
+export declare type handleSwapDropdown = (newValue: OnChangeValue<SwapOptionType, false>, actionMeta: ActionMeta<SwapOptionType>) => void;
+export declare type handleSwapInput = (newValue: string) => void;
+export declare type SwapSwitchButtonType = {
+    onSwapSwitch: () => void;
+};
+export declare type SwapControlDropdownButtonType = {
+    loading: boolean;
     /**
-     * Required. Unique identifier for option, also the display chain name.
+     * The selected item.
+     * @see {@link SwapOptionType}
+     */
+    selectedToken?: SwapOptionType;
+    /**
+     * The function to open dropdown.
+     */
+    onOpen: () => void;
+};
+export interface SwapOptionType extends OptionBase {
+    /**
+     * Required, use for display selected option.
+     * Equal to denom.
+     * The unique identifier for option.
      */
     value: string;
-    /**
-     * Display symbol name.
-     */
     symbol: string;
-    /**
-     * Icon display for option.
-     */
+    chainName: string;
     icon?: {
         png?: string;
         jpeg?: string;
         svg?: string;
     };
-    /**
-     * Unit of the chain.
-     */
-    denom?: string;
-    /**
-     * Current balance of this chain.
-     */
-    balanceDisplayAmount: string;
-    /**
-     * Amount denominated in fiat currency.
-     */
+    displayAmount: string;
     dollarValue: string;
-}
-export interface SwapTokenType extends SwapOptionDataType {
     /**
-     * Current balance of this chain.
+     * Not displayed.
+     * Use for data calculation.
      */
-    currentDisplayAmount?: string;
-    /**
-     * Amount denominated in fiat currency.
-     */
-    currentDollarValue?: string;
+    denom: string;
+    amount: string;
 }
-export declare type handleSwapDropdown = (newValue: OnChangeValue<SwapOptionDataType, false>, actionMeta: ActionMeta<SwapOptionDataType>) => void;
-export declare type handleSwapInput = (newValue: string) => void;
 export declare type SwapDropdownType = {
     /**
      * Display dropdown or not.
@@ -59,14 +54,14 @@ export declare type SwapDropdownType = {
     isOpen: boolean;
     /**
      * Data of options.
-     * @see {@link SwapOptionDataType}
+     * @see {@link SwapOptionType}
      */
-    dropdownData: SwapOptionDataType[];
+    dropdownData: SwapOptionType[];
     /**
      * Selected item.
-     * @see {@link SwapOptionDataType}
+     * @see {@link SwapOptionType}
      */
-    selectedToken?: SwapOptionDataType;
+    selectedToken?: SwapOptionType;
     /**
      * Close dropdown when selected token.
      */
@@ -77,20 +72,7 @@ export declare type SwapDropdownType = {
      */
     onDropdownChange: handleSwapDropdown;
 };
-export declare type SwapControlDropdownButtonType = {
-    loading: boolean;
-    /**
-     * The selected item.
-     * @see {@link SwapTokenType}
-     */
-    selectedToken: SwapTokenType;
-    /**
-     * The function to open dropdown.
-     */
-    onOpen: () => void;
-};
 export declare type SwapControlInputValuePanelType = {
-    displayPanel: boolean;
     loading: boolean;
     amount?: string;
     onAmountInputChange: handleSwapInput;
@@ -99,48 +81,85 @@ export declare type SwapEditableInputType = {
     id: string;
     inputAmount: string;
     inputDollarValue: string;
-    selectedToken?: SwapOptionDataType;
-    invalid?: boolean;
+    initialAmount: string;
     invalidText?: string;
     onAmountInputChange: handleSwapInput;
 };
-export declare type SwapDisplayAmountType = {
-    id: string;
-    selectedToken?: SwapOptionDataType;
+export declare type SwapTokenType = {
+    [k in SwapType]: {
+        amount: string;
+        dollar: string;
+    };
 };
-export interface SwapInputConfig {
-    /**
-     * Display input loading skeleton.
-     */
-    inputLoading: boolean;
-    /**
-     * Amount of the token.
-     */
-    inputAmount?: string;
-    /**
-     * Equal to the fiat currency value.
-     */
-    inputDollarValue?: string;
-    /**
-     * Display input invalid style.
-     */
-    invalid?: boolean;
-    /**
-     * Tips text of why invalid.
-     */
+export interface SwapInputDataType extends SwapTokenType {
     invalidText?: string;
 }
-export declare type SwapDropdownConfig = {
-    /**
-     * Display dropdown loading skeleton.
-     */
-    dropdownLoading: boolean;
-    /**
-     * Data of dropdown options.
-     */
-    dropdownData?: SwapOptionDataType[];
+export interface SwapPriceType {
+    priceRate: string;
+    dollarValue: string;
+}
+export declare type SwapPriceDetailCoin = {
+    logoUrl: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    symbol: string;
+};
+export declare type SwapPriceDetailRoute = {
+    poolId: string;
+    swapFee: string;
+    baseLogo: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    baseSymbol: string;
+    quoteLogo: {
+        png?: string;
+        jpeg?: string;
+        svg?: string;
+    } | undefined;
+    quoteSymbol: string;
+};
+export declare type SwapPriceDetailRouteDetail = {
+    tokenIn: SwapPriceDetailCoin;
+    routes: SwapPriceDetailRoute[];
+    tokenOut: SwapPriceDetailCoin;
+};
+export declare type SwapDetailsType = {
+    priceImpact?: string;
+    swapFee?: {
+        percentage: string;
+        value: string;
+    };
+    expectedOutput?: string;
+    minimumReceived?: string;
+    route?: SwapPriceDetailRouteDetail;
+};
+export interface SwapDetailsProps extends SwapDetailsType {
+    tokenOutSymbol: string;
+}
+export declare type SwapToggleSlippagesListButtonType = {
+    slippagesListOpen: boolean;
+    toggleOpenSlippagesList: () => void;
+};
+export declare type SwapSlippageButtonType = {
+    label: string;
+    selectedSlippage: string;
+    setSelectedSlippage: (value: string) => void;
+    onCloseSettingList: () => void;
+};
+export declare type SwapSlippageConfig = {
+    slippages: string[];
+    selectedSlippage: string;
+    setSelectedSlippage: (value: string) => void;
 };
 export interface SwapControlPanelType {
+    /**
+     * Display loading skeleton.
+     */
+    loading: boolean;
     /**
      * Required. Display `From` or `To` panel.
      * @see {@link SwapType}
@@ -148,23 +167,19 @@ export interface SwapControlPanelType {
     swapType: SwapType;
     /**
      * Selected options.
-     * @see {@link SwapTokenType}
+     * @see {@link SwapOptionType}
      */
-    selectedToken?: SwapTokenType;
+    selectedToken?: SwapOptionType;
     /**
      * Config to from token input.
-     * @see {@link SwapInputConfig}
+     * @see {@link SwapInputDataType}
      */
-    inputConfig?: SwapInputConfig;
+    inputData: SwapInputDataType;
     /**
      * Config to token dropdown.
-     * @see {@link SwapDropdownConfig}
+     * @see {@link SwapOptionType}
      */
-    dropdownConfig: SwapDropdownConfig;
-    /**
-     * Can add a stable class name to control CSS.
-     */
-    className?: string;
+    dropdownData: SwapOptionType[];
     /**
      * A function called to handle dropdown change.
      * @see {@link handleSwapDropdown}
@@ -176,46 +191,27 @@ export interface SwapControlPanelType {
      */
     onAmountInputChange?: handleSwapInput;
 }
-export interface SwapDropdownsViewFromConfig {
-    /**
-     * Selected options.
-     * @see {@link SwapTokenType}
-     */
-    selectedToken?: SwapTokenType;
-    /**
-     * Config to from token input.
-     * @see {@link SwapInputConfig}
-     */
-    inputConfig?: SwapInputConfig;
-    /**
-     * Config to token dropdown.
-     * @see {@link SwapDropdownConfig}
-     */
-    dropdownConfig: SwapDropdownConfig;
-}
-export interface SwapDropdownsViewToConfig {
-    /**
-     * Selected options.
-     * @see {@link SwapTokenType}
-     */
-    selectedToken?: SwapTokenType;
-    /**
-     * Config to token dropdown.
-     * @see {@link SwapDropdownConfig}
-     */
-    dropdownConfig: SwapDropdownConfig;
-}
 export interface SwapDropdownsViewType {
     /**
-     * Config to the `From` panel.
-     * @see {@link SwapDropdownsViewFromConfig}
+     * Display loading skeleton.
      */
-    fromConfig: SwapDropdownsViewFromConfig;
+    loading: boolean;
     /**
-     * Config to the `To` panel.
-     * @see {@link SwapDropdownsViewToConfig}
+     * The selected token of the `from` panel.
      */
-    toConfig: SwapDropdownsViewToConfig;
+    fromToken?: SwapOptionType;
+    /**
+     * The selected token of the `to` panel.
+     */
+    toToken?: SwapOptionType;
+    /**
+     * Config to `from` and `to` input panel.
+     */
+    inputData: SwapInputDataType;
+    /**
+     * Config to dropdown options.
+     */
+    dropdownData: SwapOptionType[];
     /**
      * A function called to handle dropdown change.
      * @see {@link handleSwapDropdown}
@@ -236,116 +232,36 @@ export interface SwapDropdownsViewType {
      */
     onSwapSwitch: () => void;
 }
-export declare type SwapSwitchButtonType = {
-    onSwapSwitch: () => void;
-};
-export declare type SwapSlippageConfig = {
-    /**
-     * Selected slippage.
-     */
-    slippages: string[];
-    /**
-     * Display slippages list.
-     */
-    selectedSlippage: string;
-};
-export declare type SwapPriceRate = {
-    from: {
-        symbol?: string;
-        value?: string;
-    };
-    to: {
-        symbol?: string;
-        value?: string;
-    };
-    dollar?: string;
-};
-export declare type SwapPriceDetailCoin = {
-    logoUrl: {
-        png?: string;
-        jpeg?: string;
-        svg?: string;
-    } | undefined;
-    denom: string;
-    amount: string;
-    name: string;
-};
-export declare type SwapPriceDetailRoute = {
-    poolId: string;
-    swapFee: string;
-    baseLogo: {
-        png?: string;
-        jpeg?: string;
-        svg?: string;
-    } | undefined;
-    baseSymbol: string;
-    quoteLogo: {
-        png?: string;
-        jpeg?: string;
-        svg?: string;
-    } | undefined;
-    quoteSymbol: string;
-};
-export declare type SwapPriceDetailRouteDetail = {
-    sellToken: SwapPriceDetailCoin;
-    routes: SwapPriceDetailRoute[];
-    buyToken: SwapPriceDetailCoin;
-};
-export declare type SwapPriceDetail = {
-    priceImpact?: string;
-    swapFee?: {
-        percentage: string;
-        value: string;
-    };
-    expectedOutput?: {
-        value: string;
-        symbol: string;
-    };
-    minimumReceived?: {
-        value: string;
-        symbol: string;
-    };
-    route?: SwapPriceDetailRouteDetail;
-};
-export interface SwapPriceType {
+export interface SwapPriceAndDetailsType {
     loading: boolean;
-    rate: SwapPriceRate;
-    detail?: SwapPriceDetail;
+    price: SwapPriceType;
+    tokenInSymbol?: string;
+    tokenOutSymbol?: string;
+    swapDetails?: SwapDetailsType;
 }
-export declare type SwapToggleSlippagesListButtonType = {
-    slippagesListOpen: boolean;
-    toggleOpenSlippagesList: () => void;
-};
-export declare type SwapSlippageButtonType = {
-    label: string;
-    selectedSlippage: string;
-    setSelectedSlippage: (value: string) => void;
-    onCloseSettingList: () => void;
-};
-export declare type SwapSettingType = {
-    /**
-     * Slippage tolerance config.
-     * @see {@link SwapSlippageConfig}
-     */
-    slippageConfig: SwapSlippageConfig;
-    /**
-     * A function called to set slippage.
-     */
-    setSelectedSlippage: (value: string) => void;
-};
-/**
- * @see {@link SwapDropdownsViewType}
- */
-export interface SwapViewType extends SwapDropdownsViewType, SwapSettingType {
+export interface SwapViewType extends SwapDropdownsViewType {
     /**
      * An object of the current price exchange rate.
      * @see {@link SwapPriceType}
      */
-    price: SwapPriceType;
+    tokenPrice: SwapPriceType;
+    /**
+     * An object of the swap details.
+     * @see {@link SwapDetailsType}
+     */
+    swapDetails?: SwapDetailsType;
+    /**
+     * Config to slippage object.
+     */
+    slippageConfig: SwapSlippageConfig;
     /**
      * Submit button status.
      */
     submitButtonConfig: {
+        /**
+         * Submit button display text.
+         */
+        btnText?: string;
         /**
          * Submit button display loading.
          */

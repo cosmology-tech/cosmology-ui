@@ -26,4 +26,4 @@ export declare const SwapModalBaseStyle: (theme: string) => {
         };
     };
 };
-export declare const SwapModal: ({ isOpen, fromConfig, toConfig, slippageConfig, price, submitButtonConfig, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSwapSubmit, setSelectedSlippage, onClose }: SwapModalType) => JSX.Element;
+export declare const SwapModal: ({ isOpen, loading, fromToken, toToken, inputData, dropdownData, tokenPrice, swapDetails, slippageConfig, submitButtonConfig, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSwapSubmit, onClose }: SwapModalType) => JSX.Element;

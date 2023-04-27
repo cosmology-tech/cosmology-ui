@@ -3,7 +3,7 @@ import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs';
 
 import { SwapDropdownsViewStory } from '../../ui-kits/modals/swap/SwapDropdownsView.stories.tsx';
 
-# Swap Control Panel
+# Swap Dropdowns View
 
 <Meta
   component={SwapDropdownsView}
@@ -33,20 +33,16 @@ import { SwapDropdownsViewStory } from '../../ui-kits/modals/swap/SwapDropdownsV
   dark
   format={true}
   code={`
-  <SwapDropdownsView
-    fromConfig={{
-      selectedToken: selectedToken,
-      inputConfig: inputConfig,
-      dropdownConfig: dropdownConfig
-    }}
-    toConfig={{
-      selectedToken: selectedToken,
-      dropdownConfig: dropdownConfig
-    }}
-    onFromDropdownChange={onFromDropdownChange}
-    onToDropdownChange={onToDropdownChange}
-    onAmountInputChange={onInputChange}
-    onSwapSwitch={onSwitch}
-  />
+      <SwapDropdownsView
+        loading={loading}
+        fromToken={fromToken}
+        toToken={toToken}
+        dropdownData={dropdownData}
+        inputData={inputData}
+        onFromDropdownChange={handleFromDropdownChange}
+        onToDropdownChange={handleToDropdownChange}
+        onAmountInputChange={handleInputChange}
+        onSwapSwitch={handleSwitch}
+      />
   `}
 />

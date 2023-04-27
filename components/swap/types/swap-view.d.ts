@@ -172,7 +172,6 @@ export declare const SwapViewBaseStyle: (theme: string) => {
                                 };
                             };
                             '>.swap-route-pool-box': {
-                                display: string;
                                 alignItems: string;
                                 justifyContent: string;
                                 position: string;
@@ -251,8 +250,4 @@ export declare const SwapViewBaseStyle: (theme: string) => {
         };
     };
 };
-/**
- * TThe swap dropdowns and swap details.
- * @see {@link SwapViewType}
- */
-export declare const SwapView: ({ fromConfig, toConfig, slippageConfig, price, submitButtonConfig, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSwapSubmit, setSelectedSlippage }: SwapViewType) => JSX.Element;
+export declare const SwapView: ({ loading, fromToken, toToken, inputData, dropdownData, tokenPrice, swapDetails, slippageConfig, submitButtonConfig, onAmountInputChange, onFromDropdownChange, onToDropdownChange, onSwapSwitch, onSwapSubmit }: SwapViewType) => JSX.Element;

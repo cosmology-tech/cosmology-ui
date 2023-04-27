@@ -62,8 +62,11 @@ export const SwapDropdownsViewBaseStyle = (theme: string) => {
  * @see {@link SwapDropdownsViewType}
  */
 export const SwapDropdownsView = ({
-  fromConfig,
-  toConfig,
+  loading,
+  fromToken,
+  toToken,
+  inputData,
+  dropdownData,
   onSwapSwitch,
   onFromDropdownChange,
   onToDropdownChange,
@@ -87,10 +90,11 @@ export const SwapDropdownsView = ({
   return (
     <Box className="swap-dropdowns-view" sx={SwapDropdownsViewBaseStyle(theme)}>
       <SwapControlPanel
-        swapType={SwapType.from}
-        selectedToken={fromConfig.selectedToken}
-        inputConfig={fromConfig.inputConfig}
-        dropdownConfig={fromConfig.dropdownConfig}
+        loading={loading}
+        swapType={SwapType.FROM}
+        selectedToken={fromToken}
+        dropdownData={dropdownData}
+        inputData={inputData}
         onDropdownChange={onFromDropdownChange}
         onAmountInputChange={onAmountInputChange}
       />
@@ -98,9 +102,11 @@ export const SwapDropdownsView = ({
         <SwapSwitchButton onSwapSwitch={onSwapSwitch} />
       </Center>
       <SwapControlPanel
-        swapType={SwapType.to}
-        selectedToken={toConfig.selectedToken}
-        dropdownConfig={toConfig.dropdownConfig}
+        loading={loading}
+        swapType={SwapType.TO}
+        selectedToken={toToken}
+        dropdownData={dropdownData}
+        inputData={inputData}
         onDropdownChange={onToDropdownChange}
       />
     </Box>

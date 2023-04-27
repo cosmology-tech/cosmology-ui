@@ -35,24 +35,20 @@ import { SwapModalStory } from '../../ui-kits/modals/swap/SwapModal.stories.tsx'
   code={`
       <SwapModal
         isOpen={isOpen}
-        fromConfig={{
-          selectedToken,
-          inputConfig,
-          dropdownConfig
-        }}
-        toConfig={{
-          selectedToken,
-          dropdownConfig
-        }}
+        loading={loading}
+        fromToken={fromToken}
+        toToken={toToken}
+        dropdownData={dropdownData}
+        inputData={inputData}
+        tokenPrice={tokenPrice}
+        swapDetails={swapDetails}
         slippageConfig={slippageConfig}
-        price={priceConfig}
-        submitButtonConfig={{ loading, disabled }}
-        onFromDropdownChange={handleFromDropdownChange}
-        onToDropdownChange={handleToDropdownChange}
-        onAmountInputChange={handleInputChange}
-        onSwapSwitch={handleSwitch}
-        setSelectedSlippage={handleSlippageChange}
-        onSwapSubmit={handleSwapSubmit}
+        submitButtonConfig={submitButtonConfig}
+        onFromDropdownChange={onFromDropdownChange}
+        onToDropdownChange={onToDropdownChange}
+        onAmountInputChange={onAmountInputChange}
+        onSwapSwitch={onSwapSwitch}
+        onSwapSubmit={onSwapSubmit}
         onClose={onClose}
       />
   `}

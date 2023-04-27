@@ -56,13 +56,13 @@ export const chainList = assets
               .replaceAll(',', '')
           ) / 100000000
         ).toFixed(6),
-        dollarValue: `$${(
+        dollarValue: (
           parseFloat(
             shuffledArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
               .toString()
               .replaceAll(',', '')
           ) / 1000000000
-        ).toFixed(2)}`
+        ).toFixed(2)
       };
     }
   })

@@ -43,17 +43,20 @@ export const SwapModalBaseStyle = (theme: string) => {
 
 export const SwapModal = ({
   isOpen,
-  fromConfig,
-  toConfig,
+  loading,
+  fromToken,
+  toToken,
+  inputData,
+  dropdownData,
+  tokenPrice,
+  swapDetails,
   slippageConfig,
-  price,
   submitButtonConfig,
   onAmountInputChange,
   onFromDropdownChange,
   onToDropdownChange,
   onSwapSwitch,
   onSwapSubmit,
-  setSelectedSlippage,
   onClose
 }: SwapModalType) => {
   const { theme } = useTheme();
@@ -67,16 +70,19 @@ export const SwapModal = ({
         </ModalHeader>
 
         <SwapView
-          fromConfig={fromConfig}
-          toConfig={toConfig}
+          loading={loading}
+          fromToken={fromToken}
+          toToken={toToken}
+          dropdownData={dropdownData}
+          inputData={inputData}
+          tokenPrice={tokenPrice}
+          swapDetails={swapDetails}
           slippageConfig={slippageConfig}
-          price={price}
           submitButtonConfig={submitButtonConfig}
           onFromDropdownChange={onFromDropdownChange}
           onToDropdownChange={onToDropdownChange}
           onAmountInputChange={onAmountInputChange}
           onSwapSwitch={onSwapSwitch}
-          setSelectedSlippage={setSelectedSlippage}
           onSwapSubmit={onSwapSubmit}
         />
       </ModalContent>

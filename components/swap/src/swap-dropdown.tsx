@@ -35,7 +35,7 @@ import {
 import {
   SwapControlDropdownButtonType,
   SwapDropdownType,
-  SwapOptionDataType
+  SwapOptionType
 } from './type';
 
 export const SwapDropdownMenuBaseShadowAnimate = (displayBlur: boolean) =>
@@ -66,7 +66,7 @@ export const SwapDropdownIndicator = () => {
 };
 
 export const SwapDropdownMenuList = (
-  props: MenuListProps<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
+  props: MenuListProps<SwapOptionType, false, GroupBase<SwapOptionType>>
 ) => {
   const menuListRef = useRef<HTMLDivElement>(null);
   const [displayBlur, setDisplayBlur] = useState(false);
@@ -105,11 +105,7 @@ export const SwapDropdownMenuList = (
 };
 
 export const SwapPlaceholder = (
-  props: PlaceholderProps<
-    SwapOptionDataType,
-    false,
-    GroupBase<SwapOptionDataType>
-  >
+  props: PlaceholderProps<SwapOptionType, false, GroupBase<SwapOptionType>>
 ) => {
   return (
     <chakraComponents.Placeholder {...props}>
@@ -126,7 +122,7 @@ export const SwapPlaceholder = (
 };
 
 export const SwapOption = (
-  props: OptionProps<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
+  props: OptionProps<SwapOptionType, false, GroupBase<SwapOptionType>>
 ) => {
   const optionData = props.data;
   return (
@@ -145,7 +141,7 @@ export const SwapOption = (
           <Text>{optionData.value}</Text>
         </Stack>
         <Stack spacing={1}>
-          <Text>{optionData.balanceDisplayAmount}</Text>
+          <Text>{optionData.displayAmount}</Text>
           <Text>{optionData.dollarValue}</Text>
         </Stack>
       </Flex>
@@ -155,9 +151,9 @@ export const SwapOption = (
 
 export const SwapDropdownBaseStyle = (theme: string) => {
   const dropdownStyle: ChakraStylesConfig<
-    SwapOptionDataType,
+    SwapOptionType,
     false,
-    GroupBase<SwapOptionDataType>
+    GroupBase<SwapOptionType>
   > = {
     control: (provided) => ({
       ...provided,
@@ -208,9 +204,8 @@ export const SwapDropdownBaseStyle = (theme: string) => {
     }),
     placeholder: (provided) => ({
       ...provided,
-      w: 'full',
-      left: 0,
-      px: 5,
+      left: 5,
+      right: 5,
       mx: 0,
       '>.swap-dropdown-display-placeholder': {
         w: 'full',
@@ -376,9 +371,9 @@ export const SwapDropdown = ({
   const { theme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
   const selectRef =
-    useRef<
-      SelectInstance<SwapOptionDataType, false, GroupBase<SwapOptionDataType>>
-    >(null);
+    useRef<SelectInstance<SwapOptionType, false, GroupBase<SwapOptionType>>>(
+      null
+    );
 
   useOutsideClick({
     ref: menuRef,
@@ -399,7 +394,7 @@ export const SwapDropdown = ({
   }, []);
 
   useEffect(() => {
-    if (active && isOpen && selectRef.current) {
+    if (active && isOpen && selectRef.current.inputRef) {
       if (active.id === 'swap-control-dropdown-button') {
         selectRef.current.inputRef.focus();
       }
@@ -449,7 +444,7 @@ export const SwapDropdown = ({
                 ...searchName.search(inputValue),
                 ...searchSymbol.search(inputValue)
               ];
-              const result: SwapOptionDataType[] = Object.values(
+              const result: SwapOptionType[] = Object.values(
                 array.reduce((a, c) => Object.assign(a, { [c.value]: c }), {})
               );
 
@@ -468,7 +463,9 @@ export const SwapDropdown = ({
             }}
           />
         </AnimateBox>
-      ) : undefined}
+      ) : (
+        void 0
+      )}
     </AnimatePresence>
   );
 };
@@ -478,36 +475,37 @@ export const SwapControlDropdownButton = ({
   selectedToken,
   onOpen
 }: SwapControlDropdownButtonType) => {
-  if (loading) {
+  if (loading || !selectedToken) {
     return <SwapSkeletonControlDropdownButton />;
   }
-  if (!loading && selectedToken)
-    return (
-      <Button
-        id="swap-control-dropdown-button"
-        className="swap-control-dropdown-button"
-        variant="unstyled"
-        onClick={onOpen}
-      >
-        <Center>
-          <Image
-            alt={selectedToken ? selectedToken.value : 'chain-icon'}
-            src={
-              selectedToken
-                ? selectedToken.icon.png ||
-                  selectedToken.icon.jpeg ||
-                  selectedToken.icon.svg
-                : undefined
-            }
-          />
-        </Center>
-        <Box>
-          <Text>
-            {selectedToken.symbol ? selectedToken.symbol : undefined}
-            <Icon as={RiArrowDownSLine} />
-          </Text>
-          <Text>{selectedToken.value ? selectedToken.value : undefined}</Text>
-        </Box>
-      </Button>
-    );
+  return (
+    <Button
+      id="swap-control-dropdown-button"
+      className="swap-control-dropdown-button"
+      variant="unstyled"
+      onClick={onOpen}
+    >
+      <Center>
+        <Image
+          alt={selectedToken ? selectedToken.value : 'chain-icon'}
+          src={
+            selectedToken.icon
+              ? selectedToken.icon.png ||
+                selectedToken.icon.jpeg ||
+                selectedToken.icon.svg
+              : void 0
+          }
+        />
+      </Center>
+      <Box>
+        <Text>
+          {selectedToken.symbol ? selectedToken.symbol : void 0}
+          <Icon as={RiArrowDownSLine} />
+        </Text>
+        <Text>
+          {selectedToken.chainName ? selectedToken.chainName : void 0}
+        </Text>
+      </Box>
+    </Button>
+  );
 };

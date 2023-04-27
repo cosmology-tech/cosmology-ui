@@ -15,15 +15,15 @@ import { SwapControlInputValuePanelType, SwapEditableInputType } from './type';
 
 export const SwapEditableInput = ({
   id,
-  selectedToken,
-  inputAmount = '0',
+  initialAmount,
+  inputAmount,
   inputDollarValue,
-  invalid,
   invalidText,
   onAmountInputChange
 }: SwapEditableInputType) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputVisible, setInputVisible] = useState(false);
+  const inputDataFromDollar = new Decimal(inputDollarValue || 0).gt(0);
 
   useOutsideClick({
     ref: inputRef,
@@ -36,7 +36,7 @@ export const SwapEditableInput = ({
         <Tooltip
           label={invalidText}
           placement="bottom-end"
-          isOpen={invalid}
+          isOpen={invalidText ? true : false}
           gutter={1}
           textAlign="center"
           maxW={48}
@@ -47,10 +47,10 @@ export const SwapEditableInput = ({
             type="number"
             step={0.000001}
             min={0}
-            max={selectedToken.balanceDisplayAmount}
+            max={initialAmount || '0'}
             ref={inputRef}
             autoFocus={true}
-            isInvalid={invalid}
+            isInvalid={invalidText ? true : false}
             value={inputAmount}
             onChange={(e) => onAmountInputChange(e.target.value)}
             onKeyDown={(e) => {
@@ -72,52 +72,47 @@ export const SwapEditableInput = ({
           className="swap-editable-text"
           onClick={() => setInputVisible(true)}
         >
-          {inputAmount ? inputAmount : '0'}
+          {inputAmount || '0'}
         </Text>
       )}
       <Text className="swap-fiat-text">
-        {inputDollarValue ? `~ ${inputDollarValue}` : undefined}
+        {inputDataFromDollar ? `~ $${inputDollarValue}` : void 0}
       </Text>
     </Box>
   );
 };
 
 export const SwapInputControlPanel = ({
-  displayPanel,
   loading,
   amount,
   onAmountInputChange
 }: SwapControlInputValuePanelType) => {
   const decimal = new Decimal(amount ? amount : 0);
 
-  if (displayPanel) {
-    return (
-      <Flex className="swap-input-control-panel">
-        <Flex className="swap-available-value">
-          <Text as="span">Available</Text>
-          {loading ? (
-            <Box className="swap-available-value-skeleton">
-              <Skeleton />
-            </Box>
-          ) : (
-            <Text>{decimal.toFixed(2)}</Text>
-          )}
-        </Flex>
-        <Button
-          variant="unstyled"
-          onClick={() => onAmountInputChange(decimal.div(2).toString())}
-        >
-          Half
-        </Button>
-        <Button
-          variant="unstyled"
-          onClick={() => onAmountInputChange(decimal.toString())}
-        >
-          Max
-        </Button>
+  return (
+    <Flex className="swap-input-control-panel">
+      <Flex className="swap-available-value">
+        <Text as="span">Available</Text>
+        {loading ? (
+          <Box className="swap-available-value-skeleton">
+            <Skeleton />
+          </Box>
+        ) : (
+          <Text>{decimal.toFixed(2)}</Text>
+        )}
       </Flex>
-    );
-  }
-
-  if (!displayPanel) return undefined;
+      <Button
+        variant="unstyled"
+        onClick={() => onAmountInputChange(decimal.div(2).toString())}
+      >
+        Half
+      </Button>
+      <Button
+        variant="unstyled"
+        onClick={() => onAmountInputChange(decimal.toString())}
+      >
+        Max
+      </Button>
+    </Flex>
+  );
 };

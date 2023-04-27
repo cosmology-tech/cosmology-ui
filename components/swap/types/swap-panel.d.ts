@@ -224,4 +224,4 @@ export declare const SwapPanelBaseStyle: (theme: string) => {
  * The panel of swap dropdown and input.
  * @see {@link SwapControlPanelType}
  */
-export declare const SwapControlPanel: ({ swapType, inputConfig, dropdownConfig, selectedToken, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;
+export declare const SwapControlPanel: ({ loading, swapType, inputData, dropdownData, selectedToken, onDropdownChange, onAmountInputChange }: SwapControlPanelType) => JSX.Element;

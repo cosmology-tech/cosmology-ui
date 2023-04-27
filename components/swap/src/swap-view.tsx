@@ -2,8 +2,8 @@ import { Box, Button, Divider, Flex, Text } from '@chakra-ui/react';
 import { useTheme } from '@cosmology-ui/theme';
 import React from 'react';
 
+import { SwapPriceAndDetails } from './swap-details';
 import { SwapDropdownsView } from './swap-dropdowns-view';
-import { SwapPrice } from './swap-price';
 import { SwapSlippage } from './swap-slippage';
 import { SwapViewType } from './type';
 
@@ -180,7 +180,6 @@ export const SwapViewBaseStyle = (theme: string) => {
                   }
                 },
                 '>.swap-route-pool-box': {
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   position: 'relative',
@@ -261,29 +260,31 @@ export const SwapViewBaseStyle = (theme: string) => {
   };
 };
 
-/**
- * TThe swap dropdowns and swap details.
- * @see {@link SwapViewType}
- */
 export const SwapView = ({
-  fromConfig,
-  toConfig,
+  loading,
+  fromToken,
+  toToken,
+  inputData,
+  dropdownData,
+  tokenPrice,
+  swapDetails,
   slippageConfig,
-  price,
   submitButtonConfig,
   onAmountInputChange,
   onFromDropdownChange,
   onToDropdownChange,
   onSwapSwitch,
-  onSwapSubmit,
-  setSelectedSlippage
+  onSwapSubmit
 }: SwapViewType) => {
   const { theme } = useTheme();
   return (
     <Box className="swap-view" sx={SwapViewBaseStyle(theme)}>
       <SwapDropdownsView
-        fromConfig={fromConfig}
-        toConfig={toConfig}
+        loading={loading}
+        fromToken={fromToken}
+        toToken={toToken}
+        dropdownData={dropdownData}
+        inputData={inputData}
         onAmountInputChange={onAmountInputChange}
         onFromDropdownChange={onFromDropdownChange}
         onToDropdownChange={onToDropdownChange}
@@ -295,15 +296,18 @@ export const SwapView = ({
           {slippageConfig.selectedSlippage}
         </Text>
         <SwapSlippage
-          slippageConfig={slippageConfig}
-          setSelectedSlippage={setSelectedSlippage}
+          slippages={slippageConfig.slippages}
+          selectedSlippage={slippageConfig.selectedSlippage}
+          setSelectedSlippage={slippageConfig.setSelectedSlippage}
         />
       </Flex>
       <Divider className="swap-divider" />
-      <SwapPrice
-        loading={price.loading}
-        rate={price.rate}
-        detail={price.detail}
+      <SwapPriceAndDetails
+        loading={loading}
+        price={tokenPrice}
+        swapDetails={swapDetails}
+        tokenInSymbol={fromToken?.symbol}
+        tokenOutSymbol={toToken?.symbol}
       />
       <Button
         className="swap-submit-button"
